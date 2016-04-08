@@ -1,6 +1,8 @@
 import { createAction, handleActions } from 'redux-actions';
 import { bind } from 'redux-effects';
+import { compose } from 'recompose';
 import { fetchrRead } from '../middlewares/redux-effects-fetchr';
+import { initialState, filterActionType } from './utils';
 
 /**
  * Action types
@@ -39,29 +41,30 @@ const INITIAL_STATE = {
 /**
  * Reducer
  */
-export default handleActions({
-    [SEARCH_STYLE_REQUEST]: (state, { payload: { params } }) => ({
-      loading: true,
-      loaded: false,
-      params,
-      items: [],
-    }),
+export default compose(
+  initialState(INITIAL_STATE),
+  filterActionType(SEARCH_STYLE),
+)(handleActions({
+  [SEARCH_STYLE_REQUEST]: (state, { payload: { params } }) => ({
+    loading: true,
+    loaded: false,
+    params,
+    items: [],
+  }),
 
-    [SEARCH_STYLE_SUCCESS]: (state, { payload: { data: { results_available: count, style: items } } }) => ({
-      ...state,
-      loading: false,
-      loaded: true,
-      count,
-      items,
-    }),
+  [SEARCH_STYLE_SUCCESS]: (state, { payload: { data: { results_available: count, style: items } } }) => ({
+    ...state,
+    loading: false,
+    loaded: true,
+    count,
+    items,
+  }),
 
-    [SEARCH_STYLE_FAIL]: (state, { payload: { resource }, error }) => ({
-      ...state,
-      loading: false,
-      loaded: false,
-      items: [],
-      error,
-    }),
-  },
-  INITIAL_STATE
-);
+  [SEARCH_STYLE_FAIL]: (state, { payload: { resource }, error }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    items: [],
+    error,
+  }),
+}));
