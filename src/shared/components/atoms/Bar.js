@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 export default class Bar extends Component {
-  render(props) {
+  render() {
     return (
-      <div>Bar!!</div>
+      <div>Bar!</div>
     );
   }
 }

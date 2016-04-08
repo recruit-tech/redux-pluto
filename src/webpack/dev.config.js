@@ -34,6 +34,7 @@ module.exports = {
             'es2015',
           ],
           plugins: [
+            'syntax-trailing-function-commas',
             'transform-class-properties',
             'transform-object-rest-spread',
             'transform-runtime',

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 export default class NotFound extends Component {
-  render(props) {
+  render() {
     return (
       <div>NotFound!</div>
     );
