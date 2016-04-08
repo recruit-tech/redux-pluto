@@ -8,20 +8,20 @@ export function read(axios, name, pathname, query) {
   debug(`[${name}]: GET ${formattedUrl}`);
 
   return axios.get(formattedUrl).then((response) => {
-      const responseBody = response.data;
-      if (!responseBody || !responseBody.results) {
-        return makeError({ name, formattedUrl, message: 'HTTP GET request failed (no result).' });
-      }
+    const responseBody = response.data;
+    if (!responseBody || !responseBody.results) {
+      return makeError({ name, formattedUrl, message: 'HTTP GET request failed (no result).' });
+    }
 
-      const results = responseBody.results;
-      if (results.error) {
-        const { code, message } = results.error;
-        return makeError({ name, formattedUrl, message: `HTTP GET request failed (${code}: ${message}).` });
-      }
+    const results = responseBody.results;
+    if (results.error) {
+      const { code, message } = results.error;
+      return makeError({ name, formattedUrl, message: `HTTP GET request failed (${code}: ${message}).` });
+    }
 
-      return results;
-    }, (error) =>
-      makeError({ name, formattedUrl, message: `HTTP GET request failed (${error.message}).`, cause: error })
+    return results;
+  }, (error) =>
+    makeError({ name, formattedUrl, message: `HTTP GET request failed (${error.message}).`, cause: error })
   );
 }
 
