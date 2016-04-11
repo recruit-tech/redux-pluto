@@ -27,7 +27,7 @@ render(
 
 if (__DEVELOPMENT__) {
   window.React = React; // enable debugger
-  const DevTools = require('../shared/components/orgs/DevTools').default;
+  const DevTools = require('../shared/components/utils/DevTools').default;
   render(
     <Provider store={store} key="provider">
       <DevTools />

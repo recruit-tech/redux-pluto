@@ -20,7 +20,7 @@ export default function(initialState, options = {}) {
 
   const devTools = [];
   if (options.devTools) {
-    const DevTools = require('../components/orgs/DevTools').default;
+    const DevTools = require('../components/utils/DevTools').default;
     devTools.push(DevTools.instrument());
   }
 

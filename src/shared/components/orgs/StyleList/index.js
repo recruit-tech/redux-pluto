@@ -11,7 +11,17 @@ export default compose(
 )(class StyleList extends Component {
 
   static propTypes = {
-    style: PropTypes.object.isRequired,
+    style: PropTypes.shape({
+      count: PropTypes.number.isRequired,
+      items: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        photo: PropTypes.shape({
+          front: PropTypes.shape({
+            m: PropTypes.string.isRequired,
+          }).isRequired,
+        }).isRequired,
+      })).isRequired,
+    }).isRequired,
   };
 
   render() {

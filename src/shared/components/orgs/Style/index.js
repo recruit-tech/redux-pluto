@@ -20,6 +20,7 @@ export default compose(
     // from store via connect()
     genderItems: PropTypes.object.isRequired,
     hairLengthItems: PropTypes.object.isRequired,
+    style: PropTypes.object.isRequired,
 
     // from router
     children: PropTypes.object,
