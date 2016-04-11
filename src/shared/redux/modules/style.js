@@ -56,7 +56,7 @@ export default compose(
     ...state,
     loading: false,
     loaded: true,
-    count,
+    count: +count,
     items,
   }),
 
