@@ -11,16 +11,7 @@ export default class BaseService {
     this.params = params;
   }
 
-  read(req, resource, params, config, cb) {
-    this._read(params).then((result) => {
-      cb(null, result);
-    }, (err) => {
-      debug(err);
-      cb(err);
-    });
-  }
-
-  _read(params) {
+  read(req, resource, params, config) {
     return read(this.axios, this.name, this.pathname, { ...this.params, ...params });
   }
 }

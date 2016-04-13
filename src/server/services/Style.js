@@ -15,7 +15,7 @@ export default class Style extends BaseService {
     super(axios, 'style', 'beauty/style/v3/', { order: 5, count: 50 });
   }
 
-  read(req, resource, params, config, cb) {
-    super.read(req, resource, mapToActualParamName(params), config, cb);
+  read(req, resource, params, config) {
+    return super.read(req, resource, mapToActualParamName(params), config);
   }
 }

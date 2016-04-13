@@ -9,7 +9,7 @@ export default class BaseMaster extends BaseService {
     this.formatResult = formatResult;
   }
 
-  _read(params) {
+  read(req, resource, params, config) {
     return readAll(this.axios, this.name, this.pathname, params, this.itemsName)
       .then((result) => this.formatResult(result[this.itemsName]));
   }
