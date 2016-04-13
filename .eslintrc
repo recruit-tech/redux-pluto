@@ -95,7 +95,6 @@
     "react/jsx-no-bind": ["error", {"allowArrowFunctions": true}],
     "react/jsx-no-duplicate-props": "error",
     "react/jsx-no-undef": "error",
-    "react/jsx-pascal-case": "error",
     "react/jsx-space-before-closing": "error"
   }
 }

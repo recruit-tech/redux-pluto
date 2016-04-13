@@ -10,22 +10,23 @@
     "debug": "2.2.0",
     "express": "4.13.4",
     "fetchr": "0.5.25",
-    "lodash": "4.8.2",
+    "lodash": "4.10.0",
     "react": "0.14.8",
     "react-dom": "0.14.8",
-    "react-redux": "4.4.1",
-    "react-router": "2.0.1",
+    "react-redux": "4.4.4",
+    "react-router": "2.1.1",
     "react-router-redux": "4.0.2",
-    "recompose": "0.15.1",
-    "redux": "3.3.1",
+    "recompose": "0.17.0",
+    "redux": "3.4.0",
     "redux-actions": "0.9.1",
     "redux-async-connect": "1.0.0-rc4",
     "redux-effects": "0.4.3",
+    "scroll-behavior": "0.3.4",
     "serve-favicon": "2.3.0"
   },
   "devDependencies": {
     "babel-cli": "6.7.5",
-    "babel-core": "6.7.5",
+    "babel-core": "6.7.6",
     "babel-eslint": "6.0.2",
     "babel-jscs": "3.0.0-beta1",
     "babel-loader": "6.2.4",
@@ -45,10 +46,11 @@
     "cross-env": "1.0.7",
     "css-loader": "0.23.1",
     "eslint": "2.7.0",
-    "eslint-config-airbnb": "6.2.0",
+    "eslint-config-airbnb": "7.0.0",
     "eslint-plugin-import": "1.4.0",
     "eslint-plugin-react": "4.3.0",
     "fixpack": "2.3.0",
+    "global": "4.3.0",
     "jscs": "2.11.0",
     "nodemon": "1.9.1",
     "npm-run-all": "1.7.0",
@@ -58,7 +60,7 @@
     "redux-devtools": "3.2.0",
     "redux-devtools-dock-monitor": "1.1.1",
     "redux-devtools-log-monitor": "1.0.9",
-    "webpack": "1.12.14",
+    "webpack": "1.12.15",
     "webpack-dev-server": "1.14.1",
     "webpack-hot-middleware": "2.10.0"
   },
@@ -73,5 +75,6 @@
     "start:dev:app": "cross-env DEBUG=express:*,app:* babel-node src/server/server.js",
     "start:dev:nodemon": "nodemon -V --watch src --ignore src/webpack/ --exec npm run start:dev:app",
     "start:dev:webpack": "webpack-dev-server --hot --inline --config src/webpack/dev.config.js"
+
   }
 }
