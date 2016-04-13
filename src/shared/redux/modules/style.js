@@ -49,21 +49,23 @@ export default compose(
     loading: true,
     loaded: false,
     params,
+    count: 0,
     items: [],
   }),
 
   [SEARCH_STYLE_SUCCESS]: (state, { payload: { data: { results_available: count, style: items } } }) => ({
-    ...state,
     loading: false,
     loaded: true,
+    params: state.params,
     count: +count,
     items,
   }),
 
   [SEARCH_STYLE_FAIL]: (state, { payload: { resource }, error }) => ({
-    ...state,
     loading: false,
     loaded: false,
+    params: state.params,
+    count: 0,
     items: [],
     error,
   }),

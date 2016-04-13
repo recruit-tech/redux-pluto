@@ -15,8 +15,10 @@ export default compose(
 
     return (
       <div>
-        <Header />
-        {children}
+        <div>
+          <Header />
+          {children}
+        </div>
       </div>
     );
   }

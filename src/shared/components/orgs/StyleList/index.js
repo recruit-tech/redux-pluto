@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { asyncConnect } from 'redux-async-connect';
 import { compose, onlyUpdateForPropTypes } from 'recompose';
+import KeepElementSize from '../../utils/KeepElementSize';
 import { searchStyle } from '../../../redux/modules/style';
 
 export default compose(
@@ -32,13 +33,15 @@ export default compose(
         <div>
           <span>{count || 0}</span><span>件あります</span>
         </div>
-        <div>
-          {items.map((item) => (
-            <div key={item.id}>
-              <img src={item.photo.front.m} />
-            </div>
-          ))}
-        </div>
+        <KeepElementSize name="style-list">
+          <div>
+            {items.map((item) => (
+              <span key={item.id}>
+                <img src={item.photo.front.m} />
+              </span>
+            ))}
+          </div>
+        </KeepElementSize>
       </div>
     );
   }
