@@ -15,7 +15,7 @@ import Html from '../Html';
 const debug = debugFactory('app:server:middleware:reduxApp');
 const html = createFactory(Html);
 
-export default function(fetchrConfig) {
+export default function (fetchrConfig) {
   const fetchr = new Fetchr(fetchrConfig);
 
   const logger = __DEVELOPMENT__ ? (store) => (next) => (action) => {
