@@ -15,6 +15,10 @@ export default class Foo extends Component {
           <Link key="bar" to="/bar">Bar</Link>
           {' '}
           <Link key="style" to="/style">Style</Link>
+          {' '}
+          <Link key="login" to="/login">Login</Link>
+          {' '}
+          <Link key="logout" to="/logout">Logout</Link>
         </header>
       </div>
     );

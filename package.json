@@ -2,6 +2,9 @@
   "name": "redux-proto",
   "description": "redux-proto",
   "version": "0.0.0",
+  "browser": {
+    "joi": "joi-browser"
+  },
   "dependencies": {
     "axios": "0.9.1",
     "body-parser": "1.15.0",
@@ -9,19 +12,24 @@
     "csurf": "1.8.3",
     "debug": "2.2.0",
     "express": "4.13.4",
+    "express-session": "1.13.0",
     "fetchr": "0.5.25",
-    "lodash": "4.10.0",
+    "joi": "8.0.5",
+    "joi-browser": "8.0.1",
+    "lodash": "4.11.1",
+    "moment": "2.12.0",
     "react": "0.14.8",
     "react-dom": "0.14.8",
-    "react-redux": "4.4.4",
-    "react-router": "2.1.1",
+    "react-redux": "4.4.5",
+    "react-router": "2.2.4",
     "react-router-redux": "4.0.2",
     "recompose": "0.17.0",
     "redux": "3.4.0",
     "redux-actions": "0.9.1",
     "redux-async-connect": "1.0.0-rc4",
     "redux-effects": "0.4.3",
-    "scroll-behavior": "0.3.4",
+    "redux-form": "5.0.1",
+    "scroll-behavior": "0.4.0",
     "serve-favicon": "2.3.0"
   },
   "devDependencies": {
@@ -45,11 +53,12 @@
     "cash": "0.8.0",
     "cross-env": "1.0.7",
     "css-loader": "0.23.1",
-    "eslint": "2.7.0",
+    "eslint": "2.8.0",
     "eslint-config-airbnb": "7.0.0",
     "eslint-plugin-import": "1.4.0",
+    "eslint-plugin-jsx-a11y": "0.6.2",
     "eslint-plugin-react": "4.3.0",
-    "fixpack": "2.3.0",
+    "fixpack": "2.3.1",
     "global": "4.3.0",
     "jscs": "2.11.0",
     "nodemon": "1.9.1",
@@ -59,12 +68,12 @@
     "redbox-react": "1.2.3",
     "redux-devtools": "3.2.0",
     "redux-devtools-dock-monitor": "1.1.1",
-    "redux-devtools-log-monitor": "1.0.9",
-    "webpack": "1.12.15",
+    "redux-devtools-log-monitor": "1.0.10",
+    "webpack": "1.13.0",
     "webpack-dev-server": "1.14.1",
     "webpack-hot-middleware": "2.10.0"
   },
-  "main": "src/js/server/server.js",
+  "main": "src/server/server.js",
   "private": true,
   "scripts": {
     "eslint": "eslint src",
@@ -75,6 +84,5 @@
     "start:dev:app": "cross-env DEBUG=express:*,app:* babel-node src/server/server.js",
     "start:dev:nodemon": "nodemon -V --watch src --ignore src/webpack/ --exec npm run start:dev:app",
     "start:dev:webpack": "webpack-dev-server --hot --inline --config src/webpack/dev.config.js"
-
   }
 }
