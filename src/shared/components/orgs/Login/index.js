@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { go, replace } from 'react-router-redux';
+import { replace } from 'react-router-redux';
 import { reduxForm } from 'redux-form';
 import { compose } from 'recompose';
 import { login } from '../../../redux/modules/auth';

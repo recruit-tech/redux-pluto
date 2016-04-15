@@ -1,4 +1,3 @@
-import { replace } from 'react-router-redux';
 import { createAction } from 'redux-actions';
 import { bind } from 'redux-effects';
 import { fetchrCreate, fetchrRead, fetchrDelete } from '../middlewares/redux-effects-fetchr';

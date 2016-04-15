@@ -8,7 +8,7 @@ import errorPromise from './middlewares/redux-error-promise';
 import multiPromise from './middlewares/redux-multi-promises';
 import reducer from './modules/reducer';
 
-export default function(initialState, options = {}) {
+export default function (initialState, options = {}) {
   const middlewares = [
     multiPromise,
     errorPromise,
