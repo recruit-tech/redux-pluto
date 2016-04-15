@@ -6,24 +6,23 @@ import { Router, browserHistory, useRouterHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { ReduxAsyncConnect } from 'redux-async-connect';
 import useScroll from 'scroll-behavior/lib/useStandardScroll';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
 import Fetchr from 'fetchr';
 import createStore from '../shared/redux/createStore';
-import routes from '../shared/routes';
+import getRoutes from '../shared/routes';
 
+const createScrollHistory = useScroll(() => browserHistory);
+const appHistory = useRouterHistory(createScrollHistory)();
 const store = createStore(window.__initialState__, {
-  history: browserHistory,
+  history: appHistory,
   fetchr: new Fetchr({ xhrPath: '/api' }),
   devTools: __DEVELOPMENT__,
 });
-const createScrollHistory = useScroll(createBrowserHistory);
-const appHistory = useRouterHistory(createScrollHistory)();
-const history = syncHistoryWithStore(appHistory, store);
+const syncHistory = syncHistoryWithStore(appHistory, store);
 
 render(
   <Provider store={store} key="provider">
-    <Router history={history} render={(props) => <ReduxAsyncConnect {...props} />}>
-      {routes}
+    <Router history={syncHistory} render={(props) => <ReduxAsyncConnect {...props} />}>
+      {getRoutes(store)}
     </Router>
   </Provider>,
   document.getElementById('root')

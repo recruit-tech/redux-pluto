@@ -3,15 +3,15 @@
 ## Done
 
 * Isomorphic Rendering
+* Isomorphic Data Fetching
+* Forms
+* Validation
 * Webpack Configuration for Development Mode (Client only)
 * ESLint Configuration (Based on Airbnb)
 * JSCS Configuration (Based on Airbnb)
-* Isomorphic Data Fetching
 
 ## TODOs
 
-* Forms
-* Validation
 * CSS Modules
 * Authentication and Authorization (OAuth2 and/or OpenID Connect)
 * Webpack Configuration for Production Mode (Client and Server)

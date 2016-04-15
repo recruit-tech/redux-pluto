@@ -9,7 +9,7 @@ import Fetchr from 'fetchr';
 import debugFactory from 'debug';
 import createStore from '../../shared/redux/createStore';
 import { loadAllMasters as loadAllMastersAction } from '../../shared/redux/modules/masters';
-import routes from '../../shared/routes';
+import getRoutes from '../../shared/routes';
 import Html from '../Html';
 
 const debug = debugFactory('app:server:middleware:reduxApp');
@@ -27,8 +27,8 @@ export default function(fetchrConfig) {
     fetchr,
     logger,
     history: createMemoryHistory('/'),
+    location: '/',
   });
-  let initialState = '';
 
   function reduxApp(req, res, next) {
     const memoryHistory = createMemoryHistory(req.url);
@@ -36,10 +36,11 @@ export default function(fetchrConfig) {
       fetchr,
       logger,
       history: memoryHistory,
+      location: req.url,
     });
     const history = syncHistoryWithStore(memoryHistory, store);
 
-    match({ history, routes, location: req.url }, (error, redirectLocation, renderProps) => {
+    match({ history, routes: getRoutes(store), location: req.url }, (error, redirectLocation, renderProps) => {
       if (error) {
         return res.status(500).send(error.message);
       }

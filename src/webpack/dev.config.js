@@ -26,7 +26,9 @@ module.exports = {
           path.resolve(cwd, 'src/client'),
           path.resolve(cwd, 'src/shared'),
         ],
-        exclude: /node_modules/,
+        exclude: [
+          /node_modules/,
+        ],
         loader: 'babel',
         query: {
           presets: [
@@ -64,6 +66,7 @@ module.exports = {
       path.resolve(cwd, 'src/shared'),
     ],
     extensions: ['', '.js', '.jsx'],
+    packageAlias: 'browser',
   },
   plugins: [
     new webpack.NoErrorsPlugin(),

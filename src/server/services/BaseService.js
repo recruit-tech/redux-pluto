@@ -1,7 +1,4 @@
 import { read } from './serviceUtils';
-import debugFactory from 'debug';
-
-const debug = debugFactory('app:server:services');
 
 export default class BaseService {
   constructor(axios, name, pathname, params = {}) {
