@@ -1,6 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
 
+// https://github.com/halt-hammerzeit/webpack-isomorphic-tools
+const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
+const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./isomorphic-tools'));
+
 const cwd = process.cwd();
 const port = +(process.env.PORT || 3000);
 const outputPath = path.resolve(cwd, 'build/browser');
@@ -8,16 +12,19 @@ const outputPublicPath = '/public/';
 
 module.exports = {
   devtool: 'inline-source-map',
+
   entry: {
     client: [
       './src/client/client.js',
     ],
   },
+
   output: {
     path: outputPath,
     publicPath: outputPublicPath,
     filename: '[name].js',
   },
+
   module: {
     loaders: [
       {
@@ -58,8 +65,13 @@ module.exports = {
           ],
         },
       },
+      {
+        test: webpackIsomorphicToolsPlugin.regular_expression('images'),
+        loader: 'url-loader?limit=10240',
+      },
     ],
   },
+
   resolve: {
     root: [
       path.resolve(cwd, 'src/client'),
@@ -68,6 +80,7 @@ module.exports = {
     extensions: ['', '.js', '.jsx'],
     packageAlias: 'browser',
   },
+
   plugins: [
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
@@ -75,7 +88,7 @@ module.exports = {
       __SERVER__: false,
       __DEVELOPMENT__: true,
     }),
-
+    webpackIsomorphicToolsPlugin.development(true),
   ],
 
   devServer: {
