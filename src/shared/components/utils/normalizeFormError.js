@@ -3,7 +3,6 @@ export default function normalizeFormError(error) {
     return Promise.reject(error.body);
   }
 
-  console.log(error);
   return Promise.reject({
     _error: 'エラーが発生しました。しばらく待ってから再試行してください。',
   });

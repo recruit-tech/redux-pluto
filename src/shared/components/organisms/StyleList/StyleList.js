@@ -30,8 +30,8 @@ export default compose(
         <div>
           {items.map((item) => (
             <span key={item.id}>
-                <img src={item.photo.front.m} />
-              </span>
+              <img src={item.photo.front.m} />
+            </span>
           ))}
         </div>
       </div>
