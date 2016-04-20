@@ -1,6 +1,4 @@
 {
-  "esprima": "./node_modules/babel-jscs",
-  "esnext": true,
   "preset": "airbnb",
   "maximumLineLength": 120,
   "requirePaddingNewLinesAfterBlocks": {
