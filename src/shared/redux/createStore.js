@@ -2,19 +2,17 @@ import React from 'react';
 import { routerMiddleware } from 'react-router-redux';
 import { createStore, compose, applyMiddleware } from 'redux';
 import effects from 'redux-effects';
-import location from 'redux-effects-location';
 import fetchr from './middlewares/redux-effects-fetchr';
-import errorPromise from './middlewares/redux-error-promise';
-import multiPromise from './middlewares/redux-multi-promises';
+import reject from './middlewares/redux-effects-reject';
+import multi from './middlewares/redux-effects-multi';
 import reducer from './modules/reducer';
 
 export default function (initialState, options = {}) {
   const middlewares = [
-    multiPromise,
-    errorPromise,
+    multi,
+    reject,
     effects,
     fetchr(options.fetchr),
-    location(options.location),
     routerMiddleware(options.history),
   ];
 

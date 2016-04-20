@@ -1,3 +1,4 @@
+import { replace } from 'react-router-redux';
 import { createAction } from 'redux-actions';
 import { bind } from 'redux-effects';
 import { fetchrCreate, fetchrRead, fetchrDelete } from '../middlewares/redux-effects-fetchr';
@@ -44,10 +45,13 @@ const loginSuccess = createAction(AUTH_LOGIN_SUCCESS);
 
 const loginFail = createAction(AUTH_LOGIN_FAIL);
 
-export function login(username, password) {
+export function login(username, password, location) {
   return [
     loginRequest(username, password),
-    bind(fetchrCreate('accessToken', { username, password }), loginSuccess, loginFail),
+    bind(fetchrCreate('accessToken', { username, password }),
+      () => [loginSuccess(), replace(location)],
+      loginFail
+    ),
   ];
 }
 

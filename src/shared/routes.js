@@ -5,10 +5,10 @@ import Error from './components/atoms/Error';
 import Foo from './components/atoms/Foo';
 import Home from './components/atoms/Home';
 import NotFound from './components/atoms/NotFound';
-import App from './components/orgs/App';
-import Style from './components/orgs/Style';
-import StyleList from './components/orgs/StyleList';
-import Login from './components/orgs/Login';
+import App from './components/organisms/App';
+import Style from './components/organisms/Style';
+import StyleList from './components/organisms/StyleList';
+import Login from './components/organisms/Login';
 import { checkLogin, logout } from './redux/modules/auth';
 
 export default function getRoutes(store) {
@@ -54,6 +54,6 @@ function requiredLogin(dispatch, nextState, cb) {
 function doLogout(dispatch, nextState, cb) {
   dispatch(logout()).then(
     () => cb('/'),
-    () => cb('/error')
+    () => cb('/error'),
   );
 }

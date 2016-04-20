@@ -64,7 +64,13 @@ export function loadAllMasters() {
 /**
  * Initial state
  */
-const RESOURCES = ['areaMaster', 'genderMaster', 'hairColorMaster', 'hairLengthMaster', 'menuContentMaster'];
+const RESOURCES = [
+  'areaMaster',
+  'genderMaster',
+  'hairColorMaster',
+  'hairLengthMaster',
+  'menuContentMaster',
+];
 
 const INITIAL_STATE = transform((state, resource) => {
   state[resource] = {

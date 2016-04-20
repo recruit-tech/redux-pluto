@@ -1,6 +1,6 @@
 import identity from 'lodash/fp/identity';
 import BaseService from './BaseService';
-import { readAll } from './serviceUtils';
+import { readAll } from './utils';
 
 export default class BaseMaster extends BaseService {
   constructor(axios, name, pathname, params, itemsName, formatResult = identity) {

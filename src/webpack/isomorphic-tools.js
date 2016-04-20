@@ -46,19 +46,16 @@ module.exports = {
 
     style_modules: {
       extensions: ['scss'],
-
       filter: function (module, regex, options, log) {
         // in development mode there's webpack "style-loader",
         // so the module.name is not equal to module.name
         return WebpackIsomorphicToolsPlugin.style_loader_filter(module, regex, options, log);
       },
-
       path: function (module, options, log) {
         // in development mode there's webpack "style-loader",
         // so the module.name is not equal to module.name
         return WebpackIsomorphicToolsPlugin.style_loader_path_extractor(module, options, log);
       },
-
       parser: function (module, options, log) {
         return WebpackIsomorphicToolsPlugin.css_modules_loader_parser(module, options, log);
       },

@@ -92,5 +92,5 @@ function sendResponse(res, store, status, content) {
     initialState: JSON.stringify(store.getState()),
     assetes: global.webpackIsomorphicTools.assets(),
   };
-  res.status(status).send('<!doctype html>\n' + renderToStaticMarkup(html(props)));
+  res.status(status).send(`<!doctype html>\n${renderToStaticMarkup(html(props))}`);
 }

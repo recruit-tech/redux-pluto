@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { getOptions, formatErrors } from './utils';
+import { getOptions, normalizeErrors } from './utils';
 
 const username = Joi.string().alphanum().min(3).max(15).required();
 
@@ -14,5 +14,5 @@ const schema = Joi.object().keys({
 
 export default function validate(values) {
   const { error } = Joi.validate(values, schema, getOptions());
-  return formatErrors(error);
+  return normalizeErrors(error);
 }
