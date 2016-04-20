@@ -22,11 +22,14 @@ function unpromisify(service) {
   ['read', 'delete'].forEach((method) => {
     if (service[method]) {
       adapter[method] = function (req, resource, params, config, cb) {
-        service[method](req, resource, params, config).then((result) => {
-          cb(null, result);
-        }, (err) => {
-          cb(err);
-        });
+        service[method](req, resource, params, config).then(
+          (result) => {
+            cb(null, result);
+          },
+          (err) => {
+            cb(err);
+          }
+        );
       };
     }
   });
@@ -34,11 +37,14 @@ function unpromisify(service) {
   ['create', 'update'].forEach((method) => {
     if (service[method]) {
       adapter[method] = function (req, resource, params, body, config, cb) {
-        service[method](req, resource, params, body, config).then((result) => {
-          cb(null, result);
-        }, (err) => {
-          cb(err);
-        });
+        service[method](req, resource, params, body, config).then(
+          (result) => {
+            cb(null, result);
+          },
+          (err) => {
+            cb(err);
+          }
+        );
       };
     }
   });

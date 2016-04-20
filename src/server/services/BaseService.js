@@ -1,4 +1,4 @@
-import { read } from './serviceUtils';
+import { read } from './utils';
 
 export default class BaseService {
   constructor(axios, name, pathname, params = {}) {

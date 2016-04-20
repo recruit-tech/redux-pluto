@@ -1,12 +1,21 @@
-import some from 'lodash/fp/some';
+export { bind } from 'redux-effects';
+
+export function bindSteps(action, ...steps) {
+  return {
+    type: EFFECT_COMPOSE,
+    payload: action,
+    meta: {
+      steps,
+    },
+  };
+}
 
 export function initialState(init) {
   return (reducer) => (state = init, action) => reducer(state, action);
 }
 
 export function filterActionType(...names) {
-  return (reducer) => (state, action) => {
-    const { type } = action;
-    return some((name) => type.indexOf(name) === 0)(names) ? reducer(state, action) : state;
-  };
+  const includesType = ({ type }) => names.some((name) => type.indexOf(name) === 0);
+
+  return (reducer) => (state, action) => includesType(action) ? reducer(state, action) : state;
 }

@@ -14,11 +14,12 @@ function formatResult(parent, smallArea, depth = 0) {
   const source = last ? smallArea : smallArea[AREA_NAMES[depth]];
   const code = source.code;
   if (!parent[code]) {
-    parent[code] = Object.assign({
+    parent[code] = {
       code,
       name: source.name,
       count: source.cnt,
-    }, last ? {} : { items: {} });
+      ...(last ? {} : { items: {} }),
+    };
   }
 
   if (!last) {

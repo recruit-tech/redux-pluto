@@ -7,7 +7,7 @@ export function getOptions() {
   };
 }
 
-export function formatErrors(error) {
+export function normalizeErrors(error) {
   if (!error || !error.details) {
     return {};
   }

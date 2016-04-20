@@ -15,8 +15,8 @@ function formatResult(items, item) {
     code: item.code,
     name: item.name,
     seoName: item.hair_length_seo_name,
-    /* eslint-enable camelcase */
   });
+  /* eslint-enable camelcase */
 }
 
 function getCategory(items, styleCategory) {

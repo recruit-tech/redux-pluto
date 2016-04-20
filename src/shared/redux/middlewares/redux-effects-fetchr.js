@@ -27,7 +27,7 @@ export const fetchrDelete = (resource, params, config) => fetchr('delete', resou
  * Fetchr middleware
  */
 export default function fetchrMiddleware(fetchr) {
-  return ({ dispatch, getState }) => (next) => (action) => {
+  return ({ dispatch }) => (next) => (action) => {
     if (action.type !== FETCHR) {
       return next(action);
     }
