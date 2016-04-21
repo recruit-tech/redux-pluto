@@ -10,7 +10,7 @@ import debugFactory from 'debug';
 import createStore from '../../shared/redux/createStore';
 import { loadAllMasters as loadAllMastersAction } from '../../shared/redux/modules/masters';
 import getRoutes from '../../shared/routes';
-import Html from '../Html';
+import Html from '../components/Html';
 
 const debug = debugFactory('app:server:middleware:reduxApp');
 const html = createFactory(Html);
