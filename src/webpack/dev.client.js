@@ -1,10 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 
-// https://github.com/halt-hammerzeit/webpack-isomorphic-tools
-const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
-const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./isomorphic-tools'));
-
 const cwd = process.cwd();
 const port = +(process.env.PORT || 3000);
 const outputPath = path.resolve(cwd, 'build/browser');
@@ -65,10 +61,6 @@ module.exports = {
           ],
         },
       },
-      {
-        test: webpackIsomorphicToolsPlugin.regular_expression('images'),
-        loader: 'url-loader?limit=10240',
-      },
     ],
   },
 
@@ -88,7 +80,6 @@ module.exports = {
       __SERVER__: false,
       __DEVELOPMENT__: true,
     }),
-    webpackIsomorphicToolsPlugin.development(true),
   ],
 
   devServer: {

@@ -31,12 +31,6 @@ export default function (fetchrConfig) {
   });
 
   function reduxApp(req, res, next) {
-    if (__DEVELOPMENT__) {
-      // Do not cache webpack stats: the script file would change since
-      // hot module replacement is enabled in the development env
-      global.webpackIsomorphicTools.refresh();
-    }
-
     const memoryHistory = createMemoryHistory(req.url);
     const store = createStore(initialStore.getState(), {
       fetchr,
@@ -90,7 +84,6 @@ function sendResponse(res, store, status, content) {
   const props = {
     content,
     initialState: JSON.stringify(store.getState()),
-    assetes: global.webpackIsomorphicTools.assets(),
   };
   res.status(status).send(`<!doctype html>\n${renderToStaticMarkup(html(props))}`);
 }
