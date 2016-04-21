@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { compose, onlyUpdateForPropTypes } from 'recompose';
+import styles from './styles.css';
 
 export default compose(
   onlyUpdateForPropTypes,
@@ -29,9 +30,13 @@ export default compose(
         </div>
         <div>
           {items.map((item) => (
-            <span key={item.id}>
-              <img src={item.photo.front.m} />
-            </span>
+            <div
+              key={item.id}
+              className={styles.item}>
+              <img
+                className={styles.img}
+                src={item.photo.front.m} />
+            </div>
           ))}
         </div>
       </div>

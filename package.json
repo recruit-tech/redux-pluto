@@ -8,6 +8,7 @@
   "dependencies": {
     "axios": "0.10.0",
     "body-parser": "1.15.0",
+    "classnames": "2.2.3",
     "cookie-parser": "1.4.1",
     "csurf": "1.8.3",
     "debug": "2.2.0",
@@ -34,7 +35,6 @@
     "serve-favicon": "2.3.0"
   },
   "devDependencies": {
-    "babel-cli": "6.7.7",
     "babel-core": "6.7.7",
     "babel-eslint": "6.0.3",
     "babel-jscs": "3.0.0-beta1",
@@ -54,6 +54,7 @@
     "cash": "0.8.0",
     "cross-env": "1.0.7",
     "css-loader": "0.23.1",
+    "css-modules-require-hook": "4.0.0",
     "eslint": "2.8.0",
     "eslint-config-airbnb": "7.0.0",
     "eslint-plugin-import": "1.5.0",
@@ -70,6 +71,7 @@
     "redux-devtools": "3.2.0",
     "redux-devtools-dock-monitor": "1.1.1",
     "redux-devtools-log-monitor": "1.0.11",
+    "style-loader": "0.13.1",
     "webpack": "1.13.0",
     "webpack-dev-server": "1.14.1",
     "webpack-hot-middleware": "2.10.0"
@@ -82,7 +84,7 @@
     "jscs": "jscs src",
     "lint": "npm-run-all eslint jscs",
     "start": "cross-env NODE_ENV=development npm-run-all --parallel start:dev:{webpack,nodemon}",
-    "start:dev:app": "cross-env DEBUG=express:*,app:* babel-node src/server/server.js",
+    "start:dev:app": "cross-env DEBUG=express:*,app:* node bin/dev-server.js",
     "start:dev:nodemon": "nodemon -V --watch src --ignore src/webpack/ --exec npm run start:dev:app",
     "start:dev:webpack": "webpack-dev-server --hot --inline --config src/webpack/dev.client.js"
   }
