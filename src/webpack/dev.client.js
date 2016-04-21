@@ -61,6 +61,17 @@ module.exports = {
           ],
         },
       },
+      {
+        test: /\.css/,
+        loaders: [
+          'style',
+          'css?' + JSON.stringify({
+            modules: true,
+            importLoaders: 1,
+            localIdentName: '[name]__[local]___[hash:base64:5]',
+          }),
+        ],
+      },
     ],
   },
 
