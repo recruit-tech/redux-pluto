@@ -64,7 +64,6 @@
     "jscs": "2.11.0",
     "nodemon": "1.9.1",
     "npm-run-all": "1.7.0",
-    "piping": "0.3.0",
     "react-transform-catch-errors": "1.0.2",
     "react-transform-hmr": "1.0.4",
     "redbox-react": "1.2.3",
@@ -73,8 +72,7 @@
     "redux-devtools-log-monitor": "1.0.11",
     "webpack": "1.13.0",
     "webpack-dev-server": "1.14.1",
-    "webpack-hot-middleware": "2.10.0",
-    "webpack-isomorphic-tools": "2.2.48"
+    "webpack-hot-middleware": "2.10.0"
   },
   "main": "src/server/server.js",
   "private": true,
@@ -83,8 +81,9 @@
     "fixpack": "fixpack",
     "jscs": "jscs src",
     "lint": "npm-run-all eslint jscs",
-    "start": "cross-env NODE_ENV=development npm-run-all --parallel start:dev:{webpack,app}",
-    "start:dev:app": "cross-env DEBUG=express:*,app:* babel-node src/server/develop.js",
+    "start": "cross-env NODE_ENV=development npm-run-all --parallel start:dev:{webpack,nodemon}",
+    "start:dev:app": "cross-env DEBUG=express:*,app:* babel-node src/server/server.js",
+    "start:dev:nodemon": "nodemon -V --watch src --ignore src/webpack/ --exec npm run start:dev:app",
     "start:dev:webpack": "webpack-dev-server --hot --inline --config src/webpack/dev.client.js"
   }
 }
