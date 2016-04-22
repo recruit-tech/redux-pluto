@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { compose, onlyUpdateForPropTypes } from 'recompose';
-import styles from './styles.css';
+import styles from './styles.scss';
 
 export default compose(
   onlyUpdateForPropTypes,

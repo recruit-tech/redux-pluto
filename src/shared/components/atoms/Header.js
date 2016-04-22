@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import styles from './Header.scss';
 
 export default class Header extends Component {
   render() {
     return (
-      <div>
+      <div className={styles.main}>
         <header>
           Links:
           {' '}

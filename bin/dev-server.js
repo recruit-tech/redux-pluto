@@ -1,8 +1,20 @@
-require('babel-register');
+import path from 'path';
+import WebpackIsomorphicTools from 'webpack-isomorphic-tools';
+import isomorphicToolsConfig from '../src/webpack/isomorphic-tools.config';
 
-const hook = require('css-modules-require-hook');
-hook({
-  generateScopedName: '[name]__[local]___[hash:base64:5]',
-});
+const rootDir = path.resolve(__dirname, '..');
 
-require('../src/server/server');
+/**
+ * Define isomorphic constants.
+ */
+global.__CLIENT__ = false;
+global.__SERVER__ = true;
+global.__DEVELOPMENT__ = true;
+global.__DISABLE_SSR__ = false;  // <----- DISABLES SERVER SIDE RENDERING FOR ERROR DEBUGGING
+
+// https://github.com/halt-hammerzeit/webpack-isomorphic-tools
+global.webpackIsomorphicTools = new WebpackIsomorphicTools(isomorphicToolsConfig)
+  .development(true)
+  .server(rootDir, () => {
+    require('../src/server/server');
+  });

@@ -1,5 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
+const precss = require('./precss-sassy-mixins');
+
+// https://github.com/halt-hammerzeit/webpack-isomorphic-tools
+const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
+const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./isomorphic-tools.config'));
 
 const cwd = process.cwd();
 const port = +(process.env.PORT || 3000);
@@ -62,17 +68,26 @@ module.exports = {
         },
       },
       {
-        test: /\.css/,
+        test: /\.scss/,
         loaders: [
           'style',
           'css?' + JSON.stringify({
             modules: true,
             importLoaders: 1,
-            localIdentName: '[name]__[local]___[hash:base64:5]',
+            localIdentName: '[path]__[name]__[local]___[hash:base64:5]',
           }),
+          'postcss',
         ],
       },
+      {
+        test: webpackIsomorphicToolsPlugin.regular_expression('images'),
+        loader: 'url-loader?limit=10240',
+      },
     ],
+  },
+
+  postcss: function () {
+    return [precss, autoprefixer];
   },
 
   resolve: {
@@ -91,6 +106,7 @@ module.exports = {
       __SERVER__: false,
       __DEVELOPMENT__: true,
     }),
+    webpackIsomorphicToolsPlugin.development(true),
   ],
 
   devServer: {
