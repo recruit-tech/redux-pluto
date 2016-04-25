@@ -31,9 +31,11 @@ export default class ReduxAsyncLoaderContext extends Component {
 
   constructor(props, context) {
     super(props, context);
+
     this.state = {
       children: null,
     };
+    this.loadCount = 0;
   }
 
   componentDidMount() {
@@ -79,7 +81,7 @@ export default class ReduxAsyncLoaderContext extends Component {
 
   getAsyncLoaderState() {
     const { getAsyncLoaderState } = this.props;
-    const { dispatch, getState } = this.context.store;
+    const { getState } = this.context.store;
     return getAsyncLoaderState(getState());
   }
 
@@ -93,24 +95,35 @@ export default class ReduxAsyncLoaderContext extends Component {
       return;
     }
 
-    dispatch(beginAsyncLoad());
-    this.setState({
-      children,
-    }, () => {
-      const onEnd = (error) => {
-        dispatch(endAsyncLoad());
-        if (error) {
-          this.props.onError(error);
-        }
-
-        this.setState({ children: null });
-      };
-
-      loadAsync(flattened, params, store).then(
-        () => onEnd(),
-        (error) => onEnd(error),
+    this.beginLoad(dispatch, children)
+      .then(() => loadAsync(flattened, params, store))
+      .then(
+        () => this.endLoad(dispatch),
+        (error) => this.endLoad(dispatch, error),
       );
+  }
+
+  beginLoad(dispatch, children) {
+    if (this.loadCount === 0) {
+      dispatch(beginAsyncLoad());
+    }
+
+    ++this.loadCount;
+    return new Promise((resolve) => {
+      this.setState({ children }, () => resolve());
     });
+  }
+
+  endLoad(dispatch, error) {
+    if (error) {
+      this.props.onError(error);
+    }
+
+    --this.loadCount;
+    if (this.loadCount === 0) {
+      dispatch(endAsyncLoad());
+      this.setState({ children: null });
+    }
   }
 
   render() {
