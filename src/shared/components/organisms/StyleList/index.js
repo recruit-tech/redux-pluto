@@ -1,10 +1,15 @@
-import { asyncConnect } from 'redux-async-connect';
+import { connect } from 'react-redux';
 import { compose } from 'recompose';
+import { asyncLoader } from '../../../redux-async-loader';
 import { searchStyle } from '../../../redux/modules/style';
 import StyleList from './StyleList';
 
 export default compose(
-  asyncConnect([
-    { promise: ({ params, store: { dispatch } }) => dispatch(searchStyle(params)) },
-  ]),
+  asyncLoader((params, { dispatch }) => dispatch(searchStyle(params))),
+  connect(
+    (state) => ({
+      count: state.style.count,
+      items: state.style.items,
+    })
+  ),
 )(StyleList);

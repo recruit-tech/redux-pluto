@@ -28,7 +28,6 @@
     "recompose": "0.17.0",
     "redux": "3.5.1",
     "redux-actions": "0.9.1",
-    "redux-async-connect": "1.0.0-rc4",
     "redux-effects": "0.4.3",
     "redux-form": "5.1.1",
     "scroll-behavior": "0.4.0",

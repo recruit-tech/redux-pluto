@@ -2,10 +2,10 @@ import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, browserHistory, useRouterHistory } from 'react-router';
+import { Router, applyRouterMiddleware, browserHistory, useRouterHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { ReduxAsyncConnect } from 'redux-async-connect';
 import useScroll from 'scroll-behavior/lib/useStandardScroll';
+import { useAsyncLoader } from '../shared/redux-async-loader';
 import Fetchr from 'fetchr';
 import createStore from '../shared/redux/createStore';
 import getRoutes from '../shared/routes';
@@ -19,9 +19,14 @@ const store = createStore(window.__initialState__, {
 });
 const syncHistory = syncHistoryWithStore(appHistory, store);
 
+const RenderWithMiddleware = applyRouterMiddleware(
+  useAsyncLoader(),
+);
 render(
   <Provider store={store} key="provider">
-    <Router history={syncHistory} render={(props) => <ReduxAsyncConnect {...props} />}>
+    <Router
+      history={syncHistory}
+      render={(props) => <RenderWithMiddleware {...props} />}>
       {getRoutes(store)}
     </Router>
   </Provider>,

@@ -7,7 +7,6 @@ export default compose(
     (state) => ({
       genderItems: state.masters.genderMaster.items,
       hairLengthItems: state.masters.hairLengthMaster.items,
-      style: state.style,
     })
   ),
 )(Style);

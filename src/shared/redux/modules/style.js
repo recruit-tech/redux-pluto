@@ -35,6 +35,7 @@ const INITIAL_STATE = {
   loading: false,
   loaded: false,
   params: null,
+  count: 0,
   items: null,
 };
 
@@ -49,8 +50,8 @@ export default compose(
     loading: true,
     loaded: false,
     params,
-    count: 0,
-    items: [],
+    count: state.count,
+    items: state.items,
   }),
 
   [SEARCH_STYLE_SUCCESS]: (state, { payload: { data: { results_available: count, style: items } } }) => ({
