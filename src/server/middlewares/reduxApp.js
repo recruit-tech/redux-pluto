@@ -2,9 +2,9 @@ import { inspect } from 'util';
 import React, { createFactory } from 'react';
 import { renderToString, renderToStaticMarkup } from 'react-dom/server';
 import { Provider } from 'react-redux';
-import { createMemoryHistory, match } from 'react-router';
+import { applyRouterMiddleware, createMemoryHistory, match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect';
+import { useAsyncLoader, loadOnServer } from '../../shared/redux-async-loader';
 import Fetchr from 'fetchr';
 import debugFactory from 'debug';
 import createStore from '../../shared/redux/createStore';
@@ -65,9 +65,12 @@ export default function (fetchrConfig) {
 
       loadOnServer({ ...renderProps, store }).then(() => {
         tryRender(res, () => {
+          const RenderWithMiddleware = applyRouterMiddleware(
+            useAsyncLoader(),
+          );
           const content = renderToString(
             <Provider store={store} key="provider">
-              <ReduxAsyncConnect {...renderProps} />
+              <RenderWithMiddleware {...renderProps} />
             </Provider>
           );
 

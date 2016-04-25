@@ -7,21 +7,19 @@ export default compose(
 )(class StyleList extends Component {
 
   static propTypes = {
-    style: PropTypes.shape({
-      count: PropTypes.number.isRequired,
-      items: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        photo: PropTypes.shape({
-          front: PropTypes.shape({
-            m: PropTypes.string.isRequired,
-          }).isRequired,
+    count: PropTypes.number.isRequired,
+    items: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      photo: PropTypes.shape({
+        front: PropTypes.shape({
+          m: PropTypes.string.isRequired,
         }).isRequired,
-      })).isRequired,
-    }).isRequired,
+      }).isRequired,
+    })).isRequired,
   };
 
   render() {
-    const { style: { count, items } } = this.props;
+    const { count, items } = this.props;
 
     return (
       <div>
