@@ -1,4 +1,5 @@
 // based on precss@1.4.0
+// https://github.com/jonathantneal/precss
 
 const postcss = require('postcss');
 

@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
-const precss = require('./precss-sassy-mixins');
+const precss = require('./precss');
 
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
