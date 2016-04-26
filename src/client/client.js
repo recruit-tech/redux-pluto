@@ -4,14 +4,15 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, applyRouterMiddleware, browserHistory, useRouterHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import useScroll from 'scroll-behavior/lib/useStandardScroll';
+import useScroll from '../shared/packages/scroll-behavior/lib/useStandardScroll';
 import { useAsyncLoader } from '../shared/packages/redux-async-loader';
+import { useScrollBehavior, scrollTo } from '../shared/packages/scroll-behavior-middleware';
 import Fetchr from 'fetchr';
 import createStore from '../shared/redux/createStore';
 import getRoutes from '../shared/routes';
 
 const createScrollHistory = useScroll(() => browserHistory);
-const appHistory = useRouterHistory(createScrollHistory)();
+const appHistory = useRouterHistory(createScrollHistory)({ scrollTo });
 const store = createStore(window.__initialState__, {
   history: appHistory,
   fetchr: new Fetchr({ xhrPath: '/api' }),
@@ -21,6 +22,7 @@ const syncHistory = syncHistoryWithStore(appHistory, store);
 
 const RenderWithMiddleware = applyRouterMiddleware(
   useAsyncLoader(),
+  useScrollBehavior(),
 );
 render(
   <Provider store={store} key="provider">
