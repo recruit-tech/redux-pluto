@@ -4,7 +4,7 @@ import { renderToString, renderToStaticMarkup } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { applyRouterMiddleware, createMemoryHistory, match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { useAsyncLoader, loadOnServer } from '../../shared/redux-async-loader';
+import { useAsyncLoader, loadOnServer } from '../../shared/packages/redux-async-loader';
 import Fetchr from 'fetchr';
 import debugFactory from 'debug';
 import createStore from '../../shared/redux/createStore';

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-import { reducer as reduxAsyncLoader } from '../../redux-async-loader';
+import { reducer as reduxAsyncLoader } from '../../packages/redux-async-loader';
 import { reducer as formReducer } from 'redux-form';
 import masters from './masters';
 import style from './style';
