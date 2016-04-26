@@ -10,10 +10,10 @@
 * ESLint Configuration (Based on Airbnb style)
 * JSCS Configuration (Based on Airbnb style)
 * CSS Modules (SCSS)
+* Better scroll behavior
 
 ## TODOs
 
-* Better scroll behavior
 * Authentication and Authorization (OAuth2 and/or OpenID Connect)
 * Webpack Configuration for Production Mode (Client and Server)
 * Offload Mode
