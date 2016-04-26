@@ -14,12 +14,10 @@ export default class ScrollBehaviorContext extends Component {
   }
 
   componentDidMount() {
-    console.log('componentDidMount', this.props.location.pathname);
     this.updateScrollPosition();
   }
 
   componentDidUpdate() {
-    console.log('componentDidUpdate', this.props.location.pathname);
     this.updateScrollPosition();
   }
 
@@ -37,7 +35,6 @@ export default class ScrollBehaviorContext extends Component {
       }
 
       const { x, y } = scrollPosition;
-      console.log('set scroll position to', x, y);
       window.scrollTo(x, y);
 
       this.updateScrollPositionHandle = requestAnimationFrame(() => {
