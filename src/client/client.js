@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { Router, applyRouterMiddleware, browserHistory, useRouterHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import useScroll from 'scroll-behavior/lib/useStandardScroll';
-import { useAsyncLoader } from '../shared/redux-async-loader';
+import { useAsyncLoader } from '../shared/packages/redux-async-loader';
 import Fetchr from 'fetchr';
 import createStore from '../shared/redux/createStore';
 import getRoutes from '../shared/routes';
