@@ -1,7 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { bind } from 'redux-effects';
 import { compose } from 'recompose';
-import { fetchrRead } from '../middlewares/redux-effects-fetchr';
+import { fetchrRead } from '../../packages/redux-effects-fetchr';
 import { initialState, filterActionType } from './utils';
 
 /**
