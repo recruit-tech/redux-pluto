@@ -1,6 +1,6 @@
 import isPromise from 'is-promise';
 
-export default function errorPromise({ dispatch }) {
+export default function rejectMiddleware({ dispatch }) {
   return (next) => (action) => {
     const result = next(action); // eslint-disable-line callback-return
 
