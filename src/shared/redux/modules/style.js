@@ -2,6 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { bind } from 'redux-effects';
 import { compose } from 'recompose';
 import { fetchrRead } from '../../packages/redux-effects-fetchr';
+import { multi } from '../../packages/redux-effects-multi';
 import { initialState, filterActionType } from './utils';
 
 /**
@@ -22,10 +23,10 @@ const searchStyleSuccess = createAction(SEARCH_STYLE_SUCCESS);
 const searchStyleFail = createAction(SEARCH_STYLE_FAIL);
 
 export function searchStyle(params) {
-  return [
+  return multi(
     searchStyleRequest(params),
     bind(fetchrRead('style', params), searchStyleSuccess, searchStyleFail),
-  ];
+  );
 }
 
 /**

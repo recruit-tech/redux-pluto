@@ -1,17 +1,21 @@
-import isPromise from 'is-promise';
+import { createAction } from 'redux-actions';
 
-export default function multiPromises({ dispatch }) {
-  function dispatchAll(actions) {
-    return actions.filter(Boolean).map(dispatch);
-  }
+/**
+ * Action types
+ */
+export const MULTI = 'EFFECT_MULTI';
 
-  return (next) => (actions) => Array.isArray(actions) ? toPromise(dispatchAll(actions)) : next(actions);
-}
+/**
+ * Action creators
+ */
+export const multi = createAction(MULTI, (...args) => [...args]);
 
-function toPromise(results) {
-  return hasPromise(results) ? Promise.all(results) : results;
-}
+export default function multiMiddleware({ dispatch }) {
+  return (next) => (action) => {
+    if (action.type !== MULTI) {
+      return next(action);
+    }
 
-function hasPromise(results) {
-  return results.some(isPromise);
+    return Promise.all(action.payload.filter(Boolean).map(dispatch));
+  };
 }
