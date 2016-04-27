@@ -3,6 +3,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { bind } from 'redux-effects';
 import { compose } from 'recompose';
 import { fetchrRead } from '../../packages/redux-effects-fetchr';
+import { multi } from '../../packages/redux-effects-multi';
 import { initialState, filterActionType } from './utils';
 
 /**
@@ -23,12 +24,12 @@ const loadMasterSuccess = createAction(LOAD_MASTER_SUCCESS, (resource, items) =>
 const loadMasterFail = createAction(LOAD_MASTER_FAIL, (resource, error) => ({ resource, error }));
 
 function loadMaster(resource) {
-  return [
+  return multi(
     loadMasterRequest(resource),
     bind(fetchrRead(resource),
       (payload) => loadMasterSuccess(resource, payload.data),
       (error) => loadMasterFail(resource, error)),
-  ];
+  );
 }
 
 export function loadAreaMaster() {
@@ -52,13 +53,13 @@ export function loadMenuContentMaster() {
 }
 
 export function loadAllMasters() {
-  return [
+  return multi(
     loadAreaMaster(),
     loadGenderMaster(),
     loadHairColorMaster(),
     loadHairLengthMaster(),
     loadMenuContentMaster(),
-  ];
+  );
 }
 
 /**

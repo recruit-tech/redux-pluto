@@ -2,6 +2,7 @@ import { replace } from 'react-router-redux';
 import { createAction } from 'redux-actions';
 import { bind } from 'redux-effects';
 import { fetchrCreate, fetchrRead, fetchrDelete } from '../../packages/redux-effects-fetchr';
+import { multi } from '../../packages/redux-effects-multi';
 
 /**
  * Action types
@@ -33,10 +34,10 @@ const checkLoginSuccess = createAction(AUTH_CHECK_LOGIN_SUCCESS);
 const checkLoginFail = createAction(AUTH_CHECK_LOGIN_FAIL);
 
 export function checkLogin() {
-  return [
+  return multi(
     checkLoginRequest(),
     bind(fetchrRead('accessToken'), checkLoginSuccess, checkLoginFail),
-  ];
+  );
 }
 
 const loginRequest = createAction(AUTH_LOGIN_REQUEST);
@@ -46,13 +47,13 @@ const loginSuccess = createAction(AUTH_LOGIN_SUCCESS);
 const loginFail = createAction(AUTH_LOGIN_FAIL);
 
 export function login(username, password, location) {
-  return [
+  return multi(
     loginRequest(username, password),
     bind(fetchrCreate('accessToken', { username, password }),
-      () => [loginSuccess(), replace(location)],
+      () => multi(loginSuccess(), replace(location)),
       loginFail
     ),
-  ];
+  );
 }
 
 const logoutRequest = createAction(AUTH_LOGOUT_REQUEST);
@@ -62,8 +63,8 @@ const logoutSuccess = createAction(AUTH_LOGOUT_SUCCESS);
 const logoutFail = createAction(AUTH_LOGOUT_FAIL);
 
 export function logout() {
-  return [
+  return multi(
     logoutRequest(),
     bind(fetchrDelete('accessToken'), logoutSuccess, logoutFail),
-  ];
+  );
 }
