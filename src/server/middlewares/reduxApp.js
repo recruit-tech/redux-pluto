@@ -15,7 +15,7 @@ import Html from '../components/Html';
 const debug = debugFactory('app:server:middleware:reduxApp');
 const html = createFactory(Html);
 
-export default function () {
+export default function createReduxApp(config) {
   const logger = __DEVELOPMENT__ ? (store) => (next) => (action) => {
     debug(`Invoking action: ${inspect(action).replace(/\s*\n\s*/g, ' ')}`);
     return next(action);
@@ -72,7 +72,9 @@ export default function () {
 
           const { routes } = renderProps;
           const status = routes[routes.length - 1].status || 200;
-          sendResponse(res, store, status, content);
+          const clientConfig = config.clientConfig;
+          clientConfig.fetchr.context._csrf = req.csrfToken();
+          sendResponse({ res, status, store, clientConfig, content });
         });
       });
     });
@@ -97,10 +99,11 @@ function tryRender(res, render) {
   }
 }
 
-function sendResponse(res, store, status, content) {
+function sendResponse({ res, status, store, clientConfig, content }) {
   const props = {
     content,
     initialState: JSON.stringify(store.getState()),
+    clientConfig: JSON.stringify(clientConfig),
     assetes: global.webpackIsomorphicTools.assets(),
   };
   res.status(status).send(`<!doctype html>\n${renderToStaticMarkup(html(props))}`);
