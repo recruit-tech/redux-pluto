@@ -15,19 +15,16 @@ import Html from '../components/Html';
 const debug = debugFactory('app:server:middleware:reduxApp');
 const html = createFactory(Html);
 
-export default function (fetchrConfig) {
-  const fetchr = new Fetchr(fetchrConfig);
-
+export default function () {
   const logger = __DEVELOPMENT__ ? (store) => (next) => (action) => {
     debug(`Invoking action: ${inspect(action).replace(/\s*\n\s*/g, ' ')}`);
     return next(action);
   } : null;
 
   const initialStore = createStore({}, {
-    fetchr,
-    logger,
+    fetchr: new Fetchr({ req: {} }),
     history: createMemoryHistory('/'),
-    location: '/',
+    logger,
   });
 
   function reduxApp(req, res, next) {
@@ -39,10 +36,9 @@ export default function (fetchrConfig) {
 
     const memoryHistory = createMemoryHistory(req.url);
     const store = createStore(initialStore.getState(), {
-      fetchr,
-      logger,
+      fetchr: new Fetchr({ req }),
       history: memoryHistory,
-      location: req.url,
+      logger,
     });
     const history = syncHistoryWithStore(memoryHistory, store);
 

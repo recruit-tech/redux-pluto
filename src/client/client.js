@@ -14,8 +14,8 @@ import getRoutes from '../shared/routes';
 const createScrollHistory = useScroll(() => browserHistory);
 const appHistory = useRouterHistory(createScrollHistory)({ scrollTo });
 const store = createStore(window.__initialState__, {
-  history: appHistory,
   fetchr: new Fetchr({ xhrPath: '/api' }),
+  history: appHistory,
   devTools: __DEVELOPMENT__,
 });
 const syncHistory = syncHistoryWithStore(appHistory, store);
