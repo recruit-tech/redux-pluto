@@ -17,7 +17,7 @@ global.__DISABLE_SSR__ = false;  // <----- DISABLES SERVER SIDE RENDERING FOR ER
 
 const debug = debugFactory('app:server:main');
 
-const { reduxApp, loadAllMasters } = createReduxApp(config.fetchr);
+const { reduxApp, loadAllMasters } = createReduxApp();
 
 const app = express();
 app.use(bodyParser.json());
