@@ -4,6 +4,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import csrf from 'csurf';
 import favicon from 'serve-favicon';
 import { create as createAxios } from 'axios';
 import debugFactory from 'debug';
@@ -17,16 +18,17 @@ global.__DISABLE_SSR__ = false;  // <----- DISABLES SERVER SIDE RENDERING FOR ER
 
 const debug = debugFactory('app:server:main');
 
-const { reduxApp, loadAllMasters } = createReduxApp();
+const { reduxApp, loadAllMasters } = createReduxApp(config);
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(session(config.session));
+app.use(csrf(config.csrf));
 app.use(favicon(path.resolve(__dirname, '../../statics/favicon.ico')));
 app.use(express.static(path.resolve(__dirname, '../../statics')));
-app.use(config.fetchr.xhrPath, apiGateway(createAxios(config.axios)));
+app.use(config.clientConfig.fetchr.xhrPath, apiGateway(createAxios(config.axios)));
 app.use(reduxApp);
 app.use((req, res) => {
   res.status(404).send('Not found');

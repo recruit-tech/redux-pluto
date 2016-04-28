@@ -3,12 +3,11 @@ export default {
     secret: 'redux-proto',
   },
 
-  csurf: {
+  csrf: {
     cookie: true,
   },
 
   fetchr: {
-    xhrPath: '/api',
   },
 
   axios: {
@@ -16,6 +15,13 @@ export default {
     params: {
       key: 'hK8GrzWsq80d',
       format: 'json',
+    },
+  },
+
+  clientConfig: {
+    fetchr: {
+      xhrPath: '/api',
+      context: {},
     },
   },
 };

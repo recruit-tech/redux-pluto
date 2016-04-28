@@ -11,10 +11,14 @@ import Fetchr from 'fetchr';
 import createStore from '../shared/redux/createStore';
 import getRoutes from '../shared/routes';
 
+const { __INITIAL_STATE__: initialState, __CLIENT_CONFIG__: clientConfig } = window;
+delete window.__INITIAL_STATE__;
+delete window.__CLIENT_CONFIG__;
+
 const createScrollHistory = useScroll(() => browserHistory);
 const appHistory = useRouterHistory(createScrollHistory)({ scrollTo });
-const store = createStore(window.__initialState__, {
-  fetchr: new Fetchr({ xhrPath: '/api' }),
+const store = createStore(initialState, {
+  fetchr: new Fetchr(clientConfig.fetchr),
   history: appHistory,
   devTools: __DEVELOPMENT__,
 });
