@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { createLocal } from '../utils/localnames';
 import styles from './Header.scss';
+
+const { localNames: local } = createLocal(styles);
 
 export default class Header extends Component {
   render() {
     return (
-      <div className={styles.main}>
+      <div className={local('main')}>
         <header>
           Links:
           {' '}
