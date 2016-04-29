@@ -3,7 +3,8 @@
 ## Done
 
 * Isomorphic Rendering
-* Isomorphic Data Fetching
+* Data Fetching
+* Caching
 * Forms
 * Validation
 * Webpack Configuration for Development Mode (Client only)
@@ -16,6 +17,7 @@
 
 * Authentication and Authorization (OAuth2 and/or OpenID Connect)
 * Webpack Configuration for Production Mode (Client and Server)
+* Code splitting
 * Offload Mode
 * Unit Testing
 * End to End Testing
