@@ -1,4 +1,5 @@
 export { default as asyncLoader } from './asyncLoader';
+export { default as deferLoader } from './deferLoader';
 export { default as loadOnServer } from './loadOnServer';
 export { default as reducer } from './reducer';
 export { default as useAsyncLoader } from './useAsyncLoader';
