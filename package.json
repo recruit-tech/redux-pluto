@@ -21,6 +21,7 @@
     "joi": "8.0.5",
     "joi-browser": "8.0.5",
     "lodash": "4.11.1",
+    "lru-cache": "4.0.1",
     "moment": "2.13.0",
     "react": "15.0.1",
     "react-dom": "15.0.1",

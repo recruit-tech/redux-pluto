@@ -58,5 +58,11 @@ export default {
         GET: [],
       },
     },
+
+    fetchrCache: {
+      max: 100,
+      maxAge: 1 * 60 * 1000,
+      excludes: [],
+    },
   },
 };
