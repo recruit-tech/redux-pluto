@@ -1,7 +1,7 @@
 /* eslint-disable react/no-set-state */
-import React, { Component, PropTypes, cloneElement } from 'react';
+import React, { Component, PropTypes } from 'react';
 import computeChangedRoutes from 'react-router/lib/computeChangedRoutes';
-import { beginAsyncLoad, endAsyncLoad } from './actions';
+import { beginAsyncLoad, endAsyncLoad, skipAsyncLoad } from './actions';
 import flattenComponents from './flattenComponents';
 import loadAsync from './loadAsync';
 import { reducerName } from './names';
@@ -46,7 +46,7 @@ export default class ReduxAsyncLoaderContext extends Component {
 
     if (loaded && onServer) {
       const { dispatch } = this.context.store;
-      dispatch(endAsyncLoad(false));
+      dispatch(skipAsyncLoad(false));
       return;
     }
 

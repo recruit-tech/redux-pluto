@@ -1,4 +1,4 @@
-import { BEGIN_ASYNC_LOAD, END_ASYNC_LOAD } from './actions';
+import { BEGIN_ASYNC_LOAD, END_ASYNC_LOAD, SKIP_ASYNC_LOAD } from './actions';
 
 const INITIAL_STATE = {
   loading: false,
@@ -15,6 +15,7 @@ export default function reducer(state = INITIAL_STATE, { type, payload } = {}) {
         onServer: !!payload.onServer,
       };
     case END_ASYNC_LOAD:
+    case SKIP_ASYNC_LOAD:
       return {
         loading: false,
         loaded: true,
