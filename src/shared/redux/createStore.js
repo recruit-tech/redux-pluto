@@ -3,22 +3,22 @@ import { routerMiddleware } from 'react-router-redux';
 import { createStore, compose, applyMiddleware } from 'redux';
 import effects from 'redux-effects';
 import fetchr from '../packages/redux-effects-fetchr';
+import fetchrCache from '../packages/redux-effects-fetchr-cache';
 import reject from '../packages/redux-effects-reject';
 import multi from '../packages/redux-effects-multi';
+import filter from 'lodash/fp/filter';
 import reducer from './modules/reducer';
 
 export default function (initialState, options = {}) {
-  const middlewares = [
+  const middlewares = filter(Boolean)([
     multi,
     reject,
     effects,
+    options.fetchrCache ? fetchrCache(options.fetchrCache) : null,
     fetchr(options.fetchr),
     routerMiddleware(options.history),
-  ];
-
-  if (options.logger) {
-    middlewares.push(options.logger);
-  }
+    options.logger,
+  ]);
 
   const devTools = [];
   if (options.devTools) {

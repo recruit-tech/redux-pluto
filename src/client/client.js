@@ -56,6 +56,7 @@ function createHistoryAndStoore() {
   const history = createHistory({ scrollTo });
   const store = createStore(initialState, {
     fetchr: new Fetchr(clientConfig.fetchr),
+    fetchrCache: clientConfig.fetchrCache,
     history,
     devTools: __DEVELOPMENT__,
   });
