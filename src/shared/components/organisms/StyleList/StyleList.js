@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { compose, onlyUpdateForPropTypes } from 'recompose';
+import { createLocal } from '../../utils/localnames';
 import styles from './styles.scss';
+
+const { localNames: local } = createLocal(styles);
 
 export default compose(
   onlyUpdateForPropTypes,
@@ -30,9 +33,9 @@ export default compose(
           {items.map((item) => (
             <div
               key={item.id}
-              className={styles.item}>
+              className={local('item')}>
               <img
-                className={styles.img}
+                className={local('img')}
                 src={item.photo.front.m} />
             </div>
           ))}

@@ -6,3 +6,13 @@ $border-color: lightgray;
   border-style: solid;
   padding: 10px;
 }
+
+:global {
+  .u-invalidLocalName {
+    border-color: red !important;
+    border-width: 10px !important;
+    border-style: solid !important;
+    padding: 10px !important;
+    backgound-color: red !important;
+  }
+}
