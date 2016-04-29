@@ -22,7 +22,7 @@ export default function createReduxApp(config) {
   } : null;
 
   const initialStore = createStore({}, {
-    fetchr: new Fetchr({ req: {} }),
+    fetchr: new Fetchr({ ...config.fetchr, req: {} }),
     history: createMemoryHistory('/'),
     logger,
   });
@@ -36,7 +36,7 @@ export default function createReduxApp(config) {
 
     const memoryHistory = createMemoryHistory(req.url);
     const store = createStore(initialStore.getState(), {
-      fetchr: new Fetchr({ req }),
+      fetchr: new Fetchr({ ...config.fetchr, req }),
       history: memoryHistory,
       logger,
     });
@@ -46,7 +46,7 @@ export default function createReduxApp(config) {
       return sendResponse(res, store, 200, null);
     }
 
-    match({ history, routes: getRoutes(store), location: req.url }, (error, redirectLocation, renderProps) => {
+    match({ history, routes: getRoutes(store) }, (error, redirectLocation, renderProps) => {
       if (error) {
         return res.status(500).send(error.message);
       }
