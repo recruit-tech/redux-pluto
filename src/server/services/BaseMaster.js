@@ -3,8 +3,8 @@ import BaseService from './BaseService';
 import { readAll } from './utils';
 
 export default class BaseMaster extends BaseService {
-  constructor(axios, name, pathname, params, itemsName, formatResult = identity) {
-    super(axios, name, pathname, params);
+  constructor(config, name, pathname, params, itemsName, formatResult = identity) {
+    super(config, name, pathname, params);
     this.itemsName = itemsName;
     this.formatResult = formatResult;
   }

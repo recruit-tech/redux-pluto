@@ -1,8 +1,9 @@
+import { create as createAxios } from 'axios';
 import { read } from './utils';
 
 export default class BaseService {
-  constructor(axios, name, pathname, params = {}) {
-    this.axios = axios;
+  constructor(config, name, pathname, params = {}) {
+    this.axios = createAxios(config.axios);
     this.name = name;
     this.pathname = pathname;
     this.params = params;

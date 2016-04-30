@@ -1,15 +1,3 @@
-export { bind } from 'redux-effects';
-
-export function bindSteps(action, ...steps) {
-  return {
-    type: EFFECT_COMPOSE,
-    payload: action,
-    meta: {
-      steps,
-    },
-  };
-}
-
 export function initialState(init) {
   return (reducer) => (state = init, action) => reducer(state, action);
 }

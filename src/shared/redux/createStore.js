@@ -2,11 +2,13 @@ import React from 'react';
 import { routerMiddleware } from 'react-router-redux';
 import { createStore, compose, applyMiddleware } from 'redux';
 import effects from 'redux-effects';
+import cookie from 'redux-effects-cookie';
 import fetchr from '../packages/redux-effects-fetchr';
 import fetchrCache from '../packages/redux-effects-fetchr-cache';
 import reject from '../packages/redux-effects-reject';
 import multi from '../packages/redux-effects-multi';
 import filter from 'lodash/fp/filter';
+import apiError from './middleware/apiErrorMiddleware';
 import reducer from './modules/reducer';
 
 export default function (initialState, options = {}) {
@@ -14,7 +16,9 @@ export default function (initialState, options = {}) {
     multi,
     reject,
     effects,
+    cookie(options.cookie),
     options.fetchrCache ? fetchrCache(options.fetchrCache) : null,
+    apiError(),
     fetchr(options.fetchr),
     routerMiddleware(options.history),
     options.logger,

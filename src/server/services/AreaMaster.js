@@ -4,8 +4,8 @@ import BaseMaster from './BaseMaster';
 const AREA_NAMES = ['service_area', 'middle_area'];
 
 export default class AreaMaster extends BaseMaster {
-  constructor(axios) {
-    super(axios, 'areaMaster', 'beauty/smallArea/', {}, 'small_area', transform(formatResult)({}));
+  constructor(config) {
+    super(config, 'areaMaster', 'beauty/smallArea/', {}, 'small_area', transform(formatResult)({}));
   }
 }
 

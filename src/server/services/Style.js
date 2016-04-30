@@ -11,8 +11,9 @@ const ACTUAL_PARAM_NAMES = {
 const mapToActualParamName = mapKeys((key) => ACTUAL_PARAM_NAMES[key] || key);
 
 export default class Style extends BaseService {
-  constructor(axios) {
-    super(axios, 'style', 'beauty/style/v3/', { order: 5, count: 50 });
+  constructor(config) {
+    super(config, 'style', 'beauty/style/v3/', { order: 5, count: 50 });
+    this.requireLogin = true;
   }
 
   read(req, resource, params, config) {
