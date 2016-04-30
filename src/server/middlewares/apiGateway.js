@@ -2,32 +2,34 @@ import Fetchr from 'fetchr';
 import mapValues from 'lodash/fp/mapValues';
 import debugFactory from 'debug';
 import * as services from '../services';
+import { verify } from '../services/AccessToken';
 
 const debug = debugFactory('app:server:middleware:apiGateway');
 
-const registerServices = (axios) => mapValues((Service) => {
-  const service = new Service(axios);
+const registerServices = (config) => mapValues((Service) => {
+  const service = new Service(config);
   debug(`Registering sevice: ${service.name}`);
-  return Fetchr.registerService(unpromisify(service));
+  return Fetchr.registerService(makeServiceAdapter(service, config.auth.secret));
 });
 
-export default function apiGateway(axios) {
-  registerServices(axios)(services);
+export default function apiGateway(config) {
+  registerServices(config)(services);
   return Fetchr.middleware();
 }
 
-function unpromisify(service) {
+function makeServiceAdapter(service, secret) {
   const adapter = { name: service.name };
+  const checkLogin = service.requireLogin ? (req) => verify(req, secret) : () => Promise.resolve();
 
   ['read', 'delete'].forEach((method) => {
     if (service[method]) {
       adapter[method] = function (req, resource, params, config, cb) {
-        service[method](req, resource, params, config).then(
-          (result) => {
-            cb(null, result);
+        checkLogin(req).then(() => service[method](req, resource, params, config)).then(
+          (result = {}) => {
+            cb(null, result, result.meta);
           },
-          (err) => {
-            cb(err);
+          (error) => {
+            cb(error);
           }
         );
       };
@@ -37,12 +39,12 @@ function unpromisify(service) {
   ['create', 'update'].forEach((method) => {
     if (service[method]) {
       adapter[method] = function (req, resource, params, body, config, cb) {
-        service[method](req, resource, params, body, config).then(
-          (result) => {
-            cb(null, result);
+        checkLogin(req).then(() => service[method](req, resource, params, body, config)).then(
+          (result = {}) => {
+            cb(null, result, result.meta);
           },
-          (err) => {
-            cb(err);
+          (error) => {
+            cb(error);
           }
         );
       };

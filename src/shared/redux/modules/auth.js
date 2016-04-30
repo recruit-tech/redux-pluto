@@ -1,8 +1,12 @@
 import { replace } from 'react-router-redux';
-import { createAction } from 'redux-actions';
+import { createAction, handleActions } from 'redux-actions';
 import { bind } from 'redux-effects';
-import { fetchrCreate, fetchrRead, fetchrDelete } from '../../packages/redux-effects-fetchr';
+import { cookie } from 'redux-effects-cookie';
+import { compose } from 'recompose';
+import decode from 'jwt-decode';
+import { fetchrCreate, fetchrDelete } from '../../packages/redux-effects-fetchr';
 import { multi } from '../../packages/redux-effects-multi';
+import { initialState, filterActionType } from './utils';
 
 /**
  * Action types
@@ -36,8 +40,23 @@ const checkLoginFail = createAction(AUTH_CHECK_LOGIN_FAIL);
 export function checkLogin() {
   return multi(
     checkLoginRequest(),
-    bind(fetchrRead('accessToken'), checkLoginSuccess, checkLoginFail),
+    bind(cookie('access-token'), checkAccessToken(checkLoginSuccess, checkLoginFail)),
   );
+}
+
+function checkAccessToken(success, fail) {
+  return (token) => {
+    if (!token) {
+      return fail(new Error('no token'));
+    }
+
+    const payload = decode(token);
+    if (!payload || payload.aud !== 'redux-proto') {
+      return fail(new Error('invalid token'));
+    }
+
+    return success(payload);
+  };
 }
 
 const loginRequest = createAction(AUTH_LOGIN_REQUEST);
@@ -50,9 +69,16 @@ export function login(username, password, location) {
   return multi(
     loginRequest(username, password),
     bind(fetchrCreate('accessToken', { username, password }),
-      () => multi(loginSuccess(), replace(location)),
+      () => afterLogin(location),
       loginFail
     ),
+  );
+}
+
+function afterLogin(location) {
+  return bind(cookie('access-token'),
+    checkAccessToken((payload) => multi(loginSuccess(payload), replace(location)), loginFail),
+    loginFail,
   );
 }
 
@@ -67,4 +93,37 @@ export function logout() {
     logoutRequest(),
     bind(fetchrDelete('accessToken'), logoutSuccess, logoutFail),
   );
+}
+
+/**
+ * Initial state
+ */
+const INITIAL_STATE = {
+  login: false,
+  username: null,
+};
+
+/**
+ * Reducer
+ */
+export default compose(
+  initialState(INITIAL_STATE),
+  filterActionType(AUTH),
+)(handleActions({
+  [AUTH_CHECK_LOGIN_SUCCESS]: loggedIn,
+  [AUTH_LOGIN_SUCCESS]: loggedIn,
+  [AUTH_CHECK_LOGIN_FAIL]: loggedOut,
+  [AUTH_LOGIN_FAIL]: loggedOut,
+  [AUTH_LOGOUT_SUCCESS]: loggedOut,
+}));
+
+function loggedIn(state, { payload: { sub } }) {
+  return state.login && state.username === sub ? state : {
+    login: true,
+    username: sub,
+  };
+}
+
+function loggedOut(state, action) {
+  return INITIAL_STATE;
 }

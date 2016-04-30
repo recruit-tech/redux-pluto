@@ -6,7 +6,7 @@ const formatReslt = transform((results, item) => {
 })({});
 
 export default class HairLengthMaster extends BaseMaster {
-  constructor(axios) {
-    super(axios, 'genderMaster', 'beauty/styleCategory/', {}, 'style_category', formatReslt);
+  constructor(config) {
+    super(config, 'genderMaster', 'beauty/styleCategory/', {}, 'style_category', formatReslt);
   }
 }

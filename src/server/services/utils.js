@@ -1,4 +1,5 @@
 import { format as formatUrl } from 'url';
+import fumble from 'fumble';
 import debugFactory from 'debug';
 
 const debug = debugFactory('app:server:services');
@@ -11,18 +12,18 @@ export function read(axios, name, pathname, query) {
     (response) => {
       const responseBody = response.data;
       if (!responseBody || !responseBody.results) {
-        return makeError({ name, formattedUrl, message: 'HTTP GET request failed (no result).', });
+        return rejectWith(fumble.create(), { name, formattedUrl, reason: 'no result', });
       }
 
       const results = responseBody.results;
       if (results.error) {
         const { code, message } = results.error;
-        return makeError({ name, formattedUrl, message: `HTTP GET request failed (${code}: ${message}).`, });
+        return rejectWith(fumble.create(code, message), { name, formattedUrl });
       }
 
       return results;
     },
-    (error) => makeError({ name, formattedUrl, message: `HTTP GET request failed (${error.message}).`, cause: error, })
+    (error) => rejectWith(fumble.create(), { name, formattedUrl, reason: error.message })
   );
 }
 
@@ -47,13 +48,8 @@ export function readAll(axios, name, pathname, params, itemsName, loaded = []) {
   );
 }
 
-function makeError({ name, formattedUrl, msg, cause }) {
-  const message = `[${name}]: ${msg}, ${formattedUrl}`;
-  debug(message);
-  const error = new Error(message);
-  if (cause) {
-    error.cause = cause;
-  }
-
+export function rejectWith(error, output = {}) {
+  error.output = output;
+  debug(error);
   return Promise.reject(error);
 }

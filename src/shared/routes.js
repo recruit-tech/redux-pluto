@@ -16,15 +16,15 @@ export default function getRoutes(store) {
     <Route path="/" component={App}>
       <IndexRoute component={Home} />
 
-      <Route path="style" onEnter={bindStore(store, requiredLogin)}>
+      <Route path="style" onEnter={bindOnEnter(requiredLogin)}>
         <IndexRoute component={Style} />
-        <Route path=":gender" component={Style}>
+        <Route path=":gender" component={Style} onChange={bindOnChange(requiredLogin)}>
           <Route path=":hairLength" component={StyleList} />
         </Route>
       </Route>
 
       <Route path="login" component={Login} />
-      <Route path="logout" onEnter={bindStore(store, doLogout)} />
+      <Route path="logout" onEnter={bindOnEnter(doLogout)} />
 
       <Route path="foo" component={Foo} />
       <Route path="bar" component={Bar} />
@@ -32,28 +32,36 @@ export default function getRoutes(store) {
       <Route path="*" component={NotFound} status={404} />
     </Route>
   );
-}
 
-function bindStore(store, handler) {
-  return (nextState, replace, cb) => handler(store.dispatch, nextState, (path) => {
-    if (path) {
-      replace(path);
-    }
+  function bindOnEnter(handler) {
+    return (nextState, replace, cb) => handler({ nextState, cb: bindCb(replace, cb) });
+  }
 
-    cb();
-  });
-}
+  function bindOnChange(handler) {
+    return (prevState, nextState, replace, cb) => handler({ prevState, nextState, cb: bindCb(replace, cb) });
+  }
 
-function requiredLogin(dispatch, nextState, cb) {
-  dispatch(checkLogin()).then(
-    () => cb(),
-    (err) => cb(err.statusCode === 401 ? `/login?location=${nextState.location.pathname}` : '/error')
-  );
-}
+  function bindCb(replace, cb) {
+    return (pathname) => {
+      if (pathname) {
+        replace(pathname);
+      }
 
-function doLogout(dispatch, nextState, cb) {
-  dispatch(logout()).then(
-    () => cb('/'),
-    () => cb('/error'),
-  );
+      cb();
+    };
+  }
+
+  function requiredLogin({ nextState, cb }) {
+    store.dispatch(checkLogin()).then(
+      () => cb(),
+      (err) => cb(`/login?location=${nextState.location.pathname}`)
+    );
+  }
+
+  function doLogout({ cb }) {
+    store.dispatch(logout()).then(
+      () => cb('/'),
+      () => cb('/error'),
+    );
+  }
 }

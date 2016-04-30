@@ -2,8 +2,8 @@ import transform from 'lodash/fp/transform';
 import BaseMaster from './BaseMaster';
 
 export default class HairLengthMaster extends BaseMaster {
-  constructor(axios) {
-    super(axios, 'hairLengthMaster', 'beauty/hairLength/v3/', {}, 'hair_length', transform(formatResult)({}));
+  constructor(config) {
+    super(config, 'hairLengthMaster', 'beauty/hairLength/v3/', {}, 'hair_length', transform(formatResult)({}));
   }
 }
 

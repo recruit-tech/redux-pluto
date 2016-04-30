@@ -9,6 +9,7 @@ import Fetchr from 'fetchr';
 import debugFactory from 'debug';
 import createStore from '../../shared/redux/createStore';
 import { loadAllMasters as loadAllMastersAction } from '../../shared/redux/modules/masters';
+import { checkLogin } from '../../shared/redux/modules/auth';
 import getRoutes from '../../shared/routes';
 import Html from '../components/Html';
 
@@ -22,6 +23,7 @@ export default function createReduxApp(config) {
   } : null;
 
   const initialStore = createStore({}, {
+    cookie: {},
     fetchr: new Fetchr({ ...config.fetchr, req: {} }),
     history: createMemoryHistory('/'),
     logger,
@@ -34,13 +36,14 @@ export default function createReduxApp(config) {
       global.webpackIsomorphicTools.refresh();
     }
 
-    const memoryHistory = createMemoryHistory(req.url);
+    const history = createMemoryHistory(req.url);
     const store = createStore(initialStore.getState(), {
+      cookie: req.cookies,
       fetchr: new Fetchr({ ...config.fetchr, req }),
-      history: memoryHistory,
+      history,
       logger,
     });
-    const history = syncHistoryWithStore(memoryHistory, store);
+    syncHistoryWithStore(history, store);
 
     if (__DISABLE_SSR__) {
       return sendResponse(res, store, 200, null);
@@ -59,7 +62,10 @@ export default function createReduxApp(config) {
         return next();
       }
 
-      loadOnServer({ ...renderProps, store }).then(() => {
+      Promise.all([
+        loadOnServer({ ...renderProps, store }),
+        store.dispatch(checkLogin()).catch(() => null),
+      ]).then(() => {
         tryRender(res, () => {
           const RenderWithMiddleware = applyRouterMiddleware(
             useAsyncLoader(),
@@ -76,18 +82,22 @@ export default function createReduxApp(config) {
           clientConfig.fetchr.context._csrf = req.csrfToken();
           sendResponse({ res, status, store, clientConfig, content });
         });
+      }).catch((error) => {
+        debug(error);
+        debug(store.getState().routing);
+        res.status(500).send('Internal Server Error');
       });
     });
   }
 
-  function loadAllMasters() {
+  function loadInitialData() {
     debug('Loading initial data');
     return initialStore.dispatch(loadAllMastersAction()).then(() => {
       debug('Loaded initial data');
     });
   }
 
-  return { reduxApp, loadAllMasters };
+  return { reduxApp, loadInitialData };
 }
 
 function tryRender(res, render) {
