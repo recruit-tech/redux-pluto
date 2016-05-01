@@ -1,11 +1,6 @@
-import { replace } from 'react-router-redux';
 import { createAction, handleActions } from 'redux-actions';
 import { bind } from 'redux-effects';
-import { cookie } from 'redux-effects-cookie';
 import { compose } from 'recompose';
-import decode from 'jwt-decode';
-import { fetchrCreate, fetchrDelete } from '../../packages/redux-effects-fetchr';
-import { multi } from '../../packages/redux-effects-multi';
 import { initialState, filterActionType } from './utils';
 
 /**
@@ -38,48 +33,18 @@ const checkLoginSuccess = createAction(AUTH_CHECK_LOGIN_SUCCESS);
 const checkLoginFail = createAction(AUTH_CHECK_LOGIN_FAIL);
 
 export function checkLogin() {
-  return multi(
-    checkLoginRequest(),
-    bind(cookie('access-token'), checkAccessToken(checkLoginSuccess, checkLoginFail)),
-  );
+  return bind(checkLoginRequest(), checkLoginSuccess, checkLoginFail);
 }
 
-function checkAccessToken(success, fail) {
-  return (token) => {
-    if (!token) {
-      return fail(new Error('no token'));
-    }
-
-    const payload = decode(token);
-    if (!payload || payload.aud !== 'redux-proto') {
-      return fail(new Error('invalid token'));
-    }
-
-    return success(payload);
-  };
-}
-
-const loginRequest = createAction(AUTH_LOGIN_REQUEST);
+const loginRequest = createAction(AUTH_LOGIN_REQUEST,
+  (username, password, location) => ({ params: { username, password }, location }));
 
 const loginSuccess = createAction(AUTH_LOGIN_SUCCESS);
 
 const loginFail = createAction(AUTH_LOGIN_FAIL);
 
 export function login(username, password, location) {
-  return multi(
-    loginRequest(username, password),
-    bind(fetchrCreate('accessToken', { username, password }),
-      () => afterLogin(location),
-      loginFail
-    ),
-  );
-}
-
-function afterLogin(location) {
-  return bind(cookie('access-token'),
-    checkAccessToken((payload) => multi(loginSuccess(payload), replace(location)), loginFail),
-    loginFail,
-  );
+  return bind(loginRequest(username, password, location), loginSuccess, loginFail);
 }
 
 const logoutRequest = createAction(AUTH_LOGOUT_REQUEST);
@@ -89,10 +54,7 @@ const logoutSuccess = createAction(AUTH_LOGOUT_SUCCESS);
 const logoutFail = createAction(AUTH_LOGOUT_FAIL);
 
 export function logout() {
-  return multi(
-    logoutRequest(),
-    bind(fetchrDelete('accessToken'), logoutSuccess, logoutFail),
-  );
+  return bind(logoutRequest(), logoutSuccess, logoutFail);
 }
 
 /**

@@ -32,7 +32,6 @@ export default class AccessToken {
       });
     }
 
-    debug(username + ' logging in.');
     const expires = Date.now() + this.maxAge;
     return sign({
       sub: username,

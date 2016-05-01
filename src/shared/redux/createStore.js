@@ -9,6 +9,7 @@ import reject from '../packages/redux-effects-reject';
 import multi from '../packages/redux-effects-multi';
 import filter from 'lodash/fp/filter';
 import apiError from './middleware/apiErrorMiddleware';
+import auth from './middleware/authMiddleware';
 import reducer from './modules/reducer';
 
 export default function (initialState, options = {}) {
@@ -16,6 +17,7 @@ export default function (initialState, options = {}) {
     multi,
     reject,
     effects,
+    auth(),
     cookie(options.cookie),
     options.fetchrCache ? fetchrCache(options.fetchrCache) : null,
     apiError(),
