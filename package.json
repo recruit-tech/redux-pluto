@@ -2,8 +2,17 @@
   "name": "redux-proto",
   "description": "redux-proto",
   "version": "0.0.0",
-  "browser": {
-    "joi": "joi-browser"
+  "private": true,
+  "main": "src/server/server.js",
+  "scripts": {
+    "eslint": "eslint src",
+    "fixpack": "fixpack",
+    "jscs": "jscs src",
+    "lint": "npm-run-all eslint jscs",
+    "start": "cross-env NODE_ENV=development npm-run-all --parallel start:dev:{webpack,nodemon}",
+    "start:dev:app": "cross-env DEBUG=express:*,css-modules:*,app:* babel-node bin/dev-server.js",
+    "start:dev:nodemon": "nodemon --verbose --watch src --ignore src/webpack/ --exec npm run start:dev:app",
+    "start:dev:webpack": "webpack-dev-server --hot --inline --config src/webpack/dev.client.config.js"
   },
   "dependencies": {
     "axios": "0.11.0",
@@ -104,16 +113,7 @@
     "webpack-hot-middleware": "2.10.0",
     "webpack-isomorphic-tools": "2.2.50"
   },
-  "main": "src/server/server.js",
-  "private": true,
-  "scripts": {
-    "eslint": "eslint src",
-    "fixpack": "fixpack",
-    "jscs": "jscs src",
-    "lint": "npm-run-all eslint jscs",
-    "start": "cross-env NODE_ENV=development npm-run-all --parallel start:dev:{webpack,nodemon}",
-    "start:dev:app": "cross-env DEBUG=express:*,css-modules:*,app:* babel-node bin/dev-server.js",
-    "start:dev:nodemon": "nodemon --verbose --watch src --ignore src/webpack/ --exec npm run start:dev:app",
-    "start:dev:webpack": "webpack-dev-server --hot --inline --config src/webpack/dev.client.config.js"
+  "browser": {
+    "joi": "joi-browser"
   }
 }
