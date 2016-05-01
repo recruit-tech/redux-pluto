@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { propTypes as formPropTypes} from 'redux-form';
 import { compose, onlyUpdateForPropTypes } from 'recompose';
 
 export default compose(
@@ -6,22 +7,19 @@ export default compose(
 )(class LoginForm extends Component {
 
   static propTypes = {
-    fields: PropTypes.object.isRequired,
-    handleSubmit: PropTypes.func.isRequired,
-    resetForm: PropTypes.func.isRequired,
-    submitting: PropTypes.bool.isRequired,
-    params: PropTypes.object.isRequired,
+    ...formPropTypes,
   };
 
   render() {
-    const { fields: { username, password }, error, handleSubmit, resetForm, submitting, params, } = this.props;
+    const { fields: { username, password }, error, handleSubmit, resetForm, submitting } = this.props;
+    const hasError = !!(error || username.error || password.error);
 
     return (
       <form onSubmit={handleSubmit}>
         {error && <div>{error}</div>}
         <div>
           <label>Username</label>
-          <input type="text" {...username} />
+          <input type="text" autoFocus {...username} />
           {username.touched && username.error && <span>{username.error}</span>}
         </div>
         <div>
@@ -30,7 +28,7 @@ export default compose(
           {password.touched && password.error && <span>{password.error}</span>}
         </div>
         <div>
-          <button type="submit" disabled={submitting}>
+          <button type="submit" disabled={submitting || hasError}>
             Login
           </button>
           <button type="button" disabled={submitting} onClick={resetForm}>
