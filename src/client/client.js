@@ -4,9 +4,9 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, applyRouterMiddleware, browserHistory, match, useRouterHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import useScroll from '../shared/packages/scroll-behavior/lib/useStandardScroll';
+import { withStandardScroll } from 'scroll-behavior';
 import { useAsyncLoader } from '../shared/packages/redux-async-loader';
-import { useScrollBehavior, scrollTo } from '../shared/packages/scroll-behavior-middleware';
+import { syncScrollBehavior, shouldUpdateScroll } from '../shared/packages/sync-scroll-behavior';
 import Fetchr from 'fetchr';
 import createStore from '../shared/redux/createStore';
 import getRoutes from '../shared/routes';
@@ -19,7 +19,7 @@ const { history, store } = createHistoryAndStoore();
 const routes = getRoutes(store);
 const RenderWithMiddleware = applyRouterMiddleware(
   useAsyncLoader(),
-  useScrollBehavior(),
+  syncScrollBehavior(),
 );
 
 // 非同期のonEnter()がある画面がサーバサイドレンダリングされるとクライアント
@@ -52,14 +52,13 @@ if (__DEVELOPMENT__) {
 }
 
 function createHistoryAndStoore() {
-  const createHistory = useRouterHistory(useScroll(() => browserHistory));
-  const history = createHistory({ scrollTo });
+  withStandardScroll(browserHistory, shouldUpdateScroll);
   const store = createStore(initialState, {
     fetchr: new Fetchr(clientConfig.fetchr),
     fetchrCache: clientConfig.fetchrCache,
-    history,
+    history: browserHistory,
     devTools: __DEVELOPMENT__,
   });
-  const syncHistory = syncHistoryWithStore(history, store);
-  return { history: syncHistory, store };
+  const history = syncHistoryWithStore(browserHistory, store);
+  return { history, store };
 }

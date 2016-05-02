@@ -36,14 +36,14 @@ export default function createReduxApp(config) {
       global.webpackIsomorphicTools.refresh();
     }
 
-    const history = createMemoryHistory(req.url);
+    const memoryHistory = createMemoryHistory(req.url);
     const store = createStore(initialStore.getState(), {
       cookie: req.cookies,
       fetchr: new Fetchr({ ...config.fetchr, req }),
-      history,
+      history: memoryHistory,
       logger,
     });
-    syncHistoryWithStore(history, store);
+    const history = syncHistoryWithStore(memoryHistory, store);
 
     if (__DISABLE_SSR__) {
       return sendResponse(res, store, 200, null);
