@@ -114,7 +114,7 @@ function sendResponse({ res, status, store, clientConfig, content }) {
     content,
     initialState: JSON.stringify(store.getState()),
     clientConfig: JSON.stringify(clientConfig),
-    assetes: global.webpackIsomorphicTools.assets(),
+    assets: global.webpackIsomorphicTools.assets(),
   };
   res.status(status).send(`<!doctype html>\n${renderToStaticMarkup(html(props))}`);
 }

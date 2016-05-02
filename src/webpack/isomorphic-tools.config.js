@@ -1,7 +1,7 @@
 const path = require('path');
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 
-const rootDir = path.resolve(__dirname, '../..');
+const rootDir = path.resolve(__dirname, '../../');
 
 // see this link for more info on what all of this means
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
@@ -14,6 +14,7 @@ module.exports = {
   // Sending SIGTERM to other processes..
   //
   // debug: true,
+  // verbose: true,
 
   webpack_assets_file_path: path.resolve(rootDir, 'build/webpack-assets.json'),
   webpack_stats_file_path: path.resolve(rootDir, 'build/webpack-stats.json'),
@@ -46,18 +47,29 @@ module.exports = {
 
     style_modules: {
       extensions: ['scss'],
+
       filter: function (module, regex, options, log) {
-        // in development mode there's webpack "style-loader",
-        // so the module.name is not equal to module.name
-        return WebpackIsomorphicToolsPlugin.style_loader_filter(module, regex, options, log);
+        if (options.development) {
+          return WebpackIsomorphicToolsPlugin.style_loader_filter(module, regex, options, log);
+        }
+
+        return regex.test(module.name);
       },
+
       path: function (module, options, log) {
-        // in development mode there's webpack "style-loader",
-        // so the module.name is not equal to module.name
-        return WebpackIsomorphicToolsPlugin.style_loader_path_extractor(module, options, log);
+        if (options.development) {
+          return WebpackIsomorphicToolsPlugin.style_loader_path_extractor(module, options, log);
+        }
+
+        return module.name;
       },
+
       parser: function (module, options, log) {
-        return WebpackIsomorphicToolsPlugin.css_modules_loader_parser(module, options, log);
+        if (options.development) {
+          return WebpackIsomorphicToolsPlugin.css_modules_loader_parser(module, options, log);
+        }
+
+        return module.source;
       },
     },
   },

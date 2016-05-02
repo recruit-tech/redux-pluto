@@ -7,24 +7,28 @@ const precss = require('./precss');
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./isomorphic-tools.config'));
 
-const cwd = process.cwd();
+const rootDir = path.resolve(__dirname, '../..');
 const port = +(process.env.PORT || 3000);
-const outputPath = path.resolve(cwd, 'build/browser');
+const outputPath = path.resolve(rootDir, 'build/client');
 const outputPublicPath = '/public/';
 
 module.exports = {
+  target: 'web',
+
   devtool: 'inline-source-map',
+
+  context: rootDir,
 
   entry: {
     client: [
-      './src/client/client.js',
+      path.resolve(rootDir, 'src/client/index.js'),
     ],
   },
 
   output: {
     path: outputPath,
-    publicPath: outputPublicPath,
     filename: '[name].js',
+    publicPath: outputPublicPath,
   },
 
   module: {
@@ -32,8 +36,8 @@ module.exports = {
       {
         test: /\.js$/,
         include: [
-          path.resolve(cwd, 'src/client'),
-          path.resolve(cwd, 'src/shared'),
+          path.resolve(rootDir, 'src/client'),
+          path.resolve(rootDir, 'src/shared'),
         ],
         exclude: [
           /node_modules/,
@@ -48,7 +52,6 @@ module.exports = {
             'syntax-trailing-function-commas',
             'transform-class-properties',
             'transform-object-rest-spread',
-            'transform-runtime',
             ['react-transform',
               {
                 transforms: [
@@ -92,8 +95,8 @@ module.exports = {
 
   resolve: {
     root: [
-      path.resolve(cwd, 'src/client'),
-      path.resolve(cwd, 'src/shared'),
+      path.resolve(rootDir, 'src/client'),
+      path.resolve(rootDir, 'src/shared'),
     ],
     extensions: ['', '.js', '.jsx'],
     packageAlias: 'browser',
@@ -102,9 +105,13 @@ module.exports = {
   plugins: [
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('development'),
+      },
       __CLIENT__: true,
       __SERVER__: false,
       __DEVELOPMENT__: true,
+      __DEVTOOLS__: true,
     }),
     webpackIsomorphicToolsPlugin.development(true),
   ],

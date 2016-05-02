@@ -27,9 +27,11 @@ export default function (initialState, options = {}) {
   ]);
 
   const devTools = [];
-  if (options.devTools) {
-    const DevTools = require('../components/utils/DevTools').default;
-    devTools.push(DevTools.instrument());
+  if (__DEVELOPMENT__) {
+    if (options.devTools) {
+      const DevTools = require('../components/utils/DevTools').default;
+      devTools.push(DevTools.instrument());
+    }
   }
 
   const enhancer = compose(
