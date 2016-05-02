@@ -34,7 +34,10 @@ export default {
   favicon: path.resolve(rootDir, 'statics/favicon.ico'),
 
   // https://github.com/expressjs/serve-static
-  static: path.resolve(rootDir, 'statics'),
+  assets: [
+    { mount: '/public', path: path.resolve(rootDir, 'statics') },
+    __DEVELOPMENT__ ? null : { mount: '/public', path: path.resolve(rootDir, 'build/client') },
+  ].filter(Boolean),
 
   // https://github.com/yahoo/fetchr
   fetchr: {},
@@ -78,7 +81,7 @@ export default {
       Bv1zzug8U4kzlIugMowA+SC7DLkc6d81Sx2iGH1ASkOw+xshJpZMpx9u4Cu8EpSK
       tMjlRQ76w+rxG81/8bUwncR3Y6GLASjuMZYF3a52amXTC4Qf+eE=
       -----END RSA PRIVATE KEY-----
-    `.replace(/^[ \n]*/gm, ''),
+    `.replace(/^[ \t\n]*/gm, ''),
     secret: `
       -----BEGIN PUBLIC KEY-----
       MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzEmHXt1PR4N4nFMrmvl8
@@ -89,7 +92,7 @@ export default {
       c70poixG32dAYuKthf70sqvJcdFqj9nikhRpWffLlilrvvYrcb5DJGMjvRbRTssC
       SwIDAQAB
       -----END PUBLIC KEY-----
-    `.replace(/^[ \n]*/gm, ''),
+    `.replace(/^[ \t\n]*/gm, ''),
   },
 
   clientConfig: {

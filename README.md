@@ -7,16 +7,16 @@
 * Caching
 * Forms
 * Validation
-* Webpack Configuration for Development Mode (Client only)
+* Better scroll behavior
+* CSS Modules (SCSS)
 * ESLint Configuration (Based on Airbnb style)
 * JSCS Configuration (Based on Airbnb style)
-* CSS Modules (SCSS)
-* Better scroll behavior
+* Webpack Configuration for Development Mode (Client only)
+* Webpack Configuration for Production Mode (Client and Server)
 
 ## TODOs
 
 * Authentication and Authorization (OAuth2 and/or OpenID Connect)
-* Webpack Configuration for Production Mode (Client and Server)
 * Code splitting
 * Offload Mode
 * Unit Testing

@@ -10,11 +10,6 @@ import debugFactory from 'debug';
 import config from './configs';
 import { reduxApp as createReduxApp, apiGateway } from './middlewares';
 
-global.__CLIENT__ = false;
-global.__SERVER__ = true;
-global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
-global.__DISABLE_SSR__ = false;  // <----- DISABLES SERVER SIDE RENDERING FOR ERROR DEBUGGING
-
 const debug = debugFactory('app:server:main');
 
 const { reduxApp, loadInitialData } = createReduxApp(config);
@@ -26,7 +21,9 @@ app.use(cookieParser(config.cookieParser));
 app.use(session(config.session));
 app.use(csurf(config.csurf));
 app.use(favicon(config.favicon));
-app.use(express.static(config.static));
+config.assets.forEach((asset) => {
+  app.use(asset.mount, express.static(asset.path));
+});
 app.use(config.clientConfig.fetchr.xhrPath, apiGateway(config));
 app.use(reduxApp);
 app.use((req, res) => {
