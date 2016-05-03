@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import { createLocal } from '../utils/localnames';
-import styles from './Header.scss';
+import { createLocal } from '../../utils/localnames';
+import styles from './styles.scss';
 
 const { localNames: local } = createLocal(styles);
 

@@ -9,27 +9,30 @@ import App from './components/organisms/App';
 import Style from './components/organisms/Style';
 import StyleList from './components/organisms/StyleList';
 import Login from './components/organisms/Login';
+import DefaultLayout from './components/templates/DefaultLayout';
 import { checkLogin, logout } from './redux/modules/auth';
 
 export default function getRoutes(store) {
   return (
     <Route path="/" component={App}>
-      <IndexRoute component={Home} />
+      <Route component={DefaultLayout}>
+        <IndexRoute component={Home} />
 
-      <Route path="style" onEnter={bindOnEnter(requiredLogin)}>
-        <IndexRoute component={Style} />
-        <Route path=":gender" component={Style} onChange={bindOnChange(requiredLogin)}>
-          <Route path=":hairLength" component={StyleList} />
+        <Route path="style" onEnter={bindOnEnter(requiredLogin)}>
+          <IndexRoute component={Style} />
+          <Route path=":gender" component={Style} onChange={bindOnChange(requiredLogin)}>
+            <Route path=":hairLength" component={StyleList} />
+          </Route>
         </Route>
+
+        <Route path="login" component={Login} />
+        <Route path="logout" onEnter={bindOnEnter(doLogout)} />
+
+        <Route path="foo" component={Foo} />
+        <Route path="bar" component={Bar} />
+        <Route path="error" component={Error} status={500} />
+        <Route path="*" component={NotFound} status={404} />
       </Route>
-
-      <Route path="login" component={Login} />
-      <Route path="logout" onEnter={bindOnEnter(doLogout)} />
-
-      <Route path="foo" component={Foo} />
-      <Route path="bar" component={Bar} />
-      <Route path="error" component={Error} status={500} />
-      <Route path="*" component={NotFound} status={404} />
     </Route>
   );
 
