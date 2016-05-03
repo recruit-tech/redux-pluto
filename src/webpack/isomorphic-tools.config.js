@@ -2,22 +2,16 @@ const path = require('path');
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 
 const rootDir = path.resolve(__dirname, '../../');
+const filePrefix = process.env.NODE_ENV === 'production' ? 'prod' : 'dev';
 
 // see this link for more info on what all of this means
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 module.exports = {
-
-  // when adding "js" extension to asset types
-  // and then enabling debug mode, it may cause a weird error:
-  //
-  // [0] npm run start-prod exited with code 1
-  // Sending SIGTERM to other processes..
-  //
   // debug: true,
   // verbose: true,
 
-  webpack_assets_file_path: path.resolve(rootDir, 'build/webpack-assets.json'),
-  webpack_stats_file_path: path.resolve(rootDir, 'build/webpack-stats.json'),
+  webpack_assets_file_path: path.resolve(rootDir, `build/${filePrefix}.webpack-assets.json`),
+  webpack_stats_file_path: path.resolve(rootDir, `build/${filePrefix}.webpack-stats.json`),
 
   assets: {
     images: {

@@ -1,7 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
+const strip = require('strip-loader');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+const precss = require('./precss');
 
 const rootDir = path.resolve(__dirname, '../..');
 const outputPath = path.resolve(rootDir, 'build/server');
@@ -72,6 +75,10 @@ module.exports = {
         ]),
       },
     ],
+  },
+
+  postcss: function () {
+    return [precss, autoprefixer];
   },
 
   progress: true,

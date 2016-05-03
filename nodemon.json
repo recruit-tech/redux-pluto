@@ -1,0 +1,8 @@
+{
+  "verbose": true,
+  "watch": [
+    "build/dev.webpack-assets.json",
+    "src/server",
+    "src/shared"
+  ]
+}

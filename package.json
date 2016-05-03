@@ -17,7 +17,7 @@
     "prod": "npm-run-all build prod:start",
     "start": "npm run start:dev",
     "start:dev": "cross-env NODE_ENV=development npm-run-all --parallel start:dev:{webpack,nodemon}",
-    "start:dev:nodemon": "nodemon --verbose --watch src --ignore src/webpack/ --exec npm run start:dev:server",
+    "start:dev:nodemon": "nodemon --exec npm run start:dev:server",
     "start:dev:server": "cross-env DEBUG=express:*,css-modules:*,app:* babel-node bin/start-server.js",
     "start:dev:webpack": "webpack-dev-server --hot --inline --config src/webpack/dev.client.config.js",
     "start:prod": "cross-env NODE_ENV=production npm run start:prod:server",
