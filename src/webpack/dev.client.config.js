@@ -89,8 +89,14 @@ module.exports = {
     ],
   },
 
-  postcss: function () {
-    return [precss, autoprefixer];
+  postcss: function (webpack) {
+    return [
+      precss({
+        addDependencyTo: webpack,
+        import: { addDependencyTo: webpack },
+      }),
+      autoprefixer,
+    ];
   },
 
   resolve: {
