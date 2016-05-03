@@ -51,13 +51,13 @@
     "react-redux": "4.4.5",
     "react-router": "2.4.0",
     "react-router-redux": "4.0.4",
+    "react-router-scroll": "0.1.0",
     "recompose": "0.17.0",
     "redux": "3.5.2",
     "redux-actions": "0.9.1",
     "redux-effects": "0.4.3",
     "redux-effects-cookie": "0.2.3",
     "redux-form": "5.2.3",
-    "scroll-behavior": "0.5.0",
     "serve-favicon": "2.3.0"
   },
   "devDependencies": {
