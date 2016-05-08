@@ -1,5 +1,38 @@
-@import "../../mixins.scss";
+.root {
+  text-align: center;
+  padding-top: 24px;
+}
 
-.main {
-  @include border-default;
+.serviceLogo {
+  margin-bottom: 24px;
+}
+
+.corporateLogo {
+}
+
+.links {
+}
+
+.items {
+  display: flex;
+  justify-content: space-around;
+  overflow: hidden;
+}
+
+.item {
+  flex-grow: 1;
+}
+
+.link {
+  display: block;
+  padding: 12px 0;
+  background-color: lightgrey;
+
+  &:hover {
+    background-color: darkgray;
+  }
+
+  &-isActive {
+    background-color: grey;
+  }
 }

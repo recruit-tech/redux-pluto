@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { compose, onlyUpdateForPropTypes } from 'recompose';
+import Overlay from '../../atoms/Overlay';
 import { createLocal } from '../../utils/localnames';
-import stopPropagation from '../../utils/stopPropagation'
+import stopPropagation from '../../utils/stopPropagation';
 import styles from './styles.scss';
 
 const { localNames: local } = createLocal(styles);
@@ -24,11 +25,11 @@ export default compose(
     }
 
     return (
-      <div onClick={onClose} className={local('main')}>
-        <div className={local('obiOuter')}>
-          <div className={local('obiInner')}>
-            <div onClick={stopPropagation} className={local('displayAreaOuter')}>
-              <div className={local('displayAreaInner')}>
+      <div className={local('root')}>
+        <Overlay onClick={onClose}>
+          <div className={local('obiOuter')}>
+            <div onClick={stopPropagation} className={local('obiInner')}>
+              <div className={local('displayArea')}>
                 <div className={local('messageArea')}>
                   <span>{message}</span>
                 </div>
@@ -38,7 +39,7 @@ export default compose(
               </div>
             </div>
           </div>
-        </div>
+        </Overlay>
       </div>
     );
   }

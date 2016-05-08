@@ -6,11 +6,11 @@ export default class Bar extends Component {
     array.fill(0);
 
     return (
-      <div>
+      <main>
         {array.map((e, i) => (
           <div key={i}>Bar!</div>
         ))}
-      </div>
+      </main>
     );
   }
 }

@@ -7,19 +7,19 @@ const { localNames: local } = createLocal(styles);
 
 export default compose(
   onlyUpdateForPropTypes,
-)(class Counter extends Component {
+)(class Menu extends Component {
 
   static propTypes = {
-    counterValue: PropTypes.number.isRequired,
+    children: PropTypes.node.isRequired,
   };
 
   render() {
-    const { counterValue } = this.props;
+    const { children } = this.props;
 
     return (
-      <div className={local('root')}>
-        access counter: {counterValue || ''}
-      </div>
+      <ul role="menu" className={local('items')}>
+        {children}
+      </ul>
     );
   }
 });

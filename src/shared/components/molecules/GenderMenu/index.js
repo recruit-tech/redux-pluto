@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { compose, onlyUpdateForPropTypes } from 'recompose';
-import GenderLink from './GenderLink';
+import Menu from '../../atoms/Menu';
+import MenuItem from '../../atoms/MenuItem';
 
 export default compose(
   onlyUpdateForPropTypes,
@@ -17,9 +18,13 @@ export default compose(
 
     return (
       <div>
-        {Object.keys(genderItems).map((genderCode) => (
-          <GenderLink key={genderCode} gender={genderItems[genderCode]} />
-        ))}
+        <Menu>
+          {Object.keys(genderItems).map((code) => (
+            <MenuItem key={code} to={`/style/${code}`} checked={code === gender}>
+              {genderItems[code].name}
+            </MenuItem>
+          ))}
+        </Menu>
       </div>
     );
   }

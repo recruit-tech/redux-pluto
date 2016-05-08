@@ -8,9 +8,9 @@ const { localNames: local } = createLocal(styles);
 export default class Footer extends Component {
   render() {
     return (
-      <div className={local('main')}>
+      <footer className={local('root')}>
         <Counter />
-      </div>
+      </footer>
     );
   }
 }
