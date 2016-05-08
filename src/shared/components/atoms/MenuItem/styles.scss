@@ -1,0 +1,17 @@
+.item {
+  flex-grow: 1;
+  background-color: lightgrey;
+
+  &[aria-checked=true] {
+    background-color: grey;
+  }
+
+  &:hover {
+    background-color: darkgray;
+  }
+}
+
+.link {
+  display: block;
+  padding: 12px 0;
+}

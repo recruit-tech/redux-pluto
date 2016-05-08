@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { propTypes as formPropTypes} from 'redux-form';
+import { propTypes as formPropTypes } from 'redux-form';
 import { compose, onlyUpdateForPropTypes } from 'recompose';
 
 export default compose(

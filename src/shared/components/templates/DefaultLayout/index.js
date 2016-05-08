@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { compose, onlyUpdateForPropTypes } from 'recompose';
-import Header from '../../organisms/Header';
-import Footer from '../../organisms/Footer';
 import Alert from '../../organisms/Alert';
 import { createLocal } from '../../utils/localnames';
 import styles from './styles.scss';
@@ -13,22 +11,24 @@ export default compose(
 )(class DefaultLayout extends Component {
 
   static propTypes = {
-    children: PropTypes.object.isRequired,
+    header: PropTypes.object.isRequired,
+    main: PropTypes.object.isRequired,
+    footer: PropTypes.object.isRequired,
   };
 
   render() {
-    const { children } =  this.props;
+    const { header, main, footer } =  this.props;
 
     return (
-      <div className={local('main')}>
+      <div className={local('root')}>
         <div className={local('header')}>
-          <Header />
+          {header}
         </div>
-        <div className={local('content')}>
-          {children}
+        <div className={local('main')}>
+          {main}
         </div>
         <div className={local('footer')}>
-          <Footer />
+          {footer}
         </div>
         <div className={local('alert')}>
           <Alert />

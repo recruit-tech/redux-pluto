@@ -16,16 +16,17 @@ export default compose(
     children: PropTypes.object,
     params: PropTypes.shape({
       gender: PropTypes.string,
+      hairLength: PropTypes.string,
     }),
   };
 
   render() {
-    const { genderItems, hairLengthItems, children, params: { gender } } = this.props;
+    const { genderItems, hairLengthItems, children, params: { gender, hairLength } } = this.props;
 
     return (
       <div>
-        <GenderMenu genderItems={genderItems} />
-        <HairLengthMenu {...{ gender, genderItems, hairLengthItems }} />
+        <GenderMenu genderItems={genderItems} gender={gender} />
+        <HairLengthMenu {...{ gender, hairLength, genderItems, hairLengthItems }} />
         <div>
           {children}
         </div>

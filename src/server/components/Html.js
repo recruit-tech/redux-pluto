@@ -6,6 +6,7 @@ export default function Html({ assets, content, initialState, clientConfig }) {
     <html>
       <head>
         <meta charSet="utf-8" />
+        <meta name="viewport" content="width=320,initial-scale=1.0" />
         {Object.keys(assets.styles).map((style, i) => (
           <link
             key={i}
