@@ -60,7 +60,6 @@
     "arrow-parens": "error",
     "constructor-super": "error",
     "generator-star-spacing": ["error", "after"],
-    "no-class-assign": "error",
     "no-this-before-super": "error",
     "prefer-spread": "error",
 
