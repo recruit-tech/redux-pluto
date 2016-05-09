@@ -12,7 +12,7 @@ export default compose(
 )(class Overlay extends Component {
 
   static propTypes = {
-    children: PropTypes.object.isRequired,
+    children: PropTypes.node.isRequired,
     onClick: PropTypes.func,
   };
 

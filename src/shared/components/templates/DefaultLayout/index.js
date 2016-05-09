@@ -11,9 +11,9 @@ export default compose(
 )(class DefaultLayout extends Component {
 
   static propTypes = {
-    header: PropTypes.object.isRequired,
-    main: PropTypes.object.isRequired,
-    footer: PropTypes.object.isRequired,
+    header: PropTypes.node.isRequired,
+    main: PropTypes.node.isRequired,
+    footer: PropTypes.node.isRequired,
   };
 
   render() {
