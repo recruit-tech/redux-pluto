@@ -10,7 +10,7 @@ export default compose(
 )(class Main extends Component {
 
   static propTypes = {
-    children: PropTypes.object.isRequired,
+    children: PropTypes.node.isRequired,
   };
 
   render() {
