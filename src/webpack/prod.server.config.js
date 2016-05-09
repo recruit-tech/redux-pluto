@@ -89,7 +89,6 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development'),
-        PORT: 3000,
       },
       __CLIENT__: false,
       __SERVER__: true,
