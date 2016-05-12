@@ -86,17 +86,17 @@ export default class ReduxAsyncLoaderContext extends Component {
   }
 
   loadAsync(props) {
-    const { children, components, params } = props;
-    const { store } = this.context;
-    const { dispatch } = store;
+    const { children, components } = props;
 
     const flattened = flattenComponents(components);
     if (!flattened.length) {
       return;
     }
 
+    const { store } = this.context;
+    const { dispatch } = store;
     this.beginLoad(dispatch, children)
-      .then(() => loadAsync(flattened, params, store))
+      .then(() => loadAsync(flattened, { ...props, store }))
       .then(
         () => this.endLoad(dispatch),
         (error) => this.endLoad(dispatch, error),

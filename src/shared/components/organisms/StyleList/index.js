@@ -5,7 +5,7 @@ import { searchStyle } from '../../../redux/modules/style';
 import StyleList from './StyleList';
 
 export default compose(
-  asyncLoader((params, { dispatch }) => dispatch(searchStyle(params))),
+  asyncLoader(({ params, store: { dispatch } }) => dispatch(searchStyle(params))),
   connect(
     (state) => ({
       count: state.style.count,

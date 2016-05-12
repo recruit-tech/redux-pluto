@@ -12,12 +12,12 @@ export default function deferLoader(loader) {
 
       componentDidMount() {
         const { store } = this.context;
-        loader(this.props, store);
+        loader({ ...this.props, store });
       }
 
       componentWillReceiveProps(nextProps) {
         const { store } = this.context;
-        loader(nextProps, store);
+        loader({ ...nextProps, store });
       }
 
       render() {
