@@ -2,15 +2,15 @@ import { beginAsyncLoad, endAsyncLoad } from './actions';
 import flattenComponents from './flattenComponents';
 import loadAsync from './loadAsync';
 
-export default function loadOnServer(renderProps) {
-  const { components, store: { dispatch } } = renderProps;
-  const flattened = flattenComponents(components);
+export default function loadOnServer(renderProps, store) {
+  const flattened = flattenComponents(renderProps.components);
   if (!flattened.length) {
     return Promise.resolve();
   }
 
+  const { dispatch } = store;
   dispatch(beginAsyncLoad(true));
-  return loadAsync(flattened, renderProps).then(
+  return loadAsync(flattened, renderProps, store).then(
     (v) => {
       dispatch(endAsyncLoad(true));
       return v;
