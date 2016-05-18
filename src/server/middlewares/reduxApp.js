@@ -63,7 +63,7 @@ export default function createReduxApp(config) {
       }
 
       Promise.all([
-        loadOnServer({ ...renderProps, store }),
+        loadOnServer(renderProps, store),
         store.dispatch(checkLogin()).catch(() => null),
       ]).then(() => {
         tryRender(res, () => {
