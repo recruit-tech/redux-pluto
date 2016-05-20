@@ -17,6 +17,8 @@ const debug = debugFactory('app:server:middleware:reduxApp');
 const html = createFactory(Html);
 
 export default function createReduxApp(config) {
+  const maxAge = Math.floor(config.offload.cache.maxAge / 1000);
+
   const logger = __DEVELOPMENT__ ? (store) => (next) => (action) => {
     debug(`Invoking action: ${inspect(action).replace(/\s*\n\s*/g, ' ')}`);
     return next(action);
@@ -46,7 +48,13 @@ export default function createReduxApp(config) {
     const history = syncHistoryWithStore(memoryHistory, store);
 
     if (__DISABLE_SSR__) {
-      return sendResponse(res, store, 200, null);
+      return sendResponse({ res, store, status: 200, clientConfig: getClientConfig(config, req) });
+    }
+
+    if (req.offloadMode) {
+      debug('offload mode, disable server-side rendering');
+      res.set('cache-control', `max-age=${maxAge}`);
+      return sendResponse({ res, store, status: 200, clientConfig: getClientConfig(config, req) });
     }
 
     match({ history, routes: getRoutes(store) }, (error, redirectLocation, renderProps) => {
@@ -78,9 +86,7 @@ export default function createReduxApp(config) {
 
           const { routes } = renderProps;
           const status = routes[routes.length - 1].status || 200;
-          const clientConfig = config.clientConfig;
-          clientConfig.fetchr.context._csrf = req.csrfToken();
-          sendResponse({ res, status, store, clientConfig, content });
+          sendResponse({ res, status, store, content, clientConfig: getClientConfig(config, req) });
         });
       }).catch((error) => {
         debug(error);
@@ -98,6 +104,20 @@ export default function createReduxApp(config) {
   }
 
   return { reduxApp, loadInitialData };
+}
+
+function getClientConfig(config, req) {
+  const { fetchr, ...clientConfig } = config.clientConfig;
+  return {
+    ...clientConfig,
+    fetchr: {
+      ...fetchr,
+      context: {
+        ...fetchr.context,
+        _csrf: req.csrfToken(),
+      },
+    },
+  };
 }
 
 function tryRender(res, render) {

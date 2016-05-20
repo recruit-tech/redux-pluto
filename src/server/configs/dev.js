@@ -51,6 +51,14 @@ export default {
     },
   },
 
+  offload: {
+    limit: 5,
+    window: ms('1m'),
+    cache: {
+      maxAge: ms('3m'),
+    },
+  },
+
   auth: {
     maxAge: ms('3m'),
     key: `
