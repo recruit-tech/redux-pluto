@@ -11,7 +11,7 @@ export default function fetchrCacheMiddleware(config) {
     }
 
     const { type, resource, params } = action.payload;
-    if (type !== 'read' || excludes.indexOf(resource) !== -1) {
+    if (type !== 'read' || excludes.includes(resource)) {
       return next(action);
     }
 
