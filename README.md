@@ -8,6 +8,7 @@
 * Forms
 * Validation
 * Better scroll behavior
+* Offload Mode
 * CSS Modules (SCSS)
 * ESLint Configuration (Based on Airbnb style)
 * JSCS Configuration (Based on Airbnb style)
@@ -18,6 +19,5 @@
 
 * Authentication and Authorization (OAuth2 and/or OpenID Connect)
 * Code splitting
-* Offload Mode
 * Unit Testing
 * End to End Testing

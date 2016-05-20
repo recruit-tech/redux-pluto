@@ -8,7 +8,7 @@ import csurf from 'csurf';
 import favicon from 'serve-favicon';
 import debugFactory from 'debug';
 import config from './configs';
-import { reduxApp as createReduxApp, apiGateway } from './middlewares';
+import { apiGateway, offloadDetector, reduxApp as createReduxApp } from './middlewares';
 
 const debug = debugFactory('app:server:main');
 
@@ -25,6 +25,7 @@ config.assets.forEach((asset) => {
   app.use(asset.mount, express.static(asset.path));
 });
 app.use(config.clientConfig.fetchr.xhrPath, apiGateway(config));
+app.use(offloadDetector(config.offload));
 app.use(reduxApp);
 app.use((req, res) => {
   res.status(404).send('Not found');
