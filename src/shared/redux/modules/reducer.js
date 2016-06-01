@@ -7,6 +7,7 @@ import auth from './auth';
 import masters from './masters';
 import style from './style';
 import counter from './counter';
+import loading from './loading';
 
 export default combineReducers({
   masters,
@@ -14,6 +15,7 @@ export default combineReducers({
   style,
   counter,
   alert,
+  loading,
   form: formReducer,
   reduxAsyncLoader,
   routing: routerReducer,
