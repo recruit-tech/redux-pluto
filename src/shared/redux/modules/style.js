@@ -37,7 +37,7 @@ const INITIAL_STATE = {
   loaded: false,
   params: null,
   count: 0,
-  items: null,
+  items: [],
 };
 
 /**
