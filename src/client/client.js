@@ -46,7 +46,7 @@ match({ routes, history }, (error, redirectLocation, renderProps) => {
   render(content, document.getElementById('root'));
 });
 
-if (__DEVELOPMENT__) {
+if (__DEVELOPMENT__ && !window.devToolsExtension) {
   window.React = React; // enable debugger
   const DevTools = require('../shared/components/utils/DevTools').default;
   const content = (

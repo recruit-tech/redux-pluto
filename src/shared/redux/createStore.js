@@ -33,7 +33,7 @@ export default function (initialState, options = {}) {
   if (__DEVELOPMENT__) {
     if (options.devTools) {
       const DevTools = require('../components/utils/DevTools').default;
-      devTools.push(DevTools.instrument());
+      devTools.push(window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument());
     }
   }
 
