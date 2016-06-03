@@ -1,9 +1,8 @@
 import transform from 'lodash/fp/transform';
 import { createAction, handleActions } from 'redux-actions';
-import { bind } from 'redux-effects';
 import { compose } from 'recompose';
+import { steps, multi } from '../../packages/redux-effects-ext';
 import { fetchrRead } from '../../packages/redux-effects-fetchr';
-import { multi } from '../../packages/redux-effects-multi';
 import { initialState, filterActionType } from './utils';
 
 /**
@@ -24,11 +23,13 @@ const loadMasterSuccess = createAction(LOAD_MASTER_SUCCESS, (resource, items) =>
 const loadMasterFail = createAction(LOAD_MASTER_FAIL, (resource, error) => ({ resource, error }));
 
 function loadMaster(resource) {
-  return multi(
+  return steps(
     loadMasterRequest(resource),
-    bind(fetchrRead(resource),
+    fetchrRead(resource),
+    [
       (payload) => loadMasterSuccess(resource, payload.data),
-      (error) => loadMasterFail(resource, error)),
+      (error) => loadMasterFail(resource, error),
+    ],
   );
 }
 
@@ -93,7 +94,7 @@ export default compose(
     [resource]: {
       loading: true,
       loaded: false,
-      items: null,
+      items: [],
     },
   }),
 
@@ -111,7 +112,7 @@ export default compose(
     [resource]: {
       loading: false,
       loaded: false,
-      items: null,
+      items: [],
       error,
     },
   }),
