@@ -1,5 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
-import { bind } from 'redux-effects';
+import { steps } from '../../packages/redux-effects-ext';
 import { compose } from 'recompose';
 import { initialState, filterActionType } from './utils';
 
@@ -33,7 +33,10 @@ const checkLoginSuccess = createAction(AUTH_CHECK_LOGIN_SUCCESS);
 const checkLoginFail = createAction(AUTH_CHECK_LOGIN_FAIL);
 
 export function checkLogin() {
-  return bind(checkLoginRequest(), checkLoginSuccess, checkLoginFail);
+  return steps(
+    checkLoginRequest(),
+    [checkLoginSuccess, checkLoginFail],
+  );
 }
 
 const loginRequest = createAction(AUTH_LOGIN_REQUEST,
@@ -44,7 +47,10 @@ const loginSuccess = createAction(AUTH_LOGIN_SUCCESS);
 const loginFail = createAction(AUTH_LOGIN_FAIL);
 
 export function login(username, password, location) {
-  return bind(loginRequest(username, password, location), loginSuccess, loginFail);
+  return steps(
+    loginRequest(username, password, location),
+    [loginSuccess, loginFail],
+  );
 }
 
 const logoutRequest = createAction(AUTH_LOGOUT_REQUEST);
@@ -54,7 +60,10 @@ const logoutSuccess = createAction(AUTH_LOGOUT_SUCCESS);
 const logoutFail = createAction(AUTH_LOGOUT_FAIL);
 
 export function logout() {
-  return bind(logoutRequest(), logoutSuccess, logoutFail);
+  return steps(
+    logoutRequest(),
+    [logoutSuccess, logoutFail],
+  );
 }
 
 /**
