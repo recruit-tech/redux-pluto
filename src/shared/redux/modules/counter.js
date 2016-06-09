@@ -1,8 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { compose } from 'recompose';
-import { bind } from 'redux-effects';
+import { steps } from '../../packages/redux-effects-ext';
 import { fetchrUpdate } from '../../packages/redux-effects-fetchr';
-import { multi } from '../../packages/redux-effects-multi';
 import { initialState } from './utils';
 
 /**
@@ -23,12 +22,10 @@ const incrementSuccess = createAction(COUNTER_INCREMENT_SUCCESS);
 const incrementFail = createAction(COUNTER_INCREMENT_FAIL);
 
 export function increment() {
-  return multi(
+  return steps(
     incrementRequest(),
-    bind(fetchrUpdate('counter'),
-      incrementSuccess,
-      incrementFail
-    ),
+    fetchrUpdate('counter'),
+    [incrementSuccess, incrementFail],
   );
 }
 
