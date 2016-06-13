@@ -11,7 +11,11 @@
   "env": {
     "development": {
       "presets": [
-        "power-assert"
+        "power-assert",
+      ],
+      "plugins": [
+        "syntax-async-functions",
+        "transform-async-to-generator"
       ]
     }
   }

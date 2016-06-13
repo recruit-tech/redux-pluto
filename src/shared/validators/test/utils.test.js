@@ -11,7 +11,7 @@ test('getOptions', (done) => {
 
 test('normalizeErrors has error', (done) => {
   const key = Joi.string().alphanum().min(3).required();
-  const { error } = Joi.validate({key: 1}, { key }, getOptions());
+  const { error } = Joi.validate({ key: 1 }, { key }, getOptions());
   assert(error.details[0].message === '"key" must be a string');
   done();
 });

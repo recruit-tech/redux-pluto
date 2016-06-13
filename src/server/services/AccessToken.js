@@ -8,8 +8,8 @@ import { rejectWith } from './utils';
 
 const debug = debugFactory('app:server:services:accessToken');
 
-const ACCESS_TOKEN_COOKIE_NAME = 'access-token';
-const ACCESS_TOKEN_AUDIENCE_NAME = 'redux-proto';
+export const ACCESS_TOKEN_COOKIE_NAME = 'access-token';
+export const ACCESS_TOKEN_AUDIENCE_NAME = 'redux-proto';
 
 export default class AccessToken {
   constructor(config) {
@@ -72,7 +72,7 @@ export default class AccessToken {
   }
 }
 
-function sign(payload, key) {
+export function sign(payload, key) {
   return jwtSign(payload, key, {
     algorithm: 'RS256',
   });
