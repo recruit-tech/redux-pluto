@@ -12,7 +12,7 @@
     "clean-start": "npm-run-all clean build start:prod",
     "eslint": "eslint src",
     "fixpack": "fixpack",
-    "jscs": "jscs src",
+    "jscs": "jscs src --fix",
     "lint": "npm-run-all eslint jscs",
     "prod": "npm-run-all build prod:start",
     "start": "npm run start:dev",
@@ -22,7 +22,7 @@
     "start:dev:webpack": "webpack-dev-server --hot --inline --config src/webpack/dev.client.config.js",
     "start:prod": "cross-env NODE_ENV=production npm run start:prod:server",
     "start:prod:server": "node bin/start-server",
-    "test": "eater --require babel-core/register --dir src --ext .test.js"
+    "test": "eater --require babel-core/register --require ./test/config.js --dir src --ext .test.js"
   },
   "dependencies": {
     "axios": "0.12.0",
@@ -69,7 +69,9 @@
     "babel-jscs": "3.0.0-beta1",
     "babel-loader": "6.2.4",
     "babel-plugin-react-transform": "2.0.2",
+    "babel-plugin-syntax-async-functions": "^6.8.0",
     "babel-plugin-syntax-trailing-function-commas": "6.8.0",
+    "babel-plugin-transform-async-to-generator": "^6.8.0",
     "babel-plugin-transform-class-properties": "6.9.1",
     "babel-plugin-transform-object-rest-spread": "6.8.0",
     "babel-plugin-transform-react-constant-elements": "6.9.1",
@@ -122,6 +124,7 @@
     "redux-devtools-log-monitor": "1.0.11",
     "redux-mock-store": "^1.1.0",
     "rimraf": "2.5.2",
+    "seamless-immutable": "^6.1.0",
     "strip-loader": "0.1.2",
     "style-loader": "0.13.1",
     "webpack": "1.13.1",
