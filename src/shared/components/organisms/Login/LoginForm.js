@@ -1,15 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { propTypes as formPropTypes } from 'redux-form';
-import { compose, onlyUpdateForPropTypes } from 'recompose';
+import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 
 export default compose(
   onlyUpdateForPropTypes,
+  setPropTypes({ ...formPropTypes }),
 )(class LoginForm extends Component {
-
-  static propTypes = {
-    ...formPropTypes,
-  };
-
   render() {
     const { fields: { username, password }, error, handleSubmit, resetForm, submitting } = this.props;
     const hasError = !!(error || username.error || password.error);

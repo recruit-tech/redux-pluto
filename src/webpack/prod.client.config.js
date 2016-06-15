@@ -79,7 +79,6 @@ module.exports = {
             ],
             plugins: [
               'syntax-trailing-function-commas',
-              'transform-class-properties',
               'transform-object-rest-spread',
               'transform-react-constant-elements',
               'transform-react-inline-elements',

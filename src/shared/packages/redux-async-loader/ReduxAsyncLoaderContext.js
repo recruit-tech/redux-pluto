@@ -6,29 +6,7 @@ import flattenComponents from './flattenComponents';
 import loadAsync from './loadAsync';
 import { reducerName } from './names';
 
-export default class ReduxAsyncLoaderContext extends Component {
-  static contextTypes = {
-    store: PropTypes.object.isRequired,
-  };
-
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    components: PropTypes.array.isRequired,
-    params: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
-    getAsyncLoaderState: PropTypes.func,
-    onError: PropTypes.func,
-  };
-
-  static defaultProps = {
-    getAsyncLoaderState(state) {
-      return state[reducerName];
-    },
-    onError(error) {
-      // ignore
-    },
-  };
-
+class ReduxAsyncLoaderContext extends Component {
   constructor(props, context) {
     super(props, context);
 
@@ -62,7 +40,7 @@ export default class ReduxAsyncLoaderContext extends Component {
 
     const { enterRoutes } = computeChangedRoutes(
       { routes: this.props.routes, params: this.props.params },
-      { routes: nextProps.routes, params: nextProps.params },
+      { routes: nextProps.routes, params: nextProps.params }
     );
 
     const indexDiff = nextProps.components.length - enterRoutes.length;
@@ -71,7 +49,7 @@ export default class ReduxAsyncLoaderContext extends Component {
       components.push(nextProps.components[indexDiff + i]);
     }
 
-    this.loadAsync({ ...nextProps, components });
+    this.loadAsync(Object.assign({},  nextProps, { components }));
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -99,7 +77,7 @@ export default class ReduxAsyncLoaderContext extends Component {
       .then(() => loadAsync(flattened, props, store))
       .then(
         () => this.endLoad(dispatch),
-        (error) => this.endLoad(dispatch, error),
+        (error) => this.endLoad(dispatch, error)
       );
   }
 
@@ -131,3 +109,27 @@ export default class ReduxAsyncLoaderContext extends Component {
     return loading ? this.state.children : this.props.children;
   }
 }
+
+ReduxAsyncLoaderContext.contextTypes = {
+  store: PropTypes.object.isRequired,
+};
+
+ReduxAsyncLoaderContext.propTypes = {
+  children: PropTypes.node.isRequired,
+  components: PropTypes.array.isRequired,
+  params: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  getAsyncLoaderState: PropTypes.func,
+  onError: PropTypes.func,
+};
+
+ReduxAsyncLoaderContext.defaultProps = {
+  getAsyncLoaderState(state) {
+    return state[reducerName];
+  },
+  onError(error) {
+    // ignore
+  },
+};
+
+export default ReduxAsyncLoaderContext;
