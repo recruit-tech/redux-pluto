@@ -1,11 +1,10 @@
 /* eslint-disable no-undefined */
 import { test } from 'eater/runner';
 import assert from 'power-assert';
-import createStore from '../createStore';
 import Fetchr from 'fetchr';
 import { ACCESS_TOKEN_AUDIENCE_NAME, sign } from '../../../server/services/AccessToken';
-import { login, logout, checkLogin } from '../modules/auth';
-import { createMemoryHistory } from 'react-router';
+import { checkLogin } from '../modules/auth';
+import { createStore } from './storeUtil';
 import configs from '../../../server/configs';
 
 /**
@@ -21,47 +20,37 @@ Fetchr.registerService({
   },
 });
 
-test('auth: checkLogin success', async (done, fail) => {
+test('auth: checkLogin success', (done, fail) => {
   const checkLoginAction = checkLogin();
-  const token = await sign({
+  sign({
     sub: 'scott',
     aud: ACCESS_TOKEN_AUDIENCE_NAME,
     exp: Math.floor(Date.now() / 1000),
-  }, configs.auth.key);
-
-  const store = createStore({}, {
-    cookie: {
-      'access-token': token,
-    },
-    fetchr: new Fetchr({ ...configs.fetchr, req: {} }),
-    history: createMemoryHistory('/'),
+  }, configs.auth.key).then((token) => {
+    const store = createStore({
+      cookie: {
+        'access-token': token,
+      },
+    });
+    store.dispatch(checkLoginAction).then(() => {
+      assert.deepEqual(store.getState().auth, {
+        login: true,
+        username: 'scott',
+      });
+      done();
+    });
   });
-
-  await store.dispatch(checkLoginAction);
-  assert.deepEqual(store.getState().auth, {
-    login: true,
-    username: 'scott',
-  });
-  done();
 });
 
-test('auth: checkLogin failure', async (done, fail) => {
+test('auth: checkLogin failure', (done, fail) => {
   const checkLoginAction = checkLogin();
-  const token = await sign({
-    sub: 'scott',
-    aud: ACCESS_TOKEN_AUDIENCE_NAME,
-    exp: Math.floor(Date.now() / 1000),
-  }, configs.auth.key);
-
-  const store = createStore({}, {
-    cookie: {},
-    fetchr: new Fetchr({ ...configs.fetchr, req: {} }),
-    history: createMemoryHistory('/'),
+  
+  const store = createStore({
+    cookie: {
+    },
   });
-
-  try {
-    await store.dispatch(checkLoginAction);
-  } catch (e) {
+  
+  store.dispatch(checkLoginAction).then(fail, (e) => {
     assert.deepEqual(store.getState().auth, {
       login: false,
       username: undefined,
@@ -69,6 +58,5 @@ test('auth: checkLogin failure', async (done, fail) => {
     assert(e.payload.message === 'no token');
     assert(e.error);
     return done();
-  }
-  fail();
+  });
 });
