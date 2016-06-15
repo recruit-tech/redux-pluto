@@ -1,17 +1,15 @@
 import React, { Component, PropTypes } from 'react';
-import { compose, onlyUpdateForPropTypes } from 'recompose';
+import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import Menu from '../../atoms/Menu';
 import MenuItem from '../../atoms/MenuItem';
 
 export default compose(
   onlyUpdateForPropTypes,
-)(class GenderMenu extends Component {
-
-  static propTypes = {
+  setPropTypes({
     gender: PropTypes.string,
     genderItems: PropTypes.object.isRequired,
-  };
-
+  }),
+)(class GenderMenu extends Component {
   render() {
     const { genderItems } = this.props;
     const gender = this.props.gender || Object.keys(genderItems)[0];

@@ -1,19 +1,17 @@
 import React, { Component, PropTypes } from 'react';
-import { compose, onlyUpdateForPropTypes } from 'recompose';
+import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import Menu from '../../atoms/Menu';
 import MenuItem from '../../atoms/MenuItem';
 
 export default compose(
   onlyUpdateForPropTypes,
-)(class HairLengthMenu extends Component {
-
-  static propTypes = {
+  setPropTypes({
     gender: PropTypes.string,
     hairLength: PropTypes.string,
     genderItems: PropTypes.object.isRequired,
     hairLengthItems: PropTypes.object.isRequired,
-  };
-
+  }),
+)(class HairLengthMenu extends Component {
   render() {
     const { router, hairLength, genderItems, hairLengthItems } = this.props;
     const gender = this.props.gender || Object.keys(genderItems)[0];
