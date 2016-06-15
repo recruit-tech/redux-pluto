@@ -1,6 +1,5 @@
 import { replace } from 'react-router-redux';
 import { cookie } from 'redux-effects-cookie';
-import cookieParser from 'cookie';
 import { fetchrCreate, fetchrDelete } from '../../packages/redux-effects-fetchr';
 import decode from 'jwt-decode';
 import { AUTH_CHECK_LOGIN_REQUEST, AUTH_LOGIN_REQUEST, AUTH_LOGOUT_REQUEST } from '../modules/auth';
