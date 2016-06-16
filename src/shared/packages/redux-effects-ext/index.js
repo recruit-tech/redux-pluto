@@ -57,7 +57,6 @@ export default function effectExtMiddleware({ dispatch }) {
     }
 
     if (Array.isArray(action)) {
-      console.log(action);
       return action.filter(Boolean).map(dispatch);
     }
 
