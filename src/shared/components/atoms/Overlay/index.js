@@ -1,21 +1,19 @@
 import React, { Component, PropTypes } from 'react';
-import { withRouter, Link } from 'react-router';
-import { compose, onlyUpdateForPropTypes } from 'recompose';
+import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import { createLocal } from '../../utils/localnames';
 import styles from './styles.scss';
 
 const { localNames: local } = createLocal(styles);
-const noop = () => {};
+const noop = () => {
+};
 
 export default compose(
   onlyUpdateForPropTypes,
-)(class Overlay extends Component {
-
-  static propTypes = {
+  setPropTypes({
     children: PropTypes.node.isRequired,
     onClick: PropTypes.func,
-  };
-
+  }),
+)(class Overlay extends Component {
   render() {
     const { children, onClick } = this.props;
 

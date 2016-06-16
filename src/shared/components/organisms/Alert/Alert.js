@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { compose, onlyUpdateForPropTypes } from 'recompose';
+import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import Overlay from '../../atoms/Overlay';
 import { createLocal } from '../../utils/localnames';
 import stopPropagation from '../../utils/stopPropagation';
@@ -9,15 +9,13 @@ const { localNames: local } = createLocal(styles);
 
 export default compose(
   onlyUpdateForPropTypes,
-)(class Alert extends Component {
-
-  static propTypes = {
+  setPropTypes({
     alert: PropTypes.shape({
       message: PropTypes.string.isRequired,
     }).isRequired,
     onClose: PropTypes.func.isRequired,
-  };
-
+  }),
+)(class Alert extends Component {
   render() {
     const { alert: { message }, onClose } = this.props;
     if (!message) {
