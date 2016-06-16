@@ -50,7 +50,6 @@ module.exports = {
           ],
           plugins: [
             'syntax-trailing-function-commas',
-            'transform-class-properties',
             'transform-object-rest-spread',
             ['react-transform',
               {

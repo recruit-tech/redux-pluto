@@ -4,12 +4,6 @@ import hoistStatics from 'hoist-non-react-statics';
 export default function deferLoader(loader) {
   return (WrappedComponent) => {
     class WrapperComponent extends Component {
-      static contextTypes = {
-        store: PropTypes.object.isRequired,
-      };
-
-      static displayName = `deferLoader(${getDisplayName(WrappedComponent)})`;
-
       componentDidMount() {
         const { store } = this.context;
         loader(this.props, store);
@@ -27,6 +21,10 @@ export default function deferLoader(loader) {
       }
     }
 
+    WrapperComponent.displayName = `deferLoader(${getDisplayName(WrappedComponent)})`;
+    WrapperComponent.contextTypes = {
+      store: PropTypes.object.isRequired,
+    };
     return hoistStatics(WrapperComponent, WrappedComponent);
   };
 }

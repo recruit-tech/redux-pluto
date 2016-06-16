@@ -1,14 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-import { compose, onlyUpdateForPropTypes } from 'recompose';
+import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 
 export default compose(
   onlyUpdateForPropTypes,
-)(class App extends Component {
-
-  static propTypes = {
+  setPropTypes({
     children: PropTypes.node.isRequired,
-  };
-
+  })
+)(class App extends Component {
   render() {
     const { children } =  this.props;
 
