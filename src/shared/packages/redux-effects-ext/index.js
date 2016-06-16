@@ -1,7 +1,8 @@
+import isPromise from 'is-promise';
+
 /**
  * Action Types
  */
-
 export const EFFECT_EXT = 'EFFECT_EXT';
 
 /**
@@ -17,38 +18,20 @@ export function steps(action, ...steps) {
   };
 }
 
-export function bind(action, ...step) {
-  return steps(action, [...step]);
-}
-
-export function multi(...actions) {
-  return steps([...actions]);
-}
-
 /**
  * Middleware
  */
-export default function effectExtMiddleware({ dispatch }) {
+export default function stepsMiddleware({ dispatch }) {
   return (next) => (action) =>
     action.type === EFFECT_EXT
-      ? composeEffect(action)
+      ? dispatchEffect(action)
       : next(action);
 
-  function composeEffect(action) {
+  function dispatchEffect(action) {
     const promise = promisify(maybeDispatch(action.payload));
     return action.meta && action.meta.steps
       ? applySteps(promise, action.meta.steps)
       : promise;
-  }
-
-  function applySteps(promise, steps = []) {
-    return steps
-      .map((step) => Array.isArray(step) ? step : [step])
-      .reduce((promise, [success = (val) => val, failure = (err) => Promise.reject(err)]) =>
-        promise.then(
-          (val) => promisify(maybeDispatch(createAction(success, val))),
-          (err) => promisify(maybeDispatch(createAction(failure, err)))
-        ), promise);
   }
 
   function maybeDispatch(action) {
@@ -62,14 +45,28 @@ export default function effectExtMiddleware({ dispatch }) {
 
     return dispatch(action);
   }
+
+  function applySteps(promise, steps = []) {
+    return steps
+      .map((step) => Array.isArray(step) ? step : [step])
+      .reduce((promise, [success = identity, failure = reject]) =>
+        promise.then(
+          (val) => promisify(maybeDispatch(createAction(success, val))),
+          (err) => promisify(maybeDispatch(createAction(failure, err)))
+        ), promise);
+  }
 }
 
 function promisify(val) {
-  if (Array.isArray(val)) {
-    return Promise.all(val);
+  if (isPromise(val)) {
+    return val;
   }
 
-  return !isErrorAction(val) ? Promise.resolve(val) : Promise.reject(val);
+  if (Array.isArray(val)) {
+    return Promise.all(val.map(promisify));
+  }
+
+  return !isErrorAction(val) ? Promise.resolve(val) : Promise.reject(val.payload);
 }
 
 function createAction(actionOrCretor, param) {
