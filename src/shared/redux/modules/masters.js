@@ -1,7 +1,7 @@
 import transform from 'lodash/fp/transform';
 import { createAction, handleActions } from 'redux-actions';
 import { compose } from 'recompose';
-import { steps, multi } from '../../packages/redux-effects-ext';
+import { steps } from '../../packages/redux-effects-ext';
 import { fetchrRead } from '../../packages/redux-effects-fetchr';
 import { initialState, filterActionType } from './utils';
 
@@ -54,13 +54,13 @@ export function loadMenuContentMaster() {
 }
 
 export function loadAllMasters() {
-  return multi(
+  return steps([
     loadAreaMaster(),
     loadGenderMaster(),
     loadHairColorMaster(),
     loadHairLengthMaster(),
     loadMenuContentMaster(),
-  );
+  ]);
 }
 
 /**
