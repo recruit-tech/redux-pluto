@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, applyRouterMiddleware, browserHistory, match, useRouterHistory } from 'react-router';
+import { Router, applyRouterMiddleware, browserHistory, match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import useScroll from 'react-router-scroll';
 import { useAsyncLoader } from '../shared/packages/redux-async-loader';
@@ -20,7 +20,7 @@ const store = createStore(initialState, {
   history: browserHistory,
   devTools: __DEVELOPMENT__,
 });
-const history = syncHistoryWithStore(browserHistory, store);
+const history = syncHistoryWithStore(browserHistory, store, { adjustUrlOnReplay: __DEVELOPMENT__ });
 const routes = getRoutes(store);
 
 const RenderWithMiddleware = applyRouterMiddleware(

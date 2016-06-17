@@ -18,6 +18,6 @@ export default function loadOnServer(renderProps, store) {
     (e) => {
       dispatch(endAsyncLoad(true));
       return Promise.reject(e);
-    },
+    }
   );
 }
