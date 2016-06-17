@@ -42,5 +42,6 @@ function checkAccessToken(dispatch) {
     }
 
     return payload;
+    
   });
 }
