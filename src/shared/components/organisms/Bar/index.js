@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { compose, shouldUpdate } from 'recompose';
 
-export default class Bar extends Component {
+export default compose(
+  shouldUpdate(() => false),
+)(class Bar extends Component {
   render() {
     const array = new Array(500);
     array.fill(0);
@@ -13,4 +16,4 @@ export default class Bar extends Component {
       </main>
     );
   }
-}
+});
