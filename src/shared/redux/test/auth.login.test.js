@@ -81,8 +81,7 @@ test('auth: login failure invalid audience name', (done, fail) => {
     });
     return store.dispatch(loginAction);
   }).then(fail, (e) => {
-    assert(e.payload.message === 'invalid token');
-    assert(e.error);
+    assert(e.message === 'invalid token');
     done();
   });
 });
