@@ -42,13 +42,13 @@ module.exports = {
       'react-redux',
       'react-router',
       'react-router-redux',
+      'react-router-scroll',
       'recompose',
       'redux',
       'redux-actions',
       'redux-effects',
       'redux-effects-cookie',
       'redux-form',
-      'scroll-behavior',
     ],
   },
 
@@ -79,7 +79,6 @@ module.exports = {
             ],
             plugins: [
               'syntax-trailing-function-commas',
-              'transform-class-properties',
               'transform-object-rest-spread',
               'transform-react-constant-elements',
               'transform-react-inline-elements',

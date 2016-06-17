@@ -1,13 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { compose, onlyUpdateForPropTypes } from 'recompose';
+import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import GenderMenu from '../../molecules/GenderMenu';
 import HairLengthMenu from '../../molecules/HairLengthMenu';
 
 export default compose(
   onlyUpdateForPropTypes,
-)(class Style extends Component {
-
-  static propTypes = {
+  setPropTypes({
     // from store
     genderItems: PropTypes.object.isRequired,
     hairLengthItems: PropTypes.object.isRequired,
@@ -18,8 +16,8 @@ export default compose(
       gender: PropTypes.string,
       hairLength: PropTypes.string,
     }),
-  };
-
+  }),
+)(class Style extends Component {
   render() {
     const { genderItems, hairLengthItems, children, params: { gender, hairLength } } = this.props;
 
