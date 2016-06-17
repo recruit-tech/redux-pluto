@@ -6,7 +6,10 @@ import Immutable from 'seamless-immutable';
 
 test('State: showAlert', (done) => {
   const showAlertAction = showAlert('test');
-  const state = reducer(Immutable({ message: '' }), showAlertAction);
+  const INITIAL_STATE = Immutable({
+    message: '',
+  });
+  const state = reducer(INITIAL_STATE, showAlertAction);
   assert.deepEqual(state, {
     message: 'test',
   });
@@ -15,7 +18,10 @@ test('State: showAlert', (done) => {
 
 test('State: clearAlert', (done) => {
   const clearAlertAction = clearAlert();
-  const state = reducer(Immutable({ message: 'test' }), clearAlertAction);
+  const INITIAL_STATE = Immutable({
+    message: 'test',
+  });
+  const state = reducer(INITIAL_STATE, clearAlertAction);
   assert.deepEqual(state, {
     message: '',
   });

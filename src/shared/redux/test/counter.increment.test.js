@@ -3,7 +3,7 @@ import { test } from 'eater/runner';
 import assert from 'power-assert';
 import Fetchr from 'fetchr';
 import { increment } from '../modules/counter';
-import { createStore } from './storeUtil';
+import { createStore } from './storeUtils';
 
 /**
  * mock counter service
@@ -15,13 +15,14 @@ Fetchr.registerService({
     if (needFailure) {
       return cb(new Error('counter fail'));
     }
+
     cb(null, 100);
   },
 });
 
 test('counter: increment success', (done, fail) => {
   const incrementAction = increment(0);
-  const store = createStore({ });
+  const store = createStore({});
   store.dispatch(incrementAction).then(() => {
     assert(store.getState().counter.value === 100);
     done();
@@ -31,7 +32,7 @@ test('counter: increment success', (done, fail) => {
 test('counter: increment failure', (done, fail) => {
   const incrementAction = increment(0);
   needFailure = true;
-  const store = createStore({ });
+  const store = createStore({});
   store.dispatch(incrementAction).then(fail, (e) => {
     assert(e);
     assert(store.getState().counter.value === 0);
