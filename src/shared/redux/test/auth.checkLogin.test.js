@@ -44,12 +44,11 @@ test('auth: checkLogin success', (done, fail) => {
 
 test('auth: checkLogin failure', (done, fail) => {
   const checkLoginAction = checkLogin();
-  
+
   const store = createStore({
-    cookie: {
-    },
+    cookie: {},
   });
-  
+
   store.dispatch(checkLoginAction).then(fail, (e) => {
     assert.deepEqual(store.getState().auth, {
       login: false,
