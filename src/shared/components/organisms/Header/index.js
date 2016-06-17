@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
+import { compose, pure } from 'recompose';
 import { IndexLink, Link } from 'react-router';
 import { createLocal } from '../../utils/localnames';
 import styles from './styles.scss';
 
 const { localNames: local } = createLocal(styles);
 
-export default class Header extends Component {
-  render() {
-    const links = [
-      { key: 'home', to: '/', label: 'Home', index: true },
-      { key: 'foo', to: '/foo', label: 'Foo' },
-      { key: 'bar', to: '/bar', label: 'Bar' },
-      { key: 'style', to: '/style', label: 'Style' },
-      { key: 'login', to: '/login', label: 'Login' },
-      { key: 'logout', to: '/logout', label: 'Logout' },
-    ];
+const links = [
+  { key: 'home', to: '/', label: 'Home', index: true },
+  { key: 'foo', to: '/foo', label: 'Foo' },
+  { key: 'bar', to: '/bar', label: 'Bar' },
+  { key: 'style', to: '/style', label: 'Style' },
+  { key: 'login', to: '/login', label: 'Login' },
+  { key: 'logout', to: '/logout', label: 'Logout' },
+];
 
+export default compose(
+  pure,
+)(class Header extends Component {
+  render() {
     return (
       <header className={local('root')}>
         <hgroup>
@@ -42,4 +45,4 @@ export default class Header extends Component {
       </header>
     );
   }
-}
+});
