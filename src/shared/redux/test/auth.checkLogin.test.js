@@ -46,7 +46,8 @@ test('auth: checkLogin failure', (done, fail) => {
   const checkLoginAction = checkLogin();
 
   const store = createStore({
-    cookie: {},
+    cookie: {
+    },
   });
 
   store.dispatch(checkLoginAction).then(fail, (e) => {
@@ -54,8 +55,7 @@ test('auth: checkLogin failure', (done, fail) => {
       login: false,
       username: undefined,
     });
-    assert(e.payload.message === 'no token');
-    assert(e.error);
+    assert(e.message === 'no token');
     return done();
   });
 });
