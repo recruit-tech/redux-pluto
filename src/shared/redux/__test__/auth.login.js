@@ -2,7 +2,7 @@
 import Fetchr from 'fetchr';
 import { test } from 'eater/runner';
 import assert from 'power-assert';
-import { createStore } from './storeUtil';
+import { createStore } from './lib/storeUtil';
 import { ACCESS_TOKEN_AUDIENCE_NAME, sign } from '../../../server/services/AccessToken';
 import { login } from '../modules/auth';
 import configs from '../../../server/configs';
@@ -81,8 +81,7 @@ test('auth: login failure invalid audience name', (done, fail) => {
     });
     return store.dispatch(loginAction);
   }).then(fail, (e) => {
-    assert(e.payload.message === 'invalid token');
-    assert(e.error);
+    assert(e.message === 'invalid token');
     done();
   });
 });
