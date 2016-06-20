@@ -2,7 +2,7 @@
 import Fetchr from 'fetchr';
 import { test } from 'eater/runner';
 import assert from 'power-assert';
-import { createStore } from './storeUtil';
+import { createStore } from './lib/storeUtils';
 import { loadAllMasters } from '../modules/masters';
 import Immutable from 'seamless-immutable';
 
