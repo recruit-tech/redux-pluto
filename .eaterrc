@@ -3,6 +3,5 @@
     "babel-core/register", 
     "./test/config.js"
   ],
-  dir: "src",
-  ext: ".test.js",
+  glob: "src/**/__test__/*.js"
 }
