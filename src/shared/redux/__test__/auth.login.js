@@ -2,7 +2,7 @@
 import Fetchr from 'fetchr';
 import { test } from 'eater/runner';
 import assert from 'power-assert';
-import { createStore } from './storeUtils';
+import { createStore } from './lib/storeUtils';
 import { ACCESS_TOKEN_AUDIENCE_NAME, sign } from '../../../server/services/AccessToken';
 import { login } from '../modules/auth';
 import configs from '../../../server/configs';

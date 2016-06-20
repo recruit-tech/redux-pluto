@@ -4,7 +4,7 @@ import assert from 'power-assert';
 import Fetchr from 'fetchr';
 import { ACCESS_TOKEN_AUDIENCE_NAME, sign } from '../../../server/services/AccessToken';
 import { checkLogin } from '../modules/auth';
-import { createStore } from './storeUtils';
+import { createStore } from './lib/storeUtils';
 import configs from '../../../server/configs';
 
 /**
