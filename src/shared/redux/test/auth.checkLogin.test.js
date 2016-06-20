@@ -4,7 +4,7 @@ import assert from 'power-assert';
 import Fetchr from 'fetchr';
 import { ACCESS_TOKEN_AUDIENCE_NAME, sign } from '../../../server/services/AccessToken';
 import { checkLogin } from '../modules/auth';
-import { createStore } from './storeUtil';
+import { createStore } from './storeUtils';
 import configs from '../../../server/configs';
 
 /**
@@ -46,8 +46,7 @@ test('auth: checkLogin failure', (done, fail) => {
   const checkLoginAction = checkLogin();
 
   const store = createStore({
-    cookie: {
-    },
+    cookie: {},
   });
 
   store.dispatch(checkLoginAction).then(fail, (e) => {
