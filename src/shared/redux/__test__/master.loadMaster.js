@@ -139,6 +139,6 @@ test('master: loadAll failure', (done, fail) => {
       },
     });
     done();
-  }, fail);
+  });
 
 });
