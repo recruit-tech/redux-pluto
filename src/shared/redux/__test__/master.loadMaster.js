@@ -3,11 +3,11 @@ import Fetchr from 'fetchr';
 import { test } from 'eater/runner';
 import assert from 'power-assert';
 import { createStore } from './lib/storeUtils';
-import { loadAllMasters } from '../modules/masters';
+import { INITIAL_STATE, loadAllMasters, loadAreaMaster } from '../modules/masters';
 import Immutable from 'seamless-immutable';
 
 /**
- * mock accessToken service
+ * mock loadMaster service
  */
 let needFailure = '';
 const services = [
@@ -64,9 +64,9 @@ services.forEach((service) => {
 
 test('master: loadAll success', (done, fail) => {
   const loadAllMastersAction = loadAllMasters();
-  const INITIAL_STATE = Immutable({ });
+  const initialState = Immutable({ masters: INITIAL_STATE });
   const store = createStore({
-    initialState: INITIAL_STATE,
+    initialState,
   });
   store.dispatch(loadAllMastersAction).then(() => {
     const state = store.getState().masters;
@@ -103,9 +103,9 @@ test('master: loadAll success', (done, fail) => {
 
 test('master: loadAll failure', (done, fail) => {
   const loadAllMastersAction = loadAllMasters();
-  const INITIAL_STATE = Immutable({ });
+  const initialState = Immutable({ masters: INITIAL_STATE });
   const store = createStore({
-    initialState: INITIAL_STATE,
+    initialState,
   });
   needFailure = 'areaMaster';
   store.dispatch(loadAllMastersAction).then(() => {
