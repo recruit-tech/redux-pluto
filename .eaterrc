@@ -1,7 +1,7 @@
 {
   require: [
-    "babel-core/register", 
-    "./test/config.js"
+    "./test/config.js",
+    "babel-core/register" 
   ],
   glob: "src/**/__test__/*.js"
 }
