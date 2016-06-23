@@ -62,6 +62,7 @@
     "serve-favicon": "2.3.0"
   },
   "devDependencies": {
+    "active-cache-babel-register": "^0.1.2",
     "autoprefixer": "6.3.6",
     "babel-cli": "6.10.1",
     "babel-core": "6.9.1",
@@ -83,7 +84,7 @@
     "bundle-loader": "0.5.4",
     "cross-env": "1.0.8",
     "css-loader": "0.23.1",
-    "eater": "^3.0.0-0",
+    "eater": "^3.0.0-1",
     "eslint": "2.12.0",
     "eslint-config-airbnb": "9.0.1",
     "eslint-plugin-import": "1.8.1",
