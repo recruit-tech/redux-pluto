@@ -1,7 +1,7 @@
 {
   require: [
     "./test/config.js",
-    "babel-core/register" 
+    "active-cache-babel-register" 
   ],
   glob: "src/**/__test__/*.js"
 }
