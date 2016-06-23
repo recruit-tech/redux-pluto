@@ -32,7 +32,7 @@ export function searchStyle(params) {
 /**
  * Initial state
  */
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   loading: false,
   loaded: false,
   params: null,
