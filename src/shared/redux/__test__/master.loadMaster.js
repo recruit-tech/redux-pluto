@@ -3,7 +3,7 @@ import Fetchr from 'fetchr';
 import { test } from 'eater/runner';
 import assert from 'power-assert';
 import { createStore } from './lib/storeUtils';
-import { INITIAL_STATE, loadAllMasters, loadAreaMaster } from '../modules/masters';
+import * as masters from '../modules/masters';
 import Immutable from 'seamless-immutable';
 
 /**
@@ -14,57 +14,51 @@ const services = [
   {
     name: 'areaMaster',
     read(req, resource, params, config, cb) {
-      if (needFailure === 'areaMaster') {
-        return cb(new Error('error'));
-      }
-      cb(null, ['tokyo', 'saitama', 'kanagawa']);
+      return needFailure === 'areaMaster'
+        ? cb(new Error('error'))
+        : cb(null, ['tokyo', 'saitama', 'kanagawa']);
     },
   },
   {
     name: 'hairColorMaster',
     read(req, resource, params, config, cb) {
-      if (needFailure === 'hairColorMaster') {
-        return cb(new Error('error'));
-      }
-      cb(null, ['black', 'brown', 'blond']);
+      return needFailure === 'hairColorMaster'
+        ? cb(new Error('error'))
+        : cb(null, ['black', 'brown', 'blond']);
     },
   },
   {
     name: 'genderMaster',
     read(req, resource, params, config, cb) {
-      if (needFailure === 'genderMaster') {
-        return cb(new Error('error'));
-      }
-      cb(null, ['male', 'female']);
+      return needFailure === 'genderMaster'
+        ? cb(new Error('error'))
+        : cb(null, ['male', 'female']);
     },
   },
   {
     name: 'hairLengthMaster',
     read(req, resource, params, config, cb) {
-      if (needFailure === 'hairLengthMaster') {
-        return cb(new Error('error'));
-      }
-      cb(null, ['long', 'short', 'middle']);
+      return needFailure === 'hairLengthMaster'
+        ? cb(new Error('error'))
+        : cb(null, ['long', 'short', 'middle']);
     },
   },
   {
     name: 'menuContentMaster',
     read(req, resource, params, config, cb) {
-      if (needFailure === 'menuContentMaster') {
-        return cb(new Error('error'));
-      }
-      cb(null, ['menu']);
+      return needFailure === 'menuContentMaster'
+        ? cb(new Error('error'))
+        : cb(null, ['menu']);
     },
   },
 ];
 
-services.forEach((service) => {
-  Fetchr.registerService(service);
-});
+services.forEach(Fetchr.registerService);
 
 test('master: loadAll success', (done, fail) => {
-  const loadAllMastersAction = loadAllMasters();
+  const loadAllMastersAction = masters.loadAllMasters();
   const initialState = Immutable({ masters: INITIAL_STATE });
+  const INITIAL_STATE = Immutable({});
   const store = createStore({
     initialState,
   });
@@ -101,9 +95,73 @@ test('master: loadAll success', (done, fail) => {
   });
 });
 
+test('master: load each success', (done, fail) => {
+  const INITIAL_STATE = Immutable({});
+  const store = createStore({
+    initialState: INITIAL_STATE,
+  });
+
+  const expects = Immutable({
+    areaMaster: {
+      loading: false,
+      loaded: true,
+      items: ['tokyo', 'saitama', 'kanagawa'],
+    },
+    genderMaster: {
+      loading: false,
+      loaded: true,
+      items: ['male', 'female'],
+    },
+    hairColorMaster: {
+      loading: false,
+      loaded: true,
+      items: ['black', 'brown', 'blond'],
+    },
+    hairLengthMaster: {
+      loading: false,
+      loaded: true,
+      items: ['long', 'short', 'middle'],
+    },
+    menuContentMaster: {
+      loading: false,
+      loaded: true,
+      items: ['menu'],
+    },
+  });
+
+  const actions = {
+    areaMaster: masters.loadAreaMaster(),
+    genderMaster: masters.loadGenderMaster(),
+    hairColorMaster: masters.loadHairColorMaster(),
+    hairLengthMaster: masters.loadHairLengthMaster(),
+    menuContentMaster: masters.loadMenuContentMaster(),
+  };
+
+  let prevState = store.getState().masters;
+  Object.keys(actions).reduce((promise, actionName) => promise
+    .then(() => store.dispatch(actions[actionName]))
+    .then(() => {
+      const nextState = store.getState().masters;
+      Object.keys(nextState).forEach((propName) => {
+        if (propName === actionName) {
+          assert.deepEqual(nextState[propName], expects[propName]);
+        } else {
+          assert(nextState[propName] === prevState[propName], actionName);
+        }
+      });
+      prevState = nextState;
+    }),
+    Promise.resolve()
+  ).then(() => {
+    const state = store.getState().masters;
+    assert.deepEqual(state, expects);
+  });
+});
+
 test('master: loadAll failure', (done, fail) => {
-  const loadAllMastersAction = loadAllMasters();
+  const loadAllMastersAction = masters.loadAllMasters();
   const initialState = Immutable({ masters: INITIAL_STATE });
+  const INITIAL_STATE = Immutable({});
   const store = createStore({
     initialState,
   });
@@ -138,7 +196,6 @@ test('master: loadAll failure', (done, fail) => {
         items: ['menu'],
       },
     });
-    done();
   });
 
 });
