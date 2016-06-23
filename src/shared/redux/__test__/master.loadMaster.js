@@ -7,7 +7,7 @@ import * as masters from '../modules/masters';
 import Immutable from 'seamless-immutable';
 
 /**
- * mock accessToken service
+ * mock loadMaster service
  */
 let needFailure = '';
 const services = [
@@ -57,9 +57,10 @@ services.forEach(Fetchr.registerService);
 
 test('master: loadAll success', (done, fail) => {
   const loadAllMastersAction = masters.loadAllMasters();
+  const initialState = Immutable({ masters: INITIAL_STATE });
   const INITIAL_STATE = Immutable({});
   const store = createStore({
-    initialState: INITIAL_STATE,
+    initialState,
   });
   store.dispatch(loadAllMastersAction).then(() => {
     const state = store.getState().masters;
@@ -159,9 +160,10 @@ test('master: load each success', (done, fail) => {
 
 test('master: loadAll failure', (done, fail) => {
   const loadAllMastersAction = masters.loadAllMasters();
+  const initialState = Immutable({ masters: INITIAL_STATE });
   const INITIAL_STATE = Immutable({});
   const store = createStore({
-    initialState: INITIAL_STATE,
+    initialState,
   });
   needFailure = 'areaMaster';
   store.dispatch(loadAllMastersAction).then(() => {
@@ -194,7 +196,6 @@ test('master: loadAll failure', (done, fail) => {
         items: ['menu'],
       },
     });
-    done();
   });
 
 });

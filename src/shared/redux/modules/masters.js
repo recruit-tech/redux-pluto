@@ -74,7 +74,7 @@ const RESOURCES = [
   'menuContentMaster',
 ];
 
-const INITIAL_STATE = transform((state, resource) => {
+export const INITIAL_STATE = transform((state, resource) => {
   state[resource] = {
     loading: false,
     loaded: false,
