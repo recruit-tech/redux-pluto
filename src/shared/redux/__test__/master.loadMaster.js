@@ -57,8 +57,7 @@ services.forEach(Fetchr.registerService);
 
 test('master: loadAll success', (done, fail) => {
   const loadAllMastersAction = masters.loadAllMasters();
-  const initialState = Immutable({ masters: INITIAL_STATE });
-  const INITIAL_STATE = Immutable({});
+  const initialState = Immutable({ masters: masters.INITIAL_STATE });
   const store = createStore({
     initialState,
   });
@@ -96,9 +95,9 @@ test('master: loadAll success', (done, fail) => {
 });
 
 test('master: load each success', (done, fail) => {
-  const INITIAL_STATE = Immutable({});
+  const initialState = Immutable({ masters: masters.INITIAL_STATE});
   const store = createStore({
-    initialState: INITIAL_STATE,
+    initialState,
   });
 
   const expects = Immutable({
@@ -160,8 +159,7 @@ test('master: load each success', (done, fail) => {
 
 test('master: loadAll failure', (done, fail) => {
   const loadAllMastersAction = masters.loadAllMasters();
-  const initialState = Immutable({ masters: INITIAL_STATE });
-  const INITIAL_STATE = Immutable({});
+  const initialState = Immutable({ masters: masters.INITIAL_STATE });
   const store = createStore({
     initialState,
   });
