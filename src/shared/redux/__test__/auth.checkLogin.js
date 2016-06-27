@@ -4,7 +4,7 @@ import assert from 'power-assert';
 import Fetchr from 'fetchr';
 import { ACCESS_TOKEN_AUDIENCE_NAME, sign } from '../../../server/services/AccessToken';
 import { checkLogin } from '../modules/auth';
-import { createStore } from './lib/storeUtils';
+import { createWithSignedStore, createStore } from './lib/storeUtils';
 import configs from '../../../server/configs';
 
 /**
@@ -20,24 +20,18 @@ Fetchr.registerService({
   },
 });
 
-test('auth: checkLogin success', (done, fail) => {
+test('auth: checkLogin success', () => {
   const checkLoginAction = checkLogin();
-  sign({
-    sub: 'scott',
-    aud: ACCESS_TOKEN_AUDIENCE_NAME,
-    exp: Math.floor(Date.now() / 1000),
-  }, configs.auth.key).then((token) => {
-    const store = createStore({
-      cookie: {
-        'access-token': token,
-      },
-    });
+  createWithSignedStore(
+    'scott',
+    ACCESS_TOKEN_AUDIENCE_NAME,
+    {},
+  ).then((store) => {
     store.dispatch(checkLoginAction).then(() => {
       assert.deepEqual(store.getState().auth, {
         login: true,
         username: 'scott',
       });
-      done();
     });
   });
 });

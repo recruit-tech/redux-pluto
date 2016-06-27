@@ -1,3 +1,4 @@
+/* eslint-disable no-undefined */
 import Fetchr from 'fetchr';
 import { test } from 'eater/runner';
 import assert from 'power-assert';
@@ -9,14 +10,14 @@ let needFailure = false;
 Fetchr.registerService({
     name: 'style',
     read(req, resource, params, config, cb) {
-      needFailure ? cb(new Error('failure')) : cb(null, { results_available: '10', style: ['foo', 'bar'] });
+      return needFailure ? cb(new Error('failure')) : cb(null, { results_available: '10', style: ['foo', 'bar'] });
     },
   },
 );
 
 test('style: searchStyle success', () => {
   const searchStyleAction = searchStyle({ query: 'foo' });
-  const initialState = Immutable({ style: INITIAL_STATE});
+  const initialState = Immutable({ style: INITIAL_STATE });
   const store = createStore({
     initialState,
   });
@@ -34,7 +35,7 @@ test('style: searchStyle success', () => {
 
 test('style: searchStyle failure', (_, fail) => {
   const searchStyleAction = searchStyle({ query: 'foo' });
-  const initialState = Immutable({ style: INITIAL_STATE});
+  const initialState = Immutable({ style: INITIAL_STATE });
   const store = createStore({
     initialState,
   });
@@ -47,7 +48,7 @@ test('style: searchStyle failure', (_, fail) => {
       params: undefined,
       count: 0,
       items: [],
-      error: true
+      error: true,
     });
   });
 });
