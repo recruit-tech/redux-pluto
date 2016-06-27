@@ -2,6 +2,7 @@ import Fetchr from 'fetchr';
 import { test } from 'eater/runner';
 import assert from 'power-assert';
 import { createStore } from './lib/storeUtils';
+import { isSameObject } from './lib/assertUtils';
 import { INITIAL_STATE, loadAllMasters, loadAreaMaster } from '../modules/masters';
 import Immutable from 'seamless-immutable';
 
@@ -63,9 +64,6 @@ test('master: areaMaster success', () => {
       loaded: true,
       items: areaMasters,
     });
-    assert(prevMastersState.hairColorMaster === mastersState.hairColorMaster);
-    assert(prevMastersState.genderMaster === mastersState.genderMaster);
-    assert(prevMastersState.hairLengthMaster === mastersState.hairLengthMaster);
-    assert(prevMastersState.menuContentMaster === mastersState.menuContentMaster);
+    isSameObject(prevMastersState, mastersState, ['areaMaster']);
   });
 });
