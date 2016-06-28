@@ -95,7 +95,7 @@ test('master: loadAll success', (done, fail) => {
 });
 
 test('master: load each success', (done, fail) => {
-  const initialState = Immutable({ masters: masters.INITIAL_STATE});
+  const initialState = Immutable({ masters: masters.INITIAL_STATE });
   const store = createStore({
     initialState,
   });
@@ -138,18 +138,18 @@ test('master: load each success', (done, fail) => {
 
   let prevState = store.getState().masters;
   Object.keys(actions).reduce((promise, actionName) => promise
-    .then(() => store.dispatch(actions[actionName]))
-    .then(() => {
-      const nextState = store.getState().masters;
-      Object.keys(nextState).forEach((propName) => {
-        if (propName === actionName) {
-          assert.deepEqual(nextState[propName], expects[propName]);
-        } else {
-          assert(nextState[propName] === prevState[propName], actionName);
-        }
-      });
-      prevState = nextState;
-    }),
+      .then(() => store.dispatch(actions[actionName]))
+      .then(() => {
+        const nextState = store.getState().masters;
+        Object.keys(nextState).forEach((propName) => {
+          if (propName === actionName) {
+            assert.deepEqual(nextState[propName], expects[propName]);
+          } else {
+            assert(nextState[propName] === prevState[propName], actionName);
+          }
+        });
+        prevState = nextState;
+      }),
     Promise.resolve()
   ).then(() => {
     const state = store.getState().masters;
