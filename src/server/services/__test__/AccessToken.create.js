@@ -16,7 +16,7 @@ test('AccessToken: create success', () => {
     password: 'tiger',
   };
 
-  accessToken.create(req, undefined, params).then((response) => {
+  accessToken.create(req, void 0, params).then((response) => {
     const cookies = cookie.parse(response.meta.headers['set-cookie']);
     verify({
       cookies: {
@@ -40,7 +40,7 @@ test('AccessToken: create failure', (_, fail) => {
     password: 'notpassword',
   };
 
-  accessToken.create(req, undefined, params).then(fail, (e) => {
+  accessToken.create(req, void 0, params).then(fail, (e) => {
     assert(e.statusCode === 400);
     assert(e.message === 'Bad Request');
   });
