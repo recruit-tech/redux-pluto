@@ -12,6 +12,8 @@ import Main from './components/organisms/Main';
 import NotFound from './components/organisms/NotFound';
 import Style from './components/organisms/Style';
 import StyleList from './components/organisms/StyleList';
+import SalonForm from './components/organisms/SalonForm';
+import Salon from './components/organisms/Salon';
 import DefaultLayout from './components/templates/DefaultLayout';
 import { checkLogin, logout } from './redux/modules/auth';
 
@@ -29,6 +31,8 @@ export default function getRoutes(store) {
             </Route>
           </Route>
 
+          <Route path="salon" component={SalonForm} />
+          <Route path="salon/:salonId" component={Salon} />
           <Route path="login" component={Login} />
           <Route path="logout" onEnter={bindOnEnter(doLogout)} />
 
