@@ -6,6 +6,7 @@ import alert from './alert';
 import auth from './auth';
 import masters from './masters';
 import style from './style';
+import salon from './salon';
 import counter from './counter';
 import loading from './loading';
 
@@ -13,6 +14,7 @@ export default combineReducers({
   masters,
   auth,
   style,
+  salon,
   counter,
   alert,
   loading,
