@@ -1,28 +1,80 @@
-import { connect } from 'react-redux';
-import { compose, onlyUpdateForPropTypes } from 'recompose';
+import { compose } from 'recompose';
 import { reduxForm } from 'redux-form';
-import { deferLoader } from '../../../packages/redux-async-loader';
-import { searchSalon, clearSearchSalon } from '../../../redux/modules/salon';
+import { asyncLoader, deferLoader } from '../../../packages/redux-async-loader';
+import { searchSalon, searchMoreSalon, clearSearchSalon } from '../../../redux/modules/salon';
 import SalonForm from './SalonForm';
-import { push } from 'react-router-redux';
+import { replace, push } from 'react-router-redux';
 import { parse } from 'querystring';
 
-const queryFields = ['keyword'];
-
 export default compose(
-  deferLoader(({ location }, { dispatch }) => {
-    return queryFields.some((q) => location.query[q]) ? dispatch(searchSalon(location.query)) : dispatch(clearSearchSalon());
+
+  // TODO onChange で asyncLoader が呼ばれない問題を解決する必要あり
+  asyncLoader(({ location }, { dispatch }) => {
+    if (location.query && !location.query.keyword) {
+      return dispatch(clearSearchSalon());
+    }
+
+    const keyword = location.query.keyword;
+    const page = location.query.page;
+    if (keyword && page) {
+      return dispatch(searchMoreSalon({ keyword, page }));
+    }
+
+    return dispatch(searchSalon({ keyword }));
   }),
-  onlyUpdateForPropTypes,
+  deferLoader(({ location }, { dispatch }) => {
+    if (location.query && !location.query.keyword) {
+      return dispatch(clearSearchSalon());
+    }
+
+    const keyword = location.query.keyword;
+    const page = location.query.page;
+    if (keyword && page) {
+      return dispatch(searchMoreSalon({ keyword, page }));
+    }
+
+    return dispatch(searchSalon({ keyword }));
+  }),
   reduxForm({
       form: 'salon',
       fields: ['keyword'],
     },
-    state => ({ initialValues: { keyword: state.routing.locationBeforeTransitions.query.keyword } }),
+    (state) => ({
+      page: state.salon.page,
+      count: state.salon.count,
+      items: state.salon.items,
+      item: state.salon.item,
+      canGetNext: state.salon.canGetNext,
+      canGetPrev: state.salon.canGetPrev,
+      shouldAdjustScroll: state.salon.shouldAdjustScroll,
+      shouldForceScroll: state.salon.canGetPrev,
+      forceScrollTo: state.salon.forceScrollTo,
+      initialValues: { keyword: state.routing.locationBeforeTransitions.query.keyword },
+    }),
     (dispatch, ownProps) => ({
-      onSubmit: ({ keyword }) => {
+      // キーワード検索開始
+      onSubmit({ keyword }) {
         return dispatch(push(`/salon?keyword=${keyword}`));
-      }
+      },
+      onClickPrev: (page) => () => {
+        const keyword = ownProps.location.query.keyword;
+        return dispatch(replace(`/salon?keyword=${keyword}&page=${page}`));
+      },
+
+      onClickNext: (page) => () => {
+        const keyword = ownProps.location.query.keyword;
+        return dispatch(replace(`/salon?keyword=${keyword}&page=${page}`));
+      },
+
+      // 今見てる window の中の要素でpageのURL位置を変える
+      onInnerWindow: (element) => {
+        const page = element.getAttribute('data-page');
+        const currentPage = parse(window.location.search.substr(1)).page || 0;
+        const keyword = ownProps.location.query.keyword;
+        if (page !== currentPage) {
+          return dispatch(replace(`/salon?keyword=${keyword}&page=${page}`));
+        }
+      },
     }),
   ),
 )(SalonForm);
