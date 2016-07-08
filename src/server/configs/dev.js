@@ -49,6 +49,7 @@ export default {
       key: 'hK8GrzWsq80d',
       format: 'json',
     },
+    timeout: 10000,
   },
 
   offload: {
@@ -107,7 +108,7 @@ export default {
     // https://github.com/yahoo/fetchr
     fetchr: {
       xhrPath: '/api',
-      xhrTimeout: 5000,
+      xhrTimeout: 1000000,
       context: {},
       contextPicker: {
         GET: [],
