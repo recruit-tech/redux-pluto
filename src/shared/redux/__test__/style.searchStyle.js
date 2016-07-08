@@ -1,4 +1,4 @@
-/* eslint-disable no-undefined */
+/* eslint-disable no-undefined, callback-return */
 import Fetchr from 'fetchr';
 import { test } from 'eater/runner';
 import assert from 'power-assert';
