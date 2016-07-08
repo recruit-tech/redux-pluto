@@ -1,4 +1,4 @@
-/* eslint-disable no-undefined no-console */
+/* eslint-disable no-undefined */
 import { test } from 'eater/runner';
 import assert from 'power-assert';
 import mustCall from 'must-call';
