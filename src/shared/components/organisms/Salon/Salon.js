@@ -1,13 +1,14 @@
 import React, { Component, PropTypes } from 'react';
-import { propTypes as formPropTypes } from 'redux-form';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 
 export default compose(
   onlyUpdateForPropTypes,
   setPropTypes({
     item: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      urls: PropTypes.array.isRequired,
+      name: PropTypes.string,
+      urls: PropTypes.shape({
+        pc: PropTypes.string,
+      }),
     }).isRequired,
   }),
 )(class Salon extends Component {

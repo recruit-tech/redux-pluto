@@ -108,7 +108,7 @@ export default {
     // https://github.com/yahoo/fetchr
     fetchr: {
       xhrPath: '/api',
-      xhrTimeout: 10000,
+      xhrTimeout: 1000000,
       context: {},
       contextPicker: {
         GET: [],

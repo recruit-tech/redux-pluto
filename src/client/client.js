@@ -25,7 +25,13 @@ const routes = getRoutes(store);
 
 const RenderWithMiddleware = applyRouterMiddleware(
   useAsyncLoader(),
-  useScroll(),
+  useScroll((prevRouterProps, { routes }) => {
+    if (routes.some((route) => route.ignoreScrollBehavior)) {
+      return false;
+    }
+
+    return true;
+  }),
 );
 
 // 非同期のonEnter()がある画面がサーバサイドレンダリングされるとクライアント

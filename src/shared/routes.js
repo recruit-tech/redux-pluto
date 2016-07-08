@@ -31,8 +31,10 @@ export default function getRoutes(store) {
             </Route>
           </Route>
 
-          <Route path="salon" component={SalonForm} />
-          <Route path="salon/:salonId" component={Salon} />
+          <Route path="salon">
+            <IndexRoute component={SalonForm} ignoreScrollBehavior={true} />
+            <Route path=":salonId" component={Salon} />
+          </Route>
           <Route path="login" component={Login} />
           <Route path="logout" onEnter={bindOnEnter(doLogout)} />
 
