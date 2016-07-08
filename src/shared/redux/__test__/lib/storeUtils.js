@@ -8,6 +8,22 @@ import reducer from '../../modules/reducer';
 import { createMemoryHistory } from 'react-router';
 import authMiddleware from '../../middleware/authMiddleware';
 import { routerMiddleware } from 'react-router-redux';
+import { ACCESS_TOKEN_AUDIENCE_NAME, sign } from '../../../../server/services/AccessToken';
+
+export function createWithSignedStore(name, aud, options) {
+  return sign({
+    sub: name,
+    aud: aud,
+    exp: Math.floor(Date.now() / 1000),
+  }, configs.auth.key).then((token) => {
+    const store = createStore({
+      cookie: {
+        'access-token': token,
+      },
+    });
+    return store;
+  });
+}
 
 export function createStore(options) {
   const history = createMemoryHistory(options.historyRoute || '/');

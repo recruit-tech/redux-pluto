@@ -2,7 +2,7 @@
 import Fetchr from 'fetchr';
 import { test } from 'eater/runner';
 import assert from 'power-assert';
-import { createStore } from './lib/storeUtils';
+import { createStore, createWithSignedStore } from './lib/storeUtils';
 import { ACCESS_TOKEN_AUDIENCE_NAME, sign } from '../../../server/services/AccessToken';
 import { login, logout } from '../modules/auth';
 import configs from '../../../server/configs';
@@ -22,16 +22,7 @@ Fetchr.registerService({
 
 test('auth: logout success', (done) => {
   const logoutAction = logout();
-  sign({
-    sub: 'scott',
-    aud: ACCESS_TOKEN_AUDIENCE_NAME,
-    exp: Math.floor(Date.now() / 1000),
-  }, configs.auth.key).then((token) => {
-    const store = createStore({
-      cookie: {
-        'access-token': token,
-      },
-    });
+  createWithSignedStore('scott', ACCESS_TOKEN_AUDIENCE_NAME, {}).then((store) => {
     store.dispatch(logoutAction).then(() => {
       assert.deepEqual(store.getState().auth, {
         login: false,
@@ -43,18 +34,9 @@ test('auth: logout success', (done) => {
 });
 
 test('auth: logout success when not logged in', (done) => {
-  const loginAction = login('scott', 'tiger');
+  const loginAction = login('foobar', 'tiger');
   const logoutAction = logout();
-  sign({
-    sub: 'foobar',
-    aud: ACCESS_TOKEN_AUDIENCE_NAME,
-    exp: Math.floor(Date.now() / 1000),
-  }, configs.auth.key).then((token) => {
-    const store = createStore({
-      cookie: {
-        'access-token': token,
-      },
-    });
+  createWithSignedStore('foobar', ACCESS_TOKEN_AUDIENCE_NAME, {}).then((store) => {
     store.dispatch(loginAction).then(() => {
       assert.deepEqual(store.getState().auth, {
         login: true,

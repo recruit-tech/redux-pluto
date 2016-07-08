@@ -10,7 +10,7 @@ let needFailure = false;
 Fetchr.registerService({
     name: 'style',
     read(req, resource, params, config, cb) {
-      needFailure ? cb(new Error('failure')) : cb(null, { results_available: '10', style: ['foo', 'bar'] });
+      return needFailure ? cb(new Error('failure')) : cb(null, { results_available: '10', style: ['foo', 'bar'] });
     },
   },
 );
