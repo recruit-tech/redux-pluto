@@ -95,7 +95,7 @@ test('master: loadAll success', (done, fail) => {
 });
 
 test('master: load each success', (done, fail) => {
-  const initialState = Immutable({ masters: masters.INITIAL_STATE});
+  const initialState = Immutable({ masters: masters.INITIAL_STATE });
   const store = createStore({
     initialState,
   });
