@@ -22,19 +22,6 @@ export default compose(
 
     return dispatch(searchSalon({ keyword }));
   }),
-  deferLoader(({ location }, { dispatch }) => {
-    if (location.query && !location.query.keyword) {
-      return dispatch(clearSearchSalon());
-    }
-
-    const keyword = location.query.keyword;
-    const page = location.query.page;
-    if (keyword && page) {
-      return dispatch(searchMoreSalon({ keyword, page }));
-    }
-
-    return dispatch(searchSalon({ keyword }));
-  }),
   reduxForm({
       form: 'salon',
       fields: ['keyword'],
