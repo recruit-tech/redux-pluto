@@ -1,5 +1,10 @@
-// based on async-props@0.3.2
-// https://github.com/ryanflorence/async-props
+/*
+ * A part of these functions are:
+ *   Copyright (c) 2015 Ryan Florence
+ *   Released under the MIT license.
+ *   https://github.com/ryanflorence/async-props/blob/master/LICENSE.md
+ */
+
 import { loadAsyncPropertyName } from './names';
 
 function eachComponents(components, iterator) {
