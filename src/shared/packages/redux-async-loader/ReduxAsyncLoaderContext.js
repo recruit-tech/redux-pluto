@@ -1,6 +1,14 @@
 /* eslint-disable react/no-set-state */
+
+/*
+ * A part of these functions are:
+ *   Copyright (c) 2015 Ryan Florence
+ *   Released under the MIT license.
+ *   https://github.com/ryanflorence/async-props/blob/master/LICENSE.md
+ */
+
 import React, { Component, PropTypes } from 'react';
-import computeChangedRoutes from 'react-router/lib/computeChangedRoutes';
+import computeChangedRoutes from './computeChangedRoutes';
 import { beginAsyncLoad, endAsyncLoad, skipAsyncLoad } from './actions';
 import flattenComponents from './flattenComponents';
 import loadAsync from './loadAsync';
@@ -32,24 +40,19 @@ class ReduxAsyncLoaderContext extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // based on async-props@0.3.2
-    // https://github.com/ryanflorence/async-props
     if (nextProps.location === this.props.location) {
       return;
     }
 
-    const { enterRoutes } = computeChangedRoutes(
-      { routes: this.props.routes, params: this.props.params },
-      { routes: nextProps.routes, params: nextProps.params }
+    const enterRoutes = computeChangedRoutes(
+      { routes: this.props.routes, params: this.props.params, location: this.props.location },
+      { routes: nextProps.routes, params: nextProps.params, location: nextProps.location }
     );
 
     const indexDiff = nextProps.components.length - enterRoutes.length;
-    const components = [];
-    for (let i = 0, l = enterRoutes.length; i < l; i++) {
-      components.push(nextProps.components[indexDiff + i]);
-    }
+    const components = enterRoutes.map((route, index) => nextProps.components[indexDiff + index]);
 
-    this.loadAsync(Object.assign({},  nextProps, { components }));
+    this.loadAsync(Object.assign({}, nextProps, { components }));
   }
 
   shouldComponentUpdate(nextProps, nextState) {

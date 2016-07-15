@@ -32,7 +32,7 @@ export default function getRoutes(store) {
           </Route>
 
           <Route path="salon">
-            <IndexRoute component={SalonForm} ignoreScrollBehavior={true} />
+            <IndexRoute queryKeys="keyword, page" component={SalonForm} ignoreScrollBehavior={true} />
             <Route path=":salonId" component={Salon} />
           </Route>
           <Route path="login" component={Login} />
