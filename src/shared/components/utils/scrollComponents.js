@@ -4,11 +4,10 @@ import ReactDOM from 'react-dom';
 
 export const showOnScroll = (ComposedComponent) => class ShowOnScroll extends Component {
   componentDidMount() {
-    //const throttleMS = this.props.throttleMicrosec || 50;
     this._scrollListener = throttle(this.scrollListener.bind(this), 1000);
     this.heightRatio = this.props.heightRatio || 1;
     this.isUnmounting = false;
-    this.attachScrollListener();
+    setTimeout(this.attachScrollListener.bind(this), 1000);
   }
 
   componentWillUnmount() {
@@ -80,7 +79,7 @@ export const adjustScroll = (ComposedComponent) => class AdjustScroll extends Co
 export const forceScroll = (ComposedComponent) => class ForceScroll extends Component {
   componentDidMount() {
     const { x, y } = this.props.forceScrollTo;
-    this.props.shouldForceScroll && window.scrollTo(x, y);
+    typeof x === 'number'  && typeof y === 'number' && window.scrollTo(x, y);
   }
 
   render() {
