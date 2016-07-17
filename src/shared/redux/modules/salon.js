@@ -78,6 +78,7 @@ export const INITIAL_STATE = {
   params: {},
   count: 0,
   page: 0,
+  pages: [],
   items: {},
   item: {},
   canGetNext: false,
@@ -104,7 +105,9 @@ export default compose(
     ...state,
     loading: false,
     loaded: true,
-    count: +count,
+    count: parseInt(count),
+    page: parseInt(params.page || 0),
+    pages: createPages(parseInt(count)),
     items: { [params.page || 0]: items },
     canGetNext: canGetNext(count, start),
     canGetPrev: canGetPrev(params.page || 0),
@@ -127,6 +130,7 @@ export default compose(
     loaded: true,
     items: findItems(state.items, items[0]),
     item: items[0],
+    forceScrollTo: findScrollToPosition(state.items, items[0]),
   }),
 
   [FIND_SALON_BY_ID_FAIL]: (state, { error }) => INITIAL_STATE,
@@ -144,10 +148,13 @@ export default compose(
     loaded: true,
     count: parseInt(count),
     page: parseInt(params.page),
+    pages: createPages(parseInt(count)),
     items: { ...state.items, [parseInt(params.page)]: items },
+    item: {},
     canGetNext: canGetNext(count, start),
     canGetPrev: canGetPrev(params.page),
     shouldAdjustScroll: state.page > parseInt(params.page),
+    forceScrollTo: {},
   }),
 
   [SEARCH_MORE_SALON_FAIL]: (state, { payload: { resource }, error }) => ({
@@ -178,14 +185,25 @@ function findItems(itemsMap, item) {
   return {};
 }
 
-function findItemIndex(items, item) {
+function findScrollToPosition(itemsMap, item) {
+  if (!item.id) return {};
   const pages = Object.keys(itemsMap);
   for (const page of pages) {
-    const foundItem = itemsMap[page].find((pageItem) => pageItem.id === item.id);
-    if (foundItem) {
-      return { [page]: itemsMap[page] };
+    const index = itemsMap[page].findIndex((pageItem) => pageItem.id === item.id);
+    if (index >= 0) {
+      return { x:0, y: 100 * (index + 1) };
     }
   }
 
   return {};
+}
+
+function createPages(count) {
+  const maxPage = count / SALON_SEARCH_MAX_COUNT;
+  const result = [];
+  for (let i = 0; i < maxPage; i++) {
+    result.push(i);
+  }
+
+  return result;
 }

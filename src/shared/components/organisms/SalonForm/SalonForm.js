@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { propTypes as formPropTypes } from 'redux-form';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
-import SalonLists from '../../molecules/SalonLists';
+import SalonLists from './SalonLists';
+import SalonPager from './SalonPager';
 import SalonMore from '../../atoms/SalonMore';
 import { createLocal } from '../../utils/localnames';
 import styles from './styles.scss';
-import { forceScroll } from '../../utils/scrollComponents';
 
 const { localNames: local } = createLocal(styles);
 
@@ -14,17 +14,19 @@ export default compose(
   setPropTypes({
     ...formPropTypes,
     page: PropTypes.number,
+    pages: PropTypes.array.isRequired,
     count: PropTypes.number.isRequired,
     items: PropTypes.object.isRequired,
     item: PropTypes.object.isRequired,
     onInnerWindow: PropTypes.func.isRequired,
     onClickNext: PropTypes.func.isRequired,
     onClickPrev: PropTypes.func.isRequired,
+    onClickItem: PropTypes.func.isRequired,
     canGetNext: PropTypes.bool.isRequired,
     canGetPrev: PropTypes.bool.isRequired,
     shouldAdjustScroll: PropTypes.bool.isRequired,
+    forceScrollTo: PropTypes.object,
   }),
-  forceScroll,
 )(class SalonForm extends Component {
   render() {
     const {
@@ -32,14 +34,17 @@ export default compose(
       handleSubmit,
       count,
       page,
-      items,
+      pages,
       item,
+      items,
       onClickNext,
       onClickPrev,
+      onClickItem,
       onInnerWindow,
       canGetNext,
       canGetPrev,
       shouldAdjustScroll,
+      forceScrollTo,
     }  = this.props;
 
     return (
@@ -48,7 +53,7 @@ export default compose(
           <div>
             <label>Free Keyword</label>
             <div>
-              <input type="text" {...keyword} />
+              <input type="text" autoFocus {...keyword} />
               <button type="submit">
                 Search
               </button>
@@ -56,13 +61,17 @@ export default compose(
           </div>
         </form>
         <div>
-          {canGetPrev ? <SalonMore onShow={onClickPrev(page - 1)}>戻る</SalonMore> : null}
+          {canGetPrev ? <SalonMore onShow={onClickPrev}>戻る</SalonMore> : null}
           <div>
             <span>{count || 0}</span><span>件あります</span>
           </div>
           <SalonLists items={items} page={page} onInnerWindow={onInnerWindow}
-                      shouldAdjustScroll={shouldAdjustScroll} item={item} />
-          {canGetNext ? <SalonMore onShow={onClickNext(page + 1)}>進む</SalonMore> : null}
+                      shouldAdjustScroll={shouldAdjustScroll} item={item} forceScrollTo={forceScrollTo}
+                      onClickItem={onClickItem} />
+          {canGetNext ? <SalonMore onShow={onClickNext}>進む</SalonMore> : null}
+        </div>
+        <div className={local('pager')}>
+          <SalonPager pages={pages} page={page} keyword={keyword.initialValue} />
         </div>
       </div>
     );
