@@ -16,6 +16,9 @@ export default compose(
 )(class SalonList extends Component {
   render() {
     const { items, page, onClickItem } = this.props;
+    if (items.length === 0) {
+      return <div>サロンが見つかりませんでした</div>;
+    }
     return (
       <div data-page={page}>
         <span>~~~~ {page} ~~~~</span>
