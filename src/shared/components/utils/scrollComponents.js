@@ -4,11 +4,10 @@ import ReactDOM from 'react-dom';
 
 export const showOnScroll = (ComposedComponent) => class ShowOnScroll extends Component {
   componentDidMount() {
-    //const throttleMS = this.props.throttleMicrosec || 50;
-    this._scrollListener = throttle(this.scrollListener.bind(this), 1000);
+    this._scrollListener = throttle(() => this.scrollListener(), 300);
     this.heightRatio = this.props.heightRatio || 1;
     this.isUnmounting = false;
-    this.attachScrollListener();
+    setTimeout(() => this.attachScrollListener(), 300);
   }
 
   componentWillUnmount() {
@@ -17,7 +16,10 @@ export const showOnScroll = (ComposedComponent) => class ShowOnScroll extends Co
   }
 
   scrollListener() {
-    if (this.isUnmounting) return;
+    if (this.isUnmounting) {
+      return;
+    }
+
     const element = ReactDOM.findDOMNode(this);
     const el = element.getBoundingClientRect();
     const height = window.innerHeight;
@@ -80,7 +82,7 @@ export const adjustScroll = (ComposedComponent) => class AdjustScroll extends Co
 export const forceScroll = (ComposedComponent) => class ForceScroll extends Component {
   componentDidMount() {
     const { x, y } = this.props.forceScrollTo;
-    this.props.shouldForceScroll && window.scrollTo(x, y);
+    typeof x === 'number' && typeof y === 'number' && window.scrollTo(x, y);
   }
 
   render() {

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
-import { showOnScroll, adjustScroll } from '../../utils/scrollComponents';
+import { showOnScroll, adjustScroll, forceScroll } from '../../utils/scrollComponents';
 import SalonListItem from '../../atoms/SalonListItem';
 
 export default compose(
@@ -11,13 +11,20 @@ export default compose(
   }),
   showOnScroll,
   adjustScroll,
+  forceScroll,
 )(class SalonList extends Component {
   render() {
     const { items, page } = this.props;
+    if (items.length === 0) {
+      return <div>サロンが見つかりませんでした</div>;
+    }
+
     return (
       <div data-page={page}>
         <span>~~~~ {page} ~~~~</span>
-        {items.map((item) => (<SalonListItem item={item} page={page} key={item.id} />))}
+        {items.map((item) => (
+          <SalonListItem item={item} page={page} key={item.id} />
+        ))}
       </div>
     );
   }

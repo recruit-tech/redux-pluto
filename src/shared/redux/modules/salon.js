@@ -3,6 +3,8 @@ import { compose } from 'recompose';
 import { steps } from '../../packages/redux-effects-ext';
 import { fetchrRead } from '../../packages/redux-effects-fetchr';
 import { initialState, filterActionType } from './utils';
+import range from 'lodash/fp/range';
+
 export const SALON_SEARCH_MAX_COUNT = 50;
 
 /**
@@ -78,6 +80,7 @@ export const INITIAL_STATE = {
   params: {},
   count: 0,
   page: 0,
+  pages: [],
   items: {},
   item: {},
   canGetNext: false,
@@ -105,9 +108,11 @@ export default compose(
     loading: false,
     loaded: true,
     count: +count,
-    items: { [params.page || 0]: items },
+    page: +params.page || 0,
+    pages: createPages(+count),
+    items: { [+params.page || 0]: items || [] },
     canGetNext: canGetNext(count, start),
-    canGetPrev: canGetPrev(params.page || 0),
+    canGetPrev: canGetPrev(+params.page || 0),
   }),
 
   [SEARCH_SALON_FAIL]: (state, { error }) => ({
@@ -125,7 +130,6 @@ export default compose(
     ...state,
     loading: false,
     loaded: true,
-    items: findItems(state.items, items[0]),
     item: items[0],
   }),
 
@@ -142,12 +146,15 @@ export default compose(
     ...state,
     loading: false,
     loaded: true,
-    count: parseInt(count),
-    page: parseInt(params.page),
-    items: { ...state.items, [parseInt(params.page)]: items },
+    count: +count,
+    page: +params.page,
+    pages: createPages(+count),
+    items: { ...state.items, [+params.page]: items || [] },
+    item: {},
     canGetNext: canGetNext(count, start),
-    canGetPrev: canGetPrev(params.page),
-    shouldAdjustScroll: state.page > parseInt(params.page),
+    canGetPrev: canGetPrev(+params.page),
+    shouldAdjustScroll: state.page > +params.page,
+    forceScrollTo: {},
   }),
 
   [SEARCH_MORE_SALON_FAIL]: (state, { payload: { resource }, error }) => ({
@@ -159,11 +166,11 @@ export default compose(
 }));
 
 function canGetNext(count, start) {
-  return parseInt(count) > parseInt(start) + SALON_SEARCH_MAX_COUNT;
+  return +count > +start + SALON_SEARCH_MAX_COUNT;
 }
 
 function canGetPrev(page) {
-  return parseInt(page) > 0;
+  return +page > 0;
 }
 
 function findItems(itemsMap, item) {
@@ -178,14 +185,22 @@ function findItems(itemsMap, item) {
   return {};
 }
 
-function findItemIndex(items, item) {
+function findScrollToPosition(itemsMap, item) {
+  if (!item.id) {
+    return {};
+  }
   const pages = Object.keys(itemsMap);
   for (const page of pages) {
-    const foundItem = itemsMap[page].find((pageItem) => pageItem.id === item.id);
-    if (foundItem) {
-      return { [page]: itemsMap[page] };
+    const index = itemsMap[page].findIndex((pageItem) => pageItem.id === item.id);
+    if (index >= 0) {
+      return { x: 0, y: 100 * (index + 1) };
     }
   }
 
   return {};
+}
+
+function createPages(count) {
+  const maxPage = count / SALON_SEARCH_MAX_COUNT;
+  return range(0, maxPage);
 }
