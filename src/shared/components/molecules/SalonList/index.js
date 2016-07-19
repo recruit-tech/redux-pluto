@@ -18,6 +18,7 @@ export default compose(
     if (items.length === 0) {
       return <div>サロンが見つかりませんでした</div>;
     }
+
     return (
       <div data-page={page}>
         <span>~~~~ {page} ~~~~</span>
