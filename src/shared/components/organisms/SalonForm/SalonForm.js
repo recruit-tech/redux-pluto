@@ -21,7 +21,6 @@ export default compose(
     onInnerWindow: PropTypes.func.isRequired,
     onClickNext: PropTypes.func.isRequired,
     onClickPrev: PropTypes.func.isRequired,
-    onClickItem: PropTypes.func.isRequired,
     canGetNext: PropTypes.bool.isRequired,
     canGetPrev: PropTypes.bool.isRequired,
     shouldAdjustScroll: PropTypes.bool.isRequired,
@@ -39,7 +38,6 @@ export default compose(
       items,
       onClickNext,
       onClickPrev,
-      onClickItem,
       onInnerWindow,
       canGetNext,
       canGetPrev,
@@ -66,8 +64,7 @@ export default compose(
             <span>{count || 0}</span><span>件あります</span>
           </div>
           <SalonLists items={items} page={page} onInnerWindow={onInnerWindow}
-                      shouldAdjustScroll={shouldAdjustScroll} item={item} forceScrollTo={forceScrollTo}
-                      onClickItem={onClickItem} />
+                      shouldAdjustScroll={shouldAdjustScroll} item={item} forceScrollTo={forceScrollTo} />
           {canGetNext ? <SalonMore onShow={onClickNext}>進む</SalonMore> : null}
         </div>
         <div className={local('pager')}>
