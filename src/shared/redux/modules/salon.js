@@ -110,9 +110,9 @@ export default compose(
     count: +count,
     page: +params.page || 0,
     pages: createPages(+count),
-    items: { [params.page || 0]: items || [] },
+    items: { [+params.page || 0]: items || [] },
     canGetNext: canGetNext(count, start),
-    canGetPrev: canGetPrev(params.page || 0),
+    canGetPrev: canGetPrev(+params.page || 0),
   }),
 
   [SEARCH_SALON_FAIL]: (state, { error }) => ({
@@ -152,7 +152,7 @@ export default compose(
     items: { ...state.items, [+params.page]: items || [] },
     item: {},
     canGetNext: canGetNext(count, start),
-    canGetPrev: canGetPrev(params.page),
+    canGetPrev: canGetPrev(+params.page),
     shouldAdjustScroll: state.page > +params.page,
     forceScrollTo: {},
   }),
