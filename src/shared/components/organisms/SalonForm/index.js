@@ -7,20 +7,21 @@ import { replace, push } from 'react-router-redux';
 import { parse } from 'querystring';
 
 export default compose(
-
-  // TODO onChange で asyncLoader が呼ばれない問題を解決する必要あり
-  asyncLoader(({ location }, { dispatch }) => {
+  asyncLoader(({ location }, { dispatch, getState }) => {
     if (location.query && !location.query.keyword) {
       return dispatch(clearSearchSalon());
     }
 
+    const more = location.query.more;
     const keyword = location.query.keyword;
     const page = location.query.page;
-    if (keyword && page) {
+
+    if (more) {
       return dispatch(searchMoreSalon({ keyword, page }));
     }
 
-    return dispatch(searchSalon({ keyword }));
+    dispatch(clearSearchSalon());
+    return dispatch(searchSalon({ keyword, page }));
   }),
   reduxForm({
       form: 'salon',
@@ -28,6 +29,7 @@ export default compose(
     },
     (state) => ({
       page: state.salon.page,
+      pages: state.salon.pages,
       count: state.salon.count,
       items: state.salon.items,
       item: state.salon.item,
@@ -43,14 +45,17 @@ export default compose(
       onSubmit({ keyword }) {
         return dispatch(push(`/salon?keyword=${keyword}`));
       },
-      onClickPrev: (page) => () => {
+
+      onClickPrev: () => {
         const keyword = ownProps.location.query.keyword;
-        return dispatch(replace(`/salon?keyword=${keyword}&page=${page}`));
+        const page = +ownProps.location.query.page || 0;
+        return dispatch(replace(`/salon?keyword=${keyword}&page=${page - 1}&more=true`));
       },
 
-      onClickNext: (page) => () => {
+      onClickNext: () => {
         const keyword = ownProps.location.query.keyword;
-        return dispatch(replace(`/salon?keyword=${keyword}&page=${page}`));
+        const page = +ownProps.location.query.page || 0;
+        return dispatch(replace(`/salon?keyword=${keyword}&page=${page + 1}&more=true`));
       },
 
       // 今見てる window の中の要素でpageのURL位置を変える
@@ -59,9 +64,10 @@ export default compose(
         const currentPage = parse(window.location.search.substr(1)).page || 0;
         const keyword = ownProps.location.query.keyword;
         if (page !== currentPage) {
-          return dispatch(replace(`/salon?keyword=${keyword}&page=${page}`));
+          return dispatch(replace(`/salon?keyword=${keyword}&page=${page}&more=true`));
         }
       },
+
     }),
   ),
 )(SalonForm);

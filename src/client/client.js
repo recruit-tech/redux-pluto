@@ -25,8 +25,8 @@ const routes = getRoutes(store);
 
 const RenderWithMiddleware = applyRouterMiddleware(
   useAsyncLoader(),
-  useScroll((prevRouterProps, { routes }) => {
-    if (routes.some((route) => route.ignoreScrollBehavior)) {
+  useScroll((prevRouterProps, { location, routes }) => {
+    if (routes.some((route) => route.ignoreScrollBehavior && route.ignoreScrollBehavior(location))) {
       return false;
     }
 

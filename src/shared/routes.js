@@ -32,7 +32,10 @@ export default function getRoutes(store) {
           </Route>
 
           <Route path="salon">
-            <IndexRoute queryKeys="keyword, page" component={SalonForm} ignoreScrollBehavior={true} />
+            <IndexRoute
+              queryKeys="keyword, page, more"
+              component={SalonForm}
+              ignoreScrollBehavior={ignoreScrollBehavior} />
             <Route path=":salonId" component={Salon} />
           </Route>
           <Route path="login" component={Login} />
@@ -78,4 +81,10 @@ export default function getRoutes(store) {
       () => cb('/error'),
     );
   }
+
+  function ignoreScrollBehavior(location) {
+    // REPLACEの時だけはスクロールを無視
+    return location.action === 'REPLACE';
+  }
+
 }

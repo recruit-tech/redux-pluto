@@ -12,7 +12,7 @@
     "clean-start": "npm-run-all clean build start:prod",
     "eslint": "eslint src",
     "fixpack": "fixpack",
-    "jscs": "jscs src",
+    "jscs": "jscs src --fix",
     "lint": "npm-run-all eslint jscs",
     "prod": "npm-run-all build prod:start",
     "start": "cross-env NODE_ENV=development DISABLE_SSR=1 npm-run-all --parallel start:dev:{webpack,server}",
