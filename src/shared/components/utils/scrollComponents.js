@@ -19,6 +19,7 @@ export const showOnScroll = (ComposedComponent) => class ShowOnScroll extends Co
     if (this.isUnmounting) {
       return;
     }
+
     const element = ReactDOM.findDOMNode(this);
     const el = element.getBoundingClientRect();
     const height = window.innerHeight;
