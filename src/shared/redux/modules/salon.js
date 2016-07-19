@@ -186,12 +186,14 @@ function findItems(itemsMap, item) {
 }
 
 function findScrollToPosition(itemsMap, item) {
-  if (!item.id) return {};
+  if (!item.id) {
+    return {};
+  }
   const pages = Object.keys(itemsMap);
   for (const page of pages) {
     const index = itemsMap[page].findIndex((pageItem) => pageItem.id === item.id);
     if (index >= 0) {
-      return { x:0, y: 100 * (index + 1) };
+      return { x: 0, y: 100 * (index + 1) };
     }
   }
 
