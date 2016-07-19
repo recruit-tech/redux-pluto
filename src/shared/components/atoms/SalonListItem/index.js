@@ -11,13 +11,12 @@ export default compose(
   setPropTypes({
     item: PropTypes.object.isRequired,
     page: PropTypes.number.isRequired,
-    onClickItem: PropTypes.func.isRequired,
   }),
 )(class SalonListItem extends Component {
   render() {
-    const { item, page, onClickItem } = this.props;
+    const { item, page } = this.props;
     return (
-      <div className={local('root')} onClickCapture={onClickItem(page)}>
+      <div className={local('root')}>
         <img src={item.logo_image_square} />
         <Link to={`/salon/${item.id}`}>{item.name}</Link>
       </div>

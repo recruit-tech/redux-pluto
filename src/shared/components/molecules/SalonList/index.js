@@ -8,14 +8,13 @@ export default compose(
   setPropTypes({
     items: PropTypes.array.isRequired,
     page: PropTypes.number.isRequired,
-    onClickItem: PropTypes.func.isRequired,
   }),
   showOnScroll,
   adjustScroll,
   forceScroll,
 )(class SalonList extends Component {
   render() {
-    const { items, page, onClickItem } = this.props;
+    const { items, page } = this.props;
     if (items.length === 0) {
       return <div>サロンが見つかりませんでした</div>;
     }
@@ -23,8 +22,7 @@ export default compose(
       <div data-page={page}>
         <span>~~~~ {page} ~~~~</span>
         {items.map((item) => (
-          <SalonListItem item={item} page={page} key={item.id}
-                         onClickItem={onClickItem} />
+          <SalonListItem item={item} page={page} key={item.id} />
         ))}
       </div>
     );

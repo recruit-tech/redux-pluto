@@ -48,13 +48,13 @@ export default compose(
 
       onClickPrev: () => {
         const keyword = ownProps.location.query.keyword;
-        const page = parseInt(ownProps.location.query.page) || 0;
+        const page = +ownProps.location.query.page || 0;
         return dispatch(replace(`/salon?keyword=${keyword}&page=${page - 1}&more=true`));
       },
 
       onClickNext: () => {
         const keyword = ownProps.location.query.keyword;
-        const page = parseInt(ownProps.location.query.page) || 0;
+        const page = +ownProps.location.query.page || 0;
         return dispatch(replace(`/salon?keyword=${keyword}&page=${page + 1}&more=true`));
       },
 
@@ -68,10 +68,6 @@ export default compose(
         }
       },
 
-      onClickItem: (page) => () => {
-        const keyword = ownProps.location.query.keyword;
-        return dispatch(replace(`/salon?keyword=${keyword}&page=${page}&more=true`));
-      },
     }),
   ),
 )(SalonForm);

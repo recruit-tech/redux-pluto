@@ -4,10 +4,10 @@ import ReactDOM from 'react-dom';
 
 export const showOnScroll = (ComposedComponent) => class ShowOnScroll extends Component {
   componentDidMount() {
-    this._scrollListener = throttle(this.scrollListener.bind(this), 300);
+    this._scrollListener = throttle(() => this.scrollListener(), 300);
     this.heightRatio = this.props.heightRatio || 1;
     this.isUnmounting = false;
-    setTimeout(this.attachScrollListener.bind(this), 300);
+    setTimeout(() => this.attachScrollListener(), 300);
   }
 
   componentWillUnmount() {
