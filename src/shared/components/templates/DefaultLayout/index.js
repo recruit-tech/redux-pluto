@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import Alert from '../../organisms/Alert';
+import GlobalIndicator from '../../organisms/GlobalIndicator';
 import { createLocal } from '../../utils/localnames';
 import styles from './styles.scss';
 
@@ -30,6 +31,9 @@ export default compose(
         </div>
         <div className={local('alert')}>
           <Alert />
+        </div>
+        <div className={local('indicator')}>
+          <GlobalIndicator />
         </div>
       </div>
     );
