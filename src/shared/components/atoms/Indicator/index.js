@@ -16,6 +16,7 @@ export default compose(
     if (!loading) {
       return null;
     }
+
     return (
       <div className={local('loader')}></div>
     );
