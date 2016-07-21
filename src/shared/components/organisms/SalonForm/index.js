@@ -46,15 +46,13 @@ export default compose(
         return dispatch(push(`/salon?keyword=${keyword}`));
       },
 
-      onClickPrev: () => {
+      onClickPrev: (page) => () => {
         const keyword = ownProps.location.query.keyword;
-        const page = +ownProps.location.query.page || 0;
         return dispatch(replace(`/salon?keyword=${keyword}&page=${page - 1}&more=true`));
       },
 
-      onClickNext: () => {
+      onClickNext: (page) => () => {
         const keyword = ownProps.location.query.keyword;
-        const page = +ownProps.location.query.page || 0;
         return dispatch(replace(`/salon?keyword=${keyword}&page=${page + 1}&more=true`));
       },
 

@@ -59,13 +59,13 @@ export default compose(
           </div>
         </form>
         <div>
-          {canGetPrev ? <SalonMore onShow={onClickPrev}>戻る</SalonMore> : null}
+          {canGetPrev ? <SalonMore onShow={onClickPrev(page)}>戻る</SalonMore> : null}
           <div>
             <span>{count || 0}</span><span>件あります</span>
           </div>
           <SalonLists items={items} page={page} onInnerWindow={onInnerWindow}
                       shouldAdjustScroll={shouldAdjustScroll} item={item} forceScrollTo={forceScrollTo} />
-          {canGetNext ? <SalonMore onShow={onClickNext}>進む</SalonMore> : null}
+          {canGetNext ? <SalonMore onShow={onClickNext(page)}>進む</SalonMore> : null}
         </div>
         <div className={local('pager')}>
           <SalonPager pages={pages} page={page} keyword={keyword.initialValue} />
