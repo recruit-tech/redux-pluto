@@ -189,6 +189,7 @@ function findScrollToPosition(itemsMap, item) {
   if (!item.id) {
     return {};
   }
+
   const pages = Object.keys(itemsMap);
   for (const page of pages) {
     const index = itemsMap[page].findIndex((pageItem) => pageItem.id === item.id);
