@@ -1,6 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import SalonList from '../../../molecules/SalonList';
+import { createLocal } from '../../../utils/localnames';
+import styles from './styles.scss';
+
+const { localNames: local } = createLocal(styles);
 
 export default compose(
   onlyUpdateForPropTypes,
@@ -14,7 +18,7 @@ export default compose(
   render() {
     const { items, onInnerWindow, shouldAdjustScroll, forceScrollTo } = this.props;
     return (
-      <div>
+      <div className={local('root')}>
         {Object.keys(items).map((page) => (
           <SalonList items={items[page]} page={+page} onInnerWindow={onInnerWindow}
                      heightRatio={0.5} key={page} shouldAdjustScroll={shouldAdjustScroll}
