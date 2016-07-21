@@ -17,8 +17,11 @@ export default compose(
     const { item, page } = this.props;
     return (
       <div className={local('root')}>
-        <img src={item.logo_image_square} />
-        <Link to={`/salon/${item.id}`}>{item.name}</Link>
+        <div className={local('shopName')}>
+          <img src={item.logo_image_square} />
+          <Link to={`/salon/${item.id}`}>{item.name}</Link>
+        </div>
+        <div className={local('description')}>{item.description}</div>
       </div>
     );
   }
