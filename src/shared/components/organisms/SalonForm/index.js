@@ -1,6 +1,6 @@
 import { compose } from 'recompose';
 import { reduxForm } from 'redux-form';
-import { asyncLoader, deferLoader } from '../../../packages/redux-async-loader';
+import { asyncLoader } from 'redux-async-loader';
 import { searchSalon, searchMoreSalon, clearSearchSalon } from '../../../redux/modules/salon';
 import SalonForm from './SalonForm';
 import { replace, push } from 'react-router-redux';

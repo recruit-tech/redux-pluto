@@ -1,5 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
-import { steps } from '../../packages/redux-effects-ext';
+import { steps } from 'redux-effects-steps';
 import { compose } from 'recompose';
 import { initialState, filterActionType } from './utils';
 
