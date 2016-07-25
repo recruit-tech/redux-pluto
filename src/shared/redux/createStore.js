@@ -1,11 +1,11 @@
 import React from 'react';
 import { routerMiddleware } from 'react-router-redux';
 import { createStore, compose, applyMiddleware } from 'redux';
-import effects from '../packages/redux-effects-ext';
-import cookie from 'redux-effects-cookie';
-import { BEGIN_ASYNC_LOAD, END_ASYNC_LOAD } from '../packages/redux-async-loader';
-import fetchr from '../packages/redux-effects-fetchr';
-import fetchrCache from '../packages/redux-effects-fetchr-cache';
+import { BEGIN_ASYNC_LOAD, END_ASYNC_LOAD } from 'redux-async-loader';
+import steps from 'redux-effects-steps';
+import cookie from 'redux-effects-universal-cookie';
+import fetchr from 'redux-effects-fetchr';
+import fetchrCache from 'redux-effects-fetchr-cache';
 import filter from 'lodash/fp/filter';
 import apiError from './middleware/apiErrorMiddleware';
 import auth from './middleware/authMiddleware';
@@ -14,9 +14,9 @@ import reducer from './modules/reducer';
 
 export default function (initialState, options = {}) {
   const middlewares = filter(Boolean)([
-    effects,
+    steps,
     auth(),
-    cookie(options.cookie),
+    cookie(...options.cookie),
     options.fetchrCache ? fetchrCache(options.fetchrCache) : null,
     apiError(),
     fetchr(options.fetchr),

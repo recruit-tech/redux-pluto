@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { Router, applyRouterMiddleware, browserHistory, match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import useScroll from 'react-router-scroll';
-import { useAsyncLoader } from '../shared/packages/redux-async-loader';
+import { useAsyncLoader } from 'redux-async-loader';
 import Fetchr from 'fetchr';
 import createStore from '../shared/redux/createStore';
 import getRoutes from '../shared/routes';
@@ -15,6 +15,7 @@ delete window.__INITIAL_STATE__;
 delete window.__CLIENT_CONFIG__;
 
 const store = createStore(initialState, {
+  cookie: [],
   fetchr: new Fetchr(clientConfig.fetchr),
   fetchrCache: clientConfig.fetchrCache,
   history: browserHistory,

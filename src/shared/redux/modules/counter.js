@@ -1,7 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { compose } from 'recompose';
-import { steps } from '../../packages/redux-effects-ext';
-import { fetchrUpdate } from '../../packages/redux-effects-fetchr';
+import { steps } from 'redux-effects-steps';
+import { fetchrUpdate } from 'redux-effects-fetchr';
 import { initialState } from './utils';
 
 /**
