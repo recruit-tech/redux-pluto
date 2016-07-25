@@ -2,9 +2,9 @@ import { inspect } from 'util';
 import React, { createFactory } from 'react';
 import { renderToString, renderToStaticMarkup } from 'react-dom/server';
 import { Provider } from 'react-redux';
-import { applyRouterMiddleware, createMemoryHistory, match } from 'react-router';
+import { createMemoryHistory, match, RouterContext } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { useAsyncLoader, loadOnServer } from 'redux-async-loader';
+import { loadOnServer } from 'redux-async-loader';
 import Fetchr from 'fetchr';
 import debugFactory from 'debug';
 import createStore from '../../shared/redux/createStore';
@@ -75,12 +75,9 @@ export default function createReduxApp(config) {
         store.dispatch(checkLogin()).catch(() => null),
       ]).then(() => {
         tryRender(res, () => {
-          const RenderWithMiddleware = applyRouterMiddleware(
-            useAsyncLoader(),
-          );
           const content = renderToString(
             <Provider store={store} key="provider">
-              <RenderWithMiddleware {...renderProps} />
+              <RouterContext {...renderProps} />
             </Provider>
           );
 
