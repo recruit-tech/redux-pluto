@@ -1,5 +1,5 @@
 import { replace } from 'react-router-redux';
-import { FETCHR } from '../../packages/redux-effects-fetchr';
+import { FETCHR } from 'redux-effects-fetchr';
 import { showAlert } from '../modules/alert';
 import { handleActions } from './utils';
 
