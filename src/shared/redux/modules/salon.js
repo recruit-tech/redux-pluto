@@ -1,7 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { compose } from 'recompose';
-import { steps } from '../../packages/redux-effects-ext';
-import { fetchrRead } from '../../packages/redux-effects-fetchr';
+import { steps } from 'redux-effects-steps';
+import { fetchrRead } from 'redux-effects-fetchr';
 import { initialState, filterActionType } from './utils';
 import range from 'lodash/fp/range';
 
