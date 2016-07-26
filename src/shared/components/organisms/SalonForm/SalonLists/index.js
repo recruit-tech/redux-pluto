@@ -15,8 +15,8 @@ export default compose(
     forceScrollTo: PropTypes.object.isRequired,
   }),
 )(class SalonLists extends Component {
-  render() {
-    const { items, onInnerWindow, shouldAdjustScroll, forceScrollTo } = this.props;
+  render(props = this.props) {
+    const { items, onInnerWindow, shouldAdjustScroll, forceScrollTo } = props;
     return (
       <div className={local('root')}>
         {Object.keys(items).map((page) => (

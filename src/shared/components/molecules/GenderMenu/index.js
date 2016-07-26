@@ -10,9 +10,9 @@ export default compose(
     genderItems: PropTypes.object.isRequired,
   }),
 )(class GenderMenu extends Component {
-  render() {
-    const { genderItems } = this.props;
-    const gender = this.props.gender || Object.keys(genderItems)[0];
+  render(props = this.props) {
+    const { genderItems } = props;
+    const gender = props.gender || Object.keys(genderItems)[0];
 
     return (
       <div>

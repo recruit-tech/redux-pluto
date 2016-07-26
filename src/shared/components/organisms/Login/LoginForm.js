@@ -10,8 +10,8 @@ export default compose(
   onlyUpdateForPropTypes,
   setPropTypes({ ...formPropTypes }),
 )(class LoginForm extends Component {
-  render() {
-    const { fields: { username, password }, error, handleSubmit, resetForm, submitting } = this.props;
+  render(props = this.props) {
+    const { fields: { username, password }, error, handleSubmit, resetForm, submitting } = props;
     const hasError = !!(error || username.error || password.error);
 
     return (

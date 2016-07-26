@@ -27,7 +27,7 @@ export default compose(
     forceScrollTo: PropTypes.object,
   }),
 )(class SalonForm extends Component {
-  render() {
+  render(props = this.props) {
     const {
       fields: { keyword },
       handleSubmit,
@@ -43,7 +43,7 @@ export default compose(
       canGetPrev,
       shouldAdjustScroll,
       forceScrollTo,
-    }  = this.props;
+    }  = props;
 
     return (
       <div className={local('root')}>

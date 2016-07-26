@@ -16,8 +16,8 @@ export default compose(
     keyword: PropTypes.string.isRequired,
   }),
 )(class SalonPager extends Component {
-  render() {
-    const { keyword, page, pages } = this.props;
+  render(props = this.props) {
+    const { keyword, page, pages } = props;
     const slicedPages = slicePages(page, pages);
 
     return (

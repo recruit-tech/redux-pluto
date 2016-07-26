@@ -11,8 +11,8 @@ export default compose(
     loading: PropTypes.bool.isRequired,
   }),
 )(class Indicator extends Component {
-  render() {
-    const { loading } = this.props;
+  render(props = this.props) {
+    const { loading } = props;
     if (!loading) {
       return null;
     }

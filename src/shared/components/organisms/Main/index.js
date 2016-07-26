@@ -11,8 +11,8 @@ export default compose(
     children: PropTypes.node.isRequired,
   })
 )(class Main extends Component {
-  render() {
-    const { children } =  this.props;
+  render(props = this.props) {
+    const { children } =  props;
 
     return (
       <main className={local('root')}>

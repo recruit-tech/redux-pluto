@@ -13,8 +13,8 @@ export default compose(
   adjustScroll,
   forceScroll,
 )(class SalonList extends Component {
-  render() {
-    const { items, page } = this.props;
+  render(props = this.props) {
+    const { items, page } = props;
     if (items.length === 0) {
       return <div>サロンが見つかりませんでした</div>;
     }

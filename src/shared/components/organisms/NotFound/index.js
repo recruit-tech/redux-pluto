@@ -4,7 +4,7 @@ import { compose, shouldUpdate } from 'recompose';
 export default compose(
   shouldUpdate(() => false),
 )(class NotFound extends Component {
-  render() {
+  render(props = this.props) {
     return (
       <div>NotFound!</div>
     );
