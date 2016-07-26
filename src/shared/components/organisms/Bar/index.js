@@ -4,7 +4,7 @@ import { compose, shouldUpdate } from 'recompose';
 export default compose(
   shouldUpdate(() => false),
 )(class Bar extends Component {
-  render() {
+  render(props = this.props) {
     const array = new Array(500);
     array.fill(0);
 

@@ -15,8 +15,8 @@ export default compose(
     footer: PropTypes.node.isRequired,
   }),
 )(class DefaultLayout extends Component {
-  render() {
-    const { header, main, footer } =  this.props;
+  render(props = this.props) {
+    const { header, main, footer } =  props;
 
     return (
       <div className={local('root')}>

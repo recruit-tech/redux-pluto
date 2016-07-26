@@ -13,8 +13,8 @@ export default compose(
     page: PropTypes.number.isRequired,
   }),
 )(class SalonListItem extends Component {
-  render() {
-    const { item, page } = this.props;
+  render(props = this.props) {
+    const { item, page } = props;
     return (
       <div className={local('root')}>
         <div className={local('shopName')}>

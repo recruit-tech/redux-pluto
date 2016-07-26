@@ -19,7 +19,7 @@ const links = [
 export default compose(
   pure,
 )(class Header extends Component {
-  render() {
+  render(props = this.props) {
     return (
       <header className={local('root')}>
         <hgroup>

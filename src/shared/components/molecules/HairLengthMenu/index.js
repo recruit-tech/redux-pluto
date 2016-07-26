@@ -12,9 +12,9 @@ export default compose(
     hairLengthItems: PropTypes.object.isRequired,
   }),
 )(class HairLengthMenu extends Component {
-  render() {
-    const { router, hairLength, genderItems, hairLengthItems } = this.props;
-    const gender = this.props.gender || Object.keys(genderItems)[0];
+  render(props = this.props) {
+    const { router, hairLength, genderItems, hairLengthItems } = props;
+    const gender = props.gender || Object.keys(genderItems)[0];
     const items = hairLengthItems[gender].items;
 
     return (

@@ -19,8 +19,8 @@ export default compose(
     })).isRequired,
   }),
 )(class StyleList extends Component {
-  render() {
-    const { count, items } = this.props;
+  render(props = this.props) {
+    const { count, items } = props;
 
     return (
       <div>
