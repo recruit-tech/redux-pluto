@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, applyRouterMiddleware, browserHistory, match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import useScroll from 'react-router-scroll';
+import { useScroll } from 'react-router-scroll';
 import { useAsyncLoader } from 'redux-async-loader';
 import Fetchr from 'fetchr';
 import createStore from '../shared/redux/createStore';
