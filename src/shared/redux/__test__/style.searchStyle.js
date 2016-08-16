@@ -17,12 +17,12 @@ Fetchr.registerService({
 
 test('style: searchStyle success', () => {
   const searchStyleAction = searchStyle({ query: 'foo' });
-  const initialState = Immutable({ style: INITIAL_STATE });
+  const initialState = Immutable({ page: { style: INITIAL_STATE } });
   const store = createStore({
     initialState,
   });
   store.dispatch(searchStyleAction).then(() => {
-    const state = store.getState().style;
+    const state = store.getState().page.style;
     assert.deepEqual(state, {
       loading: false,
       loaded: true,
@@ -35,13 +35,13 @@ test('style: searchStyle success', () => {
 
 test('style: searchStyle failure', (_, fail) => {
   const searchStyleAction = searchStyle({ query: 'foo' });
-  const initialState = Immutable({ style: INITIAL_STATE });
+  const initialState = Immutable({ page: { style: INITIAL_STATE } });
   const store = createStore({
     initialState,
   });
   needFailure = true;
   store.dispatch(searchStyleAction).then(fail, () => {
-    const state = store.getState().style;
+    const state = store.getState().page.style;
     assert.deepEqual(state, {
       loading: false,
       loaded: false,
