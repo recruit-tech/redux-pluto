@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import { reduxAsyncLoader } from 'redux-async-loader';
 import { reducer as formReducer } from 'redux-form';
+import { pageScopeReducer } from 'redux-page-scope';
 import alert from './alert';
 import auth from './auth';
 import masters from './masters';
@@ -13,11 +14,13 @@ import loading from './loading';
 export default combineReducers({
   masters,
   auth,
-  style,
-  salon,
   counter,
   alert,
   loading,
+  page: pageScopeReducer(combineReducers({
+    salon,
+    style,
+  })),
   form: formReducer,
   reduxAsyncLoader,
   routing: routerReducer,

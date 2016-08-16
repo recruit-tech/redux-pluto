@@ -6,8 +6,10 @@ import { findSalonById } from '../../../redux/modules/salon';
 import Salon from './Salon';
 
 export default compose(
-  asyncLoader(({ params }, { dispatch }) => dispatch(findSalonById(params.salonId))),
+  asyncLoader(
+    ({ params }, { dispatch, getState }) => getState().page.salon.loaded || dispatch(findSalonById(params.salonId))
+  ),
   connect(
-    (state) => ({ item: state.salon.item })
+    (state) => ({ item: state.page.salon.item })
   ),
 )(Salon);

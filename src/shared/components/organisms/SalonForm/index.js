@@ -8,6 +8,11 @@ import { parse } from 'querystring';
 
 export default compose(
   asyncLoader(({ location }, { dispatch, getState }) => {
+    const state = getState();
+    if (state.routing.locationBeforeTransitions.action === 'POP' && state.page.salon.loaded) {
+      return;
+    }
+
     if (location.query && !location.query.keyword) {
       return dispatch(clearSearchSalon());
     }
@@ -28,16 +33,16 @@ export default compose(
       fields: ['keyword'],
     },
     (state) => ({
-      page: state.salon.page,
-      pages: state.salon.pages,
-      count: state.salon.count,
-      items: state.salon.items,
-      item: state.salon.item,
-      canGetNext: state.salon.canGetNext,
-      canGetPrev: state.salon.canGetPrev,
-      shouldAdjustScroll: state.salon.shouldAdjustScroll,
-      shouldForceScroll: state.salon.canGetPrev,
-      forceScrollTo: state.salon.forceScrollTo,
+      page: state.page.salon.page,
+      pages: state.page.salon.pages,
+      count: state.page.salon.count,
+      items: state.page.salon.items,
+      item: state.page.salon.item,
+      canGetNext: state.page.salon.canGetNext,
+      canGetPrev: state.page.salon.canGetPrev,
+      shouldAdjustScroll: state.page.salon.shouldAdjustScroll,
+      shouldForceScroll: state.page.salon.canGetPrev,
+      forceScrollTo: state.page.salon.forceScrollTo,
       initialValues: { keyword: state.routing.locationBeforeTransitions.query.keyword },
     }),
     (dispatch, ownProps) => ({

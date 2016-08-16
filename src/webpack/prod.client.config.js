@@ -46,7 +46,7 @@ module.exports = {
       'recompose',
       'redux',
       'redux-actions',
-      "redux-async-loader",
+      'redux-async-loader',
       'redux-effects-fetchr',
       'redux-effects-fetchr-cache',
       'redux-effects-steps',
