@@ -22,12 +22,11 @@ export default class Salon extends BaseService {
   }
 
   read(req, resource, params, config) {
-    const query = { ...params };
-    if (query.page) {
-      query.start = query.page * SALON_SEARCH_MAX_COUNT + 1;
+    const { page, ...query } = params;
+    if (page) {
+      query.start = page * SALON_SEARCH_MAX_COUNT + 1;
     }
 
-    delete query.page;
     return super.read(req, resource, query, config).then((results) => {
       const { salon: items, ...rest } = results;
       return {
