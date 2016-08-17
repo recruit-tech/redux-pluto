@@ -1,7 +1,19 @@
+import pick from 'lodash/fp/pick';
 import BaseService from './BaseService';
 
 export const SALON_SEARCH_MAX_COUNT = 50;
 const SALON_SEARCH_ORDER = 3; // Hot pepper beauty のおすすめ順
+const PICK_PROPS = [
+  'id',
+  'last_update',
+  'name',
+  'name_kana',
+  'name_keisai',
+  'logo_image',
+  'logo_image_square',
+  'urls',
+  'description',
+];
 
 export default class Salon extends BaseService {
 
@@ -16,6 +28,12 @@ export default class Salon extends BaseService {
     }
 
     delete query.page;
-    return super.read(req, resource, query, config);
+    return super.read(req, resource, query, config).then((results) => {
+      const { salon: items, ...rest } = results;
+      return {
+        ...rest,
+        salon: items.map(pick(PICK_PROPS)),
+      };
+    });
   }
 }
