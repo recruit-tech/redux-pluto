@@ -7,7 +7,7 @@ import Alert from './Alert';
 export default compose(
   connect(
     (state) => ({
-      alert: state.alert,
+      alert: state.app.alert,
     }),
     bindActionCreators({
       onClose: clearAlert,

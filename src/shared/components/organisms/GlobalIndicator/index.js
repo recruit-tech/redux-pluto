@@ -5,7 +5,7 @@ import GlobalIndicator from './GlobalIndicator';
 export default compose(
   connect(
     (state) => ({
-      loading: state.loading,
+      loading: state.app.loading,
     })
   ),
 )(GlobalIndicator);

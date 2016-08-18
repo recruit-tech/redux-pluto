@@ -8,7 +8,7 @@ export default compose(
   deferLoader((props, { dispatch }) => dispatch(increment())),
   connect(
     (state) => ({
-      counterValue: state.counter.value,
+      counterValue: state.app.counter.value,
     })
   ),
 )(Counter);

@@ -5,8 +5,8 @@ import Style from './Style';
 export default compose(
   connect(
     (state) => ({
-      genderItems: state.masters.genderMaster.items,
-      hairLengthItems: state.masters.hairLengthMaster.items,
+      genderItems: state.app.masters.genderMaster.items,
+      hairLengthItems: state.app.masters.hairLengthMaster.items,
     })
   ),
 )(Style);

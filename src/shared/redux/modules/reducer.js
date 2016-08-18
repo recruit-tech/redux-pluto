@@ -12,11 +12,13 @@ import counter from './counter';
 import loading from './loading';
 
 export default combineReducers({
-  masters,
-  auth,
-  counter,
-  alert,
-  loading,
+  app: combineReducers({
+    masters,
+    auth,
+    counter,
+    alert,
+    loading,
+  }),
   page: pageScopeReducer(combineReducers({
     salon,
     style,
