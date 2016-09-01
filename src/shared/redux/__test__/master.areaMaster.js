@@ -48,17 +48,17 @@ services.forEach(Fetchr.registerService);
 test('master: areaMaster success', () => {
   const loadAllMastersAction = loadAllMasters();
   const loadAreaMasterAction = loadAreaMaster();
-  const initialState = Immutable({ masters: INITIAL_STATE });
-  let prevMastersState = {};
+  const initialState = Immutable({ app: { masters: INITIAL_STATE } });
+  let prevMastersState = { app: {} };
   const store = createStore({
     initialState,
   });
   store.dispatch(loadAllMastersAction).then(() => {
-    prevMastersState = store.getState().masters;
+    prevMastersState = store.getState().app.masters;
     areaMasters = ['okinawa', 'kagoshima'];
     return store.dispatch(loadAreaMasterAction);
   }).then(() => {
-    const mastersState = store.getState().masters;
+    const mastersState = store.getState().app.masters;
     assert.deepEqual(mastersState.areaMaster, {
       loading: false,
       loaded: true,

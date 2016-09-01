@@ -48,17 +48,17 @@ services.forEach(Fetchr.registerService);
 test('master: hairLengthMaster success', () => {
   const loadAllMastersAction = loadAllMasters();
   const loadMenuContentMasterAction = loadMenuContentMaster();
-  const initialState = Immutable({ masters: INITIAL_STATE });
+  const initialState = Immutable({ app: { masters: INITIAL_STATE } });
   const store = createStore({
     initialState,
   });
   let prevMastersState = {};
   store.dispatch(loadAllMastersAction).then(() => {
-    prevMastersState = store.getState().masters;
+    prevMastersState = store.getState().app.masters;
     menuContentMaster = ['menu2'];
     return store.dispatch(loadMenuContentMasterAction);
   }).then(() => {
-    const mastersState = store.getState().masters;
+    const mastersState = store.getState().app.masters;
     assert.deepEqual(mastersState.menuContentMaster, {
       loading: false,
       loaded: true,

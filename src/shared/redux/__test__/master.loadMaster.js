@@ -57,12 +57,12 @@ services.forEach(Fetchr.registerService);
 
 test('master: loadAll success', (done, fail) => {
   const loadAllMastersAction = masters.loadAllMasters();
-  const initialState = Immutable({ masters: masters.INITIAL_STATE });
+  const initialState = Immutable({ app: { masters: masters.INITIAL_STATE } });
   const store = createStore({
     initialState,
   });
   store.dispatch(loadAllMastersAction).then(() => {
-    const state = store.getState().masters;
+    const state = store.getState().app.masters;
     assert.deepEqual(state, {
       areaMaster: {
         loading: false,
@@ -95,7 +95,7 @@ test('master: loadAll success', (done, fail) => {
 });
 
 test('master: load each success', (done, fail) => {
-  const initialState = Immutable({ masters: masters.INITIAL_STATE });
+  const initialState = Immutable({ app: { masters: masters.INITIAL_STATE } });
   const store = createStore({
     initialState,
   });
@@ -136,11 +136,11 @@ test('master: load each success', (done, fail) => {
     menuContentMaster: masters.loadMenuContentMaster(),
   };
 
-  let prevState = store.getState().masters;
+  let prevState = store.getState().app.masters;
   Object.keys(actions).reduce((promise, actionName) => promise
       .then(() => store.dispatch(actions[actionName]))
       .then(() => {
-        const nextState = store.getState().masters;
+        const nextState = store.getState().app.masters;
         Object.keys(nextState).forEach((propName) => {
           if (propName === actionName) {
             assert.deepEqual(nextState[propName], expects[propName]);
@@ -152,20 +152,20 @@ test('master: load each success', (done, fail) => {
       }),
     Promise.resolve()
   ).then(() => {
-    const state = store.getState().masters;
+    const state = store.getState().app.masters;
     assert.deepEqual(state, expects);
   });
 });
 
 test('master: loadAll failure', (done, fail) => {
   const loadAllMastersAction = masters.loadAllMasters();
-  const initialState = Immutable({ masters: masters.INITIAL_STATE });
+  const initialState = Immutable({ app: { masters: masters.INITIAL_STATE } });
   const store = createStore({
     initialState,
   });
   needFailure = 'areaMaster';
   store.dispatch(loadAllMastersAction).then(() => {
-    const state = store.getState().masters;
+    const state = store.getState().app.masters;
     assert.deepEqual(state, {
       areaMaster: {
         loading: false,
