@@ -28,7 +28,7 @@ test('auth: checkLogin success', () => {
     {},
   ).then((store) => {
     store.dispatch(checkLoginAction).then(() => {
-      assert.deepEqual(store.getState().auth, {
+      assert.deepEqual(store.getState().app.auth, {
         login: true,
         username: 'scott',
       });
@@ -44,7 +44,7 @@ test('auth: checkLogin failure', (done, fail) => {
   });
 
   store.dispatch(checkLoginAction).then(fail, (e) => {
-    assert.deepEqual(store.getState().auth, {
+    assert.deepEqual(store.getState().app.auth, {
       login: false,
       username: undefined,
     });

@@ -48,17 +48,17 @@ services.forEach(Fetchr.registerService);
 test('master: hairColorMaster success', () => {
   const loadAllMastersAction = loadAllMasters();
   const loadHairColorMasterAction = loadHairColorMaster();
-  const initialState = Immutable({ masters: INITIAL_STATE });
+  const initialState = Immutable({ app: { masters: INITIAL_STATE } });
   const store = createStore({
     initialState,
   });
-  let prevMastersState = {};
+  let prevMastersState = { app: {} };
   store.dispatch(loadAllMastersAction).then(() => {
-    prevMastersState = store.getState().masters;
+    prevMastersState = store.getState().app.masters;
     hairColorMaster = ['white', 'purple'];
     return store.dispatch(loadHairColorMasterAction);
   }).then(() => {
-    const mastersState = store.getState().masters;
+    const mastersState = store.getState().app.masters;
     assert.deepEqual(mastersState.hairColorMaster, {
       loading: false,
       loaded: true,

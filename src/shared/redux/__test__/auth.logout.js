@@ -24,7 +24,7 @@ test('auth: logout success', (done) => {
   const logoutAction = logout();
   createWithSignedStore('scott', ACCESS_TOKEN_AUDIENCE_NAME, {}).then((store) => {
     store.dispatch(logoutAction).then(() => {
-      assert.deepEqual(store.getState().auth, {
+      assert.deepEqual(store.getState().app.auth, {
         login: false,
         username: undefined,
       });
@@ -38,13 +38,13 @@ test('auth: logout success when not logged in', (done) => {
   const logoutAction = logout();
   createWithSignedStore('foobar', ACCESS_TOKEN_AUDIENCE_NAME, {}).then((store) => {
     store.dispatch(loginAction).then(() => {
-      assert.deepEqual(store.getState().auth, {
+      assert.deepEqual(store.getState().app.auth, {
         login: true,
         username: 'foobar',
       });
       return store.dispatch(logoutAction);
     }).then(() => {
-      assert.deepEqual(store.getState().auth, {
+      assert.deepEqual(store.getState().app.auth, {
         login: false,
         username: undefined,
       });

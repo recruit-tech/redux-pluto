@@ -25,7 +25,7 @@ test('auth: login success username scott', () => {
   const loginAction = login('scott', 'tiger');
   createWithSignedStore('scott', ACCESS_TOKEN_AUDIENCE_NAME, {}).then((store) => {
     store.dispatch(loginAction).then(() => {
-      assert.deepEqual(store.getState().auth, {
+      assert.deepEqual(store.getState().app.auth, {
         login: true,
         username: 'scott',
       });
@@ -37,7 +37,7 @@ test('auth: login success username foobar', () => {
   const loginAction = login('foobar', 'tiger');
   createWithSignedStore('foobar', ACCESS_TOKEN_AUDIENCE_NAME, {}).then((store) => {
     store.dispatch(loginAction).then(() => {
-      assert.deepEqual(store.getState().auth, {
+      assert.deepEqual(store.getState().app.auth, {
         login: true,
         username: 'foobar',
       });
@@ -62,7 +62,7 @@ test('auth: login failure username is short', (_, fail) => {
   });
 
   store.dispatch(loginAction).then(fail, (e) => {
-    assert.deepEqual(store.getState().auth, {
+    assert.deepEqual(store.getState().app.auth, {
       login: false,
       username: null,
     });
