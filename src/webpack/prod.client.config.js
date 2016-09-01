@@ -52,6 +52,7 @@ module.exports = {
       'redux-effects-steps',
       'redux-effects-universal-cookie',
       'redux-form',
+      'redux-page-scope',
     ],
   },
 
