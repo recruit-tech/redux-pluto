@@ -1,5 +1,5 @@
-import {getOptions, normalizeErrors} from '../utils';
-import {test} from 'eater/runner';
+import { getOptions, normalizeErrors } from '../utils';
+import { test } from 'eater/runner';
 import Joi from 'joi';
 import assert from 'power-assert';
 
