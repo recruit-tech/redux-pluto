@@ -90,10 +90,7 @@ module.exports = {
 
   postcss: function (webpack) {
     return [
-      precss({
-        addDependencyTo: webpack,
-        import: { addDependencyTo: webpack },
-      }),
+      precss,
       autoprefixer,
     ];
   },
