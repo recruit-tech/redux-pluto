@@ -34,4 +34,4 @@ export default compose(
   }),
 
   [ALERT_CLEAR]: (state, action) => (INITIAL_STATE),
-}));
+}, INITIAL_STATE));

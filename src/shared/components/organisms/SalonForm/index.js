@@ -1,4 +1,5 @@
 import { compose } from 'recompose';
+import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { asyncLoader } from 'redux-async-loader';
 import { searchSalon, searchMoreSalon, clearSearchSalon } from '../../../redux/modules/salon';
@@ -29,9 +30,14 @@ export default compose(
     return dispatch(searchSalon({ keyword, page }));
   }),
   reduxForm({
-      form: 'salon',
-      fields: ['keyword'],
+    form: 'salon',
+
+    // キーワード検索開始
+    onSubmit({ keyword }, dispatch) {
+      dispatch(push(`/salon?keyword=${keyword}`));
     },
+  }),
+  connect(
     (state) => ({
       page: state.page.salon.page,
       pages: state.page.salon.pages,
@@ -46,10 +52,6 @@ export default compose(
       initialValues: { keyword: state.routing.locationBeforeTransitions.query.keyword },
     }),
     (dispatch, ownProps) => ({
-      // キーワード検索開始
-      onSubmit({ keyword }) {
-        return dispatch(push(`/salon?keyword=${keyword}`));
-      },
 
       onClickPrev: (page) => () => {
         const keyword = ownProps.location.query.keyword;

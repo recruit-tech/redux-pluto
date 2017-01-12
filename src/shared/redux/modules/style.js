@@ -71,4 +71,4 @@ export default compose(
     items: [],
     error,
   }),
-}));
+}, INITIAL_STATE));
