@@ -29,14 +29,6 @@ export default compose(
     dispatch(clearSearchSalon());
     return dispatch(searchSalon({ keyword, page }));
   }),
-  reduxForm({
-    form: 'salon',
-
-    // キーワード検索開始
-    onSubmit({ keyword }, dispatch) {
-      dispatch(push(`/salon?keyword=${keyword}`));
-    },
-  }),
   connect(
     (state) => ({
       page: state.page.salon.page,
@@ -75,4 +67,12 @@ export default compose(
 
     }),
   ),
+  reduxForm({
+    form: 'salon',
+
+    // キーワード検索開始
+    onSubmit({ keyword }, dispatch) {
+      dispatch(push(`/salon?keyword=${keyword}`));
+    },
+  }),
 )(SalonForm);
