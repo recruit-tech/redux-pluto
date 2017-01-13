@@ -6,6 +6,18 @@ import styles from './styles.scss';
 
 const { localNames: local } = createLocal(styles);
 
+const renderInput = ({ input, meta:{ dirty, error } })=>
+  <span key={ input.name }>
+    <input
+      {...input}
+      type="text"
+      className={ local('input') }
+    />
+    <span className={local('message')}>
+      {dirty && error}
+    </span>
+  </span>;
+
 export default compose(
   onlyUpdateForPropTypes,
   setPropTypes({
@@ -23,41 +35,13 @@ export default compose(
           <label>
             Username
           </label>
-          <Field
-            name="username"
-            component={({ input, meta:{ dirty, error } })=>
-              <span>
-                <input
-                  {...input}
-                  type="text"
-                  className={ local('input') }
-                />
-                <span className={local('message')}>
-                  {dirty && error}
-                </span>
-              </span>
-            }
-          />
+          <Field name="username" component={renderInput} />
         </div>
         <div>
           <label>
             Password
           </label>
-          <Field
-            name="password"
-            component={({ input, meta:{ dirty, error } })=>
-              <span>
-                <input
-                  {...input}
-                  type="password"
-                  className={ local('input') }
-                />
-                <span className={local('message')}>
-                  {dirty && error}
-                </span>
-              </span>
-            }
-          />
+          <Field name="password" component={renderInput} />
         </div>
         <div>
           <button type="submit" disabled={submitting || hasError}>
