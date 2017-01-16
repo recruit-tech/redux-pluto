@@ -45,4 +45,4 @@ export default compose(
   [COUNTER_INCREMENT_SUCCESS]: (state, { payload: { data } }) => ({
     value: data,
   }),
-}, INITIAL_STATE));
+}));
