@@ -86,7 +86,7 @@ export default compose(
   [AUTH_CHECK_LOGIN_FAIL]: loggedOut,
   [AUTH_LOGIN_FAIL]: loggedOut,
   [AUTH_LOGOUT_SUCCESS]: loggedOut,
-}, INITIAL_STATE));
+}));
 
 function loggedIn(state, { payload: { sub } }) {
   return state.login && state.username === sub ? state : {

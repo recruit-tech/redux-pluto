@@ -29,4 +29,4 @@ export default compose(
 )(handleActions({
   [START_LOADING]: () => true,
   [STOP_LOADING]: () => false,
-}, INITIAL_STATE));
+}));

@@ -163,7 +163,7 @@ export default compose(
     loaded: false,
     error,
   }),
-}, INITIAL_STATE));
+}));
 
 function canGetNext(count, start) {
   return +count > +start + SALON_SEARCH_MAX_COUNT;

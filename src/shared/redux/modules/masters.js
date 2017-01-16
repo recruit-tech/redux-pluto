@@ -116,4 +116,4 @@ export default compose(
       error,
     },
   }),
-}, INITIAL_STATE));
+}));
