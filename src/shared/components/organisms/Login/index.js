@@ -1,21 +1,21 @@
 import React, { Component, PropTypes } from 'react';
-import { reduxForm } from 'redux-form';
+import { reduxForm, isInvalid } from 'redux-form';
+import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { login } from '../../../redux/modules/auth';
-import validate from '../../../validators/login';
 import normalizeFormError from '../../utils/normalizeFormError';
+import validate from '../../../validators/login';
 import LoginForm from './LoginForm';
 
 export default compose(
   reduxForm({
-      form: 'loginForm',
-      fields: ['username', 'password'],
-      validate,
+    form: 'loginForm',
+    validate,
+    onSubmit({ username, password }, dispatch, ownProps) {
+      dispatch(login(username, password, ownProps.location.query.location || '/')).catch(normalizeFormError);
     },
-    null,
-    (dispatch, ownProps) => ({
-      onSubmit: ({ username, password }) =>
-        dispatch(login(username, password, ownProps.location.query.location || '/')).catch(normalizeFormError),
-    }),
-  ),
+  }),
+  connect((state) => ({
+    invalid: isInvalid('loginForm')(state),
+  }))
 )(LoginForm);
