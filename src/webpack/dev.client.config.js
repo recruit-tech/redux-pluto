@@ -1,8 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
-const precss = require('./precss');
-
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./isomorphic-tools.config'));
@@ -11,6 +8,8 @@ const rootDir = path.resolve(__dirname, '../..');
 const port = +(process.env.PORT || 3000);
 const outputPath = path.resolve(rootDir, 'build/client');
 const outputPublicPath = '/public/';
+const precss = require('precss');
+const autoprefixer = require('autoprefixer');
 
 module.exports = {
   target: 'web',
@@ -32,7 +31,7 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         include: [
@@ -42,8 +41,8 @@ module.exports = {
         exclude: [
           /node_modules/,
         ],
-        loader: 'babel',
-        query: {
+        loader: 'babel-loader',
+        options: {
           presets: [
             'react',
             'es2015',
@@ -70,15 +69,22 @@ module.exports = {
         },
       },
       {
-        test: /\.scss/,
-        loaders: [
-          'style',
-          'css?' + JSON.stringify({
-            modules: true,
-            importLoaders: 1,
-            localIdentName: '[path]__[name]__[local]___[hash:base64:5]',
-          }),
-          'postcss',
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 1,
+              localIdentName: '[path]__[name]__[local]___[hash:base64:5]',
+            }
+          },
+          {
+            loader: 'postcss-loader',
+          },
         ],
       },
       {
@@ -88,31 +94,21 @@ module.exports = {
     ],
   },
 
-  postcss: function (webpack) {
-    return [
-      precss({
-        addDependencyTo: webpack,
-        import: { addDependencyTo: webpack },
-      }),
-      autoprefixer,
-    ];
-  },
-
   resolve: {
-    root: [
+    modules: [
       path.resolve(rootDir, 'src/client'),
       path.resolve(rootDir, 'src/shared'),
+      "node_modules"
     ],
-    extensions: ['', '.js', '.jsx'],
-    packageAlias: 'browser',
+    extensions: ['.js', '.jsx'],
+    enforceModuleExtension: false,
+    aliasFields: ['browser'],
   },
 
   plugins: [
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('development'),
-      },
+      'process.env.NODE_ENV': JSON.stringify('development'),
       __CLIENT__: true,
       __SERVER__: false,
       __DEVELOPMENT__: true,
@@ -124,7 +120,7 @@ module.exports = {
   devServer: {
     // webpack-dev-server options
     contentBase: outputPath,
-    historyApiFallBack: true,
+    historyApiFallback: true,
     proxy: {
       '*': `http://localhost:${port + 1}`,
     },
