@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { propTypes as formPropTypes } from 'redux-form';
+import { propTypes as formPropTypes, Field } from 'redux-form';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import SalonLists from './SalonLists';
 import SalonPager from './SalonPager';
@@ -29,7 +29,6 @@ export default compose(
 )(class SalonForm extends Component {
   render(props = this.props) {
     const {
-      fields: { keyword },
       handleSubmit,
       count,
       page,
@@ -43,6 +42,7 @@ export default compose(
       canGetPrev,
       shouldAdjustScroll,
       forceScrollTo,
+      initialValues,
     }  = props;
 
     return (
@@ -51,7 +51,12 @@ export default compose(
           <div>
             <label>Free Keyword</label>
             <div>
-              <input type="text" autoFocus {...keyword} />
+              <Field
+                type="text"
+                name="keyword"
+                component="input"
+                autoFocus
+              />
               <button type="submit">
                 Search
               </button>
@@ -68,7 +73,7 @@ export default compose(
           {canGetNext ? <SalonMore onShow={onClickNext(page)}>進む</SalonMore> : null}
         </div>
         <div className={local('pager')}>
-          <SalonPager pages={pages} page={page} keyword={keyword.initialValue} />
+          <SalonPager pages={pages} page={page} keyword={initialValues.keyword || ''} />
         </div>
       </div>
     );

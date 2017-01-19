@@ -9,8 +9,6 @@ const rootDir = path.resolve(__dirname, '../..');
 const port = +(process.env.PORT || 3000);
 const outputPath = path.resolve(rootDir, 'build/client');
 const outputPublicPath = '/public/';
-const precss = require('precss');
-const autoprefixer = require('autoprefixer');
 
 module.exports = {
   target: 'web',
