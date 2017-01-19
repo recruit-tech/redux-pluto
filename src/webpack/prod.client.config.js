@@ -84,7 +84,7 @@ module.exports = {
                 'syntax-trailing-function-commas',
                 'transform-object-rest-spread',
               ],
-            }
+            },
           },
         ],
       },
@@ -100,11 +100,11 @@ module.exports = {
                 importLoaders: 1,
                 localIdentName: '[local]___[hash:base64:8]',
               },
-            }, 
+            },
             {
               loader: 'postcss-loader',
             },
-          ]
+          ],
         }),
       },
     ],
@@ -123,8 +123,8 @@ module.exports = {
 
   plugins: [
     new ExtractTextPlugin({
-      filename: '[name]-[chunkhash].css', 
-      allChunks: true 
+      filename: '[name]-[chunkhash].css',
+      allChunks: true,
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
@@ -137,9 +137,9 @@ module.exports = {
     // optimizations
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor', 
-      filename: 'vendor_[hash].js',  
-      minSize: 2
+      name: 'vendor',
+      filename: 'vendor_[hash].js',
+      minSize: 2,
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {

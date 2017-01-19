@@ -71,7 +71,7 @@ module.exports = {
           }, {
             loader: 'postcss-loader',
           },
-          ]
+          ],
         }),
       },
     ],
@@ -79,8 +79,8 @@ module.exports = {
 
   plugins: [
     new ExtractTextPlugin({
-      filename: '[name]-[chunkhash].css', 
-      allChunks: true 
+      filename: '[name]-[chunkhash].css',
+      allChunks: true,
     }),
     new webpack.IgnorePlugin(/\.(jpe?g|png|gif|woff2?|ttf|eot)$/),
     new webpack.DefinePlugin({

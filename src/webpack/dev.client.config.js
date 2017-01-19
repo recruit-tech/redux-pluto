@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./isomorphic-tools.config'));
@@ -80,7 +81,7 @@ module.exports = {
               modules: true,
               importLoaders: 1,
               localIdentName: '[path]__[name]__[local]___[hash:base64:5]',
-            }
+            },
           },
           {
             loader: 'postcss-loader',
@@ -98,7 +99,7 @@ module.exports = {
     modules: [
       path.resolve(rootDir, 'src/client'),
       path.resolve(rootDir, 'src/shared'),
-      "node_modules"
+      'node_modules',
     ],
     extensions: ['.js', '.jsx'],
     enforceModuleExtension: false,
