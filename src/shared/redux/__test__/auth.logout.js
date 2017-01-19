@@ -15,6 +15,7 @@ Fetchr.registerService({
   create(req, resource, params, body, config, cb) {
     cb(null, null);
   },
+
   delete(req, resource, params, config, cb) {
     cb(null, null);
   },
