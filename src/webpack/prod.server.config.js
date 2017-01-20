@@ -3,8 +3,6 @@ const path = require('path');
 const webpack = require('webpack');
 const strip = require('strip-loader');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const autoprefixer = require('autoprefixer');
-const precss = require('./precss');
 
 const rootDir = path.resolve(__dirname, '../..');
 const outputPath = path.resolve(rootDir, 'build/server');
@@ -37,7 +35,7 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         include: [
@@ -47,43 +45,33 @@ module.exports = {
         exclude: [
           /node_modules/,
         ],
-        loader: 'babel',
-        query: {
-          presets: [
-            'react',
-            'es2015-node4',
-          ],
-          plugins: [
-            'syntax-trailing-function-commas',
-            'transform-object-rest-spread',
-            'transform-react-constant-elements',
-            'transform-react-inline-elements',
-          ],
-        },
+        loader: 'babel-loader',
       },
       {
-        test: /\.scss/,
-        loader: ExtractTextPlugin.extract([
-          'css-loader?' + JSON.stringify({
-            modules: true,
-            locals: true,
-            importLoaders: 1,
-            localIdentName: '[local]___[hash:base64:8]',
-          }),
-          'postcss-loader',
-        ]),
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract({
+          loader: [{
+            loader: 'css-loader',
+            query: {
+              modules: true,
+              locals: true,
+              importLoaders: 1,
+              localIdentName: '[local]___[hash:base64:8]',
+            },
+          }, {
+            loader: 'postcss-loader',
+          },
+          ],
+        }),
       },
     ],
   },
 
-  postcss: function () {
-    return [precss, autoprefixer];
-  },
-
-  progress: true,
-
   plugins: [
-    new ExtractTextPlugin('[name]-[chunkhash].css', { allChunks: true }),
+    new ExtractTextPlugin({
+      filename: '[name]-[chunkhash].css',
+      allChunks: true,
+    }),
     new webpack.IgnorePlugin(/\.(jpe?g|png|gif|woff2?|ttf|eot)$/),
     new webpack.DefinePlugin({
       'process.env': {

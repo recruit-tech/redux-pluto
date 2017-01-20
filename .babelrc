@@ -1,6 +1,6 @@
 {
   "presets": [
-    "es2015-node4",
+    ["es2015", {"modules": false}],
     "react"
   ],
   "plugins": [
@@ -10,6 +10,7 @@
   "env": {
     "development": {
       "presets": [
+        "es2015",
         "power-assert",
       ]
     }

@@ -2,8 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const strip = require('strip-loader');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const autoprefixer = require('autoprefixer');
-const precss = require('./precss');
 
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
@@ -24,36 +22,6 @@ module.exports = {
     client: [
       path.resolve(rootDir, 'src/client/index.js'),
     ],
-    vendor: [
-      'axios',
-      'classnames',
-      'cookie',
-      'dom-helpers',
-      'fetchr',
-      'hoist-non-react-statics',
-      'is-promise',
-      'joi',
-      'jwt-decode',
-      'lodash',
-      'lru-cache',
-      'moment',
-      'react',
-      'react-dom',
-      'react-redux',
-      'react-router',
-      'react-router-redux',
-      'react-router-scroll',
-      'recompose',
-      'redux',
-      'redux-actions',
-      'redux-async-loader',
-      'redux-effects-fetchr',
-      'redux-effects-fetchr-cache',
-      'redux-effects-steps',
-      'redux-effects-universal-cookie',
-      'redux-form',
-      'redux-page-scope',
-    ],
   },
 
   output: {
@@ -64,7 +32,7 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         include: [
@@ -74,58 +42,48 @@ module.exports = {
         exclude: [
           /node_modules/,
         ],
-        loaders: [
-          strip.loader('debug'),
-          'babel?' + JSON.stringify({
-            presets: [
-              'react',
-              'es2015',
-            ],
-            plugins: [
-              'syntax-trailing-function-commas',
-              'transform-object-rest-spread',
-              'transform-react-constant-elements',
-              'transform-react-inline-elements',
-            ],
-          }),
-        ],
+        loader: 'babel-loader',
       },
       {
-        test: /\.scss/,
-        loader: ExtractTextPlugin.extract([
-          'css-loader?' + JSON.stringify({
-            modules: true,
-            locals: true,
-            importLoaders: 1,
-            localIdentName: '[local]___[hash:base64:8]',
-          }),
-          'postcss-loader',
-        ]),
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract({
+          loader: [
+            {
+              loader: 'css-loader',
+              query: {
+                modules: true,
+                locals: true,
+                importLoaders: 1,
+                localIdentName: '[local]___[hash:base64:8]',
+              },
+            },
+            {
+              loader: 'postcss-loader',
+            },
+          ],
+        }),
       },
     ],
   },
 
-  postcss: function () {
-    return [precss, autoprefixer];
-  },
-
-  progress: true,
-
   resolve: {
-    root: [
+    modules: [
       path.resolve(rootDir, 'src/client'),
       path.resolve(rootDir, 'src/shared'),
+      'node_modules',
     ],
-    extensions: ['', '.js', '.jsx'],
-    packageAlias: 'browser',
+    extensions: ['.js', '.jsx'],
+    enforceModuleExtension: false,
+    aliasFields: ['browser'],
   },
 
   plugins: [
-    new ExtractTextPlugin('[name]-[chunkhash].css', { allChunks: true }),
+    new ExtractTextPlugin({
+      filename: '[name]-[chunkhash].css',
+      allChunks: true,
+    }),
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-      },
+      'process.env.NODE_ENV': JSON.stringify('production'),
       __CLIENT__: true,
       __SERVER__: false,
       __DEVELOPMENT__: false,
@@ -133,9 +91,12 @@ module.exports = {
     }),
 
     // optimizations
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor_[hash].js',  2),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor_[hash].js',
+      minSize: 2,
+    }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         unused: true,
