@@ -46,16 +46,6 @@ module.exports = {
           /node_modules/,
         ],
         loader: 'babel-loader',
-        query: {
-          presets: [
-            'react',
-            'es2015-node4',
-          ],
-          plugins: [
-            'syntax-trailing-function-commas',
-            'transform-object-rest-spread',
-          ],
-        },
       },
       {
         test: /\.scss$/,
