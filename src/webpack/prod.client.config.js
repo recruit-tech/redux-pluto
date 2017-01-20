@@ -22,36 +22,6 @@ module.exports = {
     client: [
       path.resolve(rootDir, 'src/client/index.js'),
     ],
-    vendor: [
-      'axios',
-      'classnames',
-      'cookie',
-      'dom-helpers',
-      'fetchr',
-      'hoist-non-react-statics',
-      'is-promise',
-      'joi',
-      'jwt-decode',
-      'lodash',
-      'lru-cache',
-      'moment',
-      'react',
-      'react-dom',
-      'react-redux',
-      'react-router',
-      'react-router-redux',
-      'react-router-scroll',
-      'recompose',
-      'redux',
-      'redux-actions',
-      'redux-async-loader',
-      'redux-effects-fetchr',
-      'redux-effects-fetchr-cache',
-      'redux-effects-steps',
-      'redux-effects-universal-cookie',
-      'redux-form',
-      'redux-page-scope',
-    ],
   },
 
   output: {
@@ -72,21 +42,7 @@ module.exports = {
         exclude: [
           /node_modules/,
         ],
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: [
-                'react',
-                'es2015',
-              ],
-              plugins: [
-                'syntax-trailing-function-commas',
-                'transform-object-rest-spread',
-              ],
-            },
-          },
-        ],
+        loader: 'babel-loader',
       },
       {
         test: /\.scss$/,

@@ -41,10 +41,10 @@ module.exports = {
           /node_modules/,
         ],
         loader: 'babel-loader',
-        options: {
+        query: {
           presets: [
             'react',
-            'es2015',
+            ['es2015', { modules: false }],
           ],
           plugins: [
             'syntax-trailing-function-commas',
