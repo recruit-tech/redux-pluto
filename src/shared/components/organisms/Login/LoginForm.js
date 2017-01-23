@@ -26,11 +26,13 @@ export default compose(
   }),
 )(class LoginForm extends Component {
   render(props = this.props) {
-    const { error, handleSubmit, reset, submitting, pristine } = props;
+    const { error, handleSubmit, reset, submitting, pristine, submitFailed, anyTouched } = props;
     const hasError = props.invalid && !pristine;
+
     return (
       <form onSubmit={handleSubmit}>
         {error && <div>{error}</div>}
+        {!error && submitFailed && anyTouched && <div>ログインできませんでした</div>}
         <div>
           <label>
             Username
