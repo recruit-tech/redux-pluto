@@ -10,9 +10,8 @@ import Fetchr from 'fetchr';
 import createStore from '../shared/redux/createStore';
 import getRoutes from '../shared/routes';
 
-const { __INITIAL_STATE__: initialState, __CLIENT_CONFIG__: clientConfig } = window;
-delete window.__INITIAL_STATE__;
-delete window.__CLIENT_CONFIG__;
+const initialState = JSON.parse(document.getElementById('initial-state').getAttribute('data-json'));
+const clientConfig = JSON.parse(document.getElementById('client-config').getAttribute('data-json'));
 
 const store = createStore(initialState, {
   cookie: [],
