@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import { createMemoryHistory, match, RouterContext } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { loadOnServer } from 'redux-async-loader';
-import serialize from 'serialize-javascript';
 import Fetchr from 'fetchr';
 import debugFactory from 'debug';
 import createStore from '../../shared/redux/createStore';
@@ -130,8 +129,8 @@ function tryRender(res, render) {
 function sendResponse({ res, status, store, clientConfig, content }) {
   const props = {
     content,
-    initialState: serialize(store.getState(), { isJSON: true }),
-    clientConfig: serialize(clientConfig, { isJSON: true }),
+    initialState: JSON.stringify(store.getState()),
+    clientConfig: JSON.stringify(clientConfig),
     assets: global.webpackIsomorphicTools.assets(),
   };
   res.status(status).send(`<!doctype html>\n${renderToStaticMarkup(html(props))}`);

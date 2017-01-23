@@ -19,8 +19,8 @@ export default function Html({ assets, content, initialState, clientConfig }) {
       <body>
         <div id="root" dangerouslySetInnerHTML={{ __html: content }} />
         <div id="devtools" />
-        <script dangerouslySetInnerHTML={{ __html: `window.__INITIAL_STATE__=${initialState};` }} />
-        <script dangerouslySetInnerHTML={{ __html: `window.__CLIENT_CONFIG__=${clientConfig};` }} />
+        <script id="initial-state" type="text/plain" data-json={initialState} />
+        <script id="client-config" type="text/plain" data-json={clientConfig} />
         {Object.keys(assets.javascript).map((script, i) => (
           <script key={i} src={assets.javascript[script]} charSet="utf-8" />
         ))}
