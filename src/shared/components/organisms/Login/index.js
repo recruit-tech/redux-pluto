@@ -12,7 +12,8 @@ export default compose(
     form: 'loginForm',
     validate,
     onSubmit({ username, password }, dispatch, ownProps) {
-      dispatch(login(username, password, ownProps.location.query.location || '/')).catch(normalizeFormError);
+      return dispatch(login(username, password, ownProps.location.query.location || '/'))
+      .catch(normalizeFormError);
     },
   }),
   connect((state) => ({
