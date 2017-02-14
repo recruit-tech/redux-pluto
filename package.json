@@ -24,7 +24,8 @@
     "start:dev:webpack": "webpack-dev-server --hot --inline --config src/webpack/dev.client.config.js",
     "start:prod": "cross-env NODE_ENV=production npm run start:prod:server",
     "start:prod:server": "node bin/start-server",
-    "test": "eater"
+    "test": "eater",
+    "check:secure": "nsp check"
   },
   "dependencies": {
     "axios": "0.15.3",
@@ -102,6 +103,7 @@
     "must-call": "1.0.0",
     "nodemon": "1.11.0",
     "npm-run-all": "4.0.0",
+    "nsp": "^2.6.2",
     "postcss": "^5.2.10",
     "postcss-advanced-variables": "^1.2.2",
     "postcss-atroot": "^0.1.3",
