@@ -8,6 +8,7 @@ import csurf from 'csurf';
 import favicon from 'serve-favicon';
 import debugFactory from 'debug';
 import config from './configs';
+import serverTiming from 'server-timing';
 import { apiGateway, offloadDetector, reduxApp as createReduxApp } from './middlewares';
 
 const debug = debugFactory('app:server:main');
@@ -20,6 +21,7 @@ app.use(bodyParser.urlencoded(config.bodyParser.urlencoded));
 app.use(cookieParser(config.cookieParser));
 app.use(session(config.session));
 app.use(csurf(config.csurf));
+app.use(serverTiming());
 app.use(favicon(config.favicon));
 config.assets.forEach((asset) => {
   app.use(asset.mount, express.static(asset.path));
