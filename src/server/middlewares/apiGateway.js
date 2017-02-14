@@ -14,7 +14,15 @@ const registerServices = (config) => mapValues((Service) => {
 
 export default function apiGateway(config) {
   registerServices(config)(services);
-  return Fetchr.middleware();
+  return (req, res, next) => {
+    res.startTime('apigateway', 'API Gateway');
+    return Fetchr.middleware({
+      responseFormatter: (req, res, data) => {
+        res.endTime('apigateway');
+        return data;
+      },
+    })(req, res, next);
+  };
 }
 
 function makeServiceAdapter(service, secret) {
