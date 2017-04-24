@@ -14,8 +14,8 @@ export default compose(
     onClick: PropTypes.func,
   }),
 )(class Overlay extends Component {
-  render(props = this.props) {
-    const { children, onClick } = props;
+  render() {
+    const { children, onClick } = this.props;
 
     return (
       <div onClick={onClick || noop} className={local('root')}>

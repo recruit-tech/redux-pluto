@@ -5,7 +5,7 @@ import { handleActions } from './utils';
 
 export default function apiErrorMiddleware() {
   return handleActions({
-    [FETCHR]({ dispatch }, next, action) {
+    [FETCHR]({ dispatch, getState }, next, action) {
       return next(action).catch((error) => {
         const { statusCode } = error;
         if (!statusCode || statusCode >= 500) {

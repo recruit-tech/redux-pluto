@@ -2,10 +2,9 @@
 import Fetchr from 'fetchr';
 import { test } from 'eater/runner';
 import assert from 'power-assert';
-import { createStore, createWithSignedStore } from './lib/storeUtils';
-import { ACCESS_TOKEN_AUDIENCE_NAME, sign } from '../../../server/services/AccessToken';
+import { createWithSignedStore } from './lib/storeUtils';
+import { ACCESS_TOKEN_AUDIENCE_NAME } from '../../../server/services/AccessToken';
 import { login, logout } from '../modules/auth';
-import configs from '../../../server/configs';
 
 /**
  * mock accessToken service

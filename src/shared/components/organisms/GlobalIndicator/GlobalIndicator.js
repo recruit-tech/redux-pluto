@@ -8,8 +8,8 @@ export default compose(
     loading: PropTypes.bool.isRequired,
   }),
 )(class GlobalIndicator extends Component {
-  render(props = this.props) {
-    const { loading } = props;
+  render() {
+    const { loading } = this.props;
     return (
       <div>
         <Indicator loading={loading} />

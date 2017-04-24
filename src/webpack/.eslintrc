@@ -1,0 +1,9 @@
+{
+  "rules": {
+    //Node
+    "global-require": "off",
+
+    // eslint-plugin-import
+    "import/no-extraneous-dependencies": "off"
+  }
+}

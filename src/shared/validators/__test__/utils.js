@@ -1,7 +1,7 @@
-import { getOptions, normalizeErrors } from '../utils';
 import { test } from 'eater/runner';
 import Joi from 'joi';
 import assert from 'power-assert';
+import { getOptions } from '../utils';
 
 test('getOptions', (done) => {
   const options = getOptions();

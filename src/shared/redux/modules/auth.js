@@ -88,7 +88,9 @@ export default compose(
   [AUTH_LOGOUT_SUCCESS]: loggedOut,
 }));
 
-function loggedIn(state, { payload: { sub } }) {
+function loggedIn(state, action) {
+  const { payload: { sub } } = action;
+
   return state.login && state.username === sub ? state : {
     login: true,
     username: sub,

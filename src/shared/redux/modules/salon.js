@@ -2,8 +2,8 @@ import { createAction, handleActions } from 'redux-actions';
 import { compose } from 'recompose';
 import { steps } from 'redux-effects-steps';
 import { fetchrRead } from 'redux-effects-fetchr';
-import { initialState, filterActionType } from './utils';
 import range from 'lodash/fp/range';
+import { initialState, filterActionType } from './utils';
 
 export const SALON_SEARCH_MAX_COUNT = 50;
 
@@ -34,14 +34,19 @@ export const SEARCH_MORE_SALON_FAIL = SEARCH_MORE_SALON + 'fail';
  */
 
 const searchSalonRequest = createAction(SEARCH_SALON_REQUEST);
-const searchSalonSuccess = createAction(SEARCH_SALON_SUCCESS, (params, data) => ({ params, data }));
-const searchSalonFail = createAction(SEARCH_SALON_FAIL, (params, error) => ({ params, error }));
+const searchSalonSuccess = createAction(SEARCH_SALON_SUCCESS,
+  (params, data) => ({ params, data }));
+const searchSalonFail = createAction(SEARCH_SALON_FAIL,
+  (params, error) => ({ params, error }));
 
 export function searchSalon(params) {
   return steps(
     searchSalonRequest(params),
     fetchrRead('salon', params),
-    [(payload) => searchSalonSuccess(params, payload.data), (error) => searchSalonFail({ params, error })],
+    [
+      (payload) => searchSalonSuccess(params, payload.data),
+      (error) => searchSalonFail(params, error),
+    ],
   );
 }
 
@@ -60,14 +65,19 @@ export function findSalonById(id) {
 export const clearSearchSalon = createAction(CLEAR_SEARCH_SALON_REQUEST);
 
 const searchMoreSalonRequest = createAction(SEARCH_MORE_SALON_REQUEST);
-const searchMoreSalonSuccess = createAction(SEARCH_MORE_SALON_SUCCESS, (params, data) => ({ params, data }));
-const searchMoreSalonFail = createAction(SEARCH_MORE_SALON_FAIL, (params, error) => ({ params, error }));
+const searchMoreSalonSuccess = createAction(SEARCH_MORE_SALON_SUCCESS,
+  (params, data) => ({ params, data }));
+const searchMoreSalonFail = createAction(SEARCH_MORE_SALON_FAIL,
+  (params, error) => ({ params, error }));
 
 export function searchMoreSalon(params) {
   return steps(
     searchMoreSalonRequest(params),
     fetchrRead('salon', params),
-    [(payload) => searchMoreSalonSuccess(params, payload.data), (error) => searchMoreSalonFail({ params, error })],
+    [
+      (payload) => searchMoreSalonSuccess(params, payload.data),
+      (error) => searchMoreSalonFail({ params, error }),
+    ],
   );
 }
 
@@ -102,38 +112,58 @@ export default compose(
     loaded: false,
   }),
 
-  [SEARCH_SALON_SUCCESS]: (state,
-    { payload: { params, data: { results_available: count, results_start: start, salon: items } } }) => ({
-    ...state,
-    loading: false,
-    loaded: true,
-    count: +count,
-    page: +params.page || 0,
-    pages: createPages(+count),
-    items: { [+params.page || 0]: items || [] },
-    canGetNext: canGetNext(count, start),
-    canGetPrev: canGetPrev(+params.page || 0),
-  }),
+  [SEARCH_SALON_SUCCESS]: (state, action) => {
+    const {
+      payload: {
+        params,
+        data: {
+          results_available: count,
+          results_start: start,
+          salon: items,
+        },
+      },
+    } = action;
 
-  [SEARCH_SALON_FAIL]: (state, { error }) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    count: 0,
-    items: {},
-    error,
-  }),
+    return {
+      ...state,
+      loading: false,
+      loaded: true,
+      count: +count,
+      page: +params.page || 0,
+      pages: createPages(+count),
+      items: { [+params.page || 0]: items || [] },
+      canGetNext: canGetNext(count, start),
+      canGetPrev: canGetPrev(+params.page || 0),
+    };
+  },
 
-  [CLEAR_SEARCH_SALON_REQUEST]: () => INITIAL_STATE,
+  [SEARCH_SALON_FAIL]: (state, action) => {
+    const { error } = action;
 
-  [FIND_SALON_BY_ID_SUCCESS]: (state, { payload: { data: { salon: items } } }) => ({
-    ...state,
-    loading: false,
-    loaded: true,
-    item: items[0],
-  }),
+    return {
+      ...state,
+      loading: false,
+      loaded: false,
+      count: 0,
+      items: {},
+      error,
+    };
+  },
 
-  [FIND_SALON_BY_ID_FAIL]: (state, { error }) => INITIAL_STATE,
+  [CLEAR_SEARCH_SALON_REQUEST]: (state, action) => INITIAL_STATE,
+
+  [FIND_SALON_BY_ID_SUCCESS]: (state, action) => {
+    const { payload: { data: { salon: items } } } = action;
+
+    return {
+      ...state,
+      loading: false,
+      loaded: true,
+      item: items[0],
+    };
+  },
+
+  [FIND_SALON_BY_ID_FAIL]: (state, action) => INITIAL_STATE,
 
   [SEARCH_MORE_SALON_REQUEST]: (state) => ({
     ...state,
@@ -141,28 +171,44 @@ export default compose(
     loaded: false,
   }),
 
-  [SEARCH_MORE_SALON_SUCCESS]: (state,
-    { payload: { resource, params, data: { results_available: count, results_start: start, salon: items } } }) => ({
-    ...state,
-    loading: false,
-    loaded: true,
-    count: +count,
-    page: +params.page,
-    pages: createPages(+count),
-    items: { ...state.items, [+params.page]: items || [] },
-    item: {},
-    canGetNext: canGetNext(count, start),
-    canGetPrev: canGetPrev(+params.page),
-    shouldAdjustScroll: state.page > +params.page,
-    forceScrollTo: {},
-  }),
+  [SEARCH_MORE_SALON_SUCCESS]: (state, action) => {
+    const {
+      payload: {
+        params,
+        data: {
+          results_available: count,
+          results_start: start,
+          salon: items,
+        },
+      },
+    } = action;
 
-  [SEARCH_MORE_SALON_FAIL]: (state, { payload: { resource }, error }) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    error,
-  }),
+    return {
+      ...state,
+      loading: false,
+      loaded: true,
+      count: +count,
+      page: +params.page,
+      pages: createPages(+count),
+      items: { ...state.items, [+params.page]: items || [] },
+      item: {},
+      canGetNext: canGetNext(count, start),
+      canGetPrev: canGetPrev(+params.page),
+      shouldAdjustScroll: state.page > +params.page,
+      forceScrollTo: {},
+    };
+  },
+
+  [SEARCH_MORE_SALON_FAIL]: (state, action) => {
+    const { error } = action;
+
+    return {
+      ...state,
+      loading: false,
+      loaded: false,
+      error,
+    };
+  },
 }));
 
 function canGetNext(count, start) {
@@ -171,34 +217,6 @@ function canGetNext(count, start) {
 
 function canGetPrev(page) {
   return +page > 0;
-}
-
-function findItems(itemsMap, item) {
-  const pages = Object.keys(itemsMap);
-  for (const page of pages) {
-    const foundItem = itemsMap[page].find((pageItem) => pageItem.id === item.id);
-    if (foundItem) {
-      return { [page]: itemsMap[page] };
-    }
-  }
-
-  return {};
-}
-
-function findScrollToPosition(itemsMap, item) {
-  if (!item.id) {
-    return {};
-  }
-
-  const pages = Object.keys(itemsMap);
-  for (const page of pages) {
-    const index = itemsMap[page].findIndex((pageItem) => pageItem.id === item.id);
-    if (index >= 0) {
-      return { x: 0, y: 100 * (index + 1) };
-    }
-  }
-
-  return {};
 }
 
 function createPages(count) {
