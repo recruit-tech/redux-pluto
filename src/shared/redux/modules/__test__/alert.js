@@ -1,8 +1,8 @@
 /* eslint-disable no-undefined */
-import reducer, { showAlert, clearAlert } from '../alert';
 import { test } from 'eater/runner';
 import assert from 'power-assert';
 import Immutable from 'seamless-immutable';
+import reducer, { showAlert, clearAlert } from '../alert';
 
 test('State: showAlert', (done) => {
   const showAlertAction = showAlert('test');

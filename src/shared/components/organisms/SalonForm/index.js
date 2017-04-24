@@ -1,34 +1,36 @@
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
+import { replace, push } from 'react-router-redux';
 import { reduxForm } from 'redux-form';
+import { parse } from 'querystring';
 import { asyncLoader } from 'redux-async-loader';
 import { searchSalon, searchMoreSalon, clearSearchSalon } from '../../../redux/modules/salon';
 import SalonForm from './SalonForm';
-import { replace, push } from 'react-router-redux';
-import { parse } from 'querystring';
 
 export default compose(
-  asyncLoader(({ location }, { dispatch, getState }) => {
-    const state = getState();
-    if (state.routing.locationBeforeTransitions.action === 'POP' && state.page.salon.loaded) {
-      return;
+  asyncLoader(
+    ({ location }, { dispatch, getState }) => {
+      const state = getState();
+      if (state.routing.locationBeforeTransitions.action === 'POP' && state.page.salon.loaded) {
+        return Promise.resolve();
+      }
+
+      if (location.query && !location.query.keyword) {
+        return dispatch(clearSearchSalon());
+      }
+
+      const more = location.query.more;
+      const keyword = location.query.keyword;
+      const page = location.query.page;
+
+      if (more) {
+        return dispatch(searchMoreSalon({ keyword, page }));
+      }
+
+      dispatch(clearSearchSalon());
+      return dispatch(searchSalon({ keyword, page }));
     }
-
-    if (location.query && !location.query.keyword) {
-      return dispatch(clearSearchSalon());
-    }
-
-    const more = location.query.more;
-    const keyword = location.query.keyword;
-    const page = location.query.page;
-
-    if (more) {
-      return dispatch(searchMoreSalon({ keyword, page }));
-    }
-
-    dispatch(clearSearchSalon());
-    return dispatch(searchSalon({ keyword, page }));
-  }),
+  ),
   connect(
     (state) => ({
       page: state.page.salon.page,
@@ -44,7 +46,6 @@ export default compose(
       initialValues: { keyword: state.routing.locationBeforeTransitions.query.keyword },
     }),
     (dispatch, ownProps) => ({
-
       onClickPrev: (page) => () => {
         const keyword = ownProps.location.query.keyword;
         return dispatch(replace(`/salon?keyword=${keyword}&page=${page - 1}&more=true`));
@@ -61,10 +62,9 @@ export default compose(
         const currentPage = parse(window.location.search.substr(1)).page || 0;
         const keyword = ownProps.location.query.keyword;
         if (page !== currentPage) {
-          return dispatch(replace(`/salon?keyword=${keyword}&page=${page}&more=true`));
+          return void dispatch(replace(`/salon?keyword=${keyword}&page=${page}&more=true`));
         }
       },
-
     }),
   ),
   reduxForm({

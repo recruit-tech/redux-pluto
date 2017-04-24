@@ -1,8 +1,8 @@
 /* eslint-disable no-undefined */
-import reducer, { checkLogin, login, logout } from '../auth';
 import { test } from 'eater/runner';
 import assert from 'power-assert';
 import Immutable from 'seamless-immutable';
+import reducer, { checkLogin, login, logout } from '../auth';
 
 test('State: checkLoginSuccess', (done) => {
   const checkLoginAction = checkLogin();

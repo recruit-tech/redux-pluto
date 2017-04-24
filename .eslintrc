@@ -1,5 +1,5 @@
 {
-  "extend": "eslint-config-airbnb",
+  "extends": "eslint-config-airbnb",
 
   "parserOptions": {
     "ecmaVersion": 6,
@@ -20,7 +20,8 @@
 
   "plugins": [
     "import",
-    "react"
+    "react",
+    "dependencies"
   ],
 
   "globals": {
@@ -36,32 +37,43 @@
     "no-unexpected-multiline": "error",
 
     // Best Practices
+    "class-methods-use-this": "off",
+    "consistent-return": ["error", { "treatUndefinedAsUnspecified": true }],
     "dot-location": ["error", "property"],
     "no-implicit-globals": "error",
     "no-invalid-this": "error",
+    "no-param-reassign": ["error", { "props": false }],
     "no-unmodified-loop-condition": "error",
     "no-useless-call": "error",
+    "no-void": "off",
 
     // Variables
     "no-catch-shadow": "error",
     "no-label-var": "error",
+    "no-shadow": ["error", { "allow": ["cb", "next", "req", "res", "err", "error"] }],
     "no-undef-init": "error",
     "no-undefined": "error",
     "no-use-before-define": ["error", "nofunc"],
+    "no-unused-expressions": ["error", { "allowShortCircuit": true }],
+    "no-unused-vars": ["error", { "args": "none" }],
 
     // Node.js
     "callback-return": "error",
     "no-path-concat": "error",
 
     // Stylistic Issues
+    "comma-dangle": ["error", "always-multiline"],
     "linebreak-style": ["error", "unix"],
+    "no-plusplus": "off",
 
     // ECMAScript 6
-    "arrow-parens": "error",
+    "arrow-parens": ["error", "always"],
     "constructor-super": "error",
     "generator-star-spacing": ["error", "after"],
     "no-this-before-super": "error",
+    "prefer-arrow-callback": ["error", { "allowNamedFunctions": true }],
     "prefer-spread": "error",
+    "prefer-template": "off",
 
     // React
     "react/no-danger": "error",
@@ -72,15 +84,29 @@
     "react/no-is-mounted": "error",
     "react/no-set-state": "error",
     "react/no-string-refs": "error",
-    "react/require-extension": ["error", {"extensions": [".js", ".jsx"]}],
-    "react/wrap-multilines": "error",
+    "react/prefer-stateless-function": "off",
+    "react/prop-types": "off",
+    "react/self-closing-comp": "off",
 
     // JSX
     "react/jsx-equals-spacing": "error",
+    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     "react/jsx-indent": ["error", 2],
     "react/jsx-key": "error",
     "react/jsx-max-props-per-line": ["error", {"maximum": 3}],
     "react/jsx-no-duplicate-props": "error",
-    "react/jsx-space-before-closing": "error"
+    "react/jsx-space-before-closing": "error",
+    "react/jsx-wrap-multilines": "error",
+
+    // a11y
+    "jsx-a11y/no-static-element-interactions": "off",
+
+    // dependencies
+    "dependencies/case-sensitive": "error",
+    "dependencies/no-cycles": "error",
+    "dependencies/no-unresolved": "error",
+
+    // coding styles
+    "max-len": ["error", 100]
   }
 }

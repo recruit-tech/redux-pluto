@@ -3,7 +3,10 @@ import BaseMaster from './BaseMaster';
 
 export default class HairLengthMaster extends BaseMaster {
   constructor(config) {
-    super(config, 'hairLengthMaster', 'beauty/hairLength/v3/', {}, 'hair_length', transform(formatResult)({}));
+    super(
+      config, 'hairLengthMaster', 'beauty/hairLength/v3/', {}, 'hair_length',
+      transform(formatResult)({})
+    );
   }
 }
 

@@ -6,7 +6,7 @@ import styles from './styles.scss';
 const { localNames: local } = createLocal(styles);
 
 export default class Footer extends Component {
-  render(props = this.props) {
+  render() {
     return (
       <footer className={local('root')}>
         <Counter />

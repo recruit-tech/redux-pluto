@@ -14,6 +14,7 @@ export default compose(
 )(class Salon extends Component {
   render() {
     const { item } = this.props;
+
     return (
       <div>
         {item.name}

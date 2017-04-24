@@ -4,7 +4,7 @@ import { compose, shouldUpdate } from 'recompose';
 export default compose(
   shouldUpdate(() => false),
 )(class Foo extends Component {
-  render(props = this.props) {
+  render() {
     return (
       <div>Foo!</div>
     );

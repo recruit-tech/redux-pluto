@@ -3,9 +3,8 @@ import Fetchr from 'fetchr';
 import { test } from 'eater/runner';
 import assert from 'power-assert';
 import { createStore, createWithSignedStore } from './lib/storeUtils';
-import { ACCESS_TOKEN_AUDIENCE_NAME, sign } from '../../../server/services/AccessToken';
+import { ACCESS_TOKEN_AUDIENCE_NAME } from '../../../server/services/AccessToken';
 import { login } from '../modules/auth';
-import configs from '../../../server/configs';
 
 /**
  * mock accessToken service
@@ -14,7 +13,7 @@ Fetchr.registerService({
   name: 'accessToken',
   create(req, resource, params, body, config, cb) {
     if (params && params.username === 's') {
-      return cb(new Error('username is short'));
+      return void cb(new Error('username is short'));
     }
 
     cb(null, null);

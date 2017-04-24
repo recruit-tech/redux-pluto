@@ -15,14 +15,20 @@ export default compose(
     forceScrollTo: PropTypes.object.isRequired,
   }),
 )(class SalonLists extends Component {
-  render(props = this.props) {
-    const { items, onInnerWindow, shouldAdjustScroll, forceScrollTo } = props;
+  render() {
+    const { items, onInnerWindow, shouldAdjustScroll, forceScrollTo } = this.props;
     return (
       <div className={local('root')}>
         {Object.keys(items).map((page) => (
-          <SalonList items={items[page]} page={+page} onInnerWindow={onInnerWindow}
-                     heightRatio={0.5} key={page} shouldAdjustScroll={shouldAdjustScroll}
-                     forceScrollTo={forceScrollTo} />
+          <SalonList
+            items={items[page]}
+            page={+page}
+            onInnerWindow={onInnerWindow}
+            heightRatio={0.5}
+            key={page}
+            shouldAdjustScroll={shouldAdjustScroll}
+            forceScrollTo={forceScrollTo}
+          />
         ))}
       </div>
     );

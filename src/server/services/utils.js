@@ -12,7 +12,7 @@ export function read(axios, name, pathname, query) {
     (response) => {
       const responseBody = response.data;
       if (!responseBody || !responseBody.results) {
-        return rejectWith(fumble.create(), { name, formattedUrl, reason: 'no result', });
+        return rejectWith(fumble.create(), { name, formattedUrl, reason: 'no result' });
       }
 
       const results = responseBody.results;

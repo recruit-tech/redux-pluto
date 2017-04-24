@@ -11,8 +11,8 @@ export default compose(
     children: PropTypes.node.isRequired,
   }),
 )(class Menu extends Component {
-  render(props = this.props) {
-    const { children } = props;
+  render() {
+    const { children } = this.props;
 
     return (
       <ul role="menu" className={local('items')}>

@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
-const strip = require('strip-loader');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const rootDir = path.resolve(__dirname, '../..');
@@ -9,7 +8,7 @@ const outputPath = path.resolve(rootDir, 'build/server');
 
 function getExternals() {
   const nodeModules = fs.readdirSync(path.resolve(rootDir, 'node_modules'));
-  return nodeModules.reduce(function (ext, mod) {
+  return nodeModules.reduce((ext, mod) => {
     ext[mod] = 'commonjs ' + mod;
     return ext;
   }, {});
