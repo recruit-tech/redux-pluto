@@ -6,7 +6,9 @@ import StyleList from './StyleList';
 
 export default compose(
   asyncLoader(
-    ({ params }, { dispatch, getState }) => getState().page.style.loaded || dispatch(searchStyle(params))
+    ({ params }, { dispatch, getState }) => (
+      getState().page.style.loaded || dispatch(searchStyle(params))
+    )
   ),
   connect(
     (state) => ({

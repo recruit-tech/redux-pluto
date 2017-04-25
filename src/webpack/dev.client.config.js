@@ -3,7 +3,8 @@ const webpack = require('webpack');
 
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
-const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./isomorphic-tools.config'));
+const webpackIsomorphicToolsPlugin =
+  new WebpackIsomorphicToolsPlugin(require('./isomorphic-tools.config'));
 
 const rootDir = path.resolve(__dirname, '../..');
 const port = +(process.env.PORT || 3000);

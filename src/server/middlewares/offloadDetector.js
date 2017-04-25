@@ -10,7 +10,7 @@ export default function (config) {
   return function offloadDetecter(req, res, next) {
     if (!timer) {
       const now = Date.now();
-      const remain = Math.floor(now / window) * window + window - now;
+      const remain = (Math.floor(now / window) * window) + (window - now);
       timer = setTimeout(() => {
         count = 0;
         timer = null;

@@ -1,6 +1,5 @@
 import cookie from 'cookie';
 import jwt from 'jsonwebtoken';
-import ms from 'ms';
 import fumble from 'fumble';
 import debugFactory from 'debug';
 import validate from '../../shared/validators/login';
@@ -92,12 +91,12 @@ export function verify(req, secret) {
 
 function jwtSign(payload, key, options) {
   return new Promise((resolve, reject) =>
-    jwt.sign(payload, key, options, (err, token) => err ? reject(err) : resolve(token))
+    jwt.sign(payload, key, options, (err, token) => (err ? reject(err) : resolve(token)))
   );
 }
 
 function jwtVerify(token, secret, options) {
   return new Promise((resolve, reject) =>
-    jwt.verify(token, secret, options, (err, decoded) => err ? reject(err) : resolve(decoded))
+    jwt.verify(token, secret, options, (err, decoded) => (err ? reject(err) : resolve(decoded)))
   );
 }

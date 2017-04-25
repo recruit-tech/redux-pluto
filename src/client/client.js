@@ -10,6 +10,18 @@ import Fetchr from 'fetchr';
 import createStore from '../shared/redux/createStore';
 import getRoutes from '../shared/routes';
 
+const RenderWithMiddleware = applyRouterMiddleware(
+  useAsyncLoader(),
+  useScroll((prevRouterProps, { location, routes }) => {
+    if (routes.some((route) =>
+        route.ignoreScrollBehavior && route.ignoreScrollBehavior(location))) {
+      return false;
+    }
+
+    return true;
+  }),
+);
+
 const initialState = JSON.parse(document.getElementById('initial-state').getAttribute('data-json'));
 const clientConfig = JSON.parse(document.getElementById('client-config').getAttribute('data-json'));
 
@@ -20,19 +32,8 @@ const store = createStore(initialState, {
   history: browserHistory,
   devTools: __DEVELOPMENT__,
 });
-const history = syncHistoryWithStore(browserHistory, store, { adjustUrlOnReplay: __DEVELOPMENT__ });
 const routes = getRoutes(store);
-
-const RenderWithMiddleware = applyRouterMiddleware(
-  useAsyncLoader(),
-  useScroll((prevRouterProps, { location, routes }) => {
-    if (routes.some((route) => route.ignoreScrollBehavior && route.ignoreScrollBehavior(location))) {
-      return false;
-    }
-
-    return true;
-  }),
-);
+const history = syncHistoryWithStore(browserHistory, store, { adjustUrlOnReplay: __DEVELOPMENT__ });
 
 // 非同期のonEnter()がある画面がサーバサイドレンダリングされるとクライアント
 // サイドの最初のレンダリングも非同期 (画面の一部が未完成) となってハッシュが
@@ -54,7 +55,8 @@ match({ routes, history }, (error, redirectLocation, renderProps) => {
 
 if (__DEVELOPMENT__ && !window.devToolsExtension) {
   window.React = React; // enable debugger
-  const DevTools = require('../shared/components/utils/DevTools').default;
+  const DevTools =
+    require('../shared/components/utils/DevTools').default; // eslint-disable-line global-require
   const content = (
     <Provider store={store} key="provider">
       <DevTools />

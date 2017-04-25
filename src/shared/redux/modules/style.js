@@ -47,28 +47,47 @@ export default compose(
   initialState(INITIAL_STATE),
   filterActionType(SEARCH_STYLE),
 )(handleActions({
-  [SEARCH_STYLE_REQUEST]: (state, { payload: { params } }) => ({
-    loading: true,
-    loaded: false,
-    params,
-    count: state.count,
-    items: state.items,
-  }),
+  [SEARCH_STYLE_REQUEST]: (state, action) => {
+    const { payload: { params } } = action;
 
-  [SEARCH_STYLE_SUCCESS]: (state, { payload: { data: { results_available: count, style: items } } }) => ({
-    loading: false,
-    loaded: true,
-    params: state.params,
-    count: +count,
-    items,
-  }),
+    return {
+      loading: true,
+      loaded: false,
+      params,
+      count: state.count,
+      items: state.items,
+    };
+  },
 
-  [SEARCH_STYLE_FAIL]: (state, { payload: { resource }, error }) => ({
-    loading: false,
-    loaded: false,
-    params: state.params,
-    count: 0,
-    items: [],
-    error,
-  }),
+  [SEARCH_STYLE_SUCCESS]: (state, action) => {
+    const {
+      payload: {
+        data: {
+          results_available: count,
+          style: items,
+        },
+      },
+    } = action;
+
+    return {
+      loading: false,
+      loaded: true,
+      params: state.params,
+      count: +count,
+      items,
+    };
+  },
+
+  [SEARCH_STYLE_FAIL]: (state, action) => {
+    const { error } = action;
+
+    return {
+      loading: false,
+      loaded: false,
+      params: state.params,
+      count: 0,
+      items: [],
+      error,
+    };
+  },
 }));

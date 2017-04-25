@@ -5,7 +5,9 @@ import { increment } from '../../../redux/modules/counter';
 import Counter from './Counter';
 
 export default compose(
-  deferLoader((props, { dispatch }) => dispatch(increment())),
+  deferLoader(
+    (props, { dispatch }) => dispatch(increment())
+  ),
   connect(
     (state) => ({
       counterValue: state.app.counter.value,

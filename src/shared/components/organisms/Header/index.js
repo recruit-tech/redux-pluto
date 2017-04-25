@@ -19,7 +19,7 @@ const links = [
 export default compose(
   pure,
 )(class Header extends Component {
-  render(props = this.props) {
+  render() {
     return (
       <header className={local('root')}>
         <hgroup>
@@ -30,15 +30,23 @@ export default compose(
           <ul className={local('items')}>
             {links.map(({ key, to, label, index }) => (
               <li key={key} className={local('item')}>
-                {index ?
-                  <IndexLink to={to} className={local('link')} activeClassName={local('link-isActive')}>
+                {index ? (
+                  <IndexLink
+                    to={to}
+                    className={local('link')}
+                    activeClassName={local('link-isActive')}
+                  >
                     {label}
                   </IndexLink>
-                  :
-                  <Link to={to} className={local('link')} activeClassName={local('link-isActive')}>
+                ) : (
+                  <Link
+                    to={to}
+                    className={local('link')}
+                    activeClassName={local('link-isActive')}
+                  >
                     {label}
                   </Link>
-                }
+                )}
               </li>
             ))}
           </ul>

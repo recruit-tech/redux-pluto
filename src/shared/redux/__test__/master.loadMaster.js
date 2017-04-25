@@ -2,9 +2,9 @@
 import Fetchr from 'fetchr';
 import { test } from 'eater/runner';
 import assert from 'power-assert';
-import { createStore } from './lib/storeUtils';
-import * as masters from '../modules/masters';
 import Immutable from 'seamless-immutable';
+import * as masters from '../modules/masters';
+import { createStore } from './lib/storeUtils';
 
 /**
  * mock loadMaster service
@@ -195,5 +195,4 @@ test('master: loadAll failure', (done, fail) => {
       },
     });
   });
-
 });

@@ -31,14 +31,14 @@ function makeServiceAdapter(service, secret) {
 
   ['read', 'delete'].forEach((method) => {
     if (service[method]) {
-      adapter[method] = function (req, resource, params, config, cb) {
+      adapter[method] = (req, resource, params, config, cb) => {
         checkLogin(req).then(() => service[method](req, resource, params, config)).then(
           (result = {}) => {
             cb(null, result, result.meta);
           },
           (error) => {
             cb(error);
-          }
+          },
         );
       };
     }
@@ -46,14 +46,14 @@ function makeServiceAdapter(service, secret) {
 
   ['create', 'update'].forEach((method) => {
     if (service[method]) {
-      adapter[method] = function (req, resource, params, body, config, cb) {
+      adapter[method] = (req, resource, params, body, config, cb) => {
         checkLogin(req).then(() => service[method](req, resource, params, body, config)).then(
           (result = {}) => {
             cb(null, result, result.meta);
           },
           (error) => {
             cb(error);
-          }
+          },
         );
       };
     }

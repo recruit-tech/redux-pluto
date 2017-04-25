@@ -42,7 +42,11 @@ const INITIAL_STATE = {
 export default compose(
   initialState(INITIAL_STATE),
 )(handleActions({
-  [COUNTER_INCREMENT_SUCCESS]: (state, { payload: { data } }) => ({
-    value: data,
-  }),
+  [COUNTER_INCREMENT_SUCCESS]: (state, action) => {
+    const { payload: { data } } = action;
+
+    return {
+      value: data,
+    };
+  },
 }));

@@ -1,7 +1,3 @@
-import debugFactory from 'debug';
-
-const debug = debugFactory('app:server:services:counter');
-
 export default class Counter {
   constructor() {
     this.name = 'counter';

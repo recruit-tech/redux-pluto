@@ -1,1 +1,1 @@
-export { default as default } from './dev.js';
+export { default } from './dev.js';

@@ -1,11 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
-const strip = require('strip-loader');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
-const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./isomorphic-tools.config'));
+const webpackIsomorphicToolsPlugin =
+  new WebpackIsomorphicToolsPlugin(require('./isomorphic-tools.config'));
 
 const rootDir = path.resolve(__dirname, '../..');
 const outputPath = path.resolve(rootDir, 'build/client');
