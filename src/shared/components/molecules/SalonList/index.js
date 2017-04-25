@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import { showOnScroll, adjustScroll, forceScroll } from '../../utils/scrollComponents';
 import SalonListItem from '../../atoms/SalonListItem';

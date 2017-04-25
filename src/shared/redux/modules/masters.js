@@ -1,9 +1,7 @@
 import transform from 'lodash/fp/transform';
 import { createAction, handleActions } from 'redux-actions';
-import { compose } from 'recompose';
 import { steps } from 'redux-effects-steps';
 import { fetchrRead } from 'redux-effects-fetchr';
-import { initialState, filterActionType } from './utils';
 
 /**
  * Action types
@@ -88,10 +86,7 @@ export const INITIAL_STATE = transform((state, resource) => {
 /**
  * Reducer
  */
-export default compose(
-  initialState(INITIAL_STATE),
-  filterActionType(LOAD_MASTER),
-)(handleActions({
+export default handleActions({
   [LOAD_MASTER_REQUEST]: (state, action) => {
     const { payload: { resource } } = action;
 
@@ -131,4 +126,4 @@ export default compose(
       },
     };
   },
-}));
+}, INITIAL_STATE);

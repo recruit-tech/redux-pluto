@@ -16,7 +16,6 @@ const server = __DEVELOPMENT__ ? '../src/server/server' : '../build/server/serve
 
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 global.webpackIsomorphicTools = new WebpackIsomorphicTools(isomorphicToolsConfig)
-  .development(__DEVELOPMENT__)
   .server(rootDir, () => {
     require(server);
   });

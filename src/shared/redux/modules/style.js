@@ -1,8 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
-import { compose } from 'recompose';
 import { steps } from 'redux-effects-steps';
 import { fetchrRead } from 'redux-effects-fetchr';
-import { initialState, filterActionType } from './utils';
 
 /**
  * Action types
@@ -43,10 +41,7 @@ export const INITIAL_STATE = {
 /**
  * Reducer
  */
-export default compose(
-  initialState(INITIAL_STATE),
-  filterActionType(SEARCH_STYLE),
-)(handleActions({
+export default handleActions({
   [SEARCH_STYLE_REQUEST]: (state, action) => {
     const { payload: { params } } = action;
 
@@ -90,4 +85,4 @@ export default compose(
       error,
     };
   },
-}));
+}, INITIAL_STATE);
