@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import Menu from '../../atoms/Menu';
 import MenuItem from '../../atoms/MenuItem';

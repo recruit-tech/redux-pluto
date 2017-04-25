@@ -1,9 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
-import { compose } from 'recompose';
 import { steps } from 'redux-effects-steps';
 import { fetchrRead } from 'redux-effects-fetchr';
 import range from 'lodash/fp/range';
-import { initialState, filterActionType } from './utils';
 
 export const SALON_SEARCH_MAX_COUNT = 50;
 
@@ -102,10 +100,7 @@ export const INITIAL_STATE = {
 /**
  * Reducer
  */
-export default compose(
-  initialState(INITIAL_STATE),
-  filterActionType(SALON),
-)(handleActions({
+export default handleActions({
   [SEARCH_SALON_REQUEST]: (state) => ({
     ...state,
     loading: true,
@@ -209,7 +204,7 @@ export default compose(
       error,
     };
   },
-}));
+}, INITIAL_STATE);
 
 function canGetNext(count, start) {
   return +count > +start + SALON_SEARCH_MAX_COUNT;

@@ -1,7 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
 import { steps } from 'redux-effects-steps';
-import { compose } from 'recompose';
-import { initialState, filterActionType } from './utils';
 
 /**
  * Action types
@@ -77,16 +75,13 @@ const INITIAL_STATE = {
 /**
  * Reducer
  */
-export default compose(
-  initialState(INITIAL_STATE),
-  filterActionType(AUTH),
-)(handleActions({
+export default handleActions({
   [AUTH_CHECK_LOGIN_SUCCESS]: loggedIn,
   [AUTH_LOGIN_SUCCESS]: loggedIn,
   [AUTH_CHECK_LOGIN_FAIL]: loggedOut,
   [AUTH_LOGIN_FAIL]: loggedOut,
   [AUTH_LOGOUT_SUCCESS]: loggedOut,
-}));
+}, INITIAL_STATE);
 
 function loggedIn(state, action) {
   const { payload: { sub } } = action;
