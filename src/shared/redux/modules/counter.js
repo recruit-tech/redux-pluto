@@ -1,8 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
-import { compose } from 'recompose';
 import { steps } from 'redux-effects-steps';
 import { fetchrUpdate } from 'redux-effects-fetchr';
-import { initialState } from './utils';
 
 /**
  * Action types
@@ -39,9 +37,7 @@ const INITIAL_STATE = {
 /**
  * Reducer
  */
-export default compose(
-  initialState(INITIAL_STATE),
-)(handleActions({
+export default handleActions({
   [COUNTER_INCREMENT_SUCCESS]: (state, action) => {
     const { payload: { data } } = action;
 
@@ -49,4 +45,4 @@ export default compose(
       value: data,
     };
   },
-}));
+}, INITIAL_STATE);
