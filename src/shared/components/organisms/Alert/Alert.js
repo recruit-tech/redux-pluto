@@ -16,8 +16,8 @@ export default compose(
     onClose: PropTypes.func.isRequired,
   }),
 )(class Alert extends Component {
-  render(props = this.props) {
-    const { alert: { message }, onClose } = props;
+  render() {
+    const { alert: { message }, onClose } = this.props;
     if (!message) {
       return null;
     }

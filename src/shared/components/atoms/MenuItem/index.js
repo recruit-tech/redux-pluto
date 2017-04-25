@@ -14,8 +14,8 @@ export default compose(
     checked: PropTypes.bool,
   }),
 )(class MenuItem extends Component {
-  render(props = this.props) {
-    const { children, to, checked } = props;
+  render() {
+    const { children, to, checked } = this.props;
 
     return (
       <li role="menuitemradio" aria-checked={checked} className={local('item')}>

@@ -1,4 +1,3 @@
-import React, { Component, PropTypes } from 'react';
 import { reduxForm, isInvalid } from 'redux-form';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
@@ -16,7 +15,9 @@ export default compose(
       .catch(normalizeFormError);
     },
   }),
-  connect((state) => ({
-    invalid: isInvalid('loginForm')(state),
-  }))
+  connect(
+    (state) => ({
+      invalid: isInvalid('loginForm')(state),
+    })
+  )
 )(LoginForm);

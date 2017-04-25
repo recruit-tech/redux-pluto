@@ -16,30 +16,32 @@ export default compose(
     keyword: PropTypes.string.isRequired,
   }),
 )(class SalonPager extends Component {
-  render(props = this.props) {
-    const { keyword, page, pages } = props;
+  render() {
+    const { keyword, page, pages } = this.props;
     const slicedPages = slicePages(page, pages);
 
     return (
       <div>
-        {slicedPages.map((p) => {
-          if (page === p) {
-            return <span className={local('current')} key={p}>{p}</span>;
-          }
-
-          return <Link className={local('link')} key={p} to={`/salon/?keyword=${keyword}&page=${p}`}>{p}</Link>;
-        })}
+        {slicedPages.map((p) => (
+          page === p ? (
+            <span className={local('current')} key={p}>{p}</span>
+          ) : (
+            <Link
+              className={local('link')}
+              key={p}
+              to={`/salon/?keyword=${keyword}&page=${p}`}
+            >{p}</Link>
+          )
+        ))}
       </div>
     );
   }
 });
 
 function slicePages(page, pages) {
-  const result = [];
-
   if (page < PAGE_WINDOW / 2) {
     return pages.slice(0, PAGE_WINDOW);
   }
 
-  return pages.slice(page - PAGE_WINDOW / 2, page + PAGE_WINDOW / 2);
+  return pages.slice(page - (PAGE_WINDOW / 2), page + (PAGE_WINDOW / 2));
 }

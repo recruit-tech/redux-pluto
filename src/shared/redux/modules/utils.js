@@ -5,5 +5,5 @@ export function initialState(init) {
 export function filterActionType(...names) {
   const includesType = ({ type }) => names.some((name) => type.startsWith(name));
 
-  return (reducer) => (state, action) => includesType(action) ? reducer(state, action) : state;
+  return (reducer) => (state, action) => (includesType(action) ? reducer(state, action) : state);
 }

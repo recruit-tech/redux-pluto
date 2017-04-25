@@ -46,28 +46,29 @@ export default function createReduxApp(config) {
       logger,
     });
     const history = syncHistoryWithStore(memoryHistory, store);
+    const clientConfig = getClientConfig(config, req);
 
     if (__DISABLE_SSR__) {
-      return sendResponse({ res, store, status: 200, clientConfig: getClientConfig(config, req) });
+      return void sendResponse({ res, store, status: 200, clientConfig });
     }
 
     if (req.offloadMode) {
       debug('offload mode, disable server-side rendering');
       res.set('cache-control', `max-age=${maxAge}`);
-      return sendResponse({ res, store, status: 200, clientConfig: getClientConfig(config, req) });
+      return void sendResponse({ res, store, status: 200, clientConfig });
     }
 
     match({ history, routes: getRoutes(store) }, (error, redirectLocation, renderProps) => {
       if (error) {
-        return res.status(500).send(error.message);
+        return void res.status(500).send(error.message);
       }
 
       if (redirectLocation) {
-        return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+        return void res.redirect(302, redirectLocation.pathname + redirectLocation.search);
       }
 
       if (!renderProps) {
-        return next();
+        return void next();
       }
 
       res.startTime('prefetch', 'Prefetch onLoad');
@@ -86,7 +87,7 @@ export default function createReduxApp(config) {
           res.endTime('ssr');
           const { routes } = renderProps;
           const status = routes[routes.length - 1].status || 200;
-          sendResponse({ res, status, store, content, clientConfig: getClientConfig(config, req) });
+          sendResponse({ res, status, store, content, clientConfig });
         });
       }).catch((error) => {
         debug(error);

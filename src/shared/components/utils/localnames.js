@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import reduce from 'lodash/fp/reduce';
 import debugFactory from 'debug';
 

@@ -18,8 +18,8 @@ export default compose(
     }),
   }),
 )(class Style extends Component {
-  render(props = this.props) {
-    const { genderItems, hairLengthItems, children, params: { gender, hairLength } } = props;
+  render() {
+    const { genderItems, hairLengthItems, children, params: { gender, hairLength } } = this.props;
 
     return (
       <div>

@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import assert from 'power-assert';
 
 export function isSameObject(obj1, obj2, ignoreProps) {

@@ -27,7 +27,7 @@ export default compose(
     forceScrollTo: PropTypes.object,
   }),
 )(class SalonForm extends Component {
-  render(props = this.props) {
+  render() {
     const {
       handleSubmit,
       count,
@@ -43,13 +43,13 @@ export default compose(
       shouldAdjustScroll,
       forceScrollTo,
       initialValues,
-    }  = props;
+    } = this.props;
 
     return (
       <div className={local('root')}>
         <form onSubmit={handleSubmit} method="GET">
           <div>
-            <label>Free Keyword</label>
+            <label htmlFor="keyword">Free Keyword</label>
             <div>
               <Field
                 type="text"
@@ -68,8 +68,14 @@ export default compose(
           <div>
             <span>{count || 0}</span><span>件あります</span>
           </div>
-          <SalonLists items={items} page={page} onInnerWindow={onInnerWindow}
-                      shouldAdjustScroll={shouldAdjustScroll} item={item} forceScrollTo={forceScrollTo} />
+          <SalonLists
+            items={items}
+            page={page}
+            onInnerWindow={onInnerWindow}
+            shouldAdjustScroll={shouldAdjustScroll}
+            item={item}
+            forceScrollTo={forceScrollTo}
+          />
           {canGetNext ? <SalonMore onShow={onClickNext(page)}>進む</SalonMore> : null}
         </div>
         <div className={local('pager')}>

@@ -29,9 +29,13 @@ const INITIAL_STATE = {
 export default compose(
   initialState(INITIAL_STATE),
 )(handleActions({
-  [ALERT_SHOW]: (state, { payload }) => ({
-    message: payload,
-  }),
+  [ALERT_SHOW]: (state, action) => {
+    const { payload } = action;
+
+    return {
+      message: payload,
+    };
+  },
 
   [ALERT_CLEAR]: (state, action) => (INITIAL_STATE),
 }));

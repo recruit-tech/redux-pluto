@@ -11,6 +11,7 @@ export default compose(
     count: PropTypes.number.isRequired,
     items: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
       photo: PropTypes.shape({
         front: PropTypes.shape({
           m: PropTypes.string.isRequired,
@@ -19,8 +20,8 @@ export default compose(
     })).isRequired,
   }),
 )(class StyleList extends Component {
-  render(props = this.props) {
-    const { count, items } = props;
+  render() {
+    const { count, items } = this.props;
 
     return (
       <div>
@@ -31,10 +32,13 @@ export default compose(
           {items.map((item) => (
             <div
               key={item.id}
-              className={local('item')}>
+              className={local('item')}
+            >
               <img
                 className={local('img')}
-                src={item.photo.front.m} />
+                src={item.photo.front.m}
+                alt={item.name}
+              />
             </div>
           ))}
         </div>

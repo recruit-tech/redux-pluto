@@ -7,8 +7,8 @@ export default compose(
     children: PropTypes.node.isRequired,
   })
 )(class App extends Component {
-  render(props = this.props) {
-    const { children } =  props;
+  render() {
+    const { children } = this.props;
 
     return (
       <div>

@@ -10,8 +10,9 @@ export default compose(
   }),
   showOnScroll,
 )(class SalonMore extends Component {
-  render(props = this.props) {
-    const { children, onShow } = props;
+  render() {
+    const { children, onShow } = this.props;
+
     return (
       <div onClick={onShow}>
         {children}

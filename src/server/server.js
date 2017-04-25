@@ -1,14 +1,13 @@
 import http from 'http';
-import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import csurf from 'csurf';
 import favicon from 'serve-favicon';
+import serverTiming from 'server-timing';
 import debugFactory from 'debug';
 import config from './configs';
-import serverTiming from 'server-timing';
 import { apiGateway, offloadDetector, reduxApp as createReduxApp } from './middlewares';
 
 const debug = debugFactory('app:server:main');

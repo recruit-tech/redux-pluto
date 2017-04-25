@@ -11,8 +11,8 @@ export default compose(
     counterValue: PropTypes.number.isRequired,
   })
 )(class Counter extends Component {
-  render(props = this.props) {
-    const { counterValue } = props;
+  render() {
+    const { counterValue } = this.props;
 
     return (
       <div className={local('root')}>

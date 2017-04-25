@@ -35,7 +35,8 @@ export default function getRoutes(store) {
             <IndexRoute
               queryKeys="keyword, page, more"
               component={SalonForm}
-              ignoreScrollBehavior={ignoreScrollBehavior} />
+              ignoreScrollBehavior={ignoreScrollBehavior}
+            />
             <Route path=":salonId" component={Salon} />
           </Route>
           <Route path="login" component={Login} />
@@ -55,7 +56,8 @@ export default function getRoutes(store) {
   }
 
   function bindOnChange(handler) {
-    return (prevState, nextState, replace, cb) => handler({ prevState, nextState, cb: bindCb(replace, cb) });
+    return (prevState, nextState, replace, cb) =>
+      handler({ prevState, nextState, cb: bindCb(replace, cb) });
   }
 
   function bindCb(replace, cb) {
@@ -86,5 +88,4 @@ export default function getRoutes(store) {
     // REPLACEの時だけはスクロールを無視
     return location.action === 'REPLACE';
   }
-
 }

@@ -1,8 +1,7 @@
-import React from 'react';
 import { routerMiddleware } from 'react-router-redux';
 import { createStore, compose, applyMiddleware } from 'redux';
 import { BEGIN_ASYNC_LOAD, END_ASYNC_LOAD } from 'redux-async-loader';
-import pageScopeMiddleware  from 'redux-page-scope';
+import pageScopeMiddleware from 'redux-page-scope';
 import steps from 'redux-effects-steps';
 import cookie from 'redux-effects-universal-cookie';
 import fetchr from 'redux-effects-fetchr';
@@ -30,6 +29,7 @@ export default function (initialState, options = {}) {
   const devTools = [];
   if (__DEVELOPMENT__) {
     if (options.devTools) {
+      // eslint-disable-next-line global-require
       const DevTools = require('../components/utils/DevTools').default;
       devTools.push(window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument());
     }
@@ -45,6 +45,7 @@ export default function (initialState, options = {}) {
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
     module.hot.accept('./modules/reducer', () => {
+      // eslint-disable-next-line global-require
       const nextReducer = require('./modules/reducer').default;
       store.replaceReducer(nextReducer);
     });

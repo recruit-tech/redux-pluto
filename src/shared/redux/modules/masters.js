@@ -16,11 +16,14 @@ export const LOAD_MASTER_FAIL = LOAD_MASTER + 'fail';
 /**
  * Action creators
  */
-const loadMasterRequest = createAction(LOAD_MASTER_REQUEST, (resource) => ({ resource }));
+const loadMasterRequest = createAction(LOAD_MASTER_REQUEST,
+  (resource) => ({ resource }));
 
-const loadMasterSuccess = createAction(LOAD_MASTER_SUCCESS, (resource, items) => ({ resource, items }));
+const loadMasterSuccess = createAction(LOAD_MASTER_SUCCESS,
+  (resource, items) => ({ resource, items }));
 
-const loadMasterFail = createAction(LOAD_MASTER_FAIL, (resource, error) => ({ resource, error }));
+const loadMasterFail = createAction(LOAD_MASTER_FAIL,
+  (resource, error) => ({ resource, error }));
 
 function loadMaster(resource) {
   return steps(
@@ -89,31 +92,43 @@ export default compose(
   initialState(INITIAL_STATE),
   filterActionType(LOAD_MASTER),
 )(handleActions({
-  [LOAD_MASTER_REQUEST]: (state, { payload: { resource } }) => ({
-    ...state,
-    [resource]: {
-      loading: true,
-      loaded: false,
-      items: [],
-    },
-  }),
+  [LOAD_MASTER_REQUEST]: (state, action) => {
+    const { payload: { resource } } = action;
 
-  [LOAD_MASTER_SUCCESS]: (state, { payload: { resource, items } }) => ({
-    ...state,
-    [resource]: {
-      loading: false,
-      loaded: true,
-      items,
-    },
-  }),
+    return {
+      ...state,
+      [resource]: {
+        loading: true,
+        loaded: false,
+        items: [],
+      },
+    };
+  },
 
-  [LOAD_MASTER_FAIL]: (state, { payload: { resource }, error }) => ({
-    ...state,
-    [resource]: {
-      loading: false,
-      loaded: false,
-      items: [],
-      error,
-    },
-  }),
+  [LOAD_MASTER_SUCCESS]: (state, action) => {
+    const { payload: { resource, items } } = action;
+
+    return {
+      ...state,
+      [resource]: {
+        loading: false,
+        loaded: true,
+        items,
+      },
+    };
+  },
+
+  [LOAD_MASTER_FAIL]: (state, action) => {
+    const { payload: { resource }, error } = action;
+
+    return {
+      ...state,
+      [resource]: {
+        loading: false,
+        loaded: false,
+        items: [],
+        error,
+      },
+    };
+  },
 }));

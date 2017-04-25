@@ -18,13 +18,16 @@ const PICK_PROPS = [
 export default class Salon extends BaseService {
 
   constructor(config) {
-    super(config, 'salon', 'beauty/salon/', { count: SALON_SEARCH_MAX_COUNT, order: SALON_SEARCH_ORDER });
+    super(config, 'salon', 'beauty/salon/', {
+      count: SALON_SEARCH_MAX_COUNT,
+      order: SALON_SEARCH_ORDER,
+    });
   }
 
   read(req, resource, params, config) {
     const { page, ...query } = params;
     if (page) {
-      query.start = page * SALON_SEARCH_MAX_COUNT + 1;
+      query.start = (page * SALON_SEARCH_MAX_COUNT) + 1;
     }
 
     return super.read(req, resource, query, config).then((results) => {

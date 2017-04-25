@@ -85,21 +85,20 @@ const processors = [
 ];
 
 // load all plugins
-module.exports = postcss.plugin('precss-sassy-mixins', function (options) {
-  options = options || {};
-
+module.exports = postcss.plugin('precss-sassy-mixins', (options = {}) => {
   const instance = postcss();
 
   // for each plugin
-  processors.forEach(function (processor) {
-    const namespaceOptions = processor.namespace in options ? options[processor.namespace] : options;
+  processors.forEach((processor) => {
+    const ns = processor.namespace;
+    const namespaceOptions = ns in options ? options[ns] : options;
     const processorOptions = {};
 
-    Object.keys(processor.defaults).forEach(function (key) {
+    Object.keys(processor.defaults).forEach((key) => {
       processorOptions[key] = processor.defaults[key];
     });
 
-    Object.keys(namespaceOptions).forEach(function (key) {
+    Object.keys(namespaceOptions).forEach((key) => {
       processorOptions[key] = namespaceOptions[key];
     });
 
