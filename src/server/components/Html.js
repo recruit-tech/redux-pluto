@@ -1,13 +1,14 @@
 /* eslint-disable react/no-danger */
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { compose, setPropTypes } from 'recompose';
 
 export default compose(
   setPropTypes({
-    assets: PropTypes.array.isRequired,
-    content: PropTypes.string.isRequired,
-    initialState: PropTypes.object.isRequired,
-    clientConfig: PropTypes.object.isRequired,
+    assets: PropTypes.object.isRequired,
+    content: PropTypes.string,
+    initialState: PropTypes.string.isRequired,
+    clientConfig: PropTypes.string.isRequired,
   }),
 )(function Html(props) {
   const { assets, content, initialState, clientConfig } = props;

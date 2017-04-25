@@ -1,6 +1,4 @@
 import { createAction, handleActions } from 'redux-actions';
-import { compose } from 'recompose';
-import { initialState } from './utils';
 
 /**
  * Action types
@@ -24,9 +22,7 @@ const INITIAL_STATE = false;
 /**
  * Reducer
  */
-export default compose(
-  initialState(INITIAL_STATE),
-)(handleActions({
+export default handleActions({
   [START_LOADING]: () => true,
   [STOP_LOADING]: () => false,
-}));
+}, INITIAL_STATE);

@@ -11,7 +11,7 @@
     "development": {
       "presets": [
         "es2015",
-        "power-assert",
+        "power-assert"
       ]
     }
   }
