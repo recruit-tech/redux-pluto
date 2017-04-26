@@ -1,11 +1,11 @@
 /* eslint-disable react/no-multi-comp, react/no-find-dom-node */
 import React, { Component } from 'react';
-import { throttle } from 'lodash';
+import throttle from 'lodash/fp/throttle';
 import ReactDOM from 'react-dom';
 
 export const showOnScroll = (ComposedComponent) => class ShowOnScroll extends Component {
   componentDidMount() {
-    this.throttleScrollListener = throttle(() => this.scrollListener(), 300);
+    this.throttleScrollListener = throttle(300, () => this.scrollListener());
     this.heightRatio = this.props.heightRatio || 1;
     this.isUnmounting = false;
     setTimeout(() => this.attachScrollListener(), 300);
