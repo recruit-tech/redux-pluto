@@ -1,8 +1,8 @@
+import { parse } from 'querystring';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { replace, push } from 'react-router-redux';
 import { reduxForm } from 'redux-form';
-import { parse } from 'querystring';
 import { asyncLoader } from 'redux-async-loader';
 import { searchSalon, searchMoreSalon, clearSearchSalon } from 'shared/redux/modules/salon';
 import SalonForm from './SalonForm';
