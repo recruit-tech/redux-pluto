@@ -5,7 +5,10 @@
   ],
   "plugins": [
     "syntax-trailing-function-commas",
-    "transform-object-rest-spread"
+    "transform-object-rest-spread",
+    ["module-resolver", {
+      "root": ["./src"]
+    }]
   ],
   "env": {
     "development": {

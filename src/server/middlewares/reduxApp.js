@@ -7,11 +7,11 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { loadOnServer } from 'redux-async-loader';
 import Fetchr from 'fetchr';
 import debugFactory from 'debug';
-import createStore from '../../shared/redux/createStore';
-import { loadAllMasters as loadAllMastersAction } from '../../shared/redux/modules/masters';
-import { checkLogin } from '../../shared/redux/modules/auth';
-import getRoutes from '../../shared/routes';
-import Html from '../components/Html';
+import createStore from 'shared/redux/createStore';
+import { loadAllMasters as loadAllMastersAction } from 'shared/redux/modules/masters';
+import { checkLogin } from 'shared/redux/modules/auth';
+import getRoutes from 'shared/routes';
+import Html from 'server/components/Html';
 
 const debug = debugFactory('app:server:middleware:reduxApp');
 const html = createFactory(Html);

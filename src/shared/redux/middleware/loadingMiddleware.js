@@ -1,4 +1,4 @@
-import { startLoading, stopLoading } from '../modules/loading';
+import { startLoading, stopLoading } from 'shared/redux/modules/loading';
 import { handleActions } from './utils';
 
 export default function loadingMiddleware({ start, stop, delay }) {

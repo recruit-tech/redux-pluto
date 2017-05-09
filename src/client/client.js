@@ -7,8 +7,8 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { useScroll } from 'react-router-scroll';
 import { useAsyncLoader } from 'redux-async-loader';
 import Fetchr from 'fetchr';
-import createStore from '../shared/redux/createStore';
-import getRoutes from '../shared/routes';
+import createStore from 'shared/redux/createStore';
+import getRoutes from 'shared/routes';
 
 const RenderWithMiddleware = applyRouterMiddleware(
   useAsyncLoader(),

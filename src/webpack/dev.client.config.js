@@ -51,6 +51,9 @@ module.exports = {
           plugins: [
             'syntax-trailing-function-commas',
             'transform-object-rest-spread',
+            ['module-resolver', {
+              root: ['./src'],
+            }],
             ['react-transform',
               {
                 transforms: [

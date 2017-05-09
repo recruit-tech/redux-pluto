@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
-import SalonList from '../../../molecules/SalonList';
-import { createLocal } from '../../../utils/localnames';
+import SalonList from 'shared/components/molecules/SalonList';
+import { createLocal } from 'shared/components/utils/localnames';
 import styles from './styles.scss';
 
 const { localNames: local } = createLocal(styles);

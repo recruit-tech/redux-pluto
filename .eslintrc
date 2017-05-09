@@ -31,6 +31,12 @@
     "__DISABLE_SSR__": true
   },
 
+  "settings": {
+    "import/resolver": {
+      "babel-module": {}
+    }
+  },
+
   "rules": {
     //Possible Errors
     "no-console": "error",
@@ -104,7 +110,7 @@
     // dependencies
     "dependencies/case-sensitive": "error",
     "dependencies/no-cycles": "error",
-    "dependencies/no-unresolved": "error",
+    "dependencies/no-unresolved": "off",
 
     // coding styles
     "max-len": ["error", 100]

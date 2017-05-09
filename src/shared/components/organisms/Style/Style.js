@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
-import GenderMenu from '../../molecules/GenderMenu';
-import HairLengthMenu from '../../molecules/HairLengthMenu';
+import GenderMenu from 'shared/components/molecules/GenderMenu';
+import HairLengthMenu from 'shared/components/molecules/HairLengthMenu';
 
 export default compose(
   onlyUpdateForPropTypes,

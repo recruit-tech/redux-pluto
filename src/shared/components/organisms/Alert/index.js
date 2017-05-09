@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { clearAlert } from '../../../redux/modules/alert';
-import bindActionCreators from '../../utils/bindActionCreators';
+import { clearAlert } from 'shared/redux/modules/alert';
+import bindActionCreators from 'shared/components/utils/bindActionCreators';
 import Alert from './Alert';
 
 export default compose(

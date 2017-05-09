@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import { Link } from 'react-router';
+import { createLocal } from 'shared/components/utils/localnames';
 import styles from './styles.scss';
-import { createLocal } from '../../../utils/localnames';
 
 const { localNames: local } = createLocal(styles);
 

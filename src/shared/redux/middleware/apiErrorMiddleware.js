@@ -1,6 +1,6 @@
 import { replace } from 'react-router-redux';
 import { FETCHR } from 'redux-effects-fetchr';
-import { showAlert } from '../modules/alert';
+import { showAlert } from 'shared/redux/modules/alert';
 import { handleActions } from './utils';
 
 export default function apiErrorMiddleware() {

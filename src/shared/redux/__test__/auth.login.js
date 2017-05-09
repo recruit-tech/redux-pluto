@@ -2,9 +2,9 @@
 import Fetchr from 'fetchr';
 import { test } from 'eater/runner';
 import assert from 'power-assert';
+import { ACCESS_TOKEN_AUDIENCE_NAME } from 'server/services/AccessToken';
+import { login } from 'shared/redux/modules/auth';
 import { createStore, createWithSignedStore } from './lib/storeUtils';
-import { ACCESS_TOKEN_AUDIENCE_NAME } from '../../../server/services/AccessToken';
-import { login } from '../modules/auth';
 
 /**
  * mock accessToken service
