@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
-import Menu from '../../atoms/Menu';
-import MenuItem from '../../atoms/MenuItem';
+import Menu from 'shared/components/atoms/Menu';
+import MenuItem from 'shared/components/atoms/MenuItem';
 
 export default compose(
   onlyUpdateForPropTypes,

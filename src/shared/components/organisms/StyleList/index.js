@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { asyncLoader } from 'redux-async-loader';
-import { searchStyle } from '../../../redux/modules/style';
+import { searchStyle } from 'shared/redux/modules/style';
 import StyleList from './StyleList';
 
 export default compose(

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
-import Alert from '../../organisms/Alert';
-import GlobalIndicator from '../../organisms/GlobalIndicator';
-import { createLocal } from '../../utils/localnames';
+import Alert from 'shared/components/organisms/Alert';
+import GlobalIndicator from 'shared/components/organisms/GlobalIndicator';
+import { createLocal } from 'shared/components/utils/localnames';
 import styles from './styles.scss';
 
 const { localNames: local } = createLocal(styles);

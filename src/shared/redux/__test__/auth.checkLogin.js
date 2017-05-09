@@ -2,8 +2,8 @@
 import { test } from 'eater/runner';
 import assert from 'power-assert';
 import Fetchr from 'fetchr';
-import { ACCESS_TOKEN_AUDIENCE_NAME } from '../../../server/services/AccessToken';
-import { checkLogin } from '../modules/auth';
+import { ACCESS_TOKEN_AUDIENCE_NAME } from 'server/services/AccessToken';
+import { checkLogin } from 'shared/redux/modules/auth';
 import { createWithSignedStore, createStore } from './lib/storeUtils';
 
 /**

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { asyncLoader } from 'redux-async-loader';
-import { findSalonById } from '../../../redux/modules/salon';
+import { findSalonById } from 'shared/redux/modules/salon';
 import Salon from './Salon';
 
 export default compose(

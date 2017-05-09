@@ -1,8 +1,8 @@
 import Fetchr from 'fetchr';
 import mapValues from 'lodash/fp/mapValues';
 import debugFactory from 'debug';
-import * as services from '../services';
-import { verify } from '../services/AccessToken';
+import * as services from 'server/services';
+import { verify } from 'server/services/AccessToken';
 
 const debug = debugFactory('app:server:middleware:apiGateway');
 
