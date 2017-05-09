@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { createLocal } from '../../utils/localnames';
-import Counter from '../Counter';
+import { createLocal } from 'shared/components/utils/localnames';
+import Counter from 'shared/components/organisms/Counter';
 import styles from './styles.scss';
 
 const { localNames: local } = createLocal(styles);

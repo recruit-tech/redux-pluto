@@ -2,7 +2,7 @@ import cookie from 'cookie';
 import jwt from 'jsonwebtoken';
 import fumble from 'fumble';
 import debugFactory from 'debug';
-import validate from '../../shared/validators/login';
+import validate from 'shared/validators/login';
 import { rejectWith } from './utils';
 
 const debug = debugFactory('app:server:services:accessToken');

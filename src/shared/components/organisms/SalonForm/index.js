@@ -4,7 +4,7 @@ import { replace, push } from 'react-router-redux';
 import { reduxForm } from 'redux-form';
 import { parse } from 'querystring';
 import { asyncLoader } from 'redux-async-loader';
-import { searchSalon, searchMoreSalon, clearSearchSalon } from '../../../redux/modules/salon';
+import { searchSalon, searchMoreSalon, clearSearchSalon } from 'shared/redux/modules/salon';
 import SalonForm from './SalonForm';
 
 export default compose(

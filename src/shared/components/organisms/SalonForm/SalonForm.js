@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { propTypes as formPropTypes, Field } from 'redux-form';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
+import SalonMore from 'shared/components/atoms/SalonMore';
+import { createLocal } from 'shared/components/utils/localnames';
 import SalonLists from './SalonLists';
 import SalonPager from './SalonPager';
-import SalonMore from '../../atoms/SalonMore';
-import { createLocal } from '../../utils/localnames';
 import styles from './styles.scss';
 
 const { localNames: local } = createLocal(styles);
