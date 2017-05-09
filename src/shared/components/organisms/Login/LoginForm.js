@@ -6,9 +6,16 @@ import { createLocal } from 'shared/components/utils/localnames';
 import styles from './styles.scss';
 
 const { localNames: local } = createLocal(styles);
+const labels = {
+  username: 'Username',
+  password: 'Password',
+};
 
 const renderInput = ({ input, meta: { dirty, error } }) => (
-  <span key={input.name}>
+  <div key={input.name} className={local('row')}>
+    <label htmlFor={input.name} className={local('label')}>
+      {labels[input.name]}
+    </label>
     <input
       {...input}
       type="text"
@@ -17,7 +24,7 @@ const renderInput = ({ input, meta: { dirty, error } }) => (
     <span className={local('message')}>
       {dirty && error}
     </span>
-  </span>
+  </div>
 );
 
 export default compose(
@@ -44,15 +51,7 @@ export default compose(
         {error && <div>{error}</div>}
         {!error && submitFailed && anyTouched && <div>ログインできませんでした</div>}
         <div>
-          <label htmlFor="username">
-            Username
-          </label>
           <Field name="username" component={renderInput} />
-        </div>
-        <div>
-          <label htmlFor="password">
-            Password
-          </label>
           <Field name="password" component={renderInput} />
         </div>
         <div>
