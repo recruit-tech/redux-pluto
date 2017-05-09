@@ -2,9 +2,9 @@ import Fetchr from 'fetchr';
 import { test } from 'eater/runner';
 import assert from 'power-assert';
 import Immutable from 'seamless-immutable';
+import { INITIAL_STATE, loadAllMasters, loadHairLengthMaster } from '../modules/masters';
 import { createStore } from './lib/storeUtils';
 import { isSameObject } from './lib/assertUtils';
-import { INITIAL_STATE, loadAllMasters, loadHairLengthMaster } from '../modules/masters';
 
 /**
  * mock loadMaster service
