@@ -1,8 +1,8 @@
 import { test } from 'eater/runner';
 import assert from 'power-assert';
 import cookie from 'cookie';
+import configs from 'server/configs';
 import AccessToken, { verify, ACCESS_TOKEN_COOKIE_NAME } from '../AccessToken';
-import configs from '../../configs';
 
 test('AccessToken: create success', () => {
   const accessToken = new AccessToken(configs);

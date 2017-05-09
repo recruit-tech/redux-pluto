@@ -2,7 +2,11 @@ import { replace } from 'react-router-redux';
 import { cookie } from 'redux-effects-universal-cookie';
 import { fetchrCreate, fetchrDelete } from 'redux-effects-fetchr';
 import decode from 'jwt-decode';
-import { AUTH_CHECK_LOGIN_REQUEST, AUTH_LOGIN_REQUEST, AUTH_LOGOUT_REQUEST } from '../modules/auth';
+import {
+  AUTH_CHECK_LOGIN_REQUEST,
+  AUTH_LOGIN_REQUEST,
+  AUTH_LOGOUT_REQUEST,
+} from 'shared/redux/modules/auth';
 import { handleActions } from './utils';
 
 export default function authMiddleware() {

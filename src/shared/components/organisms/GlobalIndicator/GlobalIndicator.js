@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
-import Indicator from '../../atoms/Indicator';
+import Indicator from 'shared/components/atoms/Indicator';
 
 export default compose(
   onlyUpdateForPropTypes,

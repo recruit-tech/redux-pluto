@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
-import Overlay from '../../atoms/Overlay';
-import { createLocal } from '../../utils/localnames';
-import stopPropagation from '../../utils/stopPropagation';
+import Overlay from 'shared/components/atoms/Overlay';
+import { createLocal } from 'shared/components/utils/localnames';
+import stopPropagation from 'shared/components/utils/stopPropagation';
 import styles from './styles.scss';
 
 const { localNames: local } = createLocal(styles);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
-import { showOnScroll } from '../../utils/scrollComponents';
+import { showOnScroll } from 'shared/components/utils/scrollComponents';
 
 export default compose(
   onlyUpdateForPropTypes,
