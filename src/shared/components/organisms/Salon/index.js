@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { asyncLoader } from 'redux-async-loader';
+import { salonSelector } from 'shared/redux/modules/reducer';
 import { findSalonById } from 'shared/redux/modules/salon';
 import Salon from './Salon';
 
@@ -11,6 +12,8 @@ export default compose(
     )
   ),
   connect(
-    (state) => ({ item: state.page.salon.item })
+    (state) => ({
+      item: salonSelector(state).item,
+    })
   ),
 )(Salon);

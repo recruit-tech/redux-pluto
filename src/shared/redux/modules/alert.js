@@ -4,8 +4,8 @@ import { createAction, handleActions } from 'redux-actions';
  * Action types
  */
 const ALERT = 'redux-proto/app/alert/';
-export const ALERT_SHOW = ALERT + 'show';
-export const ALERT_CLEAR = ALERT + 'clear';
+export const ALERT_SHOW = `${ALERT}/show`;
+export const ALERT_CLEAR = `${ALERT}/clear`;
 
 /**
  * Action creators

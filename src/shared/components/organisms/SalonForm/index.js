@@ -1,11 +1,23 @@
 import { parse } from 'querystring';
 import { compose } from 'recompose';
+import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { replace, push } from 'react-router-redux';
 import { reduxForm } from 'redux-form';
 import { asyncLoader } from 'redux-async-loader';
+import { salonSelector } from 'shared/redux/modules/reducer';
 import { searchSalon, searchMoreSalon, clearSearchSalon } from 'shared/redux/modules/salon';
 import SalonForm from './SalonForm';
+
+const selector = createSelector(
+  salonSelector,
+  (state) => state.routing.locationBeforeTransitions.query.keyword,
+  (salon, keyword) => ({
+    ...salon,
+    shouldForceScroll: salon.canGetPrev,
+    initialValues: { keyword },
+  }),
+);
 
 export default compose(
   asyncLoader(
@@ -32,19 +44,7 @@ export default compose(
     }
   ),
   connect(
-    (state) => ({
-      page: state.page.salon.page,
-      pages: state.page.salon.pages,
-      count: state.page.salon.count,
-      items: state.page.salon.items,
-      item: state.page.salon.item,
-      canGetNext: state.page.salon.canGetNext,
-      canGetPrev: state.page.salon.canGetPrev,
-      shouldAdjustScroll: state.page.salon.shouldAdjustScroll,
-      shouldForceScroll: state.page.salon.canGetPrev,
-      forceScrollTo: state.page.salon.forceScrollTo,
-      initialValues: { keyword: state.routing.locationBeforeTransitions.query.keyword },
-    }),
+    selector,
     (dispatch, ownProps) => ({
       onClickPrev: (page) => () => {
         const keyword = ownProps.location.query.keyword;

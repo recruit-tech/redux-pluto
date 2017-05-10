@@ -1,14 +1,16 @@
 import { createAction, handleActions } from 'redux-actions';
 import { steps } from 'redux-effects-steps';
 import { fetchrRead } from 'redux-effects-fetchr';
+import { createAsyncActionTypes } from './utils';
 
 /**
  * Action types
  */
-const SEARCH_STYLE = 'redux-proto/style/search/';
-export const SEARCH_STYLE_REQUEST = SEARCH_STYLE + 'request';
-export const SEARCH_STYLE_SUCCESS = SEARCH_STYLE + 'success';
-export const SEARCH_STYLE_FAIL = SEARCH_STYLE + 'fail';
+export const [
+  SEARCH_STYLE_REQUEST,
+  SEARCH_STYLE_SUCCESS,
+  SEARCH_STYLE_FAIL,
+] = createAsyncActionTypes('redux-proto/style/search');
 
 /**
  * Action creators
