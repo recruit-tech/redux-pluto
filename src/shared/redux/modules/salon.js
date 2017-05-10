@@ -36,18 +36,16 @@ export const [
  */
 
 const searchSalonRequest = createAction(SEARCH_SALON_REQUEST);
-const searchSalonSuccess = createAction(SEARCH_SALON_SUCCESS,
-  (params, data) => ({ params, data }));
-const searchSalonFail = createAction(SEARCH_SALON_FAIL,
-  (params, error) => ({ params, error }));
+const searchSalonSuccess = createAction(SEARCH_SALON_SUCCESS);
+const searchSalonFail = createAction(SEARCH_SALON_FAIL);
 
 export function searchSalon(params) {
   return steps(
     searchSalonRequest(params),
     fetchrRead('salon', params),
     [
-      (payload) => searchSalonSuccess(params, payload.data),
-      (error) => searchSalonFail(params, error),
+      (payload) => searchSalonSuccess({ params, data: payload.data }),
+      (error) => searchSalonFail({ params, error }),
     ],
   );
 }
@@ -67,17 +65,15 @@ export function findSalonById(id) {
 export const clearSearchSalon = createAction(CLEAR_SEARCH_SALON_REQUEST);
 
 const searchMoreSalonRequest = createAction(SEARCH_MORE_SALON_REQUEST);
-const searchMoreSalonSuccess = createAction(SEARCH_MORE_SALON_SUCCESS,
-  (params, data) => ({ params, data }));
-const searchMoreSalonFail = createAction(SEARCH_MORE_SALON_FAIL,
-  (params, error) => ({ params, error }));
+const searchMoreSalonSuccess = createAction(SEARCH_MORE_SALON_SUCCESS);
+const searchMoreSalonFail = createAction(SEARCH_MORE_SALON_FAIL);
 
 export function searchMoreSalon(params) {
   return steps(
     searchMoreSalonRequest(params),
     fetchrRead('salon', params),
     [
-      (payload) => searchMoreSalonSuccess(params, payload.data),
+      (payload) => searchMoreSalonSuccess({ params, data: payload.data }),
       (error) => searchMoreSalonFail({ params, error }),
     ],
   );
@@ -122,17 +118,18 @@ export default handleActions({
         },
       },
     } = action;
+    const page = +params.page || 0;
 
     return {
       ...state,
       loading: false,
       loaded: true,
       count: +count,
-      page: +params.page || 0,
+      page,
       pages: createPages(+count),
-      items: { [+params.page || 0]: items || [] },
+      items: { [page]: items || [] },
       canGetNext: canGetNext(count, start),
-      canGetPrev: canGetPrev(+params.page || 0),
+      canGetPrev: canGetPrev(page),
     };
   },
 
@@ -189,7 +186,10 @@ export default handleActions({
       count: +count,
       page: +params.page,
       pages: createPages(+count),
-      items: { ...state.items, [+params.page]: items || [] },
+      items: {
+        ...state.items,
+        [+params.page]: items || [],
+      },
       item: {},
       canGetNext: canGetNext(count, start),
       canGetPrev: canGetPrev(+params.page),
