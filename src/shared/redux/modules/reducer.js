@@ -27,3 +27,34 @@ export default combineReducers({
   reduxAsyncLoader,
   routing: routerReducer,
 });
+
+/**
+ * Selectors
+ */
+export function mastersSelector(state) {
+  return state.app.masters;
+}
+
+export function authSelector(state) {
+  return state.app.auth;
+}
+
+export function counterSelector(state) {
+  return state.app.counter;
+}
+
+export function alertSelector(state) {
+  return state.app.alert;
+}
+
+export function loadingSelector(state) {
+  return state.app.loading;
+}
+
+export function salonSelector(state) {
+  return state.page.salon;
+}
+
+export function styleSelector(state) {
+  return state.page.style;
+}

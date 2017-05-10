@@ -3,9 +3,9 @@ import { createAction, handleActions } from 'redux-actions';
 /**
  * Action types
  */
-const LOADING = 'redux-proto/loading/';
-export const START_LOADING = LOADING + 'start';
-export const STOP_LOADING = LOADING + 'stop';
+const LOADING = 'redux-proto/loading';
+export const START_LOADING = `${LOADING}/start`;
+export const STOP_LOADING = `${LOADING}/stop`;
 
 /**
  * Action creators
