@@ -41,8 +41,7 @@ export function checkLogin() {
   );
 }
 
-const loginRequest = createAction(AUTH_LOGIN_REQUEST,
-  (username, password, location) => ({ params: { username, password }, location }));
+const loginRequest = createAction(AUTH_LOGIN_REQUEST);
 
 const loginSuccess = createAction(AUTH_LOGIN_SUCCESS);
 
@@ -50,7 +49,7 @@ const loginFail = createAction(AUTH_LOGIN_FAIL);
 
 export function login(username, password, location) {
   return steps(
-    loginRequest(username, password, location),
+    loginRequest({ params: { username, password }, location }),
     [loginSuccess, loginFail],
   );
 }
@@ -90,10 +89,12 @@ export default handleActions({
 function loggedIn(state, action) {
   const { payload: { sub } } = action;
 
-  return state.login && state.username === sub ? state : {
-    login: true,
-    username: sub,
-  };
+  return state.login && state.username === sub
+    ? state
+    : {
+      login: true,
+      username: sub,
+    };
 }
 
 function loggedOut(state, action) {
