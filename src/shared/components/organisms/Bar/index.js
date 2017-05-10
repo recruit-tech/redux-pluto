@@ -1,18 +1,17 @@
-/* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react';
 import { compose, shouldUpdate } from 'recompose';
+import range from 'lodash/fp/range';
+
+const array = range(0, 500);
 
 export default compose(
   shouldUpdate(() => false),
 )(class Bar extends Component {
   render() {
-    const array = new Array(500);
-    array.fill(0);
-
     return (
       <main>
-        {array.map((e, i) => (
-          <div key={i}>Bar![{i}]</div>
+        {array.map((elm) => (
+          <div key={elm}>Bar![{elm}]</div>
         ))}
       </main>
     );
