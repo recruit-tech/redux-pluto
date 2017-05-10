@@ -2,14 +2,16 @@ import transform from 'lodash/fp/transform';
 import { createAction, handleActions } from 'redux-actions';
 import { steps } from 'redux-effects-steps';
 import { fetchrRead } from 'redux-effects-fetchr';
+import { createAsyncActionTypes } from './utils';
 
 /**
  * Action types
  */
-const LOAD_MASTER = 'redux-proto/masters/load/';
-export const LOAD_MASTER_REQUEST = LOAD_MASTER + 'request';
-export const LOAD_MASTER_SUCCESS = LOAD_MASTER + 'success';
-export const LOAD_MASTER_FAIL = LOAD_MASTER + 'fail';
+export const [
+  LOAD_MASTER_REQUEST,
+  LOAD_MASTER_SUCCESS,
+  LOAD_MASTER_FAIL,
+] = createAsyncActionTypes('redux-proto/masters/load');
 
 /**
  * Action creators

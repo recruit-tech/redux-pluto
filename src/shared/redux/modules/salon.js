@@ -2,30 +2,34 @@ import { createAction, handleActions } from 'redux-actions';
 import { steps } from 'redux-effects-steps';
 import { fetchrRead } from 'redux-effects-fetchr';
 import range from 'lodash/fp/range';
+import { createAsyncActionTypes } from './utils';
 
 export const SALON_SEARCH_MAX_COUNT = 50;
 
 /**
  * Action types
  */
-const SALON = 'redux-proto/salon/';
-const SEARCH_SALON = SALON + 'search/';
-export const SEARCH_SALON_REQUEST = SEARCH_SALON + 'request';
-export const SEARCH_SALON_SUCCESS = SEARCH_SALON + 'success';
-export const SEARCH_SALON_FAIL = SEARCH_SALON + 'fail';
+const SALON = 'redux-proto/salon';
 
-const FIND_SALON_BY_ID = SALON + 'find_id/';
-export const FIND_SALON_BY_ID_REQUEST = FIND_SALON_BY_ID + 'request';
-export const FIND_SALON_BY_ID_SUCCESS = FIND_SALON_BY_ID + 'success';
-export const FIND_SALON_BY_ID_FAIL = FIND_SALON_BY_ID + 'fail';
+export const [
+  SEARCH_SALON_REQUEST,
+  SEARCH_SALON_SUCCESS,
+  SEARCH_SALON_FAIL,
+] = createAsyncActionTypes(`${SALON}/search`);
 
-const CLEAR_SEARCH_SALON = SALON + 'clear_search/';
-export const CLEAR_SEARCH_SALON_REQUEST = CLEAR_SEARCH_SALON + 'request';
+export const [
+  FIND_SALON_BY_ID_REQUEST,
+  FIND_SALON_BY_ID_SUCCESS,
+  FIND_SALON_BY_ID_FAIL,
+] = createAsyncActionTypes(`${SALON}/find_id`);
 
-const SEARCH_MORE_SALON = SALON + 'search_more/';
-export const SEARCH_MORE_SALON_REQUEST = SEARCH_MORE_SALON + 'request';
-export const SEARCH_MORE_SALON_SUCCESS = SEARCH_MORE_SALON + 'success';
-export const SEARCH_MORE_SALON_FAIL = SEARCH_MORE_SALON + 'fail';
+export const CLEAR_SEARCH_SALON_REQUEST = `${SALON}/clear_search/request`;
+
+export const [
+  SEARCH_MORE_SALON_REQUEST,
+  SEARCH_MORE_SALON_SUCCESS,
+  SEARCH_MORE_SALON_FAIL,
+] = createAsyncActionTypes(`${SALON}/search_more`);
 
 /**
  * Action creators

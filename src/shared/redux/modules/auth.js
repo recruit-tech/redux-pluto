@@ -1,25 +1,29 @@
 import { createAction, handleActions } from 'redux-actions';
 import { steps } from 'redux-effects-steps';
+import { createAsyncActionTypes } from './utils';
 
 /**
  * Action types
  */
-const AUTH = 'redux-proto/auth/';
+const AUTH = 'redux-proto/auth';
 
-const AUTH_CHECK_LOGIN = AUTH + 'check/';
-export const AUTH_CHECK_LOGIN_REQUEST = AUTH_CHECK_LOGIN + 'request';
-export const AUTH_CHECK_LOGIN_SUCCESS = AUTH_CHECK_LOGIN + 'success';
-export const AUTH_CHECK_LOGIN_FAIL = AUTH_CHECK_LOGIN + 'fail';
+export const [
+  AUTH_CHECK_LOGIN_REQUEST,
+  AUTH_CHECK_LOGIN_SUCCESS,
+  AUTH_CHECK_LOGIN_FAIL,
+] = createAsyncActionTypes(`${AUTH}/check`);
 
-const AUTH_LOGIN = AUTH + 'login/';
-export const AUTH_LOGIN_REQUEST = AUTH_LOGIN + 'request';
-export const AUTH_LOGIN_SUCCESS = AUTH_LOGIN + 'success';
-export const AUTH_LOGIN_FAIL = AUTH_LOGIN + 'fail';
+export const [
+  AUTH_LOGIN_REQUEST,
+  AUTH_LOGIN_SUCCESS,
+  AUTH_LOGIN_FAIL,
+] = createAsyncActionTypes(`${AUTH}/login`);
 
-const AUTH_LOGOUT = AUTH + 'logout/';
-export const AUTH_LOGOUT_REQUEST = AUTH_LOGOUT + 'request';
-export const AUTH_LOGOUT_SUCCESS = AUTH_LOGOUT + 'success';
-export const AUTH_LOGOUT_FAIL = AUTH_LOGOUT + 'fail';
+export const [
+  AUTH_LOGOUT_REQUEST,
+  AUTH_LOGOUT_SUCCESS,
+  AUTH_LOGOUT_FAIL,
+] = createAsyncActionTypes(`${AUTH}/logout`);
 
 /**
  * Action creators
