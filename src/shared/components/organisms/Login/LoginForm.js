@@ -20,6 +20,7 @@ const renderInput = ({ input, meta: { dirty, error } }) => (
       {...input}
       type="text"
       className={local('input')}
+      autoFocus={input.name === 'username'}
     />
     <span className={local('message')}>
       {dirty && error}
