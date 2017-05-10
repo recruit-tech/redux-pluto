@@ -1,14 +1,16 @@
 import { createAction, handleActions } from 'redux-actions';
 import { steps } from 'redux-effects-steps';
 import { fetchrUpdate } from 'redux-effects-fetchr';
+import { createAsyncActionTypes } from './utils';
 
 /**
  * Action types
  */
-const COUNTER_INCREMENT = 'redux-proto/counter/increment/';
-export const COUNTER_INCREMENT_REQUEST = COUNTER_INCREMENT + 'request';
-export const COUNTER_INCREMENT_SUCCESS = COUNTER_INCREMENT + 'success';
-export const COUNTER_INCREMENT_FAIL = COUNTER_INCREMENT + 'fail';
+export const [
+  COUNTER_INCREMENT_REQUEST,
+  COUNTER_INCREMENT_SUCCESS,
+  COUNTER_INCREMENT_FAIL,
+] = createAsyncActionTypes('redux-proto/counter/increment');
 
 /**
  * Action creators
