@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
@@ -14,16 +14,14 @@ export default compose(
     to: PropTypes.string.isRequired,
     checked: PropTypes.bool,
   }),
-)(class MenuItem extends Component {
-  render() {
-    const { children, to, checked } = this.props;
+)(function MenuItem(props) {
+  const { children, to, checked } = props;
 
-    return (
-      <li role="menuitemradio" aria-checked={checked} className={local('item')}>
-        <Link to={to} className={local('link')}>
-          {children}
-        </Link>
-      </li>
-    );
-  }
+  return (
+    <li role="menuitemradio" aria-checked={checked} className={local('item')}>
+      <Link to={to} className={local('link')}>
+        {children}
+      </Link>
+    </li>
+  );
 });

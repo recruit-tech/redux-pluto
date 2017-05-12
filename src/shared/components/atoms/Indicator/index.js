@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import { createLocal } from 'shared/components/utils/localnames';
@@ -11,15 +11,13 @@ export default compose(
   setPropTypes({
     loading: PropTypes.bool.isRequired,
   }),
-)(class Indicator extends Component {
-  render() {
-    const { loading } = this.props;
-    if (!loading) {
-      return null;
-    }
-
-    return (
-      <div className={local('loader')}></div>
-    );
+)(function Indicator(props) {
+  const { loading } = props;
+  if (!loading) {
+    return null;
   }
+
+  return (
+    <div className={local('loader')}></div>
+  );
 });

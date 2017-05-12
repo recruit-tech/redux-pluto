@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import { createLocal } from 'shared/components/utils/localnames';
@@ -11,14 +11,12 @@ export default compose(
   setPropTypes({
     children: PropTypes.node.isRequired,
   }),
-)(class Menu extends Component {
-  render() {
-    const { children } = this.props;
+)(function Menu(props) {
+  const { children } = props;
 
-    return (
-      <ul role="menu" className={local('items')}>
-        {children}
-      </ul>
-    );
-  }
+  return (
+    <ul role="menu" className={local('items')}>
+      {children}
+    </ul>
+  );
 });
