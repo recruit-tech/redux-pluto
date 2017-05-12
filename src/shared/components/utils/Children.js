@@ -1,18 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { compose, pure } from 'recompose';
+import { compose, pure, setPropTypes } from 'recompose';
 
 export default compose(
   pure,
-)(class Children extends Component {
-
-  static propTypes = {
+  setPropTypes({
     children: PropTypes.node.isRequired,
-  };
+  }),
+)(function Children(props) {
+  const { children, ...rest } = props;
 
-  render() {
-    const { children, ...rest } = this.props;
-
-    return React.cloneElement(children, { ...rest });
-  }
+  return React.cloneElement(children, { ...rest });
 });

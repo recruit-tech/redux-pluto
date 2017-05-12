@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import { showOnScroll } from 'shared/components/utils/scrollComponents';
@@ -10,14 +10,12 @@ export default compose(
     onShow: PropTypes.func.isRequired,
   }),
   showOnScroll,
-)(class SalonMore extends Component {
-  render() {
-    const { children, onShow } = this.props;
+)(function SalonMore(props) {
+  const { children, onShow } = props;
 
-    return (
-      <div onClick={onShow}>
-        {children}
-      </div>
-    );
-  }
+  return (
+    <div onClick={onShow}>
+      {children}
+    </div>
+  );
 });

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import GenderMenu from 'shared/components/molecules/GenderMenu';
@@ -18,18 +18,16 @@ export default compose(
       hairLength: PropTypes.string,
     }),
   }),
-)(class Style extends Component {
-  render() {
-    const { genderItems, hairLengthItems, children, params: { gender, hairLength } } = this.props;
+)(function Style(props) {
+  const { genderItems, hairLengthItems, children, params: { gender, hairLength } } = props;
 
-    return (
+  return (
+    <div>
+      <GenderMenu genderItems={genderItems} gender={gender} />
+      <HairLengthMenu {...{ gender, hairLength, genderItems, hairLengthItems }} />
       <div>
-        <GenderMenu genderItems={genderItems} gender={gender} />
-        <HairLengthMenu {...{ gender, hairLength, genderItems, hairLengthItems }} />
-        <div>
-          {children}
-        </div>
+        {children}
       </div>
-    );
-  }
+    </div>
+  );
 });

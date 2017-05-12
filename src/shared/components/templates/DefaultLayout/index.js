@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import Alert from 'shared/components/organisms/Alert';
@@ -15,28 +15,26 @@ export default compose(
     main: PropTypes.node.isRequired,
     footer: PropTypes.node.isRequired,
   }),
-)(class DefaultLayout extends Component {
-  render() {
-    const { header, main, footer } = this.props;
+)(function DefaultLayout(props) {
+  const { header, main, footer } = props;
 
-    return (
-      <div className={local('root')}>
-        <div className={local('header')}>
-          {header}
-        </div>
-        <div className={local('main')}>
-          {main}
-        </div>
-        <div className={local('footer')}>
-          {footer}
-        </div>
-        <div className={local('alert')}>
-          <Alert />
-        </div>
-        <div className={local('indicator')}>
-          <GlobalIndicator />
-        </div>
+  return (
+    <div className={local('root')}>
+      <div className={local('header')}>
+        {header}
       </div>
-    );
-  }
+      <div className={local('main')}>
+        {main}
+      </div>
+      <div className={local('footer')}>
+        {footer}
+      </div>
+      <div className={local('alert')}>
+        <Alert />
+      </div>
+      <div className={local('indicator')}>
+        <GlobalIndicator />
+      </div>
+    </div>
+  );
 });
