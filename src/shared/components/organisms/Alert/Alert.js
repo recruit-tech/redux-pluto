@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import Overlay from 'shared/components/atoms/Overlay';
@@ -16,30 +16,29 @@ export default compose(
     }).isRequired,
     onClose: PropTypes.func.isRequired,
   }),
-)(class Alert extends Component {
-  render() {
-    const { alert: { message }, onClose } = this.props;
-    if (!message) {
-      return null;
-    }
+)(function Alert(props) {
+  const { alert: { message }, onClose } = props;
 
-    return (
-      <div className={local('root')}>
-        <Overlay onClick={onClose}>
-          <div className={local('obiOuter')}>
-            <div onClick={stopPropagation} className={local('obiInner')}>
-              <div className={local('displayArea')}>
-                <div className={local('messageArea')}>
-                  <span>{message}</span>
-                </div>
-                <div className={local('buttonArea')}>
-                  <button onClick={onClose}>閉じる</button>
-                </div>
+  if (!message) {
+    return null;
+  }
+
+  return (
+    <div className={local('root')}>
+      <Overlay onClick={onClose}>
+        <div className={local('obiOuter')}>
+          <div onClick={stopPropagation} className={local('obiInner')}>
+            <div className={local('displayArea')}>
+              <div className={local('messageArea')}>
+                <span>{message}</span>
+              </div>
+              <div className={local('buttonArea')}>
+                <button onClick={onClose}>閉じる</button>
               </div>
             </div>
           </div>
-        </Overlay>
-      </div>
-    );
-  }
+        </div>
+      </Overlay>
+    </div>
+  );
 });

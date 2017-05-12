@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import { createLocal } from 'shared/components/utils/localnames';
@@ -20,30 +20,28 @@ export default compose(
       }).isRequired,
     })).isRequired,
   }),
-)(class StyleList extends Component {
-  render() {
-    const { count, items } = this.props;
+)(function StyleList(props) {
+  const { count, items } = props;
 
-    return (
+  return (
+    <div>
       <div>
-        <div>
-          <span>{count || 0}</span><span>件あります</span>
-        </div>
-        <div>
-          {items.map((item) => (
-            <div
-              key={item.id}
-              className={local('item')}
-            >
-              <img
-                className={local('img')}
-                src={item.photo.front.m}
-                alt={item.name}
-              />
-            </div>
-          ))}
-        </div>
+        <span>{count || 0}</span><span>件あります</span>
       </div>
-    );
-  }
+      <div>
+        {items.map((item) => (
+          <div
+            key={item.id}
+            className={local('item')}
+          >
+            <img
+              className={local('img')}
+              src={item.photo.front.m}
+              alt={item.name}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 });

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { propTypes as formPropTypes, Field } from 'redux-form';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
@@ -27,62 +27,60 @@ export default compose(
     shouldAdjustScroll: PropTypes.bool.isRequired,
     forceScrollTo: PropTypes.object,
   }),
-)(class SalonForm extends Component {
-  render() {
-    const {
-      handleSubmit,
-      count,
-      page,
-      pages,
-      item,
-      items,
-      onClickNext,
-      onClickPrev,
-      onInnerWindow,
-      canGetNext,
-      canGetPrev,
-      shouldAdjustScroll,
-      forceScrollTo,
-      initialValues,
-    } = this.props;
+)(function SalonForm(props) {
+  const {
+    handleSubmit,
+    count,
+    page,
+    pages,
+    item,
+    items,
+    onClickNext,
+    onClickPrev,
+    onInnerWindow,
+    canGetNext,
+    canGetPrev,
+    shouldAdjustScroll,
+    forceScrollTo,
+    initialValues,
+  } = props;
 
-    return (
-      <div className={local('root')}>
-        <form onSubmit={handleSubmit} method="GET">
-          <div>
-            <label htmlFor="keyword">Free Keyword</label>
-            <div>
-              <Field
-                type="text"
-                name="keyword"
-                component="input"
-                autoFocus
-              />
-              <button type="submit">
-                Search
-              </button>
-            </div>
-          </div>
-        </form>
+  return (
+    <div className={local('root')}>
+      <form onSubmit={handleSubmit} method="GET">
         <div>
-          {canGetPrev ? <SalonMore onShow={onClickPrev(page)}>戻る</SalonMore> : null}
+          <label htmlFor="keyword">Free Keyword</label>
           <div>
-            <span>{count || 0}</span><span>件あります</span>
+            <Field
+              type="text"
+              name="keyword"
+              component="input"
+              autoFocus
+            />
+            <button type="submit">
+              Search
+            </button>
           </div>
-          <SalonLists
-            items={items}
-            page={page}
-            onInnerWindow={onInnerWindow}
-            shouldAdjustScroll={shouldAdjustScroll}
-            item={item}
-            forceScrollTo={forceScrollTo}
-          />
-          {canGetNext ? <SalonMore onShow={onClickNext(page)}>進む</SalonMore> : null}
         </div>
-        <div className={local('pager')}>
-          <SalonPager pages={pages} page={page} keyword={initialValues.keyword || ''} />
+      </form>
+      <div>
+        {canGetPrev ? <SalonMore onShow={onClickPrev(page)}>戻る</SalonMore> : null}
+        <div>
+          <span>{count || 0}</span><span>件あります</span>
         </div>
+        <SalonLists
+          items={items}
+          page={page}
+          onInnerWindow={onInnerWindow}
+          shouldAdjustScroll={shouldAdjustScroll}
+          item={item}
+          forceScrollTo={forceScrollTo}
+        />
+        {canGetNext ? <SalonMore onShow={onClickNext(page)}>進む</SalonMore> : null}
       </div>
-    );
-  }
+      <div className={local('pager')}>
+        <SalonPager pages={pages} page={page} keyword={initialValues.keyword || ''} />
+      </div>
+    </div>
+  );
 });

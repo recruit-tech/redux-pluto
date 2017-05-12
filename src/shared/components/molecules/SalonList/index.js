@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import { showOnScroll, adjustScroll, forceScroll } from 'shared/components/utils/scrollComponents';
@@ -13,20 +13,21 @@ export default compose(
   showOnScroll,
   adjustScroll,
   forceScroll,
-)(class SalonList extends Component {
-  render() {
-    const { items, page } = this.props;
-    if (items.length === 0) {
-      return <div>サロンが見つかりませんでした</div>;
-    }
+)(function SalonList(props) {
+  const { items, page } = props;
 
+  if (items.length === 0) {
     return (
-      <div data-page={page}>
-        <span>~~~~ {page} ~~~~</span>
-        {items.map((item) => (
-          <SalonListItem item={item} page={page} key={item.id} />
-        ))}
-      </div>
+      <div>サロンが見つかりませんでした</div>
     );
   }
+
+  return (
+    <div data-page={page}>
+      <span>~~~~ {page} ~~~~</span>
+      {items.map((item) => (
+        <SalonListItem item={item} page={page} key={item.id} />
+      ))}
+    </div>
+  );
 });

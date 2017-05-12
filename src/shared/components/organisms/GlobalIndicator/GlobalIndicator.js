@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import Indicator from 'shared/components/atoms/Indicator';
@@ -8,13 +8,12 @@ export default compose(
   setPropTypes({
     loading: PropTypes.bool.isRequired,
   }),
-)(class GlobalIndicator extends Component {
-  render() {
-    const { loading } = this.props;
-    return (
-      <div>
-        <Indicator loading={loading} />
-      </div>
-    );
-  }
+)(function GlobalIndicator(props) {
+  const { loading } = props;
+
+  return (
+    <div>
+      <Indicator loading={loading} />
+    </div>
+  );
 });
