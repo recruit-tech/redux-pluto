@@ -20,6 +20,9 @@ module.exports = {
 
   entry: {
     client: [
+      'react-hot-loader/patch',
+      'webpack-dev-server/client?http://localhost:' + port,
+      'webpack/hot/only-dev-server',
       path.resolve(rootDir, 'src/client/index.js'),
     ],
   },
@@ -54,21 +57,7 @@ module.exports = {
             ['module-resolver', {
               root: ['./src'],
             }],
-            ['react-transform',
-              {
-                transforms: [
-                  {
-                    transform: 'react-transform-hmr',
-                    imports: ['react'],
-                    locals: ['module'],
-                  },
-                  {
-                    transform: 'react-transform-catch-errors',
-                    imports: ['react', 'redbox-react'],
-                  },
-                ],
-              },
-            ],
+            'react-hot-loader/babel',
           ],
         },
       },
@@ -118,6 +107,8 @@ module.exports = {
       __DEVELOPMENT__: true,
       __DEVTOOLS__: true,
     }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
     webpackIsomorphicToolsPlugin.development(true),
   ],
 
@@ -129,6 +120,7 @@ module.exports = {
       '*': `http://localhost:${port + 1}`,
     },
     port,
+    hot: true,
 
     // webpack-dev-middleware options
     noInfo: true,
