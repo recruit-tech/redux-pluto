@@ -22,7 +22,7 @@
     "start:dev": "cross-env NODE_ENV=development npm-run-all --parallel start:dev:{webpack,nodemon}",
     "start:dev:nodemon": "nodemon --exec npm run start:dev:server",
     "start:dev:server": "cross-env PORT=3001 DEBUG=express:*,app:* babel-node bin/start-server.js",
-    "start:dev:webpack": "webpack-dev-server --hot --inline --config src/webpack/dev.client.config.js",
+    "start:dev:webpack": "webpack-dev-server --inline --config src/webpack/dev.client.config.js",
     "start:prod": "cross-env NODE_ENV=production npm run start:prod:server",
     "start:prod:server": "node bin/start-server",
     "test": "eater"
@@ -55,6 +55,7 @@
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-hot-loader": "^3.0.0-beta.7",
     "react-redux": "^5.0.4",
     "react-router": "^3.0.5",
     "react-router-redux": "^4.0.8",
