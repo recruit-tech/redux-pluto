@@ -90,7 +90,7 @@
     "react/no-is-mounted": "error",
     "react/no-set-state": "error",
     "react/no-string-refs": "error",
-    "react/prefer-stateless-function": "off",
+    "react/prefer-stateless-function": "error",
     "react/prop-types": "off",
     "react/self-closing-comp": "off",
 

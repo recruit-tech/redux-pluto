@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import { createLocal } from 'shared/components/utils/localnames';
@@ -11,14 +11,12 @@ export default compose(
   setPropTypes({
     counterValue: PropTypes.number.isRequired,
   })
-)(class Counter extends Component {
-  render() {
-    const { counterValue } = this.props;
+)(function Counter(props) {
+  const { counterValue } = props;
 
-    return (
-      <div className={local('root')}>
-        access counter: {counterValue || ''}
-      </div>
-    );
-  }
+  return (
+    <div className={local('root')}>
+      access counter: {counterValue || ''}
+    </div>
+  );
 });

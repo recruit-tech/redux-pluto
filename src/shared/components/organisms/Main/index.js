@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import { createLocal } from 'shared/components/utils/localnames';
@@ -11,14 +11,12 @@ export default compose(
   setPropTypes({
     children: PropTypes.node.isRequired,
   })
-)(class Main extends Component {
-  render() {
-    const { children } = this.props;
+)(function Main(props) {
+  const { children } = props;
 
-    return (
-      <main className={local('root')}>
-        {children}
-      </main>
-    );
-  }
+  return (
+    <main className={local('root')}>
+      {children}
+    </main>
+  );
 });

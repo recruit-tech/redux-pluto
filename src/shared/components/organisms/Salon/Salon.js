@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 
@@ -12,15 +12,13 @@ export default compose(
       }),
     }).isRequired,
   }),
-)(class Salon extends Component {
-  render() {
-    const { item } = this.props;
+)(function Salon(props) {
+  const { item } = props;
 
-    return (
-      <div>
-        {item.name}
-        <a href={item.urls && item.urls.pc} target="blank">Hot peper beauty のページヘ行く</a>
-      </div>
-    );
-  }
+  return (
+    <div>
+      {item.name}
+      <a href={item.urls && item.urls.pc} target="blank">Hot peper beauty のページヘ行く</a>
+    </div>
+  );
 });
