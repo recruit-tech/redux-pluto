@@ -18,10 +18,10 @@ export default compose(
   const { children, to, checked } = props;
 
   return (
-    <li role="menuitemradio" aria-checked={checked} className={local('item')}>
+    <div role="menuitemradio" aria-checked={checked} className={local('item')}>
       <Link to={to} className={local('link')}>
         {children}
       </Link>
-    </li>
+    </div>
   );
 });
