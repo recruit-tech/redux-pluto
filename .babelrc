@@ -1,10 +1,11 @@
 {
   "presets": [
     ["es2015", {"modules": false}],
+    "es2016",
+    "es2017",
     "react"
   ],
   "plugins": [
-    "syntax-trailing-function-commas",
     "transform-object-rest-spread",
     ["module-resolver", {
       "root": ["./src"]
@@ -14,6 +15,8 @@
     "development": {
       "presets": [
         "es2015",
+        "es2016",
+        "es2017",
         "power-assert"
       ]
     }

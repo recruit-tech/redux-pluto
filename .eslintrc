@@ -101,7 +101,7 @@
     "react/jsx-key": "error",
     "react/jsx-max-props-per-line": ["error", {"maximum": 3}],
     "react/jsx-no-duplicate-props": "error",
-    "react/jsx-space-before-closing": "error",
+    "react/jsx-tag-spacing": ["error", {"beforeSelfClosing": "always"}],
     "react/jsx-wrap-multilines": "error",
 
     // a11y
