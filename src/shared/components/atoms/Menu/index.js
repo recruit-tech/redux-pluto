@@ -15,8 +15,8 @@ export default compose(
   const { children } = props;
 
   return (
-    <ul role="menu" className={local('items')}>
+    <div role="menu" className={local('items')}>
       {children}
-    </ul>
+    </div>
   );
 });

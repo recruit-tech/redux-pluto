@@ -48,11 +48,12 @@ module.exports = {
         query: {
           cacheDirectory: true,
           presets: [
-            'react',
             ['es2015', { modules: false }],
+            'es2016',
+            'es2017',
+            'react',
           ],
           plugins: [
-            'syntax-trailing-function-commas',
             'transform-object-rest-spread',
             ['module-resolver', {
               root: ['./src'],

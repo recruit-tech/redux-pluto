@@ -18,9 +18,9 @@ const RenderInput = ({ input, meta: { dirty, error } }) => (
     </label>
     <input
       {...input}
-      type="text"
+      type={input.name === 'username' ? 'text' : 'password'}
       className={local('input')}
-      autoFocus={input.name === 'username'}
+      tabIndex={input.name === 'username' ? 1 : 2}
     />
     <span className={local('message')}>
       {dirty && error}
