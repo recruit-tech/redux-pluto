@@ -82,5 +82,15 @@ module.exports = {
       __DEVTOOLS__: false,
       __DISABLE_SSR__: false,
     }),
+
+    // optimizations
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        unused: true,
+        dead_code: true,
+        warnings: false,
+        screw_ie8: true,
+      },
+    }),
   ],
 };
