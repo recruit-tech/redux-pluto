@@ -45,22 +45,6 @@ module.exports = {
           /node_modules/,
         ],
         loader: 'babel-loader',
-        query: {
-          cacheDirectory: true,
-          presets: [
-            ['es2015', { modules: false }],
-            'es2016',
-            'es2017',
-            'react',
-          ],
-          plugins: [
-            'transform-object-rest-spread',
-            ['module-resolver', {
-              root: ['./src'],
-            }],
-            'react-hot-loader/babel',
-          ],
-        },
       },
       {
         test: /\.scss$/,

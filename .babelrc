@@ -1,6 +1,6 @@
 {
   "presets": [
-    ["es2015", {"modules": false}],
+    "es2015",
     "es2016",
     "es2017",
     "react"
@@ -12,11 +12,39 @@
     }]
   ],
   "env": {
-    "development": {
+    "production:clien": {
+      "presets": [
+        ["es2015", {"modules": false}],
+        "es2016",
+        "es2017",
+        "react"
+      ]
+    },
+    "production:server": {
+    },
+    "development:client": {
+      "presets": [
+        ["es2015", {"modules": false}],
+        "es2016",
+        "es2017",
+        "react"
+      ],
+      "plugins": [
+        "transform-object-rest-spread",
+        ["module-resolver", {
+          "root": ["./src"]
+        }],
+        "react-hot-loader/babel"
+      ]
+    },
+    "development:server": {
+    },
+    "test:unit": {
       "presets": [
         "es2015",
         "es2016",
         "es2017",
+        "react",
         "power-assert"
       ]
     }
