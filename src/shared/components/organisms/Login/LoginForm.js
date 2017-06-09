@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { propTypes as formPropTypes, Field } from 'redux-form';
+import formPropTypes from 'redux-form/lib/propTypes';
+import Field from 'redux-form/lib/Field';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import { createLocal } from 'shared/components/utils/localnames';
 import styles from './styles.scss';

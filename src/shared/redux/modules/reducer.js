@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import { reduxAsyncLoader } from 'redux-async-loader';
-import { reducer as formReducer } from 'redux-form';
+import formReducer from 'redux-form/lib/reducer';
 import { pageScopeReducer } from 'redux-page-scope';
 import alert from './alert';
 import auth from './auth';
