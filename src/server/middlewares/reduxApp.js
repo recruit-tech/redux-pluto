@@ -71,20 +71,20 @@ export default function createReduxApp(config) {
         return void next();
       }
 
-      res.startTime('prefetch', 'Prefetch onLoad');
+      __DEVELOPMENT__ && res.startTime('prefetch', 'Prefetch onLoad');
       Promise.all([
         loadOnServer(renderProps, store),
         store.dispatch(checkLogin()).catch(() => null),
       ]).then(() => {
-        res.endTime('prefetch');
-        res.startTime('ssr', 'Server Side Rendering');
+        __DEVELOPMENT__ && res.endTime('prefetch');
         tryRender(res, () => {
+          __DEVELOPMENT__ && res.startTime('ssr', 'Server Side Rendering');
           const content = renderToString(
             <Provider store={store} key="provider">
               <RouterContext {...renderProps} />
             </Provider>
           );
-          res.endTime('ssr');
+          __DEVELOPMENT__ && res.endTime('ssr');
           const { routes } = renderProps;
           const status = routes[routes.length - 1].status || 200;
           sendResponse({ res, status, store, content, clientConfig });
