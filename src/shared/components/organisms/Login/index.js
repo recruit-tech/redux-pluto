@@ -1,4 +1,5 @@
-import { reduxForm, isInvalid } from 'redux-form';
+import reduxForm from 'redux-form/lib/reduxForm';
+import isInvalid from 'redux-form/lib/isInvalid';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { login } from 'shared/redux/modules/auth';
