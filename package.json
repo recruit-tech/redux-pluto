@@ -18,6 +18,7 @@
     "lint": "run-s eslint",
     "precommit": "run-s test lint",
     "prod": "run-s clean build start:prod",
+    "size": "cross-env NODE_ENV=production BABEL_ENV=production:client webpack --config src/webpack/prod.client.config.js --json | webpack-bundle-size-analyzer",
     "start": "cross-env DISABLE_SSR=1 npm run start:dev",
     "start:dev": "cross-env NODE_ENV=development run-p start:dev:{webpack,nodemon}",
     "start:dev:nodemon": "nodemon --exec npm run start:dev:server",
@@ -103,6 +104,7 @@
     "extract-text-webpack-plugin": "^2.0.0-beta.5",
     "fixpack": "^2.3.1",
     "husky": "^0.13.3",
+    "lodash-webpack-plugin": "^0.11.4",
     "must-call": "^1.0.0",
     "nodemon": "^1.11.0",
     "npm-run-all": "^4.0.2",
@@ -136,6 +138,7 @@
     "strip-loader": "^0.1.2",
     "style-loader": "^0.18.1",
     "webpack": "^2.5.1",
+    "webpack-bundle-size-analyzer": "^2.7.0",
     "webpack-dev-server": "^2.4.5",
     "webpack-hot-middleware": "^2.18.0",
     "webpack-isomorphic-tools": "^3.0.2"
