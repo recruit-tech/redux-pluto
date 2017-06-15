@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
@@ -78,6 +79,7 @@ module.exports = {
   },
 
   plugins: [
+    new LodashModuleReplacementPlugin(),
     new ExtractTextPlugin({
       filename: '[name]-[chunkhash].css',
       allChunks: true,
@@ -101,7 +103,7 @@ module.exports = {
       compress: {
         unused: true,
         dead_code: true,
-        warnings: false,
+        warnings: true,
         screw_ie8: true,
       },
     }),
