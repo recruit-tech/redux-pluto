@@ -3,13 +3,11 @@ import 'babel-polyfill';
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, applyRouterMiddleware, browserHistory, match } from 'react-router';
+import { browserHistory, match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { useScroll } from 'react-router-scroll';
-import { useAsyncLoader } from 'redux-async-loader';
-import { AppContainer } from 'react-hot-loader';
 import Fetchr from 'fetchr';
 import createStore from 'shared/redux/createStore';
+import App from 'client/components/App';
 
 const store = configStore();
 const history = syncHistoryWithStore(browserHistory, store, { adjustUrlOnReplay: __DEVELOPMENT__ });
@@ -40,17 +38,6 @@ function configStore() {
 }
 
 function renderApp() {
-  const RenderWithMiddleware = applyRouterMiddleware(
-    useAsyncLoader(),
-    useScroll((prevRouterProps, { location, routes }) => {
-      if (routes.some((route) =>
-        route.ignoreScrollBehavior && route.ignoreScrollBehavior(location))) {
-        return false;
-      }
-
-      return true;
-    }),
-  );
   const routes = getRoutes();
 
   return new Promise((resolve) => {
@@ -63,14 +50,7 @@ function renderApp() {
     // 通じて <Router> に渡る) ため、最初の表示後はhistoryの変化により通常通り
     // レンダリングされる。
     match({ routes, history }, (error, redirectLocation, renderProps) => {
-      const content = (
-        <AppContainer>
-          <Provider store={store} key="provider">
-            <Router {...renderProps} render={(props) => <RenderWithMiddleware {...props} />} />
-          </Provider>
-        </AppContainer>
-      );
-      render(content, root);
+      render(<App store={store} {...renderProps} />, root);
       resolve();
     });
   });
@@ -95,8 +75,7 @@ function configHotLoader() {
 
 function renderDevTool() {
   window.React = React; // enable debugger
-  const DevTools =
-    require('../shared/components/utils/DevTools').default;
+  const DevTools = require('../shared/components/utils/DevTools').default;
   const content = (
     <Provider store={store} key="provider">
       <DevTools />
