@@ -12,12 +12,28 @@
     }]
   ],
   "env": {
-    "production:clien": {
+    "production:client": {
       "presets": [
         ["es2015", {"modules": false}],
         "es2016",
         "es2017",
         "react"
+      ],
+      "plugins": [
+        "transform-object-rest-spread",
+        ["module-resolver", {
+          "root": ["./src"]
+        }],
+        ["transform-imports", {
+          "react-router": {
+            "transform": "react-router/lib/${member}",
+            "preventFullImport": true
+          },
+          "redux-form": {
+            "transform": "redux-form/es/${member}",
+            "preventFullImport": true
+          }
+        }]
       ]
     },
     "production:server": {
