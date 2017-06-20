@@ -1,8 +1,7 @@
 import { inspect } from 'util';
-import React, { createFactory } from 'react';
+import React from 'react';
 import { renderToString, renderToStaticMarkup } from 'react-dom/server';
-import { Provider } from 'react-redux';
-import { createMemoryHistory, match, RouterContext } from 'react-router';
+import { createMemoryHistory, match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { loadOnServer } from 'redux-async-loader';
 import Fetchr from 'fetchr';
@@ -12,9 +11,9 @@ import { loadAllMasters as loadAllMastersAction } from 'shared/redux/modules/mas
 import { checkLogin } from 'shared/redux/modules/auth';
 import getRoutes from 'shared/routes';
 import Html from 'server/components/Html';
+import App from 'server/components/App';
 
 const debug = debugFactory('app:server:middleware:reduxApp');
-const html = createFactory(Html);
 
 export default function createReduxApp(config) {
   const maxAge = Math.floor(config.offload.cache.maxAge / 1000);
@@ -79,12 +78,9 @@ export default function createReduxApp(config) {
         __DEVELOPMENT__ && res.endTime('prefetch');
         tryRender(res, () => {
           __DEVELOPMENT__ && res.startTime('ssr', 'Server Side Rendering');
-          const content = renderToString(
-            <Provider store={store} key="provider">
-              <RouterContext {...renderProps} />
-            </Provider>
-          );
+          const content = renderToString(<App store={store} {...renderProps} />);
           __DEVELOPMENT__ && res.endTime('ssr');
+
           const { routes } = renderProps;
           const status = routes[routes.length - 1].status || 200;
           sendResponse({ res, status, store, content, clientConfig });
@@ -131,11 +127,14 @@ function tryRender(res, render) {
 }
 
 function sendResponse({ res, status, store, clientConfig, content }) {
+  __DEVELOPMENT__ && res.startTime('html', 'Rendering HTML');
   const props = {
     content,
     initialState: JSON.stringify(store.getState()),
     clientConfig: JSON.stringify(clientConfig),
     assets: global.webpackIsomorphicTools.assets(),
   };
-  res.status(status).send(`<!doctype html>\n${renderToStaticMarkup(html(props))}`);
+  const html = renderToStaticMarkup(<Html {...props} />);
+  __DEVELOPMENT__ && res.endTime('html');
+  res.status(status).send(`<!doctype html>\n${html}`);
 }
