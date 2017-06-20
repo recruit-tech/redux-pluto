@@ -3,7 +3,7 @@ import { compose } from 'recompose';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { replace, push } from 'react-router-redux';
-import reduxForm from 'redux-form/lib/reduxForm';
+import { reduxForm } from 'redux-form';
 import { asyncLoader } from 'redux-async-loader';
 import { salonSelector } from 'shared/redux/modules/reducer';
 import { searchSalon, searchMoreSalon, clearSearchSalon } from 'shared/redux/modules/salon';
