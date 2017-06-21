@@ -35,6 +35,9 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
+        use: [
+          'babel-loader',
+        ],
         include: [
           path.resolve(rootDir, 'src/client'),
           path.resolve(rootDir, 'src/shared'),
@@ -42,12 +45,12 @@ module.exports = {
         exclude: [
           /node_modules/,
         ],
-        loader: 'babel-loader',
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract({
-          loader: [
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
             {
               loader: 'css-loader',
               query: {
@@ -57,9 +60,7 @@ module.exports = {
                 localIdentName: '[local]___[hash:base64:8]',
               },
             },
-            {
-              loader: 'postcss-loader',
-            },
+            'postcss-loader',
           ],
         }),
       },
@@ -74,7 +75,9 @@ module.exports = {
     ],
     extensions: ['.js', '.jsx'],
     enforceModuleExtension: false,
-    aliasFields: ['browser'],
+    alias: {
+      joi: 'joi-browser',
+    },
   },
 
   plugins: [
