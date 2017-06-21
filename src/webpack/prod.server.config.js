@@ -37,6 +37,9 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
+        use: [
+          'babel-loader',
+        ],
         include: [
           path.resolve(rootDir, 'src/server'),
           path.resolve(rootDir, 'src/shared'),
@@ -44,22 +47,22 @@ module.exports = {
         exclude: [
           /node_modules/,
         ],
-        loader: 'babel-loader',
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract({
-          loader: [{
-            loader: 'css-loader',
-            query: {
-              modules: true,
-              locals: true,
-              importLoaders: 1,
-              localIdentName: '[local]___[hash:base64:8]',
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              query: {
+                modules: true,
+                locals: true,
+                importLoaders: 1,
+                localIdentName: '[local]___[hash:base64:8]',
+              },
             },
-          }, {
-            loader: 'postcss-loader',
-          },
+            'postcss-loader',
           ],
         }),
       },

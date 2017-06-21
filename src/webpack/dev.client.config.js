@@ -37,6 +37,9 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
+        use: [
+          'babel-loader',
+        ],
         include: [
           path.resolve(rootDir, 'src/client'),
           path.resolve(rootDir, 'src/shared'),
@@ -44,14 +47,11 @@ module.exports = {
         exclude: [
           /node_modules/,
         ],
-        loader: 'babel-loader',
       },
       {
         test: /\.scss$/,
         use: [
-          {
-            loader: 'style-loader',
-          },
+          'style-loader',
           {
             loader: 'css-loader',
             options: {
@@ -60,14 +60,14 @@ module.exports = {
               localIdentName: '[path]__[name]__[local]___[hash:base64:5]',
             },
           },
-          {
-            loader: 'postcss-loader',
-          },
+          'postcss-loader',
         ],
       },
       {
         test: webpackIsomorphicToolsPlugin.regular_expression('images'),
-        loader: 'url-loader?limit=10240',
+        use: [
+          'url-loader?limit=10240',
+        ],
       },
     ],
   },
@@ -80,7 +80,9 @@ module.exports = {
     ],
     extensions: ['.js', '.jsx'],
     enforceModuleExtension: false,
-    aliasFields: ['browser'],
+    alias: {
+      joi: 'joi-browser',
+    },
   },
 
   plugins: [
