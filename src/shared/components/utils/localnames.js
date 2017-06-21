@@ -1,4 +1,6 @@
 /* eslint-disable import/prefer-default-export */
+import filter from 'lodash/fp/filter';
+import keys from 'lodash/fp/keys';
 import reduce from 'lodash/fp/reduce';
 import debugFactory from 'debug';
 
@@ -15,15 +17,15 @@ const flatten = reduce((classes, arg) => {
   }
 
   if (Array.isArray(arg)) {
-    return flatten(classes)(arg);
+    return flatten(classes, arg);
   }
 
   if (argType === 'object') {
-    return flatten(classes)(Object.keys(arg).filter((key) => arg[key]));
+    return flatten(classes, filter((key) => arg[key], keys(arg)));
   }
 
   return classes;
-});
+}, []);
 
 export function createLocal(styles) {
   return {
@@ -31,10 +33,10 @@ export function createLocal(styles) {
   };
 
   function localNames(...args) {
-    const classes = flatten([])(args);
+    const classes = flatten(args);
     return classes.map((localName) => {
       const globalName = styles[localName];
-      if (!globalName) {
+      if (__DEVELOPMENT__ && !globalName) {
         debug('invalid localName:', localName);
         return ['u-invalidLocalName', localName].join(' ');
       }
