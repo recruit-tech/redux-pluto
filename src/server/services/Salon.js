@@ -1,3 +1,4 @@
+import map from 'lodash/fp/map';
 import pick from 'lodash/fp/pick';
 import BaseService from './BaseService';
 
@@ -15,8 +16,9 @@ const PICK_PROPS = [
   'description',
 ];
 
-export default class Salon extends BaseService {
+const pickProps = map(pick(PICK_PROPS));
 
+export default class Salon extends BaseService {
   constructor(config) {
     super(config, 'salon', 'beauty/salon/', {
       count: SALON_SEARCH_MAX_COUNT,
@@ -34,7 +36,7 @@ export default class Salon extends BaseService {
       const { salon: items, ...rest } = results;
       return {
         ...rest,
-        salon: items.map(pick(PICK_PROPS)),
+        salon: pickProps(items),
       };
     });
   }
