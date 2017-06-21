@@ -83,7 +83,7 @@ export const INITIAL_STATE = transform((state, resource) => {
     loaded: false,
     items: null,
   };
-})({})(RESOURCES);
+}, {}, RESOURCES);
 
 /**
  * Reducer
