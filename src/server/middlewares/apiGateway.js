@@ -6,14 +6,13 @@ import { verify } from 'server/services/AccessToken';
 
 const debug = debugFactory('app:server:middleware:apiGateway');
 
-const registerServices = (config) => mapValues((Service) => {
-  const service = new Service(config);
-  debug(`Registering sevice: ${service.name}`);
-  return Fetchr.registerService(makeServiceAdapter(service, config.auth.secret));
-});
-
 export default function apiGateway(config) {
-  registerServices(config)(services);
+  mapValues((Service) => {
+    const service = new Service(config);
+    debug(`Registering sevice: ${service.name}`);
+    return Fetchr.registerService(makeServiceAdapter(service, config.auth.secret));
+  }, services);
+
   return (req, res, next) => {
     res.startTime('apigateway', 'API Gateway');
     return Fetchr.middleware({
