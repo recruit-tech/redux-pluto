@@ -74,12 +74,14 @@ function configHotLoader() {
 }
 
 function renderDevTool() {
-  window.React = React; // enable debugger
-  const DevTools = require('../shared/components/utils/DevTools').default;
-  const content = (
-    <Provider store={store} key="provider">
-      <DevTools />
-    </Provider>
-  );
-  render(content, document.getElementById('devtools'));
+  if (__DEVELOPMENT__) {
+    window.React = React; // enable debugger
+    const DevTools = require('../shared/components/utils/DevTools').default;
+    const content = (
+      <Provider store={store} key="provider">
+        <DevTools />
+      </Provider>
+    );
+    render(content, document.getElementById('devtools'));
+  }
 }
