@@ -23,6 +23,9 @@ export default function createReduxApp(config) {
     return next(action);
   } : null;
 
+  /*
+   * 全リクエストで共有される初期データのためのStoreです。
+   */
   const initialStore = createStore({}, {
     cookie: [{ cookies: {} }, {}],
     fetchr: new Fetchr({ ...config.fetchr, req: {} }),
@@ -30,6 +33,21 @@ export default function createReduxApp(config) {
     logger,
   });
 
+  return { loadInitialData, reduxApp };
+
+  /*
+   * HTTPサーバ (Express) のリスニング開始前に初期ストアにデータをロードします。
+   */
+  function loadInitialData() {
+    debug('Loading initial data');
+    return initialStore.dispatch(loadAllMastersAction()).then(() => {
+      debug('Loaded initial data');
+    });
+  }
+
+  /*
+   * サーバサイドレンダリングのためのExpressミドルウェアです。
+   */
   function reduxApp(req, res, next) {
     if (__DEVELOPMENT__) {
       // Do not cache webpack stats: the script file would change since
@@ -38,6 +56,11 @@ export default function createReduxApp(config) {
     }
 
     const memoryHistory = createMemoryHistory(req.url);
+
+    /*
+     * リクエスト毎のStoreです。
+     * 共有の初期ストアのステートを初期ステートとして使用します。
+     */
     const store = createStore(initialStore.getState(), {
       cookie: [req, res],
       fetchr: new Fetchr({ ...config.fetchr, req }),
@@ -92,15 +115,6 @@ export default function createReduxApp(config) {
       });
     });
   }
-
-  function loadInitialData() {
-    debug('Loading initial data');
-    return initialStore.dispatch(loadAllMastersAction()).then(() => {
-      debug('Loaded initial data');
-    });
-  }
-
-  return { reduxApp, loadInitialData };
 }
 
 function getClientConfig(config, req) {
