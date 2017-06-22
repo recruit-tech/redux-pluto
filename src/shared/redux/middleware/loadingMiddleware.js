@@ -6,7 +6,7 @@ export default function loadingMiddleware({ start, stop, delay }) {
 
   return handleActions({
     [start]({ dispatch }, next, action) {
-      next(action);
+      next(action); // eslint-disable-line callback-return
 
       if (timerId) {
         return;
@@ -19,7 +19,7 @@ export default function loadingMiddleware({ start, stop, delay }) {
     },
 
     [stop]({ dispatch }, next, action) {
-      next(action);
+      next(action); // eslint-disable-line callback-return
 
       if (timerId) {
         clearTimeout(timerId);
