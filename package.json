@@ -19,7 +19,7 @@
     "precommit": "run-s test lint",
     "prod": "run-s clean build start:prod",
     "size": "cross-env NODE_ENV=production BABEL_ENV=production:client webpack --config src/webpack/prod.client.config.js --json | webpack-bundle-size-analyzer",
-    "start": "cross-env DISABLE_SSR=1 npm run start:dev",
+    "start": "cross-env NODE_ENV=development DISABLE_SSR=1 run-p start:dev:{webpack,server}",
     "start:dev": "cross-env NODE_ENV=development run-p start:dev:{webpack,nodemon}",
     "start:dev:nodemon": "nodemon --exec npm run start:dev:server",
     "start:dev:server": "cross-env BABEL_ENV=development:server PORT=3001 DEBUG=express:*,app:* babel-node bin/start-server.js",
