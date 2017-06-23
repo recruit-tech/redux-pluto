@@ -12,6 +12,7 @@ const links = [
   { key: 'bar', to: '/bar', label: 'Bar' },
   { key: 'style', to: '/style', label: 'Style' },
   { key: 'salon', to: '/salon', label: 'Salon' },
+  { key: 'largeform', to: '/largeform', label: 'LargeForm' },
   { key: 'login', to: '/login', label: 'Login' },
   { key: 'logout', to: '/logout', label: 'Logout' },
 ];

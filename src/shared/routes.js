@@ -7,6 +7,7 @@ import Foo from './components/organisms/Foo';
 import Footer from './components/organisms/Footer';
 import Header from './components/organisms/Header';
 import Home from './components/organisms/Home';
+import LargeForm from './components/organisms/LargeForm';
 import Login from './components/organisms/Login';
 import Main from './components/organisms/Main';
 import NotFound from './components/organisms/NotFound';
@@ -23,6 +24,8 @@ export default function getRoutes(store) {
       <Route component={DefaultLayout}>
         <Route components={{ header: Header, main: Main, footer: Footer }}>
           <IndexRoute component={Home} />
+          <Route path="foo" component={Foo} />
+          <Route path="bar" component={Bar} />
 
           <Route path="style" onEnter={bindOnEnter(requiredLogin)}>
             <IndexRoute component={Style} />
@@ -39,11 +42,12 @@ export default function getRoutes(store) {
             />
             <Route path=":salonId" component={Salon} />
           </Route>
+
+          <Route path="largeform" component={LargeForm} />
+
           <Route path="login" component={Login} />
           <Route path="logout" onEnter={bindOnEnter(doLogout)} />
 
-          <Route path="foo" component={Foo} />
-          <Route path="bar" component={Bar} />
           <Route path="error" component={Error} status={500} />
           <Route path="*" component={NotFound} status={404} />
         </Route>
