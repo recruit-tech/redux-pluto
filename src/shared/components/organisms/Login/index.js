@@ -7,6 +7,11 @@ import validate from 'shared/validators/login';
 import LoginForm from './LoginForm';
 
 export default compose(
+  connect(
+    (state) => ({
+      invalid: isInvalid('loginForm')(state),
+    })
+  ),
   reduxForm({
     form: 'loginForm',
     validate,
@@ -15,9 +20,4 @@ export default compose(
       .catch(normalizeFormError);
     },
   }),
-  connect(
-    (state) => ({
-      invalid: isInvalid('loginForm')(state),
-    })
-  )
 )(LoginForm);
