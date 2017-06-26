@@ -47,20 +47,21 @@ export default compose(
     selector,
     (dispatch, ownProps) => ({
       onClickPrev: (page) => () => {
-        const keyword = ownProps.location.query.keyword;
+        const keyword = parse(window.location.search.substr(1)).keyword;
         return dispatch(replace(`/salon?keyword=${keyword}&page=${page - 1}&more=true`));
       },
 
       onClickNext: (page) => () => {
-        const keyword = ownProps.location.query.keyword;
+        const keyword = parse(window.location.search.substr(1)).keyword;
         return dispatch(replace(`/salon?keyword=${keyword}&page=${page + 1}&more=true`));
       },
 
       // 今見てる window の中の要素でpageのURL位置を変える
       onInnerWindow: (element) => {
         const page = element.getAttribute('data-page');
-        const currentPage = parse(window.location.search.substr(1)).page || 0;
-        const keyword = ownProps.location.query.keyword;
+        const query = parse(window.location.search.substr(1));
+        const currentPage = query.page || '0';
+        const keyword = query.keyword;
         if (page !== currentPage) {
           return void dispatch(replace(`/salon?keyword=${keyword}&page=${page}&more=true`));
         }
