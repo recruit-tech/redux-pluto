@@ -30,15 +30,11 @@ const Items = ({ fields }) => (
           rowCount={fields.length}
           rowRenderer={({ key, index, isScrolling, isVisible, style }) => (
             <div key={key} style={style}>
-              {
-                isScrolling ? '...' : (
-                  <Field
-                    name={`${fields.name}[${index}].message`}
-                    index={index}
-                    component={Item}
-                  />
-                )
-              }
+              <Field
+                name={`${fields.name}[${index}].message`}
+                index={index}
+                component={Item}
+              />
             </div>
           )}
         />
