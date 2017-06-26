@@ -27,6 +27,7 @@ const Items = ({ fields }) => (
           width={width}
           height={height}
           rowHeight={40}
+          style={{ overflowX: 'auto', overflowY: 'auto' }} // for Isomorphic
           rowCount={fields.length}
           rowRenderer={({ key, index, isScrolling, isVisible, style }) => (
             <div key={key} style={style}>
