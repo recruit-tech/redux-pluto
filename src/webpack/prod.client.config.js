@@ -76,6 +76,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     enforceModuleExtension: false,
     alias: {
+      'lodash-es': 'lodash',
       joi: 'joi-browser',
     },
   },
