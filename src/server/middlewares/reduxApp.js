@@ -99,7 +99,7 @@ export default function createReduxApp(config) {
         store.dispatch(checkLogin()).catch(() => null),
       ]).then(() => {
         __DEVELOPMENT__ && res.endTime('prefetch');
-        tryRender(res, () => {
+        tryRender(next, () => {
           __DEVELOPMENT__ && res.startTime('ssr', 'Server Side Rendering');
           const content = renderToString(<App store={store} {...renderProps} />);
           __DEVELOPMENT__ && res.endTime('ssr');
@@ -108,10 +108,10 @@ export default function createReduxApp(config) {
           const status = routes[routes.length - 1].status || 200;
           sendResponse({ res, status, store, content, clientConfig });
         });
-      }).catch((error) => {
-        debug(error);
+      }).catch((err) => {
+        debug(err);
         debug(store.getState().routing);
-        res.status(500).send('Internal Server Error');
+        return next(err);
       });
     });
   }
@@ -131,12 +131,12 @@ function getClientConfig(config, req) {
   };
 }
 
-function tryRender(res, render) {
+function tryRender(next, render) {
   try {
     render();
   } catch (err) {
     debug(err);
-    res.status(500).send('Internal Server Error');
+    return next(err);
   }
 }
 

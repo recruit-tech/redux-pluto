@@ -31,6 +31,14 @@ app.use(reduxApp);
 app.use((req, res) => {
   res.status(404).send('Not found');
 });
+if (__DEVELOPMENT__) {
+  const errorhandler = require('errorhandler');
+  app.use(errorhandler());
+} else {
+  app.use((err, req, res, next) => {
+    res.status(500).send('Internal Server Error');
+  });
+}
 
 debug('Creating http server');
 const server = http.createServer(app);
