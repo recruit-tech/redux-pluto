@@ -11,9 +11,5 @@ export default compose(
       getState().page.salon.loaded || dispatch(findSalonById(params.salonId))
     )
   ),
-  connect(
-    (state) => ({
-      item: salonSelector(state).item,
-    })
-  ),
+  connect(salonSelector),
 )(Salon);
