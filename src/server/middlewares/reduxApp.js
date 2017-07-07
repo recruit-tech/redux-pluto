@@ -133,7 +133,7 @@ function getClientConfig(config, req) {
 
 function tryRender(next, render) {
   try {
-    render();
+    return render();
   } catch (err) {
     debug(err);
     return next(err);
