@@ -6,6 +6,7 @@ import session from 'express-session';
 import csurf from 'csurf';
 import favicon from 'serve-favicon';
 import serverTiming from 'server-timing';
+import errorhandler from 'errorhandler';
 import debugFactory from 'debug';
 import config from './configs';
 import { apiGateway, offloadDetector, reduxApp as createReduxApp } from './middlewares';
@@ -32,7 +33,6 @@ app.use((req, res) => {
   res.status(404).send('Not found');
 });
 if (__DEVELOPMENT__) {
-  const errorhandler = require('errorhandler');
   app.use(errorhandler());
 } else {
   app.use((err, req, res, next) => {
