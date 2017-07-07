@@ -18,7 +18,6 @@ export default compose(
     pages: PropTypes.array.isRequired,
     count: PropTypes.number.isRequired,
     items: PropTypes.object.isRequired,
-    item: PropTypes.object.isRequired,
     onInnerWindow: PropTypes.func.isRequired,
     onClickNext: PropTypes.func.isRequired,
     onClickPrev: PropTypes.func.isRequired,
@@ -33,7 +32,6 @@ export default compose(
     count,
     page,
     pages,
-    item,
     items,
     onClickNext,
     onClickPrev,
@@ -70,10 +68,8 @@ export default compose(
         </div>
         <SalonLists
           items={items}
-          page={page}
           onInnerWindow={onInnerWindow}
           shouldAdjustScroll={shouldAdjustScroll}
-          item={item}
           forceScrollTo={forceScrollTo}
         />
         {canGetNext ? <SalonMore onShow={onClickNext(page)}>進む</SalonMore> : null}
