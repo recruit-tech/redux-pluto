@@ -5,11 +5,12 @@ import { reducer as formReducer } from 'redux-form';
 import { pageScopeReducer } from 'redux-page-scope';
 import alert from './alert';
 import auth from './auth';
-import masters from './masters';
-import style from './style';
-import salon from './salon';
 import counter from './counter';
 import loading from './loading';
+import masters from './masters';
+import salon from './salon';
+import salonList from './salonList';
+import style from './style';
 
 export default combineReducers({
   app: combineReducers({
@@ -21,6 +22,7 @@ export default combineReducers({
   }),
   page: pageScopeReducer(combineReducers({
     salon,
+    salonList,
     style,
   })),
   form: formReducer,
@@ -55,6 +57,14 @@ export function salonSelector(state) {
   return state.page.salon;
 }
 
+export function salonListSelector(state) {
+  return state.page.salonList;
+}
+
 export function styleSelector(state) {
   return state.page.style;
+}
+
+export function routingSelector(state) {
+  return state.routing;
 }

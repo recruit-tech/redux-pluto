@@ -1,20 +1,24 @@
 import { parse } from 'querystring';
-import { compose } from 'recompose';
+import { compose, shouldUpdate } from 'recompose';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { replace, push } from 'react-router-redux';
 import { reduxForm } from 'redux-form';
 import { asyncLoader } from 'redux-async-loader';
-import { salonSelector } from 'shared/redux/modules/reducer';
-import { searchSalon, searchMoreSalon, clearSearchSalon } from 'shared/redux/modules/salon';
+import { salonListSelector, routingSelector } from 'shared/redux/modules/reducer';
+import {
+  searchSalonList,
+  searchMoreSalonList,
+  clearSearchSalonList,
+} from 'shared/redux/modules/salonList';
 import SalonForm from './SalonForm';
 
 const selector = createSelector(
-  salonSelector,
+  salonListSelector,
   (state) => state.routing.locationBeforeTransitions.query.keyword,
-  (salon, keyword) => ({
-    ...salon,
-    shouldForceScroll: salon.canGetPrev,
+  (salonList, keyword) => ({
+    ...salonList,
+    shouldForceScroll: salonList.canGetPrev,
     initialValues: { keyword },
   }),
 );
@@ -23,12 +27,13 @@ export default compose(
   asyncLoader(
     ({ location }, { dispatch, getState }) => {
       const state = getState();
-      if (state.routing.locationBeforeTransitions.action === 'POP' && state.page.salon.loaded) {
+      const action = routingSelector(state).locationBeforeTransitions.action;
+      if (action === 'POP' && salonListSelector(state).loaded) {
         return Promise.resolve();
       }
 
       if (location.query && !location.query.keyword) {
-        return dispatch(clearSearchSalon());
+        return dispatch(clearSearchSalonList());
       }
 
       const more = location.query.more;
@@ -36,11 +41,11 @@ export default compose(
       const page = location.query.page;
 
       if (more) {
-        return dispatch(searchMoreSalon({ keyword, page }));
+        return dispatch(searchMoreSalonList({ keyword, page }));
       }
 
-      dispatch(clearSearchSalon());
-      return dispatch(searchSalon({ keyword, page }));
+      dispatch(clearSearchSalonList());
+      return dispatch(searchSalonList({ keyword, page }));
     }
   ),
   connect(
@@ -76,4 +81,5 @@ export default compose(
       dispatch(push(`/salon?keyword=${keyword}`));
     },
   }),
+  shouldUpdate((props, nextProps) => nextProps.loaded),
 )(SalonForm);
