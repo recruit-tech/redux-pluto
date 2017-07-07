@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
-import { compose } from 'recompose';
+import { compose, shouldUpdate } from 'recompose';
 import { asyncLoader } from 'redux-async-loader';
+import { styleSelector } from 'shared/redux/modules/reducer';
 import { searchStyle } from 'shared/redux/modules/style';
 import StyleList from './StyleList';
 
@@ -10,10 +11,8 @@ export default compose(
       getState().page.style.loaded || dispatch(searchStyle(params))
     )
   ),
-  connect(
-    (state) => ({
-      count: state.page.style.count,
-      items: state.page.style.items,
-    })
-  ),
+  connect((state) => ({
+    style: styleSelector(state),
+  })),
+  shouldUpdate((props, nextProps) => nextProps.style.loaded),
 )(StyleList);

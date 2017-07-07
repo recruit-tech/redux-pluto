@@ -9,19 +9,21 @@ const { localNames: local } = createLocal(styles);
 export default compose(
   onlyUpdateForPropTypes,
   setPropTypes({
-    count: PropTypes.number.isRequired,
-    items: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      photo: PropTypes.shape({
-        front: PropTypes.shape({
-          m: PropTypes.string.isRequired,
+    style: PropTypes.shape({
+      count: PropTypes.number.isRequired,
+      items: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        photo: PropTypes.shape({
+          front: PropTypes.shape({
+            m: PropTypes.string.isRequired,
+          }).isRequired,
         }).isRequired,
-      }).isRequired,
-    })).isRequired,
+      })).isRequired,
+    }).isRequired,
   }),
 )(function StyleList(props) {
-  const { count, items } = props;
+  const { style: { count, items } } = props;
 
   return (
     <div>
