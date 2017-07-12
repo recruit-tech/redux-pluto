@@ -1,6 +1,6 @@
 /* eslint-disable react/no-multi-comp, react/no-find-dom-node */
 import React, { Component } from 'react';
-import throttle from 'lodash/fp/throttle';
+import { throttle } from 'lodash/fp';
 import ReactDOM from 'react-dom';
 
 export const showOnScroll = (ComposedComponent) => class ShowOnScroll extends Component {

@@ -1,4 +1,4 @@
-import mapKeys from 'lodash/fp/mapKeys';
+import { mapKeys } from 'lodash/fp';
 import BaseService from './BaseService';
 
 const ACTUAL_PARAM_NAMES = {

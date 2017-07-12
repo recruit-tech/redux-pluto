@@ -25,6 +25,10 @@
           "root": ["./src"]
         }],
         ["transform-imports", {
+          "lodash/fp": {
+            "transform": "lodash/fp/${member}",
+            "preventFullImport": true
+          },
           "react-router": {
             "transform": "react-router/lib/${member}",
             "preventFullImport": true

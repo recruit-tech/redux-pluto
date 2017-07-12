@@ -1,5 +1,4 @@
-import map from 'lodash/fp/map';
-import pick from 'lodash/fp/pick';
+import { map, pick } from 'lodash/fp';
 import BaseService from './BaseService';
 
 export const SALON_SEARCH_MAX_COUNT = 50;
