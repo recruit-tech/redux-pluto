@@ -1,7 +1,7 @@
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import range from 'lodash/fp/range';
+import { range } from 'lodash/fp';
 import LargeForm from './LargeForm';
 
 export default compose(

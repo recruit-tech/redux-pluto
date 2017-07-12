@@ -1,7 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import filter from 'lodash/fp/filter';
-import keys from 'lodash/fp/keys';
-import reduce from 'lodash/fp/reduce';
+import { filter, keys, reduce } from 'lodash/fp';
 import debugFactory from 'debug';
 
 const debug = debugFactory('localnames');
