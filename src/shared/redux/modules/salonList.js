@@ -1,7 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { steps } from 'redux-effects-steps';
 import { fetchrRead } from 'redux-effects-fetchr';
-import range from 'lodash/fp/range';
+import { range } from 'lodash/fp';
 import { createAsyncActionTypes } from './utils';
 
 export const SALON_SEARCH_MAX_COUNT = 50;

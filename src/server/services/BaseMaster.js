@@ -1,4 +1,4 @@
-import identity from 'lodash/fp/identity';
+import { identity } from 'lodash/fp';
 import BaseService from './BaseService';
 import { readAll } from './utils';
 
