@@ -1,5 +1,4 @@
-import reduce from 'lodash/fp/reduce';
-import transform from 'lodash/fp/transform';
+import { reduce, transform } from 'lodash/fp';
 import BaseMaster from './BaseMaster';
 
 const AREA_NAMES = ['service_area', 'middle_area', ''];

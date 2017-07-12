@@ -1,6 +1,6 @@
 import React from 'react';
 import { compose, shouldUpdate } from 'recompose';
-import range from 'lodash/fp/range';
+import { range } from 'lodash/fp';
 
 const array = range(0, 500);
 

@@ -1,5 +1,5 @@
 import Fetchr from 'fetchr';
-import mapValues from 'lodash/fp/mapValues';
+import { mapValues } from 'lodash/fp';
 import debugFactory from 'debug';
 import * as services from 'server/services';
 import { verify } from 'server/services/AccessToken';

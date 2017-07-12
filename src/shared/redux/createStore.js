@@ -6,7 +6,7 @@ import steps from 'redux-effects-steps';
 import cookie from 'redux-effects-universal-cookie';
 import fetchr from 'redux-effects-fetchr';
 import fetchrCache from 'redux-effects-fetchr-cache';
-import filter from 'lodash/fp/filter';
+import { filter } from 'lodash/fp';
 import apiError from './middleware/apiErrorMiddleware';
 import auth from './middleware/authMiddleware';
 import loading from './middleware/loadingMiddleware';
