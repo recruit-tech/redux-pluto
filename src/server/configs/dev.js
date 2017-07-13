@@ -35,8 +35,12 @@ export default {
 
   // https://github.com/expressjs/serve-static
   assets: [
-    { mount: '/public', path: path.resolve(rootDir, 'statics') },
-    __DEVELOPMENT__ ? null : { mount: '/public', path: path.resolve(rootDir, 'build/client') },
+    { mount: '/public', path: path.resolve(rootDir, 'statics'), gzip: false },
+    __DEVELOPMENT__ ? null : {
+      mount: '/public',
+      path: path.resolve(rootDir, 'build/client'),
+      gzip: true,
+    },
   ].filter(Boolean),
 
   // https://github.com/yahoo/fetchr
