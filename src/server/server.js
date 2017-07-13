@@ -24,6 +24,13 @@ app.use(csurf(config.csurf));
 app.use(serverTiming());
 app.use(favicon(config.favicon));
 config.assets.forEach((asset) => {
+  if (asset.gzip) {
+    app.get('*.js', (req, res, next) => {
+      req.url += '.gz';
+      res.set('Content-Encoding', 'gzip');
+      return next();
+    });
+  }
   app.use(asset.mount, express.static(asset.path));
 });
 app.use(config.clientConfig.fetchr.xhrPath, apiGateway(config));
