@@ -35,8 +35,8 @@ const searchSalonListFail = createAction(SALON_LIST_SEARCH_FAIL);
 
 export function searchSalonList(params) {
   return steps(
-    searchSalonListRequest(params),
-    fetchrRead('salon', params),
+    searchSalonListRequest({ resource: 'salon', params }),
+    ({ payload }) => fetchrRead(payload),
     [
       (payload) => searchSalonListSuccess({ params, data: payload.data }),
       (error) => searchSalonListFail({ params, error }),
@@ -52,8 +52,8 @@ const searchMoreSalonListFail = createAction(SALON_LIST_SEARCH_MORE_FAIL);
 
 export function searchMoreSalonList(params) {
   return steps(
-    searchMoreSalonListRequest(params),
-    fetchrRead('salon', params),
+    searchMoreSalonListRequest({ resource: 'salon', params }),
+    ({ payload }) => fetchrRead(payload),
     [
       (payload) => searchMoreSalonListSuccess({ params, data: payload.data }),
       (error) => searchMoreSalonListFail({ params, error }),

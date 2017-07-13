@@ -28,7 +28,7 @@ const loadMasterFail = createAction(LOAD_MASTER_FAIL,
 function loadMaster(resource) {
   return steps(
     loadMasterRequest(resource),
-    fetchrRead(resource),
+    ({ payload }) => fetchrRead(payload),
     [
       (payload) => loadMasterSuccess(resource, payload.data),
       (error) => loadMasterFail(resource, error),
