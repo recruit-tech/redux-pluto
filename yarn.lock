@@ -2954,9 +2954,9 @@ hoist-non-react-statics@^1.0.0, hoist-non-react-statics@^1.0.3, hoist-non-react-
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
 
-hoist-non-react-statics@^2.0.0, hoist-non-react-statics@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.1.0.tgz#44879d7c06796a5f1baaaed29833bfdc9995ca32"
+hoist-non-react-statics@^2.0.0, hoist-non-react-statics@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.1.1.tgz#71f47fe91400f57d55e867277e3a5013829dcb45"
 
 home-or-tmp@^2.0.0:
   version "2.0.0"
@@ -3428,9 +3428,9 @@ items@2.x.x:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/items/-/items-2.1.1.tgz#8bd16d9c83b19529de5aea321acaada78364a198"
 
-joi-browser@^10.6.0:
-  version "10.6.0"
-  resolved "https://registry.yarnpkg.com/joi-browser/-/joi-browser-10.6.0.tgz#b6db6533e3a1b0679fc95df02eb697c8e71709df"
+joi-browser@^10.6.1:
+  version "10.6.1"
+  resolved "https://registry.yarnpkg.com/joi-browser/-/joi-browser-10.6.1.tgz#1cfc1a244c9242327842c24354d8ead1c2fe3571"
 
 joi@^10.6.0:
   version "10.6.0"
@@ -5356,9 +5356,9 @@ rechoir@^0.6.2:
   dependencies:
     resolve "^1.1.6"
 
-recompose@^0.23.4:
-  version "0.23.5"
-  resolved "https://registry.yarnpkg.com/recompose/-/recompose-0.23.5.tgz#72ac8261246bec378235d187467d02a721e8b1de"
+recompose@^0.24.0:
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/recompose/-/recompose-0.24.0.tgz#262e93f974439eb17e7779824d88cce90492a5dd"
   dependencies:
     change-emitter "^0.1.2"
     fbjs "^0.8.1"
@@ -5405,7 +5405,7 @@ redux-actions@^0.10.0:
   dependencies:
     reduce-reducers "^0.1.0"
 
-redux-actions@^2.2.1:
+redux-actions@^2.0.2, redux-actions@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/redux-actions/-/redux-actions-2.2.1.tgz#d64186b25649a13c05478547d7cd7537b892410d"
   dependencies:
@@ -5469,12 +5469,12 @@ redux-effects-fetchr-cache@^1.0.1:
     lru-cache "^4.0.1"
     redux-actions "^0.10.0"
 
-redux-effects-fetchr@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/redux-effects-fetchr/-/redux-effects-fetchr-1.0.1.tgz#f58a412b11251358eb21852809479392ce3f7c98"
+redux-effects-fetchr@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/redux-effects-fetchr/-/redux-effects-fetchr-1.1.0.tgz#faed1eaf58cfbeb686d53d1446847a089aaa06cd"
   dependencies:
     fetchr "^0.5.30"
-    redux-actions "^0.10.0"
+    redux-actions "^2.0.2"
 
 redux-effects-steps@^1.0.1:
   version "1.0.1"
@@ -5508,9 +5508,9 @@ redux-page-scope@^1.0.0:
     dom-helpers "^2.4.0"
     lru-cache "^4.0.1"
 
-redux@^3.7.1:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/redux/-/redux-3.7.1.tgz#bfc535c757d3849562ead0af18ac52122cd7268e"
+redux@^3.7.2:
+  version "3.7.2"
+  resolved "https://registry.yarnpkg.com/redux/-/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"
   dependencies:
     lodash "^4.2.1"
     lodash-es "^4.2.1"
