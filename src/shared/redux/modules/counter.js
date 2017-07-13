@@ -23,8 +23,8 @@ const incrementFail = createAction(COUNTER_INCREMENT_FAIL);
 
 export function increment() {
   return steps(
-    incrementRequest(),
-    fetchrUpdate('counter'),
+    incrementRequest({ resource: 'counter' }),
+    ({ payload }) => fetchrUpdate(payload),
     [incrementSuccess, incrementFail],
   );
 }

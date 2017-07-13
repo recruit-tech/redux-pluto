@@ -23,8 +23,8 @@ const searchStyleFail = createAction(SEARCH_STYLE_FAIL);
 
 export function searchStyle(params) {
   return steps(
-    searchStyleRequest(params),
-    fetchrRead('style', params),
+    searchStyleRequest({ resource: 'style', params }),
+    ({ payload }) => fetchrRead(payload),
     [searchStyleSuccess, searchStyleFail],
   );
 }
