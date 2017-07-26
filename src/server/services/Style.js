@@ -12,7 +12,7 @@ const mapToActualParamName = mapKeys((key) => ACTUAL_PARAM_NAMES[key] || key);
 
 export default class Style extends BaseService {
   constructor(config) {
-    super(config, 'style', 'beauty/style/v3/', { order: 5, count: 50 });
+    super(config, 'style', 'beauty/style/v3/', { order: 5, count: 100 });
     this.requireLogin = true;
   }
 
