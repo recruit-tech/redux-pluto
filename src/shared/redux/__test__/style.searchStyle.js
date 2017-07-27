@@ -27,7 +27,7 @@ test('style: searchStyle success', () => {
     assert.deepEqual(state, {
       loading: false,
       loaded: true,
-      params: undefined,
+      params: { query: 'foo' },
       count: 10,
       items: ['foo', 'bar'],
     });
@@ -46,7 +46,7 @@ test('style: searchStyle failure', (_, fail) => {
     assert.deepEqual(state, {
       loading: false,
       loaded: false,
-      params: undefined,
+      params: { query: 'foo' },
       count: 0,
       items: [],
       error: true,
