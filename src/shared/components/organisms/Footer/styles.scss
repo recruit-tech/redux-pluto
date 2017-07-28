@@ -3,3 +3,7 @@
 .root {
   @include border-default;
 }
+
+.today {
+  text-align: center;
+}
