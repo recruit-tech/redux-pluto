@@ -1,22 +1,36 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import App from './components/organisms/App';
-import Bar from './components/organisms/Bar';
-import Error from './components/organisms/Error';
-import Foo from './components/organisms/Foo';
-import Footer from './components/organisms/Footer';
-import Header from './components/organisms/Header';
-import Home from './components/organisms/Home';
-import LargeForm from './components/organisms/LargeForm';
-import Login from './components/organisms/Login';
-import Main from './components/organisms/Main';
-import NotFound from './components/organisms/NotFound';
-import Style from './components/organisms/Style';
-import StyleList from './components/organisms/StyleList';
-import SalonForm from './components/organisms/SalonForm';
-import Salon from './components/organisms/Salon';
-import DefaultLayout from './components/templates/DefaultLayout';
-import { checkLogin, logout } from './redux/modules/auth';
+import { checkLogin, logout } from '../redux/modules/auth';
+
+// non chunked components
+import {
+  App,
+  Error,
+  Footer,
+  Header,
+  Home,
+  Main,
+  NotFound,
+  DefaultLayout,
+} from './main';
+
+// chunked components
+import {
+  loadBar,
+  loadFoo,
+  loadLargeForm,
+  loadLogin,
+} from './misc';
+
+import {
+  loadSalonForm,
+  loadSalon,
+} from './salon';
+
+import {
+  loadStyle,
+  loadStyleList,
+} from './style';
 
 export default function getRoutes(store) {
   return (
@@ -24,28 +38,28 @@ export default function getRoutes(store) {
       <Route component={DefaultLayout}>
         <Route components={{ header: Header, main: Main, footer: Footer }}>
           <IndexRoute component={Home} />
-          <Route path="foo" component={Foo} />
-          <Route path="bar" component={Bar} />
+          <Route path="foo" getComponent={loadFoo} />
+          <Route path="bar" getComponent={loadBar} />
 
           <Route path="style" onEnter={bindOnEnter(requiredLogin)}>
-            <IndexRoute component={Style} />
-            <Route path=":gender" component={Style} onChange={bindOnChange(requiredLogin)}>
-              <Route path=":hairLength" component={StyleList} />
+            <IndexRoute getComponent={loadStyle} />
+            <Route path=":gender" getComponent={loadStyle} onChange={bindOnChange(requiredLogin)}>
+              <Route path=":hairLength" getComponent={loadStyleList} />
             </Route>
           </Route>
 
           <Route path="salon">
             <IndexRoute
               queryKeys="keyword, page, more"
-              component={SalonForm}
+              getComponent={loadSalonForm}
               ignoreScrollBehavior={ignoreScrollBehavior}
             />
-            <Route path=":salonId" component={Salon} />
+            <Route path=":salonId" getComponent={loadSalon} />
           </Route>
 
-          <Route path="largeform" component={LargeForm} />
+          <Route path="largeform" getComponent={loadLargeForm} />
 
-          <Route path="login" component={Login} />
+          <Route path="login" getComponent={loadLogin} />
           <Route path="logout" onEnter={bindOnEnter(doLogout)} />
 
           <Route path="error" component={Error} status={500} />

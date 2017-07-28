@@ -35,11 +35,13 @@ export default {
 
   // https://github.com/expressjs/serve-static
   assets: [
-    { mount: '/public', path: path.resolve(rootDir, 'statics'), gzip: false },
-    __DEVELOPMENT__ ? null : {
+    {
+      mount: '/public',
+      path: path.resolve(rootDir, 'statics'),
+    },
+    {
       mount: '/public',
       path: path.resolve(rootDir, 'build/client'),
-      gzip: true,
     },
   ].filter(Boolean),
 

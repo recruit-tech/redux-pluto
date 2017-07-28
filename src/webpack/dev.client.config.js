@@ -1,35 +1,40 @@
 const path = require('path');
+const qs = require('query-string');
 const webpack = require('webpack');
-
-// https://github.com/halt-hammerzeit/webpack-isomorphic-tools
-const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
-const webpackIsomorphicToolsPlugin =
-  new WebpackIsomorphicToolsPlugin(require('./isomorphic-tools.config'));
+const WriteFilePlugin = require('write-file-webpack-plugin');
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 
 const rootDir = path.resolve(__dirname, '../..');
-const port = +(process.env.PORT || 3000);
 const outputPath = path.resolve(rootDir, 'build/client');
 const outputPublicPath = '/public/';
 
 module.exports = {
+  name: 'client',
+
   target: 'web',
 
   devtool: 'inline-source-map',
 
   context: rootDir,
 
-  entry: {
-    client: [
-      'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:' + port,
-      'webpack/hot/only-dev-server',
-      path.resolve(rootDir, 'src/client/index.js'),
-    ],
-  },
+  entry: [
+    'babel-polyfill',
+    'webpack-hot-middleware/client?' + qs.stringify({
+      path: '/__webpack_hmr',
+      timeout: 20000,
+      reload: false,
+      quiet: false,
+      noInfo: false,
+    }),
+    'react-hot-loader/patch',
+    path.resolve(rootDir, 'src/client/index.js'),
+    path.resolve(rootDir, 'src/client/main.scss'),
+  ],
 
   output: {
     path: outputPath,
     filename: '[name].js',
+    chunkFilename: '[name].js',
     publicPath: outputPublicPath,
   },
 
@@ -37,9 +42,6 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: [
-          'babel-loader',
-        ],
         include: [
           path.resolve(rootDir, 'src/client'),
           path.resolve(rootDir, 'src/shared'),
@@ -47,27 +49,24 @@ module.exports = {
         exclude: [
           /node_modules/,
         ],
+        use: {
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.scss$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              importLoaders: 1,
-              localIdentName: '[path]__[name]__[local]___[hash:base64:5]',
+        use: ExtractCssChunks.extract({
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                localIdentName: '[path]__[name]__[local]--[hash:base64:5]',
+              },
             },
-          },
-          'postcss-loader',
-        ],
-      },
-      {
-        test: webpackIsomorphicToolsPlugin.regular_expression('images'),
-        use: [
-          'url-loader?limit=10240',
-        ],
+            'postcss-loader',
+          ],
+        }),
       },
     ],
   },
@@ -86,7 +85,9 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.NoEmitOnErrorsPlugin(),
+    new WriteFilePlugin(),
+    new ExtractCssChunks(),
+
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
       __CLIENT__: true,
@@ -94,22 +95,15 @@ module.exports = {
       __DEVELOPMENT__: true,
       __DEVTOOLS__: true,
     }),
+
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
-    webpackIsomorphicToolsPlugin.development(true),
+
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ['bootstrap'], // needed to put webpack bootstrap code before chunks
+      filename: '[name].js',
+      minChunks: Infinity,
+    }),
   ],
-
-  devServer: {
-    // webpack-dev-server options
-    contentBase: outputPath,
-    historyApiFallback: true,
-    proxy: {
-      '*': `http://localhost:${port + 1}`,
-    },
-    port,
-    hot: true,
-
-    // webpack-dev-middleware options
-    noInfo: true,
-  },
 };
