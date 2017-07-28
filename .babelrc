@@ -31,6 +31,10 @@
             "transform": "lodash/fp/${member}",
             "preventFullImport": true
           },
+          "date-fns": {
+            "transform": "date-fns/${member}",
+            "preventFullImport": true
+          },
           "react-router": {
             "transform": "react-router/lib/${member}",
             "preventFullImport": true
