@@ -1,29 +1,25 @@
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-
-// https://github.com/halt-hammerzeit/webpack-isomorphic-tools
-const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
-const webpackIsomorphicToolsPlugin =
-  new WebpackIsomorphicToolsPlugin(require('./isomorphic-tools.config'));
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
+const StatsPlugin = require('stats-webpack-plugin');
 
 const rootDir = path.resolve(__dirname, '../..');
 const outputPath = path.resolve(rootDir, 'build/client');
 const outputPublicPath = '/public/';
 
 module.exports = {
+  name: 'client',
+
   target: 'web',
 
-  devtool: 'source-map',
+  devtool: false,
 
-  context: rootDir,
-
-  entry: {
-    client: [
-      path.resolve(rootDir, 'src/client/index.js'),
-    ],
-  },
+  entry: [
+    'babel-polyfill',
+    path.resolve(rootDir, 'src/client/index.js'),
+    path.resolve(rootDir, 'src/client/main.scss'),
+  ],
 
   output: {
     path: outputPath,
@@ -36,9 +32,6 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: [
-          'babel-loader',
-        ],
         include: [
           path.resolve(rootDir, 'src/client'),
           path.resolve(rootDir, 'src/shared'),
@@ -46,19 +39,19 @@ module.exports = {
         exclude: [
           /node_modules/,
         ],
+        use: [
+          'babel-loader',
+        ],
       },
       {
         test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
+        use: ExtractCssChunks.extract({
           use: [
             {
               loader: 'css-loader',
-              query: {
+              options: {
                 modules: true,
-                locals: true,
-                importLoaders: 1,
-                localIdentName: '[local]___[hash:base64:8]',
+                localIdentName: '[path]__[name]__[local]--[hash:base64:5]',
               },
             },
             'postcss-loader',
@@ -83,10 +76,9 @@ module.exports = {
   },
 
   plugins: [
-    new ExtractTextPlugin({
-      filename: '[name]-[chunkhash].css',
-      allChunks: true,
-    }),
+    new StatsPlugin('stats.json'),
+    new ExtractCssChunks(),
+
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
       __CLIENT__: true,
@@ -98,9 +90,9 @@ module.exports = {
     // optimizations
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      filename: 'vendor_[hash].js',
-      minSize: 2,
+      names: ['bootstrap'], // needed to put webpack bootstrap code before chunks
+      filename: '[name].[chunkhash].js',
+      minChunks: Infinity,
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
@@ -117,7 +109,5 @@ module.exports = {
       threshold: 10240,
       minRatio: 0.8,
     }),
-
-    webpackIsomorphicToolsPlugin,
   ],
 };

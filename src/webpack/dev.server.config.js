@@ -1,9 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
+const WriteFilePlugin = require('write-file-webpack-plugin');
 
 const rootDir = path.resolve(__dirname, '../..');
 const outputPath = path.resolve(rootDir, 'build/server');
+const outputPublicPath = '/public/';
 
 // if you're specifying externals to leave unbundled, you need to tell Webpack
 // to still bundle `react-universal-component`, `webpack-flush-chunks` and
@@ -35,6 +37,7 @@ module.exports = {
     path: outputPath,
     filename: '[name].js',
     libraryTarget: 'commonjs2',
+    publicPath: outputPublicPath,
   },
 
   node: {
@@ -67,7 +70,7 @@ module.exports = {
             loader: 'css-loader/locals',
             options: {
               modules: true,
-              localIdentName: '[local]--[hash:base64:8]',
+              localIdentName: '[path]__[name]__[local]--[hash:base64:5]',
             },
           },
           'postcss-loader',
@@ -77,6 +80,8 @@ module.exports = {
   },
 
   plugins: [
+    new WriteFilePlugin(),
+
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development'),
@@ -85,7 +90,7 @@ module.exports = {
       __SERVER__: true,
       __DEVELOPMENT__: false,
       __DEVTOOLS__: false,
-      __DISABLE_SSR__: false,
+      __DISABLE_SSR__: !!process.env.DISABLE_SSR,
     }),
 
     // optimizations
