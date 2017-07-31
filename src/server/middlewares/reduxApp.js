@@ -23,7 +23,7 @@ const logger = __DEVELOPMENT__ ? (store) => (next) => (action) => {
   return next(action);
 } : null;
 
-export default function createReduxApp(config) {
+export default function createReduxApp({ resolve, reject, ...config }) {
   const maxAge = Math.floor(config.offload.cache.maxAge / 1000);
 
   /*
@@ -37,76 +37,74 @@ export default function createReduxApp(config) {
   });
 
   debug('Loading initial data');
-  const initializing = Promise.all([
+  Promise.all([
     initialStore.dispatch(loadAllMastersAction()),
   ]).then(() => {
     debug('Loaded initial data');
-  });
+    resolve();
+  }).catch(reject);
+
+  return reduxApp;
 
   /*
    * サーバサイドレンダリングのためのExpressミドルウェアです。
    */
-  return function reduxApp(req, res, next) {
-    initializing.then(() => {
-      const memoryHistory = createMemoryHistory(req.url);
+  function reduxApp(req, res, next) {
+    const memoryHistory = createMemoryHistory(req.url);
 
-      /*
-       * リクエスト毎のStoreです。
-       * 共有の初期ストアのステートを初期ステートとして使用します。
-       */
-      const store = createStore(initialStore.getState(), {
-        cookie: [req, res],
-        fetchr: new Fetchr({ ...config.fetchr, req }),
-        history: memoryHistory,
-        logger,
-      });
-      const history = syncHistoryWithStore(memoryHistory, store);
-      const clientConfig = getClientConfig(config, req);
-
-      if (__DISABLE_SSR__) {
-        const assets = flushChunks(config.clientStats);
-        return void sendResponse({ res, store, status: 200, clientConfig, assets });
-      }
-
-      if (req.offloadMode) {
-        debug('offload mode, disable server-side rendering');
-        res.set('cache-control', `max-age=${maxAge}`);
-        const assets = flushChunks(config.clientStats);
-        return void sendResponse({ res, store, status: 200, clientConfig, assets });
-      }
-
-      match({ history, routes: getRoutes(store) }, (error, redirectLocation, renderProps) => {
-        if (error) {
-          return void res.status(500).send(error.message);
-        }
-
-        if (redirectLocation) {
-          return void res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-        }
-
-        if (!renderProps) {
-          return void next();
-        }
-
-        const timing = __DEVELOPMENT__ ? res : { startTime: noop, endTime: noop };
-        timing.startTime('prefetch', 'Prefetch onLoad');
-        Promise.all([
-          loadOnServer(renderProps, store),
-          store.dispatch(checkLogin()).catch(() => null),
-        ]).then(() => {
-          timing.endTime('prefetch');
-          tryRender(next, { res, store, renderProps, config, clientConfig, timing });
-        }).catch((err) => {
-          debug(err);
-          debug(store.getState().routing);
-          return next(err);
-        });
-      });
-    }).catch((err) => {
-      debug(err);
-      return next(err);
+    /*
+     * リクエスト毎のStoreです。
+     * 共有の初期ストアのステートを初期ステートとして使用します。
+     */
+    const store = createStore(initialStore.getState(), {
+      cookie: [req, res],
+      fetchr: new Fetchr({ ...config.fetchr, req }),
+      history: memoryHistory,
+      logger,
     });
-  };
+    const history = syncHistoryWithStore(memoryHistory, store);
+    const clientConfig = getClientConfig(config, req);
+
+    if (__DISABLE_SSR__) {
+      const assets = flushChunks(config.clientStats);
+      return void sendResponse({ res, store, status: 200, clientConfig, assets });
+    }
+
+    if (req.offloadMode) {
+      debug('offload mode, disable server-side rendering');
+      res.set('cache-control', `max-age=${maxAge}`);
+      const assets = flushChunks(config.clientStats);
+      return void sendResponse({ res, store, status: 200, clientConfig, assets });
+    }
+
+    match({ history, routes: getRoutes(store) }, (error, redirectLocation, renderProps) => {
+      if (error) {
+        return void res.status(500).send(error.message);
+      }
+
+      if (redirectLocation) {
+        return void res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+      }
+
+      if (!renderProps) {
+        return void next();
+      }
+
+      const timing = __DEVELOPMENT__ ? res : { startTime: noop, endTime: noop };
+      timing.startTime('prefetch', 'Prefetch onLoad');
+      Promise.all([
+        loadOnServer(renderProps, store),
+        store.dispatch(checkLogin()).catch(() => null),
+      ]).then(() => {
+        timing.endTime('prefetch');
+        tryRender(next, { res, store, renderProps, config, clientConfig, timing });
+      }).catch((err) => {
+        debug(err);
+        debug(store.getState().routing);
+        return next(err);
+      });
+    });
+  }
 }
 
 function getClientConfig(config, req) {
