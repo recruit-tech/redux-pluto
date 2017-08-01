@@ -53,6 +53,7 @@ function createAppForProduction(app) {
 }
 
 function createAppForDevelopment(app) {
+  const { MemoryStore } = require('express-session');
   const webpack = require('webpack');
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -71,6 +72,7 @@ function createAppForDevelopment(app) {
     webpackHotServerMiddleware(multiCompiler, {
       serverRendererOptions: {
         server,
+        sessionStore: new MemoryStore(),
         promises,
       },
     }),
