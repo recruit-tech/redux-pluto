@@ -8,13 +8,13 @@ import serverTiming from 'server-timing';
 import config from './configs';
 import { apiGateway, offloadDetector, reduxApp } from './middlewares';
 
-export default function renderer({ clientStats, server, promises }) {
+export default function renderer({ clientStats, server, sessionStore, promises }) {
   const app = express.Router();
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded(config.bodyParser.urlencoded));
   app.use(cookieParser(config.cookieParser));
-  app.use(session(config.session));
+  app.use(session({ store: sessionStore, ...config.session }));
   app.use(csurf(config.csurf));
   app.use(serverTiming());
   app.use(favicon(config.favicon));
