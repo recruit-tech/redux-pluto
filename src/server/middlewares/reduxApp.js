@@ -66,42 +66,50 @@ export default function createReduxApp(config) {
     const clientConfig = getClientConfig(config, req);
 
     if (__DISABLE_SSR__) {
-      const assets = flushChunks(config.clientStats);
-      return void sendResponse({ res, store, status: 200, clientConfig, assets, timing });
+      return void renderCSR({ res, store, config, clientConfig, timing });
     }
 
+    /*
+     * 高負荷時にSSRをスキップするモードです。
+     * オフロードモードをサポートしない場合は ./offloadDetector.js と一緒に削除してください。
+     */
     if (req.offloadMode) {
       debug('offload mode, disable server-side rendering');
       res.set('cache-control', `max-age=${maxAge}`);
-      const assets = flushChunks(config.clientStats);
-      return void sendResponse({ res, store, status: 200, clientConfig, assets, timing });
+      return void renderCSR({ res, store, config, clientConfig, timing });
     }
 
-    match({ history, routes: getRoutes(store) }, (error, redirectLocation, renderProps) => {
-      if (error) {
-        return void res.status(500).send(error.message);
-      }
-
+    /*
+     * React-Routerのルーティング定義とマッチングを行います。
+     */
+    matchRoutes({ history, routes: getRoutes(store) }).then(({ redirectLocation, renderProps }) => {
       if (redirectLocation) {
-        return void res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+        return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
       }
 
       if (!renderProps) {
-        return void next();
+        return next();
       }
 
+      /*
+       * 初期表示に必要なデータをフェッチします。
+       */
       timing.startTime('prefetch', 'Prefetch onLoad');
-      Promise.all([
+      return Promise.all([
         loadOnServer(renderProps, store),
         store.dispatch(checkLogin()).catch(() => null),
       ]).then(() => {
         timing.endTime('prefetch');
-        tryRender(next, { res, store, renderProps, config, clientConfig, timing });
-      }).catch((err) => {
-        debug(err);
-        debug(store.getState().routing);
-        return next(err);
+
+        /*
+         * サーバサイドレンダリングを行います。
+         */
+        renderSSR({ res, store, renderProps, config, clientConfig, timing });
       });
+    }).catch((err) => {
+      debug(err);
+      debug(store.getState().routing);
+      return next(err);
     });
   }
 }
@@ -120,20 +128,34 @@ function getClientConfig(config, req) {
   };
 }
 
-function tryRender(next, options) {
-  try {
-    return render(options);
-  } catch (err) {
-    debug(err);
-    return next(err);
-  }
+function matchRoutes(options) {
+  return new Promise((resolve, reject) => {
+    match(options, (error, redirectLocation, renderProps) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve({ redirectLocation, renderProps });
+      }
+    });
+  });
 }
 
-function render({ res, store, renderProps, config, clientConfig, timing }) {
+function renderCSR({ res, store, config, clientConfig, timing }) {
+  const assets = flushChunks(config.clientStats);
+  sendResponse({ res, store, status: 200, clientConfig, assets, timing });
+}
+
+function renderSSR({ res, store, renderProps, config, clientConfig, timing }) {
+  /*
+   * メインコンテンツをレンダリングします。
+   */
   timing.startTime('ssr', 'Server Side Rendering');
   const content = renderToString(<App store={store} {...renderProps} />);
   timing.endTime('ssr');
 
+  /*
+   * コードスプリットされたチャンクに関する情報を収集します。
+   */
   const chunkNames = flushChunkNames();
   const assets = flushChunks(config.clientStats, { chunkNames });
   const { publicPath } = assets;
@@ -149,6 +171,9 @@ function render({ res, store, renderProps, config, clientConfig, timing }) {
 }
 
 function sendResponse({ res, status, store, clientConfig, content, assets, timing }) {
+  /*
+   * HTML全体をレンダリングします。
+   */
   timing.startTime('html', 'Rendering HTML');
   const props = {
     content,
@@ -158,5 +183,6 @@ function sendResponse({ res, status, store, clientConfig, content, assets, timin
   };
   const html = renderToStaticMarkup(<Html {...props} />);
   timing.endTime('html');
+
   res.status(status).send(`<!doctype html>\n${html}`);
 }
