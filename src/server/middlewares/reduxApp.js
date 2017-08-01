@@ -51,6 +51,7 @@ export default function createReduxApp({ resolve, reject, ...config }) {
    */
   function reduxApp(req, res, next) {
     const memoryHistory = createMemoryHistory(req.url);
+    const timing = __DEVELOPMENT__ ? res : { startTime: noop, endTime: noop };
 
     /*
      * リクエスト毎のStoreです。
@@ -67,14 +68,14 @@ export default function createReduxApp({ resolve, reject, ...config }) {
 
     if (__DISABLE_SSR__) {
       const assets = flushChunks(config.clientStats);
-      return void sendResponse({ res, store, status: 200, clientConfig, assets });
+      return void sendResponse({ res, store, status: 200, clientConfig, assets, timing });
     }
 
     if (req.offloadMode) {
       debug('offload mode, disable server-side rendering');
       res.set('cache-control', `max-age=${maxAge}`);
       const assets = flushChunks(config.clientStats);
-      return void sendResponse({ res, store, status: 200, clientConfig, assets });
+      return void sendResponse({ res, store, status: 200, clientConfig, assets, timing });
     }
 
     match({ history, routes: getRoutes(store) }, (error, redirectLocation, renderProps) => {
@@ -90,7 +91,6 @@ export default function createReduxApp({ resolve, reject, ...config }) {
         return void next();
       }
 
-      const timing = __DEVELOPMENT__ ? res : { startTime: noop, endTime: noop };
       timing.startTime('prefetch', 'Prefetch onLoad');
       Promise.all([
         loadOnServer(renderProps, store),
