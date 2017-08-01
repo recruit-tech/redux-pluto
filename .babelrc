@@ -1,6 +1,6 @@
 {
   "presets": [
-    "es2015",
+    ["es2015", {"modules": false}],
     "es2016",
     "es2017",
     "react"
@@ -14,12 +14,6 @@
   ],
   "env": {
     "production:client": {
-      "presets": [
-        ["es2015", {"modules": false}],
-        "es2016",
-        "es2017",
-        "react"
-      ],
       "plugins": [
         "transform-object-rest-spread",
         "syntax-dynamic-import",
@@ -57,12 +51,6 @@
     "production:server": {
     },
     "development:client": {
-      "presets": [
-        ["es2015", {"modules": false}],
-        "es2016",
-        "es2017",
-        "react"
-      ],
       "plugins": [
         "transform-object-rest-spread",
         "syntax-dynamic-import",
