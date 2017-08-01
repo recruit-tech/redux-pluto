@@ -6,8 +6,8 @@
   "main": "src/server/server.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production run-s clean build:{client,server}",
-    "build:client": "cross-env BABEL_ENV=production:client webpack --verbose --colors --display-error-details --config src/webpack/prod.client.config.js",
-    "build:server": "cross-env BABEL_ENV=production:server webpack --verbose --colors --display-error-details --config src/webpack/prod.server.config.js",
+    "build:client": "webpack --verbose --colors --display-error-details --config src/webpack/prod.client.config.js",
+    "build:server": "webpack --verbose --colors --display-error-details --config src/webpack/prod.server.config.js",
     "check:secure": "nsp check",
     "clean": "rimraf build/*",
     "clean-start": "run-s clean build start:prod",
@@ -20,7 +20,7 @@
     "start": "npm run start:dev",
     "start:csr": "cross-env DISABLE_SSR=1 npm run start:dev",
     "start:dev": "cross-env NODE_ENV=development npm run start:dev:server",
-    "start:dev:server": "cross-env BABEL_ENV=development:server DEBUG=express:*,app:* node bin/start-server.js",
+    "start:dev:server": "cross-env DEBUG=express:*,app:* node bin/start-server.js",
     "start:prod": "cross-env NODE_ENV=production npm run start:prod:server",
     "start:prod:server": "node bin/start-server.js",
     "test": "cross-env BABEL_ENV=test:unit eater"
