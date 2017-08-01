@@ -42,18 +42,17 @@ function createApp() {
 function createAppForProduction(app) {
   const clientStats = require('../build/client/stats.json');
   const serverRender = require('../build/server/main.js').default;
-  return new Promise((resolve, reject) => {
-    app.use(serverRender({
-      clientStats,
-      server,
-      resolve,
-      reject,
-    }));
-  }).then(() => app);
+  const promises = [];
+
+  app.use(serverRender({
+    clientStats,
+    server,
+    promises,
+  }));
+  return Promise.all(promises).then(() => app);
 }
 
 function createAppForDevelopment(app) {
-  debug('Compiling webpack...');
   const webpack = require('webpack');
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -62,32 +61,33 @@ function createAppForDevelopment(app) {
   const serverConfig = require('../src/webpack/dev.server.config');
 
   const multiCompiler = webpack([clientConfig, serverConfig]);
-
-  const publicPath = clientConfig.output.publicPath;
-  app.use(webpackDevMiddleware(multiCompiler, { publicPath }));
-
   const clientCompiler = multiCompiler.compilers[0];
+  const publicPath = clientConfig.output.publicPath;
+  const promises = [];
+
+  app.use(webpackDevMiddleware(multiCompiler, { publicPath }));
   app.use(webpackHotMiddleware(clientCompiler));
+  app.use(
+    webpackHotServerMiddleware(multiCompiler, {
+      serverRendererOptions: {
+        server,
+        promises,
+      },
+    }),
+  );
 
-  const initServerPromise = new Promise((resolve, reject) => {
-    app.use(
-      webpackHotServerMiddleware(multiCompiler, {
-        serverRendererOptions: {
-          server,
-          resolve,
-          reject,
-        },
-      }),
-    );
-  });
+  debug('Compiling webpack...');
+  const intervalId = setInterval(() => {
+    debug('Compiling webpack...');
+  }, 3000);
 
-  const compilerPromise = new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     multiCompiler.plugin('done', (multiStats) => {
+      debug('Done compile');
+      clearInterval(intervalId);
       resolve();
     });
-  });
-
-  return Promise.all([initServerPromise, compilerPromise]).then(() => app);
+  }).then(() => Promise.all(promises)).then(() => app);
 }
 
 /* eslint-enable global-require, import/no-extraneous-dependencies */

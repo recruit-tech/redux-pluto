@@ -8,7 +8,7 @@ import serverTiming from 'server-timing';
 import config from './configs';
 import { apiGateway, offloadDetector, reduxApp } from './middlewares';
 
-export default function renderer({ clientStats, server, resolve, reject }) {
+export default function renderer({ clientStats, server, promises }) {
   const app = express.Router();
 
   app.use(bodyParser.json());
@@ -25,7 +25,7 @@ export default function renderer({ clientStats, server, resolve, reject }) {
 
   app.use(config.clientConfig.fetchr.xhrPath, apiGateway(config));
   app.use(offloadDetector(config.offload));
-  app.use(reduxApp({ ...config, clientStats, resolve, reject }));
+  app.use(reduxApp({ ...config, clientStats, promises }));
 
   return app;
 }
