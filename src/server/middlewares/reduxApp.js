@@ -23,7 +23,7 @@ const logger = __DEVELOPMENT__ ? (store) => (next) => (action) => {
   return next(action);
 } : null;
 
-export default function createReduxApp({ resolve, reject, ...config }) {
+export default function createReduxApp(config) {
   const maxAge = Math.floor(config.offload.cache.maxAge / 1000);
 
   /*
@@ -37,12 +37,11 @@ export default function createReduxApp({ resolve, reject, ...config }) {
   });
 
   debug('Loading initial data');
-  Promise.all([
+  config.promises.push(Promise.all([
     initialStore.dispatch(loadAllMastersAction()),
   ]).then(() => {
     debug('Loaded initial data');
-    resolve();
-  }).catch(reject);
+  }));
 
   return reduxApp;
 
