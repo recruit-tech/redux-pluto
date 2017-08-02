@@ -5,6 +5,7 @@ import session from 'express-session';
 import csurf from 'csurf';
 import favicon from 'serve-favicon';
 import serverTiming from 'server-timing';
+import { filter, flow, transform } from 'lodash/fp';
 import config from './configs';
 import { apiGateway, offloadDetector, reduxApp } from './middlewares';
 
@@ -19,6 +20,22 @@ export default function renderer({ clientStats, server, sessionStore, promises }
   app.use(serverTiming());
   app.use(favicon(config.favicon));
 
+  if (!__DEVELOPMENT__) {
+    const gzipFiles = flow(
+      filter((asset) => asset.name.endsWith('.gz')),
+      transform((result, asset) => {
+        result[`/${asset.name}`] = true;
+      }, {}),
+    )(clientStats.assets);
+    app.use(clientStats.publicPath, (req, res, next) => {
+      if (gzipFiles[req.url + '.gz']) {
+        res.type(/\.[^.]*$/.exec(req.url)[0]);
+        res.set('Content-Encoding', 'gzip');
+        req.url += '.gz';
+      }
+      return void next();
+    });
+  }
   config.assets.forEach((asset) => {
     app.use(asset.mount, express.static(asset.path));
   });
