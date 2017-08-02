@@ -88,7 +88,8 @@ module.exports = {
       __SERVER__: true,
       __DEVELOPMENT__: false,
       __DEVTOOLS__: false,
-      __DISABLE_SSR__: false,
+      __DISABLE_SSR__: !!process.env.DISABLE_SSR,
+      __DISABLE_INLINE_CSS__: !!process.env.DISABLE_INLINE_CSS,
     }),
 
     // optimizations
