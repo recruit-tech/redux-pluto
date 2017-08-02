@@ -94,6 +94,7 @@ module.exports = {
       __DEVELOPMENT__: false,
       __DEVTOOLS__: false,
       __DISABLE_SSR__: !!process.env.DISABLE_SSR,
+      __DISABLE_INLINE_CSS__: true,
     }),
 
     // optimizations
