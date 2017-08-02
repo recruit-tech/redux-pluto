@@ -12,9 +12,9 @@ export default compose(
   }),
 )(function Html(props) {
   const {
-    assets, content, initialState, clientConfig,
+    content, initialState, clientConfig,
     assets: {
-      publicPath, stylesheets, scripts, cssHashRaw,
+      publicPath, scripts, stylesheets, inlineStylesheets, cssHashRaw,
     },
   } = props;
 
@@ -23,13 +23,23 @@ export default compose(
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=320,initial-scale=1.0" />
-        {stylesheets.map((style) => (
+        {stylesheets && stylesheets.map((style) => (
           <link
             key={style}
-            href={`${assets.publicPath}/${style}`}
+            href={`${publicPath}/${style}`}
             media="screen, projection"
             rel="stylesheet"
             type="text/css"
+          />
+        ))}
+        {inlineStylesheets && inlineStylesheets.map((style) => (
+          <style
+            key={style.name}
+            type="text/css"
+            media="screen, projection"
+            dangerouslySetInnerHTML={{
+              __html: style.content,
+            }}
           />
         ))}
       </head>
@@ -44,11 +54,12 @@ export default compose(
             __html: `window.__CSS_CHUNKS__= ${JSON.stringify(cssHashRaw)}`,
           }}
         />
-        {scripts.map((script) => (
+        {scripts && scripts.map((script) => (
           <script
             key={script}
             src={`${publicPath}/${script}`}
             charSet="utf-8"
+            async={!script.startsWith('bootstrap')}
           ></script>
         ))}
       </body>

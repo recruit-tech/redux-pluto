@@ -42,6 +42,7 @@ export default {
     {
       mount: '/public',
       path: path.resolve(rootDir, 'build/client'),
+      buildOutput: true,
     },
   ].filter(Boolean),
 

@@ -5,8 +5,10 @@
   "private": true,
   "main": "src/server/server.js",
   "scripts": {
-    "build": "cross-env NODE_ENV=production run-s clean build:{client,server,size}",
+    "build": "cross-env NODE_ENV=production DISABLE_INLINE_CSS=1 run-s clean build:{client,server,size}",
     "build:client": "webpack --verbose --colors --display-error-details --config src/webpack/prod.client.config.js",
+    "build:csr": "cross-env DISABLE_SSR=1 npm run build",
+    "build:inline-css": "cross-env NODE_ENV=production run-s clean build:{client,server,size}",
     "build:server": "webpack --verbose --colors --display-error-details --config src/webpack/prod.server.config.js",
     "build:size": "webpack-bundle-size-analyzer build/client/stats.json",
     "check:secure": "nsp check",
