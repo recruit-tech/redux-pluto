@@ -1,5 +1,4 @@
 import Fetchr from 'fetchr';
-import { mapValues } from 'lodash/fp';
 import debugFactory from 'debug';
 import * as services from 'server/services';
 import { verify } from 'server/services/AccessToken';
@@ -7,11 +6,11 @@ import { verify } from 'server/services/AccessToken';
 const debug = debugFactory('app:server:middleware:apiGateway');
 
 export default function apiGateway(config) {
-  mapValues((Service) => {
+  Object.values(services).forEach((Service) => {
     const service = new Service(config);
     debug(`Registering sevice: ${service.name}`);
-    return Fetchr.registerService(makeServiceAdapter(service, config.auth.secret));
-  }, services);
+    Fetchr.registerService(makeServiceAdapter(service, config.auth.secret));
+  });
 
   return (req, res, next) => {
     res.startTime('apigateway', 'API Gateway');
