@@ -13,7 +13,7 @@ export default class AreaMaster extends BaseMaster {
 }
 
 function formatResult(results, smallArea) {
-  reduce((parent, areaName) => {
+  return reduce((parent, areaName) => {
     const source = areaName ? smallArea[areaName] : smallArea;
     const code = source.code;
     if (!parent[code]) {
