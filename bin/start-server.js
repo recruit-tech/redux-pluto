@@ -6,22 +6,21 @@ const debugFactory = require('debug');
 const debug = debugFactory('app:server:main');
 const development = process.env.NODE_ENV !== 'production';
 
+process.on('uncaughtException', (err) => {
+  debug('Uncaught exception');
+  debug(err);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (err) => {
+  debug('Unhandled Rejection');
+  debug(err);
+});
+
 debug('Creating http server...');
 const server = http.createServer();
 
 createApp().then((app) => {
-  app.use((req, res) => {
-    res.status(404).send('Not found');
-  });
-
-  if (development) {
-    app.use(errorhandler());
-  } else {
-    app.use((err, req, res, next) => {
-      res.status(500).send('Internal Server Error');
-    });
-  }
-
   server.on('request', app);
 
   const port = +(process.env.PORT || 3000);
@@ -35,11 +34,25 @@ createApp().then((app) => {
 
 function createApp() {
   const app = express();
-  return development ? createAppForDevelopment(app) : createAppForProduction(app);
+  return (development ? setupAppForDevelopment(app) : setupAppForProduction(app)).then(() => {
+    app.use((req, res) => {
+      res.status(404).send('Not found');
+    });
+
+    if (development) {
+      app.use(errorhandler());
+    } else {
+      app.use((err, req, res, next) => {
+        res.status(500).send('Internal Server Error');
+      });
+    }
+
+    return app;
+  });
 }
 
 /* eslint-disable global-require, import/no-extraneous-dependencies */
-function createAppForProduction(app) {
+function setupAppForProduction(app) {
   const clientStats = require('../build/client/stats.json');
   const serverRender = require('../build/server/main.js').default;
   const promises = [];
@@ -49,10 +62,10 @@ function createAppForProduction(app) {
     server,
     promises,
   }));
-  return Promise.all(promises).then(() => app);
+  return Promise.all(promises);
 }
 
-function createAppForDevelopment(app) {
+function setupAppForDevelopment(app) {
   const { MemoryStore } = require('express-session');
   const webpack = require('webpack');
   const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -89,7 +102,7 @@ function createAppForDevelopment(app) {
       clearInterval(intervalId);
       resolve();
     });
-  }).then(() => Promise.all(promises)).then(() => app);
+  }).then(() => Promise.all(promises));
 }
 
 /* eslint-enable global-require, import/no-extraneous-dependencies */
