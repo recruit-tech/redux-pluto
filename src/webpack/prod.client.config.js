@@ -55,6 +55,7 @@ module.exports = {
               options: {
                 modules: true,
                 localIdentName: '[local]--[hash:base64:8]',
+                minimize: true,
               },
             },
             'postcss-loader',
