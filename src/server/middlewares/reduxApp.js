@@ -27,7 +27,7 @@ const logger = __DEVELOPMENT__ ? (store) => (next) => (action) => {
 
 export default function createReduxApp(config) {
   const maxAge = Math.floor(config.offload.cache.maxAge / 1000);
-  const cssChunks = loadCssChunks(config);
+  const cssChunks = __DEVELOPMENT__ ? null : loadCssChunks(config);
 
   /*
    * 全リクエストで共有される初期データのためのStoreです。
@@ -193,9 +193,7 @@ function loadCssChunks({ clientStats, assets }) {
     if (cssChunk) {
       result[cssChunk] = {
         href: `${publicPath}${cssChunk}`,
-        content: __DISABLE_INLINE_CSS__
-          ? null
-          : fs.readFileSync(path.join(outputPath, cssChunk), 'utf-8'),
+        content: fs.readFileSync(path.join(outputPath, cssChunk), 'utf-8'),
       };
     }
 
