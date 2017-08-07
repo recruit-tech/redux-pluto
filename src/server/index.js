@@ -28,7 +28,7 @@ export default function renderer({ clientStats, server, sessionStore, promises }
       }
     }, {}, clientStats.assets);
     app.use(clientStats.publicPath, (req, res, next) => {
-      const fileType = gzipFiles[req.url + '.gz']
+      const fileType = gzipFiles[req.url + '.gz'];
       if (fileType) {
         res.type(fileType);
         res.set('Content-Encoding', 'gzip');
