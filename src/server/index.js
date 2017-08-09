@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import compression from 'compression';
 import session from 'express-session';
 import csurf from 'csurf';
 import favicon from 'serve-favicon';
@@ -43,6 +44,7 @@ export default function renderer({ clientStats, server, sessionStore, promises }
   });
 
   app.use(config.clientConfig.fetchr.xhrPath, apiGateway(config));
+  app.use(compression());
   app.use(offloadDetector(config.offload));
   app.use(reduxApp({ ...config, clientStats, promises }));
 
