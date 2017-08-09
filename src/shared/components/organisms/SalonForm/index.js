@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { replace, push } from 'react-router-redux';
 import { reduxForm } from 'redux-form';
 import { asyncLoader } from 'redux-async-loader';
-import { salonListSelector, routingSelector } from 'shared/redux/modules/reducer';
+import { salonListSelector, routingSelector, globalFormDisabledSelector } from 'shared/redux/modules/reducer';
 import {
   searchSalonList,
   searchMoreSalonList,
@@ -16,10 +16,12 @@ import SalonForm from './SalonForm';
 const selector = createSelector(
   salonListSelector,
   (state) => state.routing.locationBeforeTransitions.query.keyword,
-  (salonList, keyword) => ({
+  globalFormDisabledSelector,
+  (salonList, keyword, globalFormDisabled) => ({
     ...salonList,
     shouldForceScroll: salonList.canGetPrev,
     initialValues: { keyword },
+    globalFormDisabled,
   }),
 );
 

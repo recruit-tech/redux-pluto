@@ -68,3 +68,7 @@ export function styleSelector(state) {
 export function routingSelector(state) {
   return state.routing;
 }
+
+export function globalFormDisabledSelector(state) {
+  return state.reduxAsyncLoader.onServer;
+}
