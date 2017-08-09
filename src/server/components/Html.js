@@ -42,6 +42,14 @@ export default compose(
             }}
           />
         ))}
+        {scripts && scripts.map((script) => (
+          <script
+            key={script}
+            src={`${publicPath}/${script}`}
+            charSet="utf-8"
+            async
+          ></script>
+        ))}
       </head>
       <body>
         <div id="root" dangerouslySetInnerHTML={{ __html: content }} />
@@ -54,14 +62,6 @@ export default compose(
             __html: `window.__CSS_CHUNKS__= ${JSON.stringify(cssHashRaw)}`,
           }}
         />
-        {scripts && scripts.map((script) => (
-          <script
-            key={script}
-            src={`${publicPath}/${script}`}
-            charSet="utf-8"
-            async={!script.startsWith('bootstrap')}
-          ></script>
-        ))}
       </body>
     </html>
   );
