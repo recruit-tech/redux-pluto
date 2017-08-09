@@ -80,7 +80,9 @@ module.exports = {
   },
 
   plugins: [
-    new StatsPlugin('stats.json'),
+    new StatsPlugin('stats.json', {
+      chunkModules: true,
+    }),
     new ExtractCssChunks(),
 
     new webpack.DefinePlugin({
