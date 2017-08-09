@@ -25,6 +25,7 @@ export default compose(
     canGetPrev: PropTypes.bool.isRequired,
     shouldAdjustScroll: PropTypes.bool.isRequired,
     forceScrollTo: PropTypes.object,
+    globalFormDisabled: PropTypes.bool,
   }),
 )(function SalonForm(props) {
   const {
@@ -41,6 +42,8 @@ export default compose(
     shouldAdjustScroll,
     forceScrollTo,
     initialValues,
+    submitting,
+    globalFormDisabled,
   } = props;
 
   return (
@@ -55,7 +58,7 @@ export default compose(
               component="input"
               autoFocus
             />
-            <button type="submit">
+            <button type="submit" disabled={globalFormDisabled || submitting}>
               Search
             </button>
           </div>
