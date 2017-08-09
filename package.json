@@ -67,7 +67,7 @@
     "recompose": "^0.24.0",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
-    "redux-async-loader": "^1.2.2",
+    "redux-async-loader": "^1.2.3",
     "redux-effects-fetchr": "^1.1.0",
     "redux-effects-fetchr-cache": "^1.0.1",
     "redux-effects-steps": "^1.0.1",
