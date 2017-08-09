@@ -4959,9 +4959,9 @@ redux-actions@^2.0.2, redux-actions@^2.2.1:
     lodash-es "^4.17.4"
     reduce-reducers "^0.1.0"
 
-redux-async-loader@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/redux-async-loader/-/redux-async-loader-1.2.2.tgz#179a675ed6752dca8fb081c79443de42e975ac53"
+redux-async-loader@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/redux-async-loader/-/redux-async-loader-1.2.3.tgz#32faa6f44931be37c66f6f0bcf5ecf13b9560eba"
   dependencies:
     hoist-non-react-statics "^1.0.0"
     prop-types "^15.0.0"

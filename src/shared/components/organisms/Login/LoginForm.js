@@ -32,10 +32,12 @@ export default compose(
   onlyUpdateForPropTypes,
   setPropTypes({
     invalid: PropTypes.bool.isRequired,
+    globalFormDisabled: PropTypes.bool,
     ...formPropTypes,
   }),
 )(function LoginForm(props) {
   const {
+    globalFormDisabled,
     error,
     handleSubmit,
     reset,
@@ -55,10 +57,10 @@ export default compose(
         <Field name="password" component={RenderInput} />
       </div>
       <div>
-        <button type="submit" disabled={submitting || hasError}>
+        <button type="submit" disabled={globalFormDisabled || submitting || hasError}>
           Login
         </button>
-        <button type="button" disabled={submitting} onClick={reset}>
+        <button type="button" disabled={globalFormDisabled || submitting} onClick={reset}>
           Clear
         </button>
       </div>
