@@ -9,7 +9,7 @@ const development = process.env.NODE_ENV !== 'production';
 process.on('uncaughtException', (err) => {
   debug('Uncaught exception');
   debug(err);
-  process.exit(1);
+  throw err;
 });
 
 process.on('unhandledRejection', (err) => {
