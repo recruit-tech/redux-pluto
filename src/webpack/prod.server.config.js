@@ -89,6 +89,7 @@ module.exports = {
       __DEVELOPMENT__: false,
       __DEVTOOLS__: false,
       __DISABLE_SSR__: !!process.env.DISABLE_SSR,
+      __ENABLE_OFFLOAD__: !!process.env.ENABLE_OFFLOAD,
       __DISABLE_INLINE_CSS__: !!process.env.DISABLE_INLINE_CSS,
     }),
 

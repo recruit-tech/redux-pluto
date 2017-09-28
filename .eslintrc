@@ -30,6 +30,7 @@
     "__SERVER__": true,
     "__DEVELOPMENT__": true,
     "__DISABLE_SSR__": true,
+    "__ENABLE_OFFLOAD__": true,
     "__DISABLE_INLINE_CSS__": true
   },
 

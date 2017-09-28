@@ -76,7 +76,7 @@ export default function createReduxApp(config) {
      * 高負荷時にSSRをスキップするモードです。
      * オフロードモードをサポートしない場合は ./offloadDetector.js と一緒に削除してください。
      */
-    if (req.offloadMode) {
+    if (__ENABLE_OFFLOAD__) {
       debug('offload mode, disable server-side rendering');
       res.set('cache-control', `max-age=${maxAge}`);
       return void renderCSR({ res, store, config, clientConfig, timing });

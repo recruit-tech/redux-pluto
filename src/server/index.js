@@ -45,7 +45,9 @@ export default function renderer({ clientStats, server, sessionStore, promises }
 
   app.use(config.clientConfig.fetchr.xhrPath, apiGateway(config));
   app.use(compression());
-  app.use(offloadDetector(config.offload));
+  if (__ENABLE_OFFLOAD__) {
+    app.use(offloadDetector(config.offload));
+  }
   app.use(reduxApp({ ...config, clientStats, promises }));
 
   return app;
