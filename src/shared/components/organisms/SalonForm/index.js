@@ -5,7 +5,11 @@ import { connect } from 'react-redux';
 import { replace, push } from 'react-router-redux';
 import { reduxForm } from 'redux-form';
 import { asyncLoader } from 'redux-async-loader';
-import { salonListSelector, routingSelector, globalFormDisabledSelector } from 'shared/redux/modules/reducer';
+import {
+  salonListSelector,
+  routingSelector,
+  globalFormDisabledSelector,
+} from 'shared/redux/modules/reducer';
 import {
   searchSalonList,
   searchMoreSalonList,
