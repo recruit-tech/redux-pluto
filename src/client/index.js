@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 import 'babel-polyfill';
 import React from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
+import { hydrate, unmountComponentAtNode } from 'react-dom';
 import { Provider } from 'react-redux';
 import { browserHistory, match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
@@ -57,7 +57,7 @@ function renderApp() {
     // 通じて <Router> に渡る) ため、最初の表示後はhistoryの変化により通常通り
     // レンダリングされる。
     match({ routes, history }, (error, redirectLocation, renderProps) => {
-      render(<App store={store} {...renderProps} />, root);
+      hydrate(<App store={store} {...renderProps} />, root);
       resolve();
     });
   });
@@ -89,6 +89,6 @@ function renderDevTool() {
         <DevTools />
       </Provider>
     );
-    render(content, document.getElementById('devtools'));
+    hydrate(content, document.getElementById('devtools'));
   }
 }
