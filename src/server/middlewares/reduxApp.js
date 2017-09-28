@@ -2,7 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import { inspect } from 'util';
 import React from 'react';
-import { renderToString, renderToStaticMarkup } from 'react-dom/server';
+import {
+  renderToNodeStream,
+  renderToStaticNodeStream,
+  renderToStaticMarkup,
+} from 'react-dom/server';
 import { createMemoryHistory, match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { loadOnServer } from 'redux-async-loader';
@@ -145,28 +149,23 @@ function matchRoutes(options) {
 
 function renderCSR({ res, store, config, clientConfig, timing }) {
   const assets = flushChunks(config.clientStats);
-  sendResponse({ res, store, status: 200, clientConfig, assets, timing });
+  sendCSRResponse({ res, store, status: 200, clientConfig, assets, timing });
 }
 
 function renderSSR({ res, store, renderProps, config, clientConfig, cssChunks, timing }) {
   /*
    * メインコンテンツをレンダリングします。
    */
-  timing.startTime('ssr', 'Server Side Rendering');
-  const content = renderToString(<App store={store} {...renderProps} />);
-  timing.endTime('ssr');
+  const stream = renderToNodeStream(<App store={store} {...renderProps} />);
 
   const assets = getAssets({ clientStats: config.clientStats, cssChunks });
 
   const { routes } = renderProps;
   const status = routes[routes.length - 1].status || 200;
-  sendResponse({ res, status, store, content, clientConfig, assets, timing });
+  sendSSRResponse({ res, status, store, stream, clientConfig, assets, timing });
 }
 
-function sendResponse({ res, status, store, clientConfig, content, assets, timing }) {
-  /*
-   * HTML全体をレンダリングします。
-   */
+function sendCSRResponse({ res, status, store, clientConfig, content, assets, timing }) {
   timing.startTime('html', 'Rendering HTML');
   const props = {
     content,
@@ -176,8 +175,40 @@ function sendResponse({ res, status, store, clientConfig, content, assets, timin
   };
   const html = renderToStaticMarkup(<Html {...props} />);
   timing.endTime('html');
-
   res.status(status).send(`<!doctype html>\n${html}`);
+}
+
+function sendSSRResponse({ res, status, store, clientConfig, assets, stream, timing }) {
+  /*
+   * HTML全体をレンダリングします。
+   */
+  timing.startTime('html', 'Rendering HTML');
+  timing.startTime('ssr', 'Server Side Rendering');
+
+  let content = '';
+  stream.on('data', (chunk) => {
+    content += chunk;
+  });
+  stream.on('end', () => {
+    timing.endTime('ssr');
+    const props = {
+      content,
+      assets,
+      initialState: JSON.stringify(store.getState()),
+      clientConfig: JSON.stringify(clientConfig),
+    };
+
+    const htmlStream = renderToStaticNodeStream(<Html {...props} />);
+
+    let html = '';
+    htmlStream.on('data', (chunk) => {
+      html += chunk;
+    });
+    htmlStream.on('end', () => {
+      timing.endTime('html');
+      res.status(status).send(`<!doctype html>\n${html}`);
+    });
+  });
 }
 
 /*
