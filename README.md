@@ -8,18 +8,10 @@ $ yarn
 
 ## 実行
 
-### 開発モード (SSRなし)
-
-```
-$ yarn start
-```
-
-[見る](http://localhost:3000)
-
 ### 開発モード (SSRあり)
 
 ```
-$ yarn run start:dev
+$ yarn start
 ```
 
 [見る](http://localhost:3000)
@@ -33,6 +25,10 @@ $ yarn run start:prod
 ```
 
 [見る](http://localhost:3000)
+
+### 開発チュートリアル
+
+[https://atlassian.rtc.sc/confluence/pages/viewpage.action?pageId=53231269](https://atlassian.rtc.sc/confluence/pages/viewpage.action?pageId=53231269)
 
 ## WebStormユーザ
 
