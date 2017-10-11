@@ -57,8 +57,15 @@ function renderApp() {
     // 通じて <Router> に渡る) ため、最初の表示後はhistoryの変化により通常通り
     // レンダリングされる。
     match({ routes, history }, (error, redirectLocation, renderProps) => {
+      // redirect が必要で、 SSR モードがオフの時に renderProps が空になるため
+      // hydrate に失敗する事がある。
+      // SSR が有効の場合は redirect は server の response で行われるのでこの処理は不要。
+      if (__DISABLE_SSR__ && redirectLocation && !renderProps) {
+        location.replace(`${redirectLocation.pathname}${redirectLocation.search}`);
+        return resolve();
+      }
       hydrate(<App store={store} {...renderProps} />, root);
-      resolve();
+      return resolve();
     });
   });
 }

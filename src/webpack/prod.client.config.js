@@ -91,6 +91,7 @@ module.exports = {
       __SERVER__: false,
       __DEVELOPMENT__: false,
       __DEVTOOLS__: false,
+      __DISABLE_SSR__: !!process.env.DISABLE_SSR,
     }),
 
     // optimizations
