@@ -199,15 +199,10 @@ function sendSSRResponse({ res, status, store, clientConfig, assets, stream, tim
     };
 
     const htmlStream = renderToStaticNodeStream(<Html {...props} />);
-
-    let html = '';
-    htmlStream.on('data', (chunk) => {
-      html += chunk;
-    });
     htmlStream.on('end', () => {
       timing.endTime('html');
-      res.status(status).send(`<!doctype html>\n${html}`);
     });
+    htmlStream.pipe(res);
   });
 }
 
