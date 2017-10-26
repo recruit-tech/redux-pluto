@@ -10,6 +10,7 @@ const links = [
   { key: 'home', to: '/', label: 'Home', index: true },
   { key: 'foo', to: '/foo', label: 'Foo' },
   { key: 'bar', to: '/bar', label: 'Bar' },
+  { key: 'agreedsample', to: '/agreedsample', label: 'AgeedSample' },
   { key: 'style', to: '/style', label: 'Style' },
   { key: 'salon', to: '/salon', label: 'Salon' },
   { key: 'largeform', to: '/largeform', label: 'LargeForm' },
