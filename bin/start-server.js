@@ -51,7 +51,7 @@ function createApp() {
   });
 }
 
-/* eslint-disable global-require, import/no-extraneous-dependencies */
+/* eslint-disable global-require, import/no-extraneous-dependencies, import/no-unresolved */
 function setupAppForProduction(app) {
   const clientStats = require('../build/client/stats.json');
   const serverRender = require('../build/server/main.js').default;
