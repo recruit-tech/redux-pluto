@@ -16,6 +16,7 @@ import {
 
 // chunked components
 import {
+  loadAgreedSample,
   loadBar,
   loadFoo,
   loadLargeForm,
@@ -40,6 +41,8 @@ export default function getRoutes(store) {
           <IndexRoute component={Home} />
           <Route path="foo" getComponent={loadFoo} />
           <Route path="bar" getComponent={loadBar} />
+
+          <Route path="agreedsample" getComponent={loadAgreedSample} />
 
           <Route path="style" onEnter={bindOnEnter(requiredLogin)}>
             <IndexRoute getComponent={loadStyle} />

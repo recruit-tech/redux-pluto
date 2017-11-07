@@ -4,3 +4,5 @@
 
 global.__DEVELOPMENT__ = true;
 global.__TEST__ = true;
+
+require('agreed-core/register')();
