@@ -3,6 +3,7 @@ import { routerReducer } from 'react-router-redux';
 import { reduxAsyncLoader } from 'redux-async-loader';
 import { reducer as formReducer } from 'redux-form';
 import { pageScopeReducer } from 'redux-page-scope';
+import agreedSample from './agreedSample';
 import alert from './alert';
 import auth from './auth';
 import counter from './counter';
@@ -21,6 +22,7 @@ export default combineReducers({
     loading,
   }),
   page: pageScopeReducer(combineReducers({
+    agreedSample,
     salon,
     salonList,
     style,

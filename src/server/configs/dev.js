@@ -128,4 +128,13 @@ export default {
       excludes: [],
     },
   },
+
+  agreed: {
+    config: {
+      axios: {
+        baseURL: 'http://localhost:3010/',
+        timeout: 10000,
+      },
+    },
+  },
 };
