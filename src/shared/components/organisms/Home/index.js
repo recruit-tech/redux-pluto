@@ -1,7 +1,13 @@
 import React from 'react';
 import { compose, shouldUpdate } from 'recompose';
+import { sendAnalytics } from 'react-redux-analytics';
+import { siteSections, onAsyncLoaderLoaded } from '../../../redux/analytics/utils';
 
 export default compose(
+  sendAnalytics({
+    ...siteSections('home', 'top'),
+    onReady: onAsyncLoaderLoaded,
+  }),
   shouldUpdate(() => false),
 )(function Home(props) {
   return (
