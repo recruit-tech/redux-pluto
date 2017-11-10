@@ -5,7 +5,7 @@
   "private": true,
   "main": "src/server/server.js",
   "scripts": {
-    "build": "cross-env NODE_ENV=production run-s clean build:{client,server,size}",
+    "build": "cross-env NODE_ENV=production RS_ENV=prd run-s clean build:{client,server,size}",
     "build:client": "webpack --verbose --colors --display-error-details --config src/webpack/prod.client.config.js",
     "build:csr": "cross-env DISABLE_SSR=1 npm run build",
     "build:offload": "cross-env ENABLE_OFFLOAD=1 npm run build",
@@ -65,6 +65,8 @@
     "react-dom": "^16.0.0",
     "react-hot-loader": "^3.0.0-beta.7",
     "react-redux": "^5.0.4",
+    "react-redux-analytics": "^0.1.6",
+    "react-redux-analytics-sitecatalyst": "0.0.5",
     "react-router": "v3.2.0",
     "react-router-redux": "^4.0.8",
     "react-router-scroll": "^0.4.2",

@@ -3,6 +3,7 @@ import { routerReducer } from 'react-router-redux';
 import { reduxAsyncLoader } from 'redux-async-loader';
 import { reducer as formReducer } from 'redux-form';
 import { pageScopeReducer } from 'redux-page-scope';
+import { analyticsReducer } from 'react-redux-analytics';
 import agreedSample from './agreedSample';
 import alert from './alert';
 import auth from './auth';
@@ -30,6 +31,7 @@ export default combineReducers({
   form: formReducer,
   reduxAsyncLoader,
   routing: routerReducer,
+  analytics: analyticsReducer,
 });
 
 /**

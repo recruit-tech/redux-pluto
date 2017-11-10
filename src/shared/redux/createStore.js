@@ -6,6 +6,8 @@ import steps from 'redux-effects-steps';
 import cookie from 'redux-effects-universal-cookie';
 import fetchr from 'redux-effects-fetchr';
 import fetchrCache from 'redux-effects-fetchr-cache';
+import { analyticsMiddleware } from 'react-redux-analytics';
+import { siteCatalystMiddleware } from 'react-redux-analytics-sitecatalyst';
 import { filter } from 'lodash/fp';
 import apiError from './middleware/apiErrorMiddleware';
 import auth from './middleware/authMiddleware';
@@ -23,6 +25,10 @@ export default function (initialState, options = {}) {
     pageScopeMiddleware(),
     loading({ start: BEGIN_ASYNC_LOAD, stop: END_ASYNC_LOAD, delay: 500 }),
     routerMiddleware(options.history),
+    options.analytics ? analyticsMiddleware({ ...options.analytics }) : null,
+    options.siteCatalyst ? siteCatalystMiddleware({
+      ...options.siteCatalyst,
+      debug: __DEVELOPMENT__ }) : null,
     options.logger,
   ]);
 
