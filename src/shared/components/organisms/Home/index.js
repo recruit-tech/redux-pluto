@@ -1,7 +1,7 @@
 import React from 'react';
 import { compose, shouldUpdate } from 'recompose';
 import { sendAnalytics } from 'react-redux-analytics';
-import { siteSections, onAsyncLoaderLoaded } from '../../../redux/analytics/utils';
+import { siteSections, onAsyncLoaderLoaded } from 'shared/redux/analytics/utils';
 
 export default compose(
   sendAnalytics({
