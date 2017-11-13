@@ -13,6 +13,8 @@ import {
   VOS_LISTING,
   EVAR_PAGE_NAME,
   EVAR_NEW_OR_REPEAT,
+  IS_LOGIN_USER,
+  USERNAME,
 } from './variableNames';
 
 export default [
@@ -30,4 +32,6 @@ export default [
   VOS_LISTING,
   EVAR_PAGE_NAME,
   EVAR_NEW_OR_REPEAT,
+  IS_LOGIN_USER,
+  USERNAME,
 ];
