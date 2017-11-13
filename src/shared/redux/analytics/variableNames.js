@@ -50,6 +50,7 @@ export const STYLE_GENDER = 'prop40';
 export const STYLE_HAIR_LENGTH = 'prop41';
 export const SALON_ID = 'prop44';
 export const SALON_KEYWORD = 'prop45';
+export const FOO_EVENT_VARIABLE = 'prop60';
 
 export const IS_LOGIN_USER = 'eVar50';
 export const USERNAME = 'eVar51';
