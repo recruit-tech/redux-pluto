@@ -27,7 +27,7 @@
     "start:dev": "cross-env NODE_ENV=development run-p start:dev:{server,agreed}",
     "start:dev:agreed": "agreed-server --path ./spec/agreed/agreed.js --port 3010",
     "start:dev:server": "cross-env DEBUG=express:*,app:* node bin/start-server.js",
-    "start:prod": "cross-env NODE_ENV=production npm run start:prod:server",
+    "start:prod": "cross-env NODE_ENV=production run-p start:{prod:server,dev:agreed}",
     "start:prod:server": "node bin/start-server.js",
     "test": "run-p test:agreed test:wait-on -r --print-label",
     "test:agreed": "agreed-server --path ./spec/agreed/agreed.js --port 3020",
