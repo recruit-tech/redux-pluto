@@ -98,6 +98,7 @@ module.exports = {
       __DEVELOPMENT__: true,
       __DEVTOOLS__: true,
       __DISABLE_SSR__: !!process.env.DISABLE_SSR,
+      __REPORTSUITE_ENV__: JSON.stringify('dev'),
     }),
 
     new webpack.NoEmitOnErrorsPlugin(),

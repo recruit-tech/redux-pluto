@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { replace, push } from 'react-router-redux';
 import { reduxForm } from 'redux-form';
 import { asyncLoader } from 'redux-async-loader';
+import { sendAnalytics } from 'react-redux-analytics';
 import {
   salonListSelector,
   routingSelector,
@@ -15,6 +16,8 @@ import {
   searchMoreSalonList,
   clearSearchSalonList,
 } from 'shared/redux/modules/salonList';
+import { siteSections, onAsyncLoaderLoaded } from 'shared/redux/analytics/utils';
+import { SALON_KEYWORD } from 'shared/redux/analytics/variableNames';
 import SalonForm from './SalonForm';
 
 const selector = createSelector(
@@ -79,6 +82,13 @@ export default compose(
       },
     }),
   ),
+  sendAnalytics({
+    ...siteSections('salon', 'form'),
+    onReady: onAsyncLoaderLoaded,
+    mapPropsToVariables: ({ location = {}, count }, state) => ({
+      [SALON_KEYWORD]: location.query && location.query.keyword,
+    }),
+  }),
   reduxForm({
     form: 'salon',
 
