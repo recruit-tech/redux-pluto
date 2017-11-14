@@ -9,10 +9,8 @@ import { createLocationSubscriber } from 'react-redux-analytics';
 import Fetchr from 'fetchr';
 import createStore from 'shared/redux/createStore';
 import App from 'client/components/App';
-import { eventMixins, pageViewMixins,
-  mapStateToVariables, getLocationInStore,
-  composeEventName, suppressPageView } from '../shared/redux/analytics';
-import { sGenerateInstance, config, plugins, doPlugins, optionCreator } from './analytics';
+import analyticsOptions from 'shared/redux/analytics/options';
+import siteCatalystOptions from 'client/analytics';
 
 const store = configStore();
 const history = syncHistoryWithStore(browserHistory, store, { adjustUrlOnReplay: __DEVELOPMENT__ });
@@ -53,16 +51,8 @@ function configStore() {
     fetchrCache: clientConfig.fetchrCache,
     history: browserHistory,
     devTools: __DEVELOPMENT__,
-    analytics: {
-      mapStateToVariables,
-      eventMixins,
-      pageViewMixins,
-      getLocationInStore,
-      composeEventName,
-      suppressPageView,
-      reducerName: 'analytics',
-    },
-    siteCatalyst: { s_gi: sGenerateInstance, config, plugins, doPlugins, optionCreator },
+    analytics: analyticsOptions,
+    siteCatalyst: siteCatalystOptions,
   });
 }
 
