@@ -1,8 +1,10 @@
 import { connect } from 'react-redux';
 import { compose, shouldUpdate } from 'recompose';
 import { asyncLoader } from 'redux-async-loader';
+import { sendAnalytics } from 'react-redux-analytics';
 import { styleSelector } from 'shared/redux/modules/reducer';
 import { searchStyle } from 'shared/redux/modules/style';
+import { siteSections, onAsyncLoaderLoaded } from 'shared/redux/analytics/utils';
 import StyleList from './StyleList';
 
 export default compose(
@@ -14,5 +16,9 @@ export default compose(
   connect((state) => ({
     style: styleSelector(state),
   })),
+  sendAnalytics({
+    ...siteSections('style', 'list'),
+    onReady: onAsyncLoaderLoaded,
+  }),
   shouldUpdate((props, nextProps) => nextProps.style.loaded),
 )(StyleList);

@@ -5,9 +5,12 @@ import { hydrate, unmountComponentAtNode } from 'react-dom';
 import { Provider } from 'react-redux';
 import { browserHistory, match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import { createLocationSubscriber } from 'react-redux-analytics';
 import Fetchr from 'fetchr';
 import createStore from 'shared/redux/createStore';
 import App from 'client/components/App';
+import analyticsOptions from 'shared/redux/analytics/options';
+import siteCatalystOptions from 'client/analytics';
 
 const store = configStore();
 const history = syncHistoryWithStore(browserHistory, store, { adjustUrlOnReplay: __DEVELOPMENT__ });
@@ -19,6 +22,13 @@ const root = document.getElementById('root');
 // しかし、初回表示時点ではcurrentLocationが未設定のためにprevPathが得られず、PUSHされてしまう。
 // これを回避するため、ここで現在のロケーションにREPLACEすることでcurrentLocationを設定する。
 history.replace(history.getCurrentLocation());
+
+const locationSubscriber = createLocationSubscriber(store);
+history.listen((location) => {
+  // At the moment, we do not use page stack functionality of react-redux-analytics.
+  // console.log(location);
+  locationSubscriber.notify(location, 'replace');
+});
 
 renderApp().then(() => {
   if (__DEVELOPMENT__) {
@@ -41,6 +51,8 @@ function configStore() {
     fetchrCache: clientConfig.fetchrCache,
     history: browserHistory,
     devTools: __DEVELOPMENT__,
+    analytics: analyticsOptions,
+    siteCatalyst: siteCatalystOptions,
   });
 }
 

@@ -92,6 +92,7 @@ module.exports = {
       __DEVELOPMENT__: false,
       __DEVTOOLS__: false,
       __DISABLE_SSR__: !!process.env.DISABLE_SSR,
+      __REPORTSUITE_ENV__: JSON.stringify(process.env.RS_ENV),
     }),
 
     // optimizations
