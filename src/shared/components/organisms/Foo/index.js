@@ -3,11 +3,7 @@ import { connect } from 'react-redux';
 import { compose, shouldUpdate } from 'recompose';
 import { sendAnalytics, sendEvent } from 'react-redux-analytics';
 import { siteSections, onAsyncLoaderLoaded } from 'shared/redux/analytics/utils';
-import {
-  ACCESS_COUNTER,
-  FOO_EVENT_VARIABLE,
-  EVENTS,
-} from 'shared/redux/analytics/variableNames';
+import { FOO_EVENT_VARIABLE, EVENTS } from 'shared/redux/analytics/variableNames';
 import bindActionToPropFunctions from 'shared/components/utils/bindActionToPropFunctions';
 
 export default compose(
@@ -31,9 +27,6 @@ export default compose(
   sendAnalytics({
     ...siteSections('foo', 'top'),
     onReady: onAsyncLoaderLoaded,
-    mapPropsToVariables: (props, state) => ({
-      [ACCESS_COUNTER]: state.app.counter && state.app.counter.value,
-    }),
   }),
   shouldUpdate(() => false),
 )(function Foo(props) {

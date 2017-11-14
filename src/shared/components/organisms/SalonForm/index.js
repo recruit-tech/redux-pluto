@@ -17,11 +17,7 @@ import {
   clearSearchSalonList,
 } from 'shared/redux/modules/salonList';
 import { siteSections, onAsyncLoaderLoaded } from 'shared/redux/analytics/utils';
-import {
-  SALON_KEYWORD,
-  LIST_PAGER_INDEX,
-  LIST_ITEM_COUNT,
-} from 'shared/redux/analytics/variableNames';
+import { SALON_KEYWORD } from 'shared/redux/analytics/variableNames';
 import SalonForm from './SalonForm';
 
 const selector = createSelector(
@@ -91,8 +87,6 @@ export default compose(
     onReady: onAsyncLoaderLoaded,
     mapPropsToVariables: ({ location = {}, count }, state) => ({
       [SALON_KEYWORD]: location.query && location.query.keyword,
-      [LIST_ITEM_COUNT]: count,
-      [LIST_PAGER_INDEX]: location.query && location.query.page,
     }),
   }),
   reduxForm({
