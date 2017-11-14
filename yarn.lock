@@ -5137,6 +5137,24 @@ react-pure-render@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-pure-render/-/react-pure-render-1.0.2.tgz#9d8a928c7f2c37513c2d064e57b3e3c356e9fabb"
 
+react-redux-analytics-sitecatalyst@0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/react-redux-analytics-sitecatalyst/-/react-redux-analytics-sitecatalyst-0.0.5.tgz#a2598d8ff91ca8be18b9379717c5f6a1a7bfae5d"
+  dependencies:
+    debug "^2.2.0"
+    lodash "^4.13.1"
+    react-redux-analytics "^0.1.3"
+
+react-redux-analytics@^0.1.3, react-redux-analytics@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/react-redux-analytics/-/react-redux-analytics-0.1.6.tgz#17d28538280f465c0c9d9431d8e7339de21996dc"
+  dependencies:
+    debug "^2.6.8"
+    hoist-non-react-statics "^1.2.0"
+    lodash "^4.17.4"
+    prop-types "^15.5.10"
+    redux-actions "^2.2.1"
+
 react-redux@^5.0.4:
   version "5.0.5"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.0.5.tgz#f8e8c7b239422576e52d6b7db06439469be9846a"
