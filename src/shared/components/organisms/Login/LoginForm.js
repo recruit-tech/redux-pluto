@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { propTypes as formPropTypes, Field } from 'redux-form';
 import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
 import { createLocal } from 'shared/components/utils/localnames';
+import skipSSR from '../../utils/skipSSR';
 import styles from './styles.scss';
 
 const { localNames: local } = createLocal(styles);
@@ -20,7 +21,7 @@ const RenderInput = ({ input, meta: { dirty, error } }) => (
       {...input}
       type={input.name === 'username' ? 'text' : 'password'}
       className={local('input')}
-      tabIndex={input.name === 'username' ? 1 : 2}
+      tabIndex={0}
     />
     <span className={local('message')}>
       {dirty && error}
@@ -31,10 +32,10 @@ const RenderInput = ({ input, meta: { dirty, error } }) => (
 export default compose(
   onlyUpdateForPropTypes,
   setPropTypes({
-    invalid: PropTypes.bool.isRequired,
     globalFormDisabled: PropTypes.bool,
     ...formPropTypes,
   }),
+  skipSSR(<div className={local('alternative')}></div>),
 )(function LoginForm(props) {
   const {
     globalFormDisabled,
@@ -42,11 +43,9 @@ export default compose(
     handleSubmit,
     reset,
     submitting,
-    pristine,
     submitFailed,
     anyTouched,
   } = props;
-  const hasError = props.invalid && !pristine;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -57,7 +56,7 @@ export default compose(
         <Field name="password" component={RenderInput} />
       </div>
       <div>
-        <button type="submit" disabled={globalFormDisabled || submitting || hasError}>
+        <button type="submit" disabled={globalFormDisabled || submitting}>
           Login
         </button>
         <button type="button" disabled={globalFormDisabled || submitting} onClick={reset}>
