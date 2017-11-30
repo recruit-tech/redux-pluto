@@ -1,7 +1,9 @@
+import os from 'os';
 import path from 'path';
 import ms from 'ms';
 
 const rootDir = path.resolve(__dirname, '../../..');
+const tmpDir = os.tmpdir();
 
 export default {
   // https://github.com/expressjs/body-parser
@@ -43,6 +45,10 @@ export default {
       mount: '/public',
       path: path.resolve(rootDir, 'build/client'),
       buildOutput: true,
+    },
+    {
+      mount: '/public',
+      path: path.resolve(tmpDir),
     },
   ].filter(Boolean),
 
@@ -136,5 +142,13 @@ export default {
         timeout: 10000,
       },
     },
+  },
+
+  multer: {
+    dest: tmpDir,
+  },
+
+  upload: {
+    path: '/upload',
   },
 };

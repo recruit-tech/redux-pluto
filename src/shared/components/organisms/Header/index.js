@@ -11,6 +11,7 @@ const links = [
   { key: 'foo', to: '/foo', label: 'Foo' },
   { key: 'bar', to: '/bar', label: 'Bar' },
   { key: 'agreedsample', to: '/agreedsample', label: 'AgeedSample' },
+  { key: 'uploadsample', to: '/uploadsample', label: 'UploadSample' },
   { key: 'style', to: '/style', label: 'Style' },
   { key: 'salon', to: '/salon', label: 'Salon' },
   { key: 'largeform', to: '/largeform', label: 'LargeForm' },
