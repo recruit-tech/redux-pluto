@@ -123,15 +123,17 @@ export default function createReduxApp(config) {
 
 function getClientConfig(config, req) {
   const { fetchr, ...clientConfig } = config.clientConfig;
+  const csrfToken = req.csrfToken();
   return {
     ...clientConfig,
     fetchr: {
       ...fetchr,
       context: {
         ...fetchr.context,
-        _csrf: req.csrfToken(),
+        _csrf: csrfToken,
       },
     },
+    csrfToken,
   };
 }
 

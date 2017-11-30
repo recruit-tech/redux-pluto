@@ -41,3 +41,11 @@ export function loadLogin(_, cb) {
     chunkName,
   ).then((result) => cb(null, result), cb);
 }
+
+export function loadUploadSample(_, cb) {
+  createUniversalComponent(
+    () => import(/* webpackChunkName: "misc" */ '../components/organisms/UploadSample'),
+    () => require.resolveWeak('../components/organisms/UploadSample'),
+    chunkName,
+  ).then((result) => cb(null, result), cb);
+}
