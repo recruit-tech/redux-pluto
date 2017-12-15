@@ -26,7 +26,7 @@ export default compose(
   }),
   sendAnalytics({
     ...siteSections('foo', 'top'),
-    onReady: onAsyncLoaderLoaded,
+    onDataReady: onAsyncLoaderLoaded,
   }),
   shouldUpdate(() => false),
 )(function Foo(props) {

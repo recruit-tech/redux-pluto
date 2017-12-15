@@ -17,7 +17,7 @@ export default compose(
   connect(salonSelector),
   sendAnalytics({
     ...siteSections('salon', 'detail'),
-    onReady: onAsyncLoaderLoaded,
+    onDataReady: onAsyncLoaderLoaded,
     mapPropsToVariables: (props, state) => ({
       [SALON_ID]: props.params && props.params.salonId,
     }),

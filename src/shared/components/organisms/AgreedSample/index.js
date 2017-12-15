@@ -13,6 +13,6 @@ export default compose(
   })),
   sendAnalytics({
     ...siteSections('agreedsample', 'top'),
-    onReady: onAsyncLoaderLoaded,
+    onDataReady: onAsyncLoaderLoaded,
   }),
 )(AgreedSample);

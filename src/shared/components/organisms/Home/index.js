@@ -6,7 +6,7 @@ import { siteSections, onAsyncLoaderLoaded } from 'shared/redux/analytics/utils'
 export default compose(
   sendAnalytics({
     ...siteSections('home', 'top'),
-    onReady: onAsyncLoaderLoaded,
+    onDataReady: onAsyncLoaderLoaded,
   }),
   shouldUpdate(() => false),
 )(function Home(props) {
