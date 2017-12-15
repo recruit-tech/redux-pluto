@@ -18,7 +18,7 @@ export default compose(
   })),
   sendAnalytics({
     ...siteSections('style', 'list'),
-    onReady: onAsyncLoaderLoaded,
+    onDataReady: onAsyncLoaderLoaded,
   }),
   shouldUpdate((props, nextProps) => nextProps.style.loaded),
 )(StyleList);

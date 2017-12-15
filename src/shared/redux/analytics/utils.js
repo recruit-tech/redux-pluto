@@ -12,4 +12,4 @@ export const siteSections = (...sections) => ({
   [SECTION_LEVEL3]: sections.length > 2 && sections[2],
 });
 
-export const onAsyncLoaderLoaded = (props, state) => state.asyncLoader.loaded;
+export const onAsyncLoaderLoaded = (props, state) => state.reduxAsyncLoader.loaded;

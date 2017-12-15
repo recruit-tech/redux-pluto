@@ -18,7 +18,7 @@ export default compose(
   ),
   sendAnalytics({
     ...siteSections('login', 'top'),
-    onReady: onAsyncLoaderLoaded,
+    onDataReady: onAsyncLoaderLoaded,
   }),
   reduxForm({
     form: 'loginForm',
