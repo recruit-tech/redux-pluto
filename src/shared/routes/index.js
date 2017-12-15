@@ -21,6 +21,7 @@ import {
   loadFoo,
   loadLargeForm,
   loadLogin,
+  loadUploadSample,
 } from './misc';
 
 import {
@@ -61,6 +62,8 @@ export default function getRoutes(store) {
           </Route>
 
           <Route path="largeform" getComponent={loadLargeForm} />
+
+          <Route path="uploadsample" getComponent={loadUploadSample} />
 
           <Route path="login" getComponent={loadLogin} />
           <Route path="logout" onEnter={bindOnEnter(doLogout)} />

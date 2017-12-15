@@ -48,6 +48,24 @@ export function readAll(axios, name, pathname, params, itemsName, loaded = []) {
   );
 }
 
+export function create(axios, name, pathname, body, query, headers) {
+  const formattedUrl = formatUrl({ pathname, query });
+  debug(`[${name}]: POST ${formattedUrl} with body: ${JSON.stringify(body)}`);
+
+  return axios.post(formattedUrl, body, { headers }).then(
+    (response) => (response.data),
+    (error) => {
+      if (error.response) {
+        return rejectWith(
+          fumble.http.create(error.response.status),
+          { name, formattedUrl, reason: error.response.data }
+        );
+      }
+      return rejectWith(fumble.http.create(500), { name, formattedUrl, reason: error.message });
+    }
+  );
+}
+
 export function rejectWith(error, output = {}) {
   error.output = output;
   debug(error);

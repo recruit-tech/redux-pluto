@@ -13,6 +13,7 @@ import masters from './masters';
 import salon from './salon';
 import salonList from './salonList';
 import style from './style';
+import uploadSample from './uploadSample';
 
 export default combineReducers({
   app: combineReducers({
@@ -27,6 +28,7 @@ export default combineReducers({
     salon,
     salonList,
     style,
+    uploadSample,
   })),
   form: formReducer,
   reduxAsyncLoader,

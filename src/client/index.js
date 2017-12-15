@@ -47,6 +47,7 @@ function configStore() {
 
   return createStore(initialState, {
     cookie: [],
+    csrfToken: clientConfig.csrfToken,
     fetchr: new Fetchr(clientConfig.fetchr),
     fetchrCache: clientConfig.fetchrCache,
     history: browserHistory,
