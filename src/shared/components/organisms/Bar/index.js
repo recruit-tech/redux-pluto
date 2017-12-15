@@ -9,7 +9,7 @@ const array = range(0, 500);
 export default compose(
   sendAnalytics({
     ...siteSections('bar', 'top'),
-    onReady: onAsyncLoaderLoaded,
+    onDataReady: onAsyncLoaderLoaded,
   }),
   shouldUpdate(() => false),
 )(function Bar(props) {
