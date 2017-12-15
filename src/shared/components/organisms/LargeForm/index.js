@@ -18,7 +18,7 @@ export default compose(
   ),
   sendAnalytics({
     ...siteSections('largeForm', 'top'),
-    onReady: onAsyncLoaderLoaded,
+    onDataReady: onAsyncLoaderLoaded,
   }),
   reduxForm({
     form: 'largeForm',

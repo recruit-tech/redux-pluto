@@ -13,6 +13,6 @@ export default compose(
   ),
   sendAnalytics({
     ...siteSections('style', 'top'),
-    onReady: onAsyncLoaderLoaded,
+    onDataReady: onAsyncLoaderLoaded,
   }),
 )(Style);

@@ -84,7 +84,7 @@ export default compose(
   ),
   sendAnalytics({
     ...siteSections('salon', 'form'),
-    onReady: onAsyncLoaderLoaded,
+    onDataReady: onAsyncLoaderLoaded,
     mapPropsToVariables: ({ location = {}, count }, state) => ({
       [SALON_KEYWORD]: location.query && location.query.keyword,
     }),
