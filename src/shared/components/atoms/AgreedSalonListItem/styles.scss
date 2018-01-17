@@ -1,0 +1,17 @@
+.root {
+  height: 200px;
+  width: 100%;
+  border: thin solid black;
+}
+
+.shopName {
+  float: left;
+}
+
+.description {
+  clear: left;
+  font-size: 5px;
+  border: thin solid grey;
+  height: 100px;
+  text-align: left;
+}

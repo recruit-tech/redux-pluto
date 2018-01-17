@@ -1,0 +1,26 @@
+{
+  request: {
+    path: '/beauty/salon/:id',
+    method: 'GET',
+  },
+  response: {
+    body: {
+      results: {
+        salon: [
+          {
+            name: '{:name}',
+            urls: {
+              pc: '{:pc}',
+              mobile: '{:mobile}',
+            },
+          },
+        ],
+      },
+    },
+    values: {
+      name: 'サロン',
+      pc: 'http://thecatapi.com/api/images/get?format=src',
+      mobile: 'http://thecatapi.com/api/images/get?format=src',
+    },
+  },
+}
