@@ -94,7 +94,7 @@ export default compose(
 
     // キーワード検索開始
     onSubmit({ keyword }, dispatch) {
-      dispatch(push(`/salon?keyword=${keyword}`));
+      dispatch(push(`/salon?keyword=${keyword}&page=0`));
     },
   }),
   shouldUpdate((props, nextProps) => nextProps.loaded),

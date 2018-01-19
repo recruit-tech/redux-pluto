@@ -111,6 +111,7 @@ export default handleActions({
       items: { [page]: items || [] },
       canGetNext: canGetNext(count, start),
       canGetPrev: canGetPrev(page),
+      forceScrollTo: params.page && page > 0 ? INITIAL_STATE.forceScrollTo : {},
     };
   },
 
@@ -164,7 +165,7 @@ export default handleActions({
       item: {},
       canGetNext: canGetNext(count, start),
       canGetPrev: canGetPrev(+params.page),
-      shouldAdjustScroll: state.page > +params.page,
+      shouldAdjustScroll: state.page > +params.page && !state.items[+params.page],
       forceScrollTo: {},
     };
   },

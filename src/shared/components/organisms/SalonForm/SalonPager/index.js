@@ -29,7 +29,7 @@ export default compose(
           <Link
             className={local('link')}
             key={p}
-            to={`/salon/?keyword=${keyword}&page=${p}`}
+            to={`/salon?keyword=${keyword}&page=${p}`}
           >{p}</Link>
         )
       ))}
