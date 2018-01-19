@@ -56,7 +56,7 @@ export default compose(
               type="text"
               name="keyword"
               component="input"
-              autoFocus
+              autoFocus={!count}
             />
             <button type="submit" disabled={globalFormDisabled || submitting}>
               Search
@@ -70,6 +70,7 @@ export default compose(
           <span>{count || 0}</span><span>件あります</span>
         </div>
         <SalonLists
+          page={page}
           items={items}
           onInnerWindow={onInnerWindow}
           shouldAdjustScroll={shouldAdjustScroll}
