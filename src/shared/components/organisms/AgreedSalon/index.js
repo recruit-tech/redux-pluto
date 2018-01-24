@@ -6,7 +6,7 @@ import { agreedSalonSelector } from 'shared/redux/modules/reducer';
 import { findSalonById } from 'shared/redux/modules/agreedSalon';
 import { siteSections, onAsyncLoaderLoaded } from 'shared/redux/analytics/utils';
 import { SALON_ID } from 'shared/redux/analytics/variableNames';
-import AgreedSalon from './AgreedSalon';
+import Salon from '../Salon/Salon';
 
 export default compose(
   asyncLoader(
@@ -22,4 +22,4 @@ export default compose(
       [SALON_ID]: props.params && props.params.salonId,
     }),
   }),
-)(AgreedSalon);
+)(Salon);

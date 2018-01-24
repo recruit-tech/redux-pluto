@@ -1,5 +1,5 @@
 import { parse } from 'querystring';
-import { compose, shouldUpdate } from 'recompose';
+import { compose, shouldUpdate, withState } from 'recompose';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { replace, push } from 'react-router-redux';
@@ -82,6 +82,7 @@ export default compose(
       },
     }),
   ),
+  withState('linkURL', 'handleChangeLinkURL', '/salon'),
   sendAnalytics({
     ...siteSections('salon', 'form'),
     onDataReady: onAsyncLoaderLoaded,

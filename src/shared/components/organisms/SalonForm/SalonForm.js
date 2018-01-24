@@ -24,6 +24,7 @@ export default compose(
     canGetNext: PropTypes.bool.isRequired,
     canGetPrev: PropTypes.bool.isRequired,
     shouldAdjustScroll: PropTypes.bool.isRequired,
+    linkURL: PropTypes.string.isRequired,
     forceScrollTo: PropTypes.object,
     globalFormDisabled: PropTypes.bool,
   }),
@@ -40,6 +41,7 @@ export default compose(
     canGetNext,
     canGetPrev,
     shouldAdjustScroll,
+    linkURL,
     forceScrollTo,
     initialValues,
     submitting,
@@ -71,6 +73,7 @@ export default compose(
         </div>
         <SalonLists
           items={items}
+          linkURL={linkURL}
           onInnerWindow={onInnerWindow}
           shouldAdjustScroll={shouldAdjustScroll}
           forceScrollTo={forceScrollTo}
