@@ -1,6 +1,5 @@
 import { map, pick } from 'lodash/fp';
-import { create as createAxios } from 'axios';
-import BaseService from './BaseService';
+import AgreedService from './AgreedService';
 import { read } from './utils';
 
 export const SALON_SEARCH_MAX_COUNT = 50;
@@ -16,11 +15,9 @@ const PICK_PROPS = [
 
 const pickProps = map(pick(PICK_PROPS));
 
-export default class AgreedSalon extends BaseService {
+export default class AgreedSalon extends AgreedService {
   constructor(config) {
     super(config, 'agreedSalon', 'beauty/salon/', {});
-    // TODO: 他のagreedも出揃ったら、BaseServiceのコンストラクタに移動させる
-    this.axios = createAxios(config.agreed.config.axios);
   }
 
   read(req, resource, params, config) {
