@@ -1,5 +1,5 @@
 import { parse } from 'querystring';
-import { compose, shouldUpdate } from 'recompose';
+import { compose, shouldUpdate, withState } from 'recompose';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { replace, push } from 'react-router-redux';
@@ -18,7 +18,7 @@ import {
 } from 'shared/redux/modules/agreedSalonList';
 import { siteSections, onAsyncLoaderLoaded } from 'shared/redux/analytics/utils';
 import { SALON_KEYWORD } from 'shared/redux/analytics/variableNames';
-import AgreedSalonForm from './AgreedSalonForm';
+import SalonForm from '../SalonForm/SalonForm';
 
 const selector = createSelector(
   agreedSalonListSelector,
@@ -82,6 +82,7 @@ export default compose(
       },
     }),
   ),
+  withState('linkURL', 'handleChangeLinkURL', '/agreedsalon'),
   sendAnalytics({
     ...siteSections('agreedsalon', 'form'),
     onDataReady: onAsyncLoaderLoaded,
@@ -98,4 +99,4 @@ export default compose(
     },
   }),
   shouldUpdate((props, nextProps) => nextProps.loaded),
-)(AgreedSalonForm);
+)(SalonForm);

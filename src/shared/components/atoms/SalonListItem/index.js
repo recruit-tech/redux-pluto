@@ -15,15 +15,16 @@ export default compose(
       name: PropTypes.string.isRequired,
       logo_image_square: PropTypes.string,
     }).isRequired,
+    linkURL: PropTypes.string.isRequired,
   }),
 )(function SalonListItem(props) {
-  const { item } = props;
+  const { item, linkURL } = props;
 
   return (
     <div className={local('root')}>
       <div className={local('shopName')}>
         <img src={item.logo_image_square} alt={item.name} />
-        <Link to={`/salon/${item.id}`}>{item.name}</Link>
+        <Link to={`${linkURL}/${item.id}`}>{item.name}</Link>
       </div>
       <div className={local('description')}>{item.description}</div>
     </div>
