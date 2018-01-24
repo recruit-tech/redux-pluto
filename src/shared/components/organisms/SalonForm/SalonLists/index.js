@@ -10,6 +10,7 @@ const { localNames: local } = createLocal(styles);
 export default compose(
   onlyUpdateForPropTypes,
   setPropTypes({
+    page: PropTypes.number.isRequired,
     items: PropTypes.object.isRequired,
     onInnerWindow: PropTypes.func.isRequired,
     shouldAdjustScroll: PropTypes.bool.isRequired,
@@ -25,9 +26,9 @@ export default compose(
           items={items[page]}
           page={+page}
           onInnerWindow={onInnerWindow}
-          heightRatio={0.5}
+          heightRatio={1.0}
           key={page}
-          shouldAdjustScroll={shouldAdjustScroll}
+          shouldAdjustScroll={+page === props.page && shouldAdjustScroll}
           forceScrollTo={forceScrollTo}
         />
       ))}
