@@ -19,8 +19,8 @@
     },
     values: {
       name: 'サロン',
-      pc: 'http://thecatapi.com/api/images/get?format=src',
-      mobile: 'http://thecatapi.com/api/images/get?format=src',
+      pc: '/public/cat_large.jpeg',
+      mobile: '/public/cat_small.jpeg',
     },
   },
 }
