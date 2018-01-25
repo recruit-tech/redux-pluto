@@ -45,8 +45,8 @@ module.exports = {
       },
     },
     values: {
-      results_available: RESULTS_COUNT.toString(),
-      results_returned: SALON_SEARCH_MAX_COUNT.toString(),
+      results_available: RESULTS_COUNT,
+      results_returned: SALON_SEARCH_MAX_COUNT,
       results_start: '1',
       status: 'OK',
       salon: salonList,
