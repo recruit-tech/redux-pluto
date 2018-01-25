@@ -5,7 +5,7 @@ for (let i = 1; i <= 100; i++) {
     name: 'ヘアスタイル',
     photo: {
       front: {
-        m: 'https://cataas.com/cat?height=200',
+        m: '/public/cat_medium.jpeg',
       },
     },
   });
