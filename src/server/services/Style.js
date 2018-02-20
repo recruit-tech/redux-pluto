@@ -1,5 +1,5 @@
 import { mapKeys } from 'lodash/fp';
-import BaseService from './BaseService';
+import AgreedService from './AgreedService';
 
 const ACTUAL_PARAM_NAMES = {
   gender: 'style_category',
@@ -10,7 +10,7 @@ const ACTUAL_PARAM_NAMES = {
 
 const mapToActualParamName = mapKeys((key) => ACTUAL_PARAM_NAMES[key] || key);
 
-export default class Style extends BaseService {
+export default class Style extends AgreedService {
   constructor(config) {
     super(config, 'style', 'beauty/style/v3/', { order: 5, count: 100 });
     this.requireLogin = true;

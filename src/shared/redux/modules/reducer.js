@@ -11,7 +11,9 @@ import counter from './counter';
 import loading from './loading';
 import masters from './masters';
 import salon from './salon';
+import agreedSalon from './agreedSalon';
 import salonList from './salonList';
+import agreedSalonList from './agreedSalonList';
 import style from './style';
 import uploadSample from './uploadSample';
 
@@ -26,7 +28,9 @@ export default combineReducers({
   page: pageScopeReducer(combineReducers({
     agreedSample,
     salon,
+    agreedSalon,
     salonList,
+    agreedSalonList,
     style,
     uploadSample,
   })),
@@ -63,8 +67,16 @@ export function salonSelector(state) {
   return state.page.salon;
 }
 
+export function agreedSalonSelector(state) {
+  return state.page.agreedSalon;
+}
+
 export function salonListSelector(state) {
   return state.page.salonList;
+}
+
+export function agreedSalonListSelector(state) {
+  return state.page.agreedSalonList;
 }
 
 export function styleSelector(state) {
