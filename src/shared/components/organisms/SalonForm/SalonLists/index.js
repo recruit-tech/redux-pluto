@@ -15,15 +15,17 @@ export default compose(
     onInnerWindow: PropTypes.func.isRequired,
     shouldAdjustScroll: PropTypes.bool.isRequired,
     forceScrollTo: PropTypes.object.isRequired,
+    linkURL: PropTypes.string.isRequired,
   }),
 )(function SalonLists(props) {
-  const { items, onInnerWindow, shouldAdjustScroll, forceScrollTo } = props;
+  const { items, onInnerWindow, shouldAdjustScroll, forceScrollTo, linkURL } = props;
 
   return (
     <div className={local('root')}>
       {Object.keys(items).map((page) => (
         <SalonList
           items={items[page]}
+          linkURL={linkURL}
           page={+page}
           onInnerWindow={onInnerWindow}
           heightRatio={1.0}

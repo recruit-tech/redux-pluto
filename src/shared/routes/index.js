@@ -30,6 +30,11 @@ import {
 } from './salon';
 
 import {
+  loadAgreedSalonForm,
+  loadAgreedSalon,
+} from './agreedsalon';
+
+import {
   loadStyle,
   loadStyleList,
 } from './style';
@@ -59,6 +64,15 @@ export default function getRoutes(store) {
               ignoreScrollBehavior={ignoreScrollBehavior}
             />
             <Route path=":salonId" getComponent={loadSalon} />
+          </Route>
+
+          <Route path="agreedsalon">
+            <IndexRoute
+              queryKeys="keyword, page, more"
+              getComponent={loadAgreedSalonForm}
+              ignoreScrollBehavior={ignoreScrollBehavior}
+            />
+            <Route path=":salonId" getComponent={loadAgreedSalon} />
           </Route>
 
           <Route path="largeform" getComponent={loadLargeForm} />

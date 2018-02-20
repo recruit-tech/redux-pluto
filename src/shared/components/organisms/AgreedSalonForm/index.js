@@ -7,7 +7,7 @@ import { reduxForm } from 'redux-form';
 import { asyncLoader } from 'redux-async-loader';
 import { sendAnalytics } from 'react-redux-analytics';
 import {
-  salonListSelector,
+  agreedSalonListSelector,
   routingSelector,
   globalFormDisabledSelector,
 } from 'shared/redux/modules/reducer';
@@ -15,13 +15,13 @@ import {
   searchSalonList,
   searchMoreSalonList,
   clearSearchSalonList,
-} from 'shared/redux/modules/salonList';
+} from 'shared/redux/modules/agreedSalonList';
 import { siteSections, onAsyncLoaderLoaded } from 'shared/redux/analytics/utils';
 import { SALON_KEYWORD } from 'shared/redux/analytics/variableNames';
-import SalonForm from './SalonForm';
+import SalonForm from '../SalonForm/SalonForm';
 
 const selector = createSelector(
-  salonListSelector,
+  agreedSalonListSelector,
   (state) => state.routing.locationBeforeTransitions.query.keyword,
   globalFormDisabledSelector,
   (salonList, keyword, globalFormDisabled) => ({
@@ -37,7 +37,7 @@ export default compose(
     ({ location }, { dispatch, getState }) => {
       const state = getState();
       const action = routingSelector(state).locationBeforeTransitions.action;
-      if (action === 'POP' && salonListSelector(state).loaded) {
+      if (action === 'POP' && agreedSalonListSelector(state).loaded) {
         return Promise.resolve();
       }
 
@@ -62,12 +62,12 @@ export default compose(
     (dispatch, ownProps) => ({
       onClickPrev: (page) => () => {
         const keyword = parse(window.location.search.substr(1)).keyword;
-        return dispatch(replace(`/salon?keyword=${keyword}&page=${page - 1}&more=true`));
+        return dispatch(replace(`/agreedsalon?keyword=${keyword}&page=${page - 1}&more=true`));
       },
 
       onClickNext: (page) => () => {
         const keyword = parse(window.location.search.substr(1)).keyword;
-        return dispatch(replace(`/salon?keyword=${keyword}&page=${page + 1}&more=true`));
+        return dispatch(replace(`/agreedsalon?keyword=${keyword}&page=${page + 1}&more=true`));
       },
 
       // 今見てる window の中の要素でpageのURL位置を変える
@@ -77,25 +77,25 @@ export default compose(
         const currentPage = query.page || '0';
         const keyword = query.keyword;
         if (page !== currentPage) {
-          return void dispatch(replace(`/salon?keyword=${keyword}&page=${page}&more=true`));
+          return void dispatch(replace(`/agreedsalon?keyword=${keyword}&page=${page}&more=true`));
         }
       },
     }),
   ),
-  withState('linkURL', 'handleChangeLinkURL', '/salon'),
+  withState('linkURL', 'handleChangeLinkURL', '/agreedsalon'),
   sendAnalytics({
-    ...siteSections('salon', 'form'),
+    ...siteSections('agreedsalon', 'form'),
     onDataReady: onAsyncLoaderLoaded,
     mapPropsToVariables: ({ location = {}, count }, state) => ({
       [SALON_KEYWORD]: location.query && location.query.keyword,
     }),
   }),
   reduxForm({
-    form: 'salon',
+    form: 'agreedsalon',
 
     // キーワード検索開始
     onSubmit({ keyword }, dispatch) {
-      dispatch(push(`/salon?keyword=${keyword}&page=0`));
+      dispatch(push(`/agreedsalon?keyword=${keyword}`));
     },
   }),
   shouldUpdate((props, nextProps) => nextProps.loaded),

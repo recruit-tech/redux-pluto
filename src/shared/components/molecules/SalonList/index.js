@@ -9,12 +9,13 @@ export default compose(
   setPropTypes({
     items: PropTypes.array.isRequired,
     page: PropTypes.number.isRequired,
+    linkURL: PropTypes.string.isRequired,
   }),
   showOnScroll,
   adjustScroll,
   forceScroll,
 )(function SalonList(props) {
-  const { items, page } = props;
+  const { items, page, linkURL } = props;
 
   if (items.length === 0) {
     return (
@@ -26,7 +27,12 @@ export default compose(
     <div data-page={page}>
       <span>~~~~ {page} ~~~~</span>
       {items.map((item) => (
-        <SalonListItem item={item} page={page} key={item.id} />
+        <SalonListItem
+          item={item}
+          page={page}
+          key={item.id}
+          linkURL={linkURL}
+        />
       ))}
     </div>
   );

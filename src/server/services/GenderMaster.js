@@ -1,7 +1,7 @@
 import { transform } from 'lodash/fp';
-import BaseMaster from './BaseMaster';
+import AgreedMaster from './AgreedMaster';
 
-export default class HairLengthMaster extends BaseMaster {
+export default class HairLengthMaster extends AgreedMaster {
   constructor(config) {
     super(
       config, 'genderMaster', 'beauty/styleCategory/', {}, 'style_category',
