@@ -103,6 +103,7 @@
     "babel-plugin-transform-imports": "^1.4.1",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-env": "^1.6.0",
+    "babel-preset-flow": "^6.23.0",
     "babel-preset-power-assert": "^1.0.0",
     "babel-preset-react": "^6.24.1",
     "bundle-loader": "^0.5.5",
