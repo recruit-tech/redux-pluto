@@ -1,5 +1,5 @@
-import { create as createAxios } from 'axios';
-import { read } from './utils';
+import { create as createAxios } from "axios";
+import { read } from "./utils";
 
 export default class BaseService {
   constructor(config, name, pathname, params = {}) {
@@ -10,6 +10,9 @@ export default class BaseService {
   }
 
   read(req, resource, params, config) {
-    return read(this.axios, this.name, this.pathname, { ...this.params, ...params });
+    return read(this.axios, this.name, this.pathname, {
+      ...this.params,
+      ...params
+    });
   }
 }

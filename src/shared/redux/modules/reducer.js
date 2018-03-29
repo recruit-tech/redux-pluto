@@ -1,21 +1,21 @@
-import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
-import { reduxAsyncLoader } from 'redux-async-loader';
-import { reducer as formReducer } from 'redux-form';
-import { pageScopeReducer } from 'redux-page-scope';
-import { analyticsReducer } from 'react-redux-analytics';
-import agreedSample from './agreedSample';
-import alert from './alert';
-import auth from './auth';
-import counter from './counter';
-import loading from './loading';
-import masters from './masters';
-import salon from './salon';
-import agreedSalon from './agreedSalon';
-import salonList from './salonList';
-import agreedSalonList from './agreedSalonList';
-import style from './style';
-import uploadSample from './uploadSample';
+import { combineReducers } from "redux";
+import { routerReducer } from "react-router-redux";
+import { reduxAsyncLoader } from "redux-async-loader";
+import { reducer as formReducer } from "redux-form";
+import { pageScopeReducer } from "redux-page-scope";
+import { analyticsReducer } from "react-redux-analytics";
+import agreedSample from "./agreedSample";
+import alert from "./alert";
+import auth from "./auth";
+import counter from "./counter";
+import loading from "./loading";
+import masters from "./masters";
+import salon from "./salon";
+import agreedSalon from "./agreedSalon";
+import salonList from "./salonList";
+import agreedSalonList from "./agreedSalonList";
+import style from "./style";
+import uploadSample from "./uploadSample";
 
 export default combineReducers({
   app: combineReducers({
@@ -23,21 +23,23 @@ export default combineReducers({
     auth,
     counter,
     alert,
-    loading,
+    loading
   }),
-  page: pageScopeReducer(combineReducers({
-    agreedSample,
-    salon,
-    agreedSalon,
-    salonList,
-    agreedSalonList,
-    style,
-    uploadSample,
-  })),
+  page: pageScopeReducer(
+    combineReducers({
+      agreedSample,
+      salon,
+      agreedSalon,
+      salonList,
+      agreedSalonList,
+      style,
+      uploadSample
+    })
+  ),
   form: formReducer,
   reduxAsyncLoader,
   routing: routerReducer,
-  analytics: analyticsReducer,
+  analytics: analyticsReducer
 });
 
 /**

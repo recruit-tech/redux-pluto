@@ -1,20 +1,22 @@
 /* eslint-disable global-require */
-import 'babel-polyfill';
-import React from 'react';
-import { hydrate, unmountComponentAtNode } from 'react-dom';
-import { Provider } from 'react-redux';
-import { browserHistory, match } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
-import { createLocationSubscriber } from 'react-redux-analytics';
-import Fetchr from 'fetchr';
-import createStore from 'shared/redux/createStore';
-import App from 'client/components/App';
-import analyticsOptions from 'shared/redux/analytics/options';
-import siteCatalystOptions from 'client/analytics';
+import "babel-polyfill";
+import React from "react";
+import { hydrate, unmountComponentAtNode } from "react-dom";
+import { Provider } from "react-redux";
+import { browserHistory, match } from "react-router";
+import { syncHistoryWithStore } from "react-router-redux";
+import { createLocationSubscriber } from "react-redux-analytics";
+import Fetchr from "fetchr";
+import createStore from "shared/redux/createStore";
+import App from "client/components/App";
+import analyticsOptions from "shared/redux/analytics/options";
+import siteCatalystOptions from "client/analytics";
 
 const store = configStore();
-const history = syncHistoryWithStore(browserHistory, store, { adjustUrlOnReplay: __DEVELOPMENT__ });
-const root = document.getElementById('root');
+const history = syncHistoryWithStore(browserHistory, store, {
+  adjustUrlOnReplay: __DEVELOPMENT__
+});
+const root = document.getElementById("root");
 
 // 初回表示直後に、表示している画面と同じURLのリンクをクリックした場合にPUSHステートされてしまう現象の回避策。
 // 通常、現在表示している画面と同じURLへのPUSHはHistoryモジュールによりREPLACEに置換される。
@@ -24,10 +26,10 @@ const root = document.getElementById('root');
 history.replace(history.getCurrentLocation());
 
 const locationSubscriber = createLocationSubscriber(store);
-history.listen((location) => {
+history.listen(location => {
   // At the moment, we do not use page stack functionality of react-redux-analytics.
   // console.log(location);
-  locationSubscriber.notify(location, 'replace');
+  locationSubscriber.notify(location, "replace");
 });
 
 renderApp().then(() => {
@@ -41,9 +43,10 @@ renderApp().then(() => {
 });
 
 function configStore() {
-  const getJson = (id) => JSON.parse(document.getElementById(id).getAttribute('data-json'));
-  const initialState = getJson('initial-state');
-  const clientConfig = getJson('client-config');
+  const getJson = id =>
+    JSON.parse(document.getElementById(id).getAttribute("data-json"));
+  const initialState = getJson("initial-state");
+  const clientConfig = getJson("client-config");
 
   return createStore(initialState, {
     cookie: [],
@@ -53,14 +56,14 @@ function configStore() {
     history: browserHistory,
     devTools: __DEVELOPMENT__,
     analytics: analyticsOptions,
-    siteCatalyst: siteCatalystOptions,
+    siteCatalyst: siteCatalystOptions
   });
 }
 
 function renderApp() {
   const routes = getRoutes();
 
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     // 非同期のonEnter()がある画面がサーバサイドレンダリングされるとクライアント
     // サイドの最初のレンダリングも非同期 (画面の一部が未完成) となってハッシュが
     // 合わなくなり、サーバサイドレダリングの結果が破棄されてしまう。
@@ -74,7 +77,9 @@ function renderApp() {
       // hydrate に失敗する事がある。
       // SSR が有効の場合は redirect は server の response で行われるのでこの処理は不要。
       if (__DISABLE_SSR__ && redirectLocation && !renderProps) {
-        location.replace(`${redirectLocation.pathname}${redirectLocation.search}`);
+        location.replace(
+          `${redirectLocation.pathname}${redirectLocation.search}`
+        );
         return resolve();
       }
       hydrate(<App store={store} {...renderProps} />, root);
@@ -84,18 +89,18 @@ function renderApp() {
 }
 
 function getRoutes() {
-  const routes = require('../shared/routes').default;
+  const routes = require("../shared/routes").default;
   return routes(store);
 }
 
 function configHotLoader() {
-  module.hot.accept('../shared/routes', () => {
+  module.hot.accept("../shared/routes", () => {
     unmountComponentAtNode(root);
     renderApp();
   });
 
-  module.hot.accept('../shared/redux/modules/reducer', () => {
-    const nextReducer = require('../shared/redux/modules/reducer').default;
+  module.hot.accept("../shared/redux/modules/reducer", () => {
+    const nextReducer = require("../shared/redux/modules/reducer").default;
     store.replaceReducer(nextReducer);
   });
 }
@@ -103,12 +108,12 @@ function configHotLoader() {
 function renderDevTool() {
   if (__DEVELOPMENT__) {
     window.React = React; // enable debugger
-    const DevTools = require('../shared/components/utils/DevTools').default;
+    const DevTools = require("../shared/components/utils/DevTools").default;
     const content = (
       <Provider store={store} key="provider">
         <DevTools />
       </Provider>
     );
-    hydrate(content, document.getElementById('devtools'));
+    hydrate(content, document.getElementById("devtools"));
   }
 }

@@ -1,5 +1,5 @@
-import { create as createAxios } from 'axios';
-import BaseService from './BaseService';
+import { create as createAxios } from "axios";
+import BaseService from "./BaseService";
 
 export default class AgreedService extends BaseService {
   constructor(config, name, pathname, params = {}) {

@@ -1,20 +1,25 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
-import compression from 'compression';
-import session from 'express-session';
-import csurf from 'csurf';
-import favicon from 'serve-favicon';
-import multer from 'multer';
-import serverTiming from 'server-timing';
-import { transform } from 'lodash/fp';
-import config from './configs';
-import { apiGateway, offloadDetector, reduxApp } from './middlewares';
-import * as uploaders from './uploaders';
+import express from "express";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import compression from "compression";
+import session from "express-session";
+import csurf from "csurf";
+import favicon from "serve-favicon";
+import multer from "multer";
+import serverTiming from "server-timing";
+import { transform } from "lodash/fp";
+import config from "./configs";
+import { apiGateway, offloadDetector, reduxApp } from "./middlewares";
+import * as uploaders from "./uploaders";
 
 const upload = multer(config.multer);
 
-export default function renderer({ clientStats, server, sessionStore, promises }) {
+export default function renderer({
+  clientStats,
+  server,
+  sessionStore,
+  promises
+}) {
   const app = express.Router();
 
   app.use(bodyParser.json());
@@ -25,34 +30,38 @@ export default function renderer({ clientStats, server, sessionStore, promises }
   app.use(serverTiming());
   app.use(favicon(config.favicon));
 
-  Object.values(uploaders).forEach((Uploader) => {
+  Object.values(uploaders).forEach(Uploader => {
     const uploader = new Uploader(config);
     app.post(
       `${config.upload.path}${uploader.path}`,
-      upload.single('file'),
-      uploader.createMiddleware(),
+      upload.single("file"),
+      uploader.createMiddleware()
     );
   });
 
   if (!__DEVELOPMENT__) {
-    const gzipFiles = transform((result, asset) => {
-      const match = /(\.[^.]*)\.gz/.exec(asset.name);
-      if (match) {
-        result[`/${asset.name}`] = match[1];
-      }
-    }, {}, clientStats.assets);
+    const gzipFiles = transform(
+      (result, asset) => {
+        const match = /(\.[^.]*)\.gz/.exec(asset.name);
+        if (match) {
+          result[`/${asset.name}`] = match[1];
+        }
+      },
+      {},
+      clientStats.assets
+    );
     app.use(clientStats.publicPath, (req, res, next) => {
-      const fileType = gzipFiles[req.url + '.gz'];
+      const fileType = gzipFiles[req.url + ".gz"];
       if (fileType) {
         res.type(fileType);
-        res.set('Content-Encoding', 'gzip');
-        req.url += '.gz';
+        res.set("Content-Encoding", "gzip");
+        req.url += ".gz";
       }
       return next();
     });
   }
 
-  config.assets.forEach((asset) => {
+  config.assets.forEach(asset => {
     app.use(asset.mount, express.static(asset.path));
   });
 

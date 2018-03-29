@@ -1,4 +1,4 @@
-import { SubmissionError } from 'redux-form';
+import { SubmissionError } from "redux-form";
 
 export default function normalizeFormError(error) {
   if (error.statusCode === 400 && error.body) {

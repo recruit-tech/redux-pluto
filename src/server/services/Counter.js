@@ -1,6 +1,6 @@
 export default class Counter {
   constructor() {
-    this.name = 'counter';
+    this.name = "counter";
     this.counter = 0;
   }
 
