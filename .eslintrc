@@ -47,7 +47,7 @@
   },
 
   "rules": {
-    //Possible Errors
+    // Possible Errors
     "no-console": "error",
     "no-unexpected-multiline": "error",
 
@@ -77,12 +77,10 @@
     "no-path-concat": "error",
 
     // Stylistic Issues
-    "comma-dangle": ["error", "always-multiline"],
     "linebreak-style": ["error", "unix"],
     "no-plusplus": "off",
 
     // ECMAScript 6
-    "arrow-parens": ["error", "always"],
     "constructor-super": "error",
     "generator-star-spacing": ["error", "after"],
     "no-this-before-super": "error",
