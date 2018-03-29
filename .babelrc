@@ -2,109 +2,141 @@
   "plugins": [
     "transform-object-rest-spread",
     "syntax-dynamic-import",
-    ["module-resolver", {
-      "root": ["./src"]
-    }]
+    [
+      "module-resolver",
+      {
+        "root": ["./src"]
+      }
+    ]
   ],
 
   "env": {
     "production:client": {
       "presets": [
-        ["env", {
-          "targets": {
-            "ie": "11"
-          },
-          "modules": false
-        }],
-        "react"
+        [
+          "env",
+          {
+            "targets": {
+              "ie": "11"
+            },
+            "modules": false
+          }
+        ],
+        "react",
+        "flow"
       ],
       "plugins": [
         "transform-object-rest-spread",
         "syntax-dynamic-import",
-        ["module-resolver", {
-          "root": ["./src"]
-        }],
-        ["transform-imports", {
-          "lodash/fp": {
-            "transform": "lodash/fp/${member}",
-            "preventFullImport": true
-          },
-          "date-fns": {
-            "transform": "date-fns/${member}",
-            "preventFullImport": true
-          },
-          "react-router": {
-            "transform": "react-router/lib/${member}",
-            "preventFullImport": true
-          },
-          "redux-form": {
-            "transform": "redux-form/es/${member}",
-            "preventFullImport": true
-          },
-          "recompose": {
-            "transform": "recompose/${member}",
-            "preventFullImport": true
-          },
-          "react-virtualized": {
-            "transform": "react-virtualized/dist/es/${member}",
-            "preventFullImport": true
+        [
+          "module-resolver",
+          {
+            "root": ["./src"]
           }
-        }]
+        ],
+        [
+          "transform-imports",
+          {
+            "lodash/fp": {
+              "transform": "lodash/fp/${member}",
+              "preventFullImport": true
+            },
+            "date-fns": {
+              "transform": "date-fns/${member}",
+              "preventFullImport": true
+            },
+            "react-router": {
+              "transform": "react-router/lib/${member}",
+              "preventFullImport": true
+            },
+            "redux-form": {
+              "transform": "redux-form/es/${member}",
+              "preventFullImport": true
+            },
+            "recompose": {
+              "transform": "recompose/${member}",
+              "preventFullImport": true
+            },
+            "react-virtualized": {
+              "transform": "react-virtualized/dist/es/${member}",
+              "preventFullImport": true
+            }
+          }
+        ]
       ]
     },
 
     "production:server": {
       "presets": [
-        ["env", {
-          "targets": {
-            "node": "current"
-          },
-          "modules": false
-        }],
-        "react"
+        [
+          "env",
+          {
+            "targets": {
+              "node": "current"
+            },
+            "modules": false
+          }
+        ],
+        "react",
+        "flow"
       ]
     },
 
     "development:client": {
       "presets": [
-        ["env", {
-          "targets": {
-            "ie": "11"
-          },
-          "modules": false
-        }],
-        "react"
+        [
+          "env",
+          {
+            "targets": {
+              "ie": "11"
+            },
+            "modules": false
+          }
+        ],
+        "react",
+        "flow"
       ],
       "plugins": [
         "transform-object-rest-spread",
         "syntax-dynamic-import",
-        ["module-resolver", {
-          "root": ["./src"]
-        }],
+        [
+          "module-resolver",
+          {
+            "root": ["./src"]
+          }
+        ],
         "react-hot-loader/babel"
       ]
     },
 
     "development:server": {
       "presets": [
-        ["env", {
-          "targets": {
-            "node": "current"
-          },
-          "modules": false
-        }],
-        "react"
+        [
+          "env",
+          {
+            "targets": {
+              "node": "current"
+            },
+            "modules": false
+          }
+        ],
+        "react",
+        "flow"
       ]
     },
 
     "test:unit": {
       "presets": [
-        ["env", {
-          "targets": {
-            "node": "6"
+        [
+          "env",
+          {
+            "targets": {
+              "node": "6"
+            }
           }
-        }],
+        ],
         "react",
+        "flow",
         "power-assert"
       ]
     }
