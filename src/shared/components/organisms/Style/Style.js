@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
-import GenderMenu from 'shared/components/molecules/GenderMenu';
-import HairLengthMenu from 'shared/components/molecules/HairLengthMenu';
+import React from "react";
+import PropTypes from "prop-types";
+import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
+import GenderMenu from "shared/components/molecules/GenderMenu";
+import HairLengthMenu from "shared/components/molecules/HairLengthMenu";
 
 export default compose(
   onlyUpdateForPropTypes,
@@ -15,19 +15,24 @@ export default compose(
     children: PropTypes.object,
     params: PropTypes.shape({
       gender: PropTypes.string,
-      hairLength: PropTypes.string,
-    }),
-  }),
+      hairLength: PropTypes.string
+    })
+  })
 )(function Style(props) {
-  const { genderItems, hairLengthItems, children, params: { gender, hairLength } } = props;
+  const {
+    genderItems,
+    hairLengthItems,
+    children,
+    params: { gender, hairLength }
+  } = props;
 
   return (
     <div>
       <GenderMenu genderItems={genderItems} gender={gender} />
-      <HairLengthMenu {...{ gender, hairLength, genderItems, hairLengthItems }} />
-      <div>
-        {children}
-      </div>
+      <HairLengthMenu
+        {...{ gender, hairLength, genderItems, hairLengthItems }}
+      />
+      <div>{children}</div>
     </div>
   );
 });

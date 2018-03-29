@@ -1,18 +1,23 @@
-import hoistNonReactStatics from 'hoist-non-react-statics';
-import universal from 'react-universal-component';
-import debugFactory from 'debug';
+import hoistNonReactStatics from "hoist-non-react-statics";
+import universal from "react-universal-component";
+import debugFactory from "debug";
 
-const debug = debugFactory('app:shared:routes:createUniversalComponent');
+const debug = debugFactory("app:shared:routes:createUniversalComponent");
 
 const cssPromiseCache = {};
 
-export default function createUniversalComponent(component, resolve, chunkName) {
+export default function createUniversalComponent(
+  component,
+  resolve,
+  chunkName
+) {
   return Promise.all([
     component(),
-    universal(component, { resolve, chunkName, loading: 'loading...' }),
-    importCss(chunkName),
+    universal(component, { resolve, chunkName, loading: "loading..." }),
+    importCss(chunkName)
   ]).then(([sourceComponent, targetComponent]) =>
-    hoistNonReactStatics(targetComponent, sourceComponent.default));
+    hoistNonReactStatics(targetComponent, sourceComponent.default)
+  );
 }
 
 /*
@@ -36,25 +41,29 @@ function importCss(chunkName) {
     if (__DEVELOPMENT__) {
       // eslint-disable-next-line no-underscore-dangle
       if (__SERVER__ || !window.__CSS_CHUNKS__) {
-        debug('[DUAL-IMPORT] no css chunks hash found at "window.__CSS_CHUNKS__"');
+        debug(
+          '[DUAL-IMPORT] no css chunks hash found at "window.__CSS_CHUNKS__"'
+        );
         return null;
       }
-      debug(`[DUAL-IMPORT] no chunk, ${chunkName}, found in "window.__CSS_CHUNKS__"`);
+      debug(
+        `[DUAL-IMPORT] no chunk, ${chunkName}, found in "window.__CSS_CHUNKS__"`
+      );
     }
     return null;
   }
 
-  if (href === 'loaded') {
+  if (href === "loaded") {
     return null;
   }
 
-  const head = document.getElementsByTagName('head')[0];
-  const link = document.createElement('link');
+  const head = document.getElementsByTagName("head")[0];
+  const link = document.createElement("link");
 
   link.href = href;
-  link.media = 'screen, projection';
-  link.rel = 'stylesheet';
-  link.type = 'text/css';
+  link.media = "screen, projection";
+  link.rel = "stylesheet";
+  link.type = "text/css";
   link.timeout = 30000;
 
   cssPromiseCache[chunkName] = new Promise((resolve, reject) => {

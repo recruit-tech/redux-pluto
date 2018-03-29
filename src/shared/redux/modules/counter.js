@@ -1,7 +1,7 @@
-import { createAction, handleActions } from 'redux-actions';
-import { steps } from 'redux-effects-steps';
-import { fetchrUpdate } from 'redux-effects-fetchr';
-import { createAsyncActionTypes } from './utils';
+import { createAction, handleActions } from "redux-actions";
+import { steps } from "redux-effects-steps";
+import { fetchrUpdate } from "redux-effects-fetchr";
+import { createAsyncActionTypes } from "./utils";
 
 /**
  * Action types
@@ -9,8 +9,8 @@ import { createAsyncActionTypes } from './utils';
 export const [
   COUNTER_INCREMENT_REQUEST,
   COUNTER_INCREMENT_SUCCESS,
-  COUNTER_INCREMENT_FAIL,
-] = createAsyncActionTypes('redux-proto/counter/increment');
+  COUNTER_INCREMENT_FAIL
+] = createAsyncActionTypes("redux-proto/counter/increment");
 
 /**
  * Action creators
@@ -23,9 +23,9 @@ const incrementFail = createAction(COUNTER_INCREMENT_FAIL);
 
 export function increment() {
   return steps(
-    incrementRequest({ resource: 'counter' }),
+    incrementRequest({ resource: "counter" }),
     ({ payload }) => fetchrUpdate(payload),
-    [incrementSuccess, incrementFail],
+    [incrementSuccess, incrementFail]
   );
 }
 
@@ -33,18 +33,21 @@ export function increment() {
  * Initial state
  */
 const INITIAL_STATE = {
-  value: 0,
+  value: 0
 };
 
 /**
  * Reducer
  */
-export default handleActions({
-  [COUNTER_INCREMENT_SUCCESS]: (state, action) => {
-    const { payload: { data } } = action;
+export default handleActions(
+  {
+    [COUNTER_INCREMENT_SUCCESS]: (state, action) => {
+      const { payload: { data } } = action;
 
-    return {
-      value: data,
-    };
+      return {
+        value: data
+      };
+    }
   },
-}, INITIAL_STATE);
+  INITIAL_STATE
+);

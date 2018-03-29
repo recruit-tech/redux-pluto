@@ -1,33 +1,35 @@
-import fs from 'fs';
-import path from 'path';
-import { inspect } from 'util';
-import React from 'react';
+import fs from "fs";
+import path from "path";
+import { inspect } from "util";
+import React from "react";
 import {
   renderToNodeStream,
   renderToStaticNodeStream,
-  renderToStaticMarkup,
-} from 'react-dom/server';
-import { createMemoryHistory, match } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
-import { loadOnServer } from 'redux-async-loader';
-import Fetchr from 'fetchr';
-import { flushChunkNames } from 'react-universal-component/server';
-import flushChunks from 'webpack-flush-chunks';
-import { mapValues, noop, transform } from 'lodash/fp';
-import debugFactory from 'debug';
-import createStore from 'shared/redux/createStore';
-import { loadAllMasters as loadAllMastersAction } from 'shared/redux/modules/masters';
-import { checkLogin } from 'shared/redux/modules/auth';
-import getRoutes from 'shared/routes';
-import Html from 'server/components/Html';
-import App from 'server/components/App';
+  renderToStaticMarkup
+} from "react-dom/server";
+import { createMemoryHistory, match } from "react-router";
+import { syncHistoryWithStore } from "react-router-redux";
+import { loadOnServer } from "redux-async-loader";
+import Fetchr from "fetchr";
+import { flushChunkNames } from "react-universal-component/server";
+import flushChunks from "webpack-flush-chunks";
+import { mapValues, noop, transform } from "lodash/fp";
+import debugFactory from "debug";
+import createStore from "shared/redux/createStore";
+import { loadAllMasters as loadAllMastersAction } from "shared/redux/modules/masters";
+import { checkLogin } from "shared/redux/modules/auth";
+import getRoutes from "shared/routes";
+import Html from "server/components/Html";
+import App from "server/components/App";
 
-const debug = debugFactory('app:server:middleware:reduxApp');
+const debug = debugFactory("app:server:middleware:reduxApp");
 
-const logger = __DEVELOPMENT__ ? (store) => (next) => (action) => {
-  debug(`Invoking action: ${inspect(action).replace(/\s*\n\s*/g, ' ')}`);
-  return next(action);
-} : null;
+const logger = __DEVELOPMENT__
+  ? store => next => action => {
+      debug(`Invoking action: ${inspect(action).replace(/\s*\n\s*/g, " ")}`);
+      return next(action);
+    }
+  : null;
 
 export default function createReduxApp(config) {
   const maxAge = Math.floor(config.offload.cache.maxAge / 1000);
@@ -36,19 +38,22 @@ export default function createReduxApp(config) {
   /*
    * 全リクエストで共有される初期データのためのStoreです。
    */
-  const initialStore = createStore({}, {
-    cookie: [{ cookies: {} }, {}],
-    fetchr: new Fetchr({ ...config.fetchr, req: {} }),
-    history: createMemoryHistory('/'),
-    logger,
-  });
+  const initialStore = createStore(
+    {},
+    {
+      cookie: [{ cookies: {} }, {}],
+      fetchr: new Fetchr({ ...config.fetchr, req: {} }),
+      history: createMemoryHistory("/"),
+      logger
+    }
+  );
 
-  debug('Loading initial data');
-  config.promises.push(Promise.all([
-    initialStore.dispatch(loadAllMastersAction()),
-  ]).then(() => {
-    debug('Loaded initial data');
-  }));
+  debug("Loading initial data");
+  config.promises.push(
+    Promise.all([initialStore.dispatch(loadAllMastersAction())]).then(() => {
+      debug("Loaded initial data");
+    })
+  );
 
   return reduxApp;
 
@@ -67,7 +72,7 @@ export default function createReduxApp(config) {
       cookie: [req, res],
       fetchr: new Fetchr({ ...config.fetchr, req }),
       history: memoryHistory,
-      logger,
+      logger
     });
     const history = syncHistoryWithStore(memoryHistory, store);
     const clientConfig = getClientConfig(config, req);
@@ -81,43 +86,56 @@ export default function createReduxApp(config) {
      * オフロードモードをサポートしない場合は ./offloadDetector.js と一緒に削除してください。
      */
     if (__ENABLE_OFFLOAD__) {
-      debug('offload mode, disable server-side rendering');
-      res.set('cache-control', `max-age=${maxAge}`);
+      debug("offload mode, disable server-side rendering");
+      res.set("cache-control", `max-age=${maxAge}`);
       return void renderCSR({ res, store, config, clientConfig, timing });
     }
 
     /*
      * React-Routerのルーティング定義とマッチングを行います。
      */
-    matchRoutes({ history, routes: getRoutes(store) }).then(({ redirectLocation, renderProps }) => {
-      if (redirectLocation) {
-        return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-      }
+    matchRoutes({ history, routes: getRoutes(store) })
+      .then(({ redirectLocation, renderProps }) => {
+        if (redirectLocation) {
+          return res.redirect(
+            302,
+            redirectLocation.pathname + redirectLocation.search
+          );
+        }
 
-      if (!renderProps) {
-        return next();
-      }
-
-      /*
-       * 初期表示に必要なデータをフェッチします。
-       */
-      timing.startTime('prefetch', 'Prefetch onLoad');
-      return Promise.all([
-        loadOnServer(renderProps, store),
-        store.dispatch(checkLogin()).catch(() => null),
-      ]).then(() => {
-        timing.endTime('prefetch');
+        if (!renderProps) {
+          return next();
+        }
 
         /*
+       * 初期表示に必要なデータをフェッチします。
+       */
+        timing.startTime("prefetch", "Prefetch onLoad");
+        return Promise.all([
+          loadOnServer(renderProps, store),
+          store.dispatch(checkLogin()).catch(() => null)
+        ]).then(() => {
+          timing.endTime("prefetch");
+
+          /*
          * サーバサイドレンダリングを行います。
          */
-        renderSSR({ res, store, renderProps, config, clientConfig, cssChunks, timing });
+          renderSSR({
+            res,
+            store,
+            renderProps,
+            config,
+            clientConfig,
+            cssChunks,
+            timing
+          });
+        });
+      })
+      .catch(err => {
+        debug(err);
+        debug(store.getState().routing);
+        return next(err);
       });
-    }).catch((err) => {
-      debug(err);
-      debug(store.getState().routing);
-      return next(err);
-    });
   }
 }
 
@@ -130,10 +148,10 @@ function getClientConfig(config, req) {
       ...fetchr,
       context: {
         ...fetchr.context,
-        _csrf: csrfToken,
-      },
+        _csrf: csrfToken
+      }
     },
-    csrfToken,
+    csrfToken
   };
 }
 
@@ -154,7 +172,15 @@ function renderCSR({ res, store, config, clientConfig, timing }) {
   sendCSRResponse({ res, store, status: 200, clientConfig, assets, timing });
 }
 
-function renderSSR({ res, store, renderProps, config, clientConfig, cssChunks, timing }) {
+function renderSSR({
+  res,
+  store,
+  renderProps,
+  config,
+  clientConfig,
+  cssChunks,
+  timing
+}) {
   /*
    * メインコンテンツをレンダリングします。
    */
@@ -167,42 +193,58 @@ function renderSSR({ res, store, renderProps, config, clientConfig, cssChunks, t
   sendSSRResponse({ res, status, store, stream, clientConfig, assets, timing });
 }
 
-function sendCSRResponse({ res, status, store, clientConfig, content, assets, timing }) {
-  timing.startTime('html', 'Rendering HTML');
+function sendCSRResponse({
+  res,
+  status,
+  store,
+  clientConfig,
+  content,
+  assets,
+  timing
+}) {
+  timing.startTime("html", "Rendering HTML");
   const props = {
     content,
     assets,
     initialState: JSON.stringify(store.getState()),
-    clientConfig: JSON.stringify(clientConfig),
+    clientConfig: JSON.stringify(clientConfig)
   };
   const html = renderToStaticMarkup(<Html {...props} />);
-  timing.endTime('html');
+  timing.endTime("html");
   res.status(status).send(`<!doctype html>\n${html}`);
 }
 
-function sendSSRResponse({ res, status, store, clientConfig, assets, stream, timing }) {
+function sendSSRResponse({
+  res,
+  status,
+  store,
+  clientConfig,
+  assets,
+  stream,
+  timing
+}) {
   /*
    * HTML全体をレンダリングします。
    */
-  timing.startTime('html', 'Rendering HTML');
-  timing.startTime('ssr', 'Server Side Rendering');
+  timing.startTime("html", "Rendering HTML");
+  timing.startTime("ssr", "Server Side Rendering");
 
-  let content = '';
-  stream.on('data', (chunk) => {
+  let content = "";
+  stream.on("data", chunk => {
     content += chunk;
   });
-  stream.on('end', () => {
-    timing.endTime('ssr');
+  stream.on("end", () => {
+    timing.endTime("ssr");
     const props = {
       content,
       assets,
       initialState: JSON.stringify(store.getState()),
-      clientConfig: JSON.stringify(clientConfig),
+      clientConfig: JSON.stringify(clientConfig)
     };
 
     const htmlStream = renderToStaticNodeStream(<Html {...props} />);
-    htmlStream.on('end', () => {
-      timing.endTime('html');
+    htmlStream.on("end", () => {
+      timing.endTime("html");
     });
     htmlStream.pipe(res);
   });
@@ -213,20 +255,24 @@ function sendSSRResponse({ res, status, store, clientConfig, assets, stream, tim
  */
 function loadCssChunks({ clientStats, assets }) {
   debug(Object.keys(clientStats));
-  const { path: outputPath } = assets.find((asset) => asset.buildOutput);
+  const { path: outputPath } = assets.find(asset => asset.buildOutput);
   const { assetsByChunkName: chunks, publicPath } = clientStats;
-  return transform((result, chunkName) => {
-    const chunkArray = ensureArray(chunks[chunkName]);
-    const cssChunk = chunkArray.find((chunk) => chunk.endsWith('.css'));
-    if (cssChunk) {
-      result[cssChunk] = {
-        href: `${publicPath}${cssChunk}`,
-        content: fs.readFileSync(path.join(outputPath, cssChunk), 'utf-8'),
-      };
-    }
+  return transform(
+    (result, chunkName) => {
+      const chunkArray = ensureArray(chunks[chunkName]);
+      const cssChunk = chunkArray.find(chunk => chunk.endsWith(".css"));
+      if (cssChunk) {
+        result[cssChunk] = {
+          href: `${publicPath}${cssChunk}`,
+          content: fs.readFileSync(path.join(outputPath, cssChunk), "utf-8")
+        };
+      }
 
-    return result;
-  }, {}, Object.keys(chunks));
+      return result;
+    },
+    {},
+    Object.keys(chunks)
+  );
 }
 
 function ensureArray(v) {
@@ -247,15 +293,17 @@ function getAssets({ clientStats, cssChunks }) {
   const chunkNames = flushChunkNames();
   const assets = flushChunks(clientStats, { chunkNames });
   const { publicPath } = assets;
-  const stylesheets = assets.stylesheets.map((stylesheet) => `${publicPath}/${stylesheet}`);
+  const stylesheets = assets.stylesheets.map(
+    stylesheet => `${publicPath}/${stylesheet}`
+  );
   assets.cssHashRaw = mapValues(
-    (value) => (stylesheets.includes(value) ? 'loaded' : value)
+    value => (stylesheets.includes(value) ? "loaded" : value)
   )(assets.cssHashRaw);
 
   if (!__DISABLE_INLINE_CSS__) {
-    assets.inlineStylesheets = assets.stylesheets.map((chunkName) => ({
+    assets.inlineStylesheets = assets.stylesheets.map(chunkName => ({
       name: chunkName,
-      content: cssChunks[chunkName].content,
+      content: cssChunks[chunkName].content
     }));
     assets.stylesheets = null;
   }

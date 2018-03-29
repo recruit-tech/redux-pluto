@@ -1,28 +1,28 @@
-import { createAction, handleActions } from 'redux-actions';
-import { steps } from 'redux-effects-steps';
-import { createAsyncActionTypes } from './utils';
+import { createAction, handleActions } from "redux-actions";
+import { steps } from "redux-effects-steps";
+import { createAsyncActionTypes } from "./utils";
 
 /**
  * Action types
  */
-const AUTH = 'redux-proto/auth';
+const AUTH = "redux-proto/auth";
 
 export const [
   AUTH_CHECK_LOGIN_REQUEST,
   AUTH_CHECK_LOGIN_SUCCESS,
-  AUTH_CHECK_LOGIN_FAIL,
+  AUTH_CHECK_LOGIN_FAIL
 ] = createAsyncActionTypes(`${AUTH}/check`);
 
 export const [
   AUTH_LOGIN_REQUEST,
   AUTH_LOGIN_SUCCESS,
-  AUTH_LOGIN_FAIL,
+  AUTH_LOGIN_FAIL
 ] = createAsyncActionTypes(`${AUTH}/login`);
 
 export const [
   AUTH_LOGOUT_REQUEST,
   AUTH_LOGOUT_SUCCESS,
-  AUTH_LOGOUT_FAIL,
+  AUTH_LOGOUT_FAIL
 ] = createAsyncActionTypes(`${AUTH}/logout`);
 
 /**
@@ -35,10 +35,7 @@ const checkLoginSuccess = createAction(AUTH_CHECK_LOGIN_SUCCESS);
 const checkLoginFail = createAction(AUTH_CHECK_LOGIN_FAIL);
 
 export function checkLogin() {
-  return steps(
-    checkLoginRequest(),
-    [checkLoginSuccess, checkLoginFail],
-  );
+  return steps(checkLoginRequest(), [checkLoginSuccess, checkLoginFail]);
 }
 
 const loginRequest = createAction(AUTH_LOGIN_REQUEST);
@@ -48,10 +45,10 @@ const loginSuccess = createAction(AUTH_LOGIN_SUCCESS);
 const loginFail = createAction(AUTH_LOGIN_FAIL);
 
 export function login(username, password, location) {
-  return steps(
-    loginRequest({ params: { username, password }, location }),
-    [loginSuccess, loginFail],
-  );
+  return steps(loginRequest({ params: { username, password }, location }), [
+    loginSuccess,
+    loginFail
+  ]);
 }
 
 const logoutRequest = createAction(AUTH_LOGOUT_REQUEST);
@@ -61,10 +58,7 @@ const logoutSuccess = createAction(AUTH_LOGOUT_SUCCESS);
 const logoutFail = createAction(AUTH_LOGOUT_FAIL);
 
 export function logout() {
-  return steps(
-    logoutRequest(),
-    [logoutSuccess, logoutFail],
-  );
+  return steps(logoutRequest(), [logoutSuccess, logoutFail]);
 }
 
 /**
@@ -72,19 +66,22 @@ export function logout() {
  */
 const INITIAL_STATE = {
   login: false,
-  username: null,
+  username: null
 };
 
 /**
  * Reducer
  */
-export default handleActions({
-  [AUTH_CHECK_LOGIN_SUCCESS]: loggedIn,
-  [AUTH_LOGIN_SUCCESS]: loggedIn,
-  [AUTH_CHECK_LOGIN_FAIL]: loggedOut,
-  [AUTH_LOGIN_FAIL]: loggedOut,
-  [AUTH_LOGOUT_SUCCESS]: loggedOut,
-}, INITIAL_STATE);
+export default handleActions(
+  {
+    [AUTH_CHECK_LOGIN_SUCCESS]: loggedIn,
+    [AUTH_LOGIN_SUCCESS]: loggedIn,
+    [AUTH_CHECK_LOGIN_FAIL]: loggedOut,
+    [AUTH_LOGIN_FAIL]: loggedOut,
+    [AUTH_LOGOUT_SUCCESS]: loggedOut
+  },
+  INITIAL_STATE
+);
 
 function loggedIn(state, action) {
   const { payload: { sub } } = action;
@@ -92,9 +89,9 @@ function loggedIn(state, action) {
   return state.login && state.username === sub
     ? state
     : {
-      login: true,
-      username: sub,
-    };
+        login: true,
+        username: sub
+      };
 }
 
 function loggedOut(state, action) {

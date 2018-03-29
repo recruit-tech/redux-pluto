@@ -1,17 +1,17 @@
-import { createAction, handleActions } from 'redux-actions';
-import { steps } from 'redux-effects-steps';
-import { fetchrRead } from 'redux-effects-fetchr';
-import { createAsyncActionTypes } from './utils';
+import { createAction, handleActions } from "redux-actions";
+import { steps } from "redux-effects-steps";
+import { fetchrRead } from "redux-effects-fetchr";
+import { createAsyncActionTypes } from "./utils";
 
 /**
  * Action types
  */
-const SALON = 'redux-proto/salon';
+const SALON = "redux-proto/salon";
 
 export const [
   FIND_SALON_BY_ID_REQUEST,
   FIND_SALON_BY_ID_SUCCESS,
-  FIND_SALON_BY_ID_FAIL,
+  FIND_SALON_BY_ID_FAIL
 ] = createAsyncActionTypes(`${SALON}/find_id`);
 
 /**
@@ -24,9 +24,9 @@ const findSalonByIdFail = createAction(FIND_SALON_BY_ID_FAIL);
 
 export function findSalonById(id) {
   return steps(
-    findSalonByIdRequest({ resource: 'salon', params: { id } }),
+    findSalonByIdRequest({ resource: "salon", params: { id } }),
     ({ payload }) => fetchrRead(payload),
-    [findSalonByIdSuccess, findSalonByIdFail],
+    [findSalonByIdSuccess, findSalonByIdFail]
   );
 }
 
@@ -36,34 +36,37 @@ export function findSalonById(id) {
 export const INITIAL_STATE = {
   loading: false,
   loaded: false,
-  item: {},
+  item: {}
 };
 
 /**
  * Reducer
  */
-export default handleActions({
-  [FIND_SALON_BY_ID_REQUEST]: (state) => ({
-    ...state,
-    loading: true,
-    loaded: false,
-  }),
+export default handleActions(
+  {
+    [FIND_SALON_BY_ID_REQUEST]: state => ({
+      ...state,
+      loading: true,
+      loaded: false
+    }),
 
-  [FIND_SALON_BY_ID_SUCCESS]: (state, action) => {
-    const { payload: { data: { salon: items } } } = action;
+    [FIND_SALON_BY_ID_SUCCESS]: (state, action) => {
+      const { payload: { data: { salon: items } } } = action;
 
-    return {
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        item: items[0]
+      };
+    },
+
+    [FIND_SALON_BY_ID_FAIL]: (state, { error }) => ({
       ...state,
       loading: false,
-      loaded: true,
-      item: items[0],
-    };
+      loaded: false,
+      error
+    })
   },
-
-  [FIND_SALON_BY_ID_FAIL]: (state, { error }) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    error,
-  }),
-}, INITIAL_STATE);
+  INITIAL_STATE
+);
