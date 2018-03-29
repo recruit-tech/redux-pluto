@@ -1,5 +1,10 @@
 {
-  "extends": "eslint-config-airbnb",
+  "extends": [
+    "eslint-config-airbnb",
+    "prettier",
+    "prettier/flowtype",
+    "prettier/react"
+  ],
 
   "parserOptions": {
     "ecmaVersion": 6,
