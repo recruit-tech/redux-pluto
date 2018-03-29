@@ -1,40 +1,40 @@
 /* eslint-disable no-undefined */
-import { test } from 'eater/runner';
-import Fetchr from 'fetchr';
-import assert from 'power-assert';
-import { getText } from '../modules/agreedSample';
-import { createStore } from './lib/storeUtils';
+import { test } from "eater/runner";
+import Fetchr from "fetchr";
+import assert from "power-assert";
+import { getText } from "../modules/agreedSample";
+import { createStore } from "./lib/storeUtils";
 
 let needFailure = null;
 Fetchr.registerService({
-  name: 'agreedSample',
+  name: "agreedSample",
   read(req, resource, params, config, cb) {
     return needFailure
-      ? cb(new Error('failure'))
-      : cb(needFailure, { text: 'Hello world' });
-  },
+      ? cb(new Error("failure"))
+      : cb(needFailure, { text: "Hello world" });
+  }
 });
 
 const store = createStore({ cookie: {} });
 
-test('agreedSample: getText success', () => {
+test("agreedSample: getText success", () => {
   store.dispatch(getText()).then(() => {
     assert.deepEqual(store.getState().page.agreedSample, {
-      text: 'Hello world',
+      text: "Hello world",
       loading: false,
-      loaded: true,
+      loaded: true
     });
   });
 });
 
-test('agreedSample: getText failure', (_, fail) => {
+test("agreedSample: getText failure", (_, fail) => {
   needFailure = true;
   store.dispatch(getText()).then(fail, () => {
     assert.deepEqual(store.getState().page.agreedSample, {
-      text: '',
+      text: "",
       error: true,
       loading: false,
-      loaded: false,
+      loaded: false
     });
   });
 });

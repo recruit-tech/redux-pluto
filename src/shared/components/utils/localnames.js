@@ -1,8 +1,8 @@
 /* eslint-disable import/prefer-default-export */
-import { filter, keys, reduce } from 'lodash/fp';
-import debugFactory from 'debug';
+import { filter, keys, reduce } from "lodash/fp";
+import debugFactory from "debug";
 
-const debug = debugFactory('localnames');
+const debug = debugFactory("localnames");
 
 const flatten = reduce((classes, arg) => {
   if (!arg) {
@@ -10,7 +10,7 @@ const flatten = reduce((classes, arg) => {
   }
 
   const argType = typeof arg;
-  if (argType === 'string' || argType === 'number') {
+  if (argType === "string" || argType === "number") {
     return [...classes, arg];
   }
 
@@ -18,8 +18,8 @@ const flatten = reduce((classes, arg) => {
     return flatten(classes, arg);
   }
 
-  if (argType === 'object') {
-    return flatten(classes, filter((key) => arg[key], keys(arg)));
+  if (argType === "object") {
+    return flatten(classes, filter(key => arg[key], keys(arg)));
   }
 
   return classes;
@@ -27,19 +27,21 @@ const flatten = reduce((classes, arg) => {
 
 export function createLocal(styles) {
   return {
-    localNames,
+    localNames
   };
 
   function localNames(...args) {
     const classes = flatten(args);
-    return classes.map((localName) => {
-      const globalName = styles[localName];
-      if (__DEVELOPMENT__ && !globalName) {
-        debug('invalid localName:', localName);
-        return ['u-invalidLocalName', localName].join(' ');
-      }
+    return classes
+      .map(localName => {
+        const globalName = styles[localName];
+        if (__DEVELOPMENT__ && !globalName) {
+          debug("invalid localName:", localName);
+          return ["u-invalidLocalName", localName].join(" ");
+        }
 
-      return globalName;
-    }).join(' ');
+        return globalName;
+      })
+      .join(" ");
   }
 }

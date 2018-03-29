@@ -1,17 +1,17 @@
-import { createAction, handleActions } from 'redux-actions';
-import { steps } from 'redux-effects-steps';
-import { fetchrRead } from 'redux-effects-fetchr';
-import { createAsyncActionTypes } from './utils';
+import { createAction, handleActions } from "redux-actions";
+import { steps } from "redux-effects-steps";
+import { fetchrRead } from "redux-effects-fetchr";
+import { createAsyncActionTypes } from "./utils";
 
 /**
  * Action types
  */
-const AGREED_SAMPLE = 'redux-proto/agreedsample';
+const AGREED_SAMPLE = "redux-proto/agreedsample";
 
 export const [
   AGREED_SAMPLE_GET_TEXT_REQUEST,
   AGREED_SAMPLE_GET_TEXT_SUCCESS,
-  AGREED_SAMPLE_GET_TEXT_FAIL,
+  AGREED_SAMPLE_GET_TEXT_FAIL
 ] = createAsyncActionTypes(`${AGREED_SAMPLE}/get`);
 
 /**
@@ -23,7 +23,7 @@ export const getTextFail = createAction(AGREED_SAMPLE_GET_TEXT_FAIL);
 
 export function getText() {
   return steps(
-    getTextRequest({ resource: 'agreedSample' }),
+    getTextRequest({ resource: "agreedSample" }),
     ({ payload }) => fetchrRead(payload),
     [getTextSuccess, getTextFail]
   );
@@ -35,31 +35,34 @@ export function getText() {
 const INITIAL_STATE = {
   loading: false,
   loaded: false,
-  text: '',
+  text: ""
 };
 
-export default handleActions({
-  [AGREED_SAMPLE_GET_TEXT_REQUEST]: (state) => ({
-    ...state,
-    loading: true,
-    loaded: false,
-  }),
-  [AGREED_SAMPLE_GET_TEXT_SUCCESS]: (state, action) => {
-    const { payload: { data: { text } } } = action;
-    return ({
+export default handleActions(
+  {
+    [AGREED_SAMPLE_GET_TEXT_REQUEST]: state => ({
       ...state,
-      text,
-      loading: false,
-      loaded: true,
-    });
+      loading: true,
+      loaded: false
+    }),
+    [AGREED_SAMPLE_GET_TEXT_SUCCESS]: (state, action) => {
+      const { payload: { data: { text } } } = action;
+      return {
+        ...state,
+        text,
+        loading: false,
+        loaded: true
+      };
+    },
+    [AGREED_SAMPLE_GET_TEXT_FAIL]: (state, action) => {
+      const { error } = action;
+      return {
+        ...state,
+        error,
+        loading: false,
+        loaded: false
+      };
+    }
   },
-  [AGREED_SAMPLE_GET_TEXT_FAIL]: (state, action) => {
-    const { error } = action;
-    return ({
-      ...state,
-      error,
-      loading: false,
-      loaded: false,
-    });
-  },
-}, INITIAL_STATE);
+  INITIAL_STATE
+);

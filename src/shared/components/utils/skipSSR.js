@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 const SHOW_TIMEOUT = 10;
 
 // skipSSR is a Higher Order Component to skip Server Side Rendering.
 // skipSSR(<div> foo bar baz </div>)
-const skipSSR = (
-  AlternativeComponent = <div></div>) => (ComposedComponent) => (class SkipSSR extends Component {
+const skipSSR = (AlternativeComponent = <div />) => ComposedComponent =>
+  class SkipSSR extends Component {
     constructor(props, context) {
       super(props, context);
       this.state = {
-        show: false,
+        show: false
       };
       this.onShow = this.onShow.bind(this);
     }
@@ -27,11 +27,11 @@ const skipSSR = (
       }
     }
 
-  /* eslint-disable react/no-set-state */
+    /* eslint-disable react/no-set-state */
     onShow() {
       this.setState({ show: true });
     }
-  /* eslint-enable react/no-set-state */
+    /* eslint-enable react/no-set-state */
 
     render() {
       if (this.state.show) {
@@ -39,6 +39,6 @@ const skipSSR = (
       }
       return AlternativeComponent;
     }
-});
+  };
 
 export default skipSSR;

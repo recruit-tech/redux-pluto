@@ -1,17 +1,17 @@
-import { connect } from 'react-redux';
-import { compose } from 'recompose';
-import { inputFile, uploadFile } from '../../../redux/modules/uploadSample';
-import UploadSample from './UploadSample';
+import { connect } from "react-redux";
+import { compose } from "recompose";
+import { inputFile, uploadFile } from "../../../redux/modules/uploadSample";
+import UploadSample from "./UploadSample";
 
 let file;
 export default compose(
   connect(
-    (state) => ({
+    state => ({
       loading: state.page.uploadSample.loading,
-      value: state.page.uploadSample.value,
+      value: state.page.uploadSample.value
     }),
     (dispatch, ownProps) => ({
-      onInputFile: (e) => {
+      onInputFile: e => {
         dispatch(inputFile(e.target.value));
         file = e.target.files.item(0);
       },
@@ -22,7 +22,7 @@ export default compose(
         dispatch(uploadFile(file)).then(() => {
           file = null;
         });
-      },
-    }),
-  ),
+      }
+    })
+  )
 )(UploadSample);

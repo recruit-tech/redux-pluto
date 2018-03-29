@@ -1,6 +1,6 @@
-import React from 'react';
-import { Route, IndexRoute } from 'react-router';
-import { checkLogin, logout } from '../redux/modules/auth';
+import React from "react";
+import { Route, IndexRoute } from "react-router";
+import { checkLogin, logout } from "../redux/modules/auth";
 
 // non chunked components
 import {
@@ -11,8 +11,8 @@ import {
   Home,
   Main,
   NotFound,
-  DefaultLayout,
-} from './main';
+  DefaultLayout
+} from "./main";
 
 // chunked components
 import {
@@ -21,23 +21,14 @@ import {
   loadFoo,
   loadLargeForm,
   loadLogin,
-  loadUploadSample,
-} from './misc';
+  loadUploadSample
+} from "./misc";
 
-import {
-  loadSalonForm,
-  loadSalon,
-} from './salon';
+import { loadSalonForm, loadSalon } from "./salon";
 
-import {
-  loadAgreedSalonForm,
-  loadAgreedSalon,
-} from './agreedsalon';
+import { loadAgreedSalonForm, loadAgreedSalon } from "./agreedsalon";
 
-import {
-  loadStyle,
-  loadStyleList,
-} from './style';
+import { loadStyle, loadStyleList } from "./style";
 
 export default function getRoutes(store) {
   return (
@@ -52,7 +43,11 @@ export default function getRoutes(store) {
 
           <Route path="style" onEnter={bindOnEnter(requiredLogin)}>
             <IndexRoute getComponent={loadStyle} />
-            <Route path=":gender" getComponent={loadStyle} onChange={bindOnChange(requiredLogin)}>
+            <Route
+              path=":gender"
+              getComponent={loadStyle}
+              onChange={bindOnChange(requiredLogin)}
+            >
               <Route path=":hairLength" getComponent={loadStyleList} />
             </Route>
           </Route>
@@ -90,7 +85,8 @@ export default function getRoutes(store) {
   );
 
   function bindOnEnter(handler) {
-    return (nextState, replace, cb) => handler({ nextState, cb: bindCb(replace, cb) });
+    return (nextState, replace, cb) =>
+      handler({ nextState, cb: bindCb(replace, cb) });
   }
 
   function bindOnChange(handler) {
@@ -99,7 +95,7 @@ export default function getRoutes(store) {
   }
 
   function bindCb(replace, cb) {
-    return (pathname) => {
+    return pathname => {
       if (pathname) {
         replace(pathname);
       }
@@ -109,21 +105,20 @@ export default function getRoutes(store) {
   }
 
   function requiredLogin({ nextState, cb }) {
-    store.dispatch(checkLogin()).then(
-      () => cb(),
-      (err) => cb(`/login?location=${nextState.location.pathname}`)
-    );
+    store
+      .dispatch(checkLogin())
+      .then(
+        () => cb(),
+        err => cb(`/login?location=${nextState.location.pathname}`)
+      );
   }
 
   function doLogout({ cb }) {
-    store.dispatch(logout()).then(
-      () => cb('/'),
-      () => cb('/error'),
-    );
+    store.dispatch(logout()).then(() => cb("/"), () => cb("/error"));
   }
 
   function ignoreScrollBehavior(location) {
     // REPLACEの時だけはスクロールを無視
-    return location.action === 'REPLACE';
+    return location.action === "REPLACE";
   }
 }

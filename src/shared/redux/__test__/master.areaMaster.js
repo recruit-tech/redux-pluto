@@ -1,69 +1,76 @@
-import Fetchr from 'fetchr';
-import { test } from 'eater/runner';
-import assert from 'power-assert';
-import Immutable from 'seamless-immutable';
-import { INITIAL_STATE, loadAllMasters, loadAreaMaster } from '../modules/masters';
-import { createStore } from './lib/storeUtils';
-import { isSameObject } from './lib/assertUtils';
+import Fetchr from "fetchr";
+import { test } from "eater/runner";
+import assert from "power-assert";
+import Immutable from "seamless-immutable";
+import {
+  INITIAL_STATE,
+  loadAllMasters,
+  loadAreaMaster
+} from "../modules/masters";
+import { createStore } from "./lib/storeUtils";
+import { isSameObject } from "./lib/assertUtils";
 
 /**
  * mock loadMaster service
  */
-let areaMasters = ['tokyo', 'saitama', 'kanagawa'];
+let areaMasters = ["tokyo", "saitama", "kanagawa"];
 const services = [
   {
-    name: 'areaMaster',
+    name: "areaMaster",
     read(req, resource, params, config, cb) {
       cb(null, areaMasters);
-    },
+    }
   },
   {
-    name: 'hairColorMaster',
+    name: "hairColorMaster",
     read(req, resource, params, config, cb) {
-      cb(null, ['black', 'brown', 'blond']);
-    },
+      cb(null, ["black", "brown", "blond"]);
+    }
   },
   {
-    name: 'genderMaster',
+    name: "genderMaster",
     read(req, resource, params, config, cb) {
-      cb(null, ['male', 'female']);
-    },
+      cb(null, ["male", "female"]);
+    }
   },
   {
-    name: 'hairLengthMaster',
+    name: "hairLengthMaster",
     read(req, resource, params, config, cb) {
-      cb(null, ['long', 'short', 'middle']);
-    },
+      cb(null, ["long", "short", "middle"]);
+    }
   },
   {
-    name: 'menuContentMaster',
+    name: "menuContentMaster",
     read(req, resource, params, config, cb) {
-      cb(null, ['menu']);
-    },
-  },
+      cb(null, ["menu"]);
+    }
+  }
 ];
 
 services.forEach(Fetchr.registerService);
 
-test('master: areaMaster success', () => {
+test("master: areaMaster success", () => {
   const loadAllMastersAction = loadAllMasters();
   const loadAreaMasterAction = loadAreaMaster();
   const initialState = Immutable({ app: { masters: INITIAL_STATE } });
   let prevMastersState = { app: {} };
   const store = createStore({
-    initialState,
+    initialState
   });
-  store.dispatch(loadAllMastersAction).then(() => {
-    prevMastersState = store.getState().app.masters;
-    areaMasters = ['okinawa', 'kagoshima'];
-    return store.dispatch(loadAreaMasterAction);
-  }).then(() => {
-    const mastersState = store.getState().app.masters;
-    assert.deepEqual(mastersState.areaMaster, {
-      loading: false,
-      loaded: true,
-      items: areaMasters,
+  store
+    .dispatch(loadAllMastersAction)
+    .then(() => {
+      prevMastersState = store.getState().app.masters;
+      areaMasters = ["okinawa", "kagoshima"];
+      return store.dispatch(loadAreaMasterAction);
+    })
+    .then(() => {
+      const mastersState = store.getState().app.masters;
+      assert.deepEqual(mastersState.areaMaster, {
+        loading: false,
+        loaded: true,
+        items: areaMasters
+      });
+      isSameObject(prevMastersState, mastersState, ["areaMaster"]);
     });
-    isSameObject(prevMastersState, mastersState, ['areaMaster']);
-  });
 });

@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
-import Menu from 'shared/components/atoms/Menu';
-import MenuItem from 'shared/components/atoms/MenuItem';
+import React from "react";
+import PropTypes from "prop-types";
+import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
+import Menu from "shared/components/atoms/Menu";
+import MenuItem from "shared/components/atoms/MenuItem";
 
 export default compose(
   onlyUpdateForPropTypes,
@@ -10,8 +10,8 @@ export default compose(
     gender: PropTypes.string,
     hairLength: PropTypes.string,
     genderItems: PropTypes.object.isRequired,
-    hairLengthItems: PropTypes.object.isRequired,
-  }),
+    hairLengthItems: PropTypes.object.isRequired
+  })
 )(function HairLengthMenu(props) {
   const { hairLength, genderItems, hairLengthItems } = props;
   const gender = props.gender || Object.keys(genderItems)[0];
@@ -19,7 +19,7 @@ export default compose(
 
   return (
     <Menu>
-      {items.map((item) => (
+      {items.map(item => (
         <MenuItem
           key={item.code}
           to={`/style/${item.gender}/${item.code}`}
