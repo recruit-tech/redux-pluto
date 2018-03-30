@@ -187,9 +187,8 @@ function renderSSR({
    */
 
   const sheet = new ServerStyleSheet(); // <-- creating out stylesheet
-  const stream = renderToNodeStream(
-    sheet.collectStyles(<App store={store} {...renderProps} />)
-  );
+  const jsx = sheet.collectStyles(<App store={store} {...renderProps} />)
+  const stream = sheet.interleaveWithNodeStream(renderToNodeStream(jsx))
   const styles = sheet.getStyleTags();
 
   const assets = getAssets({ clientStats: config.clientStats, cssChunks });
