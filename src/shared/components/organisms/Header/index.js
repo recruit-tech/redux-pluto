@@ -1,10 +1,7 @@
 import React from "react";
 import { compose, pure } from "recompose";
 import { IndexLink, Link } from "react-router";
-import { createLocal } from "shared/components/utils/localnames";
-import styles from "./styles.scss";
-
-const { localNames: local } = createLocal(styles);
+import styled from "styled-components";
 
 const links = [
   { key: "home", to: "/", label: "Home", index: true },
@@ -22,36 +19,65 @@ const links = [
 
 export default compose(pure)(function Header(props) {
   return (
-    <header className={local("root")}>
+    <Root>
       <hgroup>
-        <h1 className={local("serviceLogo")}>HOT PEPPER Beauty</h1>
-        <h2 className={local("corporateLogo")}>PRODUCED by RECRUIT</h2>
+        <ServiceLogo>HOT PEPPER Beauty</ServiceLogo>
+        <CorporateLogo>PRODUCED by RECRUIT</CorporateLogo>
       </hgroup>
-      <nav className={local("links")}>
-        <ul className={local("items")}>
+      <NavLinks>
+        <Items>
           {links.map(({ key, to, label, index }) => (
-            <li key={key} className={local("item")}>
+            <Item key={key}>
               {index ? (
-                <IndexLink
-                  to={to}
-                  className={local("link")}
-                  activeClassName={local("link-isActive")}
-                >
-                  {label}
-                </IndexLink>
+                <IndexLink to={to}>{label}</IndexLink>
               ) : (
-                <Link
-                  to={to}
-                  className={local("link")}
-                  activeClassName={local("link-isActive")}
-                >
-                  {label}
-                </Link>
+                <StyledLink to={to}>{label}</StyledLink>
               )}
-            </li>
+            </Item>
           ))}
-        </ul>
-      </nav>
-    </header>
+        </Items>
+      </NavLinks>
+    </Root>
   );
 });
+
+const Root = styled.header`
+  text-align: center;
+  padding-top: 24px;
+  background-color: #be3c5f;
+  color: white;
+  width: 100%;
+  position: fixed;
+`;
+
+const ServiceLogo = styled.h1`
+  margin-bottom: 24px;
+`;
+
+const CorporateLogo = styled.h2``;
+
+const NavLinks = styled.nav``;
+
+const Items = styled.ul`
+  display: flex;
+  justify-content: space-around;
+  overflow: hidden;
+`;
+
+const Item = styled.li`
+  flex-grow: 1;
+`;
+
+const StyledLink = styled(Link)`
+  display: block;
+  padding: 12px 0;
+  background-color: lightgrey;
+
+  &:hover {
+    background-color: darkgray;
+  }
+
+  &-isActive {
+    background-color: grey;
+  }
+`;
