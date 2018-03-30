@@ -1,8 +1,8 @@
-import os from 'os';
-import path from 'path';
-import ms from 'ms';
+import os from "os";
+import path from "path";
+import ms from "ms";
 
-const rootDir = path.resolve(__dirname, '../../..');
+const rootDir = path.resolve(__dirname, "../../..");
 const tmpDir = os.tmpdir();
 
 export default {
@@ -13,8 +13,8 @@ export default {
 
     // https://github.com/expressjs/body-parser#bodyparserurlencodedoptions
     urlencoded: {
-      extended: true,
-    },
+      extended: true
+    }
   },
 
   // https://github.com/jshttp/cookie
@@ -22,34 +22,34 @@ export default {
 
   // https://github.com/expressjs/session
   session: {
-    secret: 'redux-proto',
+    secret: "redux-proto",
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: false
   },
 
   // https://github.com/expressjs/csurf
   csurf: {
-    cookie: true,
+    cookie: true
   },
 
   // https://github.com/expressjs/serve-favicon
-  favicon: path.resolve(rootDir, 'statics/favicon.ico'),
+  favicon: path.resolve(rootDir, "statics/favicon.ico"),
 
   // https://github.com/expressjs/serve-static
   assets: [
     {
-      mount: '/public',
-      path: path.resolve(rootDir, 'statics'),
+      mount: "/public",
+      path: path.resolve(rootDir, "statics")
     },
     {
-      mount: '/public',
-      path: path.resolve(rootDir, 'build/client'),
-      buildOutput: true,
+      mount: "/public",
+      path: path.resolve(rootDir, "build/client"),
+      buildOutput: true
     },
     {
-      mount: '/public',
-      path: path.resolve(tmpDir),
-    },
+      mount: "/public",
+      path: path.resolve(tmpDir)
+    }
   ].filter(Boolean),
 
   // https://github.com/yahoo/fetchr
@@ -57,24 +57,24 @@ export default {
 
   // https://github.com/mzabriskie/axios#request-config
   axios: {
-    baseURL: 'http://beauty.sda.hotpepper.jp/',
+    baseURL: "http://beauty.sda.hotpepper.jp/",
     params: {
-      key: 'hK8GrzWsq80d',
-      format: 'json',
+      key: "hK8GrzWsq80d",
+      format: "json"
     },
-    timeout: 10000,
+    timeout: 10000
   },
 
   offload: {
     limit: 5,
-    window: ms('1m'),
+    window: ms("1m"),
     cache: {
-      maxAge: ms('3m'),
-    },
+      maxAge: ms("3m")
+    }
   },
 
   auth: {
-    maxAge: ms('3m'),
+    maxAge: ms("3m"),
     key: `
       -----BEGIN RSA PRIVATE KEY-----
       MIIEogIBAAKCAQEAzEmHXt1PR4N4nFMrmvl8jv8k1IfEPZsnXIDFNywE1yblxqQE
@@ -103,7 +103,7 @@ export default {
       Bv1zzug8U4kzlIugMowA+SC7DLkc6d81Sx2iGH1ASkOw+xshJpZMpx9u4Cu8EpSK
       tMjlRQ76w+rxG81/8bUwncR3Y6GLASjuMZYF3a52amXTC4Qf+eE=
       -----END RSA PRIVATE KEY-----
-    `.replace(/^[ \t\n]*/gm, ''),
+    `.replace(/^[ \t\n]*/gm, ""),
     secret: `
       -----BEGIN PUBLIC KEY-----
       MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzEmHXt1PR4N4nFMrmvl8
@@ -114,41 +114,41 @@ export default {
       c70poixG32dAYuKthf70sqvJcdFqj9nikhRpWffLlilrvvYrcb5DJGMjvRbRTssC
       SwIDAQAB
       -----END PUBLIC KEY-----
-    `.replace(/^[ \t\n]*/gm, ''),
+    `.replace(/^[ \t\n]*/gm, "")
   },
 
   clientConfig: {
     // https://github.com/yahoo/fetchr
     fetchr: {
-      xhrPath: '/api',
+      xhrPath: "/api",
       xhrTimeout: 1000000,
       context: {},
       contextPicker: {
-        GET: [],
-      },
+        GET: []
+      }
     },
 
     fetchrCache: {
       max: 100,
-      maxAge: ms('10m'),
-      excludes: [],
-    },
+      maxAge: ms("10m"),
+      excludes: []
+    }
   },
 
   agreed: {
     config: {
       axios: {
-        baseURL: 'http://localhost:3010/',
-        timeout: 10000,
-      },
-    },
+        baseURL: "http://localhost:3010/",
+        timeout: 10000
+      }
+    }
   },
 
   multer: {
-    dest: tmpDir,
+    dest: tmpDir
   },
 
   upload: {
-    path: '/upload',
-  },
+    path: "/upload"
+  }
 };

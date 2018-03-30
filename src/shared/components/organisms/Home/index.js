@@ -1,16 +1,17 @@
-import React from 'react';
-import { compose, shouldUpdate } from 'recompose';
-import { sendAnalytics } from 'react-redux-analytics';
-import { siteSections, onAsyncLoaderLoaded } from 'shared/redux/analytics/utils';
+import React from "react";
+import { compose, shouldUpdate } from "recompose";
+import { sendAnalytics } from "react-redux-analytics";
+import {
+  siteSections,
+  onAsyncLoaderLoaded
+} from "shared/redux/analytics/utils";
 
 export default compose(
   sendAnalytics({
-    ...siteSections('home', 'top'),
-    onDataReady: onAsyncLoaderLoaded,
+    ...siteSections("home", "top"),
+    onDataReady: onAsyncLoaderLoaded
   }),
-  shouldUpdate(() => false),
+  shouldUpdate(() => false)
 )(function Home(props) {
-  return (
-    <div>Home!</div>
-  );
+  return <div>Home!</div>;
 });

@@ -1,11 +1,11 @@
-import { create as createAxios } from 'axios';
-import { read } from './utils';
+import { create as createAxios } from "axios";
+import { read } from "./utils";
 
 export default class AgreedSample {
   constructor(config) {
-    this.name = 'agreedSample';
+    this.name = "agreedSample";
     this.axios = createAxios(config.agreed.config.axios); // サンプル用にここだけ agreed server 向けの axios を利用
-    this.pathname = 'agreedsample';
+    this.pathname = "agreedsample";
   }
 
   read(req, resource, params, config) {

@@ -1,5 +1,5 @@
-import { startLoading, stopLoading } from 'shared/redux/modules/loading';
-import { handleActions } from './utils';
+import { startLoading, stopLoading } from "shared/redux/modules/loading";
+import { handleActions } from "./utils";
 
 export default function loadingMiddleware({ start, stop, delay }) {
   let timerId = null;
@@ -28,6 +28,6 @@ export default function loadingMiddleware({ start, stop, delay }) {
       }
 
       dispatch(stopLoading());
-    },
+    }
   });
 }
