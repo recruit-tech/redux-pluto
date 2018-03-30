@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { inspect } from "util";
 import React from "react";
+import { ServerStyleSheet } from "styled-components";
 import {
   renderToNodeStream,
   renderToStaticNodeStream,
@@ -184,13 +185,27 @@ function renderSSR({
   /*
    * メインコンテンツをレンダリングします。
    */
-  const stream = renderToNodeStream(<App store={store} {...renderProps} />);
+
+  const sheet = new ServerStyleSheet(); // <-- creating out stylesheet
+  const stream = renderToNodeStream(
+    sheet.collectStyles(<App store={store} {...renderProps} />)
+  );
+  const styles = sheet.getStyleTags();
 
   const assets = getAssets({ clientStats: config.clientStats, cssChunks });
 
   const { routes } = renderProps;
   const status = routes[routes.length - 1].status || 200;
-  sendSSRResponse({ res, status, store, stream, clientConfig, assets, timing });
+  sendSSRResponse({
+    res,
+    status,
+    store,
+    stream,
+    clientConfig,
+    assets,
+    timing,
+    styles
+  });
 }
 
 function sendCSRResponse({
@@ -221,7 +236,8 @@ function sendSSRResponse({
   clientConfig,
   assets,
   stream,
-  timing
+  timing,
+  styles
 }) {
   /*
    * HTML全体をレンダリングします。
@@ -238,6 +254,7 @@ function sendSSRResponse({
     const props = {
       content,
       assets,
+      styles,
       initialState: JSON.stringify(store.getState()),
       clientConfig: JSON.stringify(clientConfig)
     };
