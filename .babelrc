@@ -105,6 +105,12 @@
             "root": ["./src"]
           }
         ],
+        [
+          "babel-plugin-styled-components",
+          {
+            "ssr": true
+          }
+        ],
         "react-hot-loader/babel"
       ]
     },
@@ -122,6 +128,14 @@
         ],
         "react",
         "flow"
+      ],
+      "plugins": [
+        [
+          "babel-plugin-styled-components",
+          {
+            "ssr": true
+          }
+        ]
       ]
     },
 
