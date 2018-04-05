@@ -1,13 +1,14 @@
+/* @flow */
 import debugFactory from "debug";
 
 const debug = debugFactory("app:server:middleware:offloadDetector");
 
-export default function(config) {
+export default function(config: { limit: number, window: number }) {
   const { limit, window } = config;
   let count = 0;
   let timer = null;
 
-  return function offloadDetecter(req, res, next) {
+  return function offloadDetecter(req: $FIXME, res: $FIXME, next: Function) {
     if (!timer) {
       const now = Date.now();
       const remain = Math.floor(now / window) * window + (window - now);

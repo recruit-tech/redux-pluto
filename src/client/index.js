@@ -1,3 +1,4 @@
+/* @flow */
 /* eslint-disable global-require */
 import "babel-polyfill";
 import React from "react";
@@ -44,7 +45,7 @@ renderApp().then(() => {
 
 function configStore() {
   const getJson = id =>
-    JSON.parse(document.getElementById(id).getAttribute("data-json"));
+    JSON.parse((document.getElementById(id): any).getAttribute("data-json"));
   const initialState = getJson("initial-state");
   const clientConfig = getJson("client-config");
 
@@ -82,7 +83,9 @@ function renderApp() {
         );
         return resolve();
       }
-      hydrate(<App store={store} {...renderProps} />, root);
+      if (root) {
+        hydrate(<App store={store} {...renderProps} />, root);
+      }
       return resolve();
     });
   });
@@ -94,12 +97,15 @@ function getRoutes() {
 }
 
 function configHotLoader() {
-  module.hot.accept("../shared/routes", () => {
-    unmountComponentAtNode(root);
+  (module: any).hot.accept("../shared/routes", () => {
+    if (root) {
+      unmountComponentAtNode(root);
+    }
     renderApp();
   });
 
-  module.hot.accept("../shared/redux/modules/reducer", () => {
+  // module.hot is extension by hot-loader
+  (module: any).hot.accept("../shared/redux/modules/reducer", () => {
     const nextReducer = require("../shared/redux/modules/reducer").default;
     store.replaceReducer(nextReducer);
   });
@@ -114,6 +120,9 @@ function renderDevTool() {
         <DevTools />
       </Provider>
     );
-    hydrate(content, document.getElementById("devtools"));
+    const devToolElement = document.getElementById("devtools");
+    if (devToolElement) {
+      hydrate(content, devToolElement);
+    }
   }
 }
