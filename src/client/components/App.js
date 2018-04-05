@@ -30,13 +30,12 @@ export default compose(
   );
 
   return (
-    <AppContainer>
-      <Provider store={store} key="provider">
-        <Router
-          {...renderProps}
-          render={props => <RenderWithMiddleware {...props} />}
-        />
-      </Provider>
-    </AppContainer>
+    <React.StrictMode>
+      <AppContainer>
+        <Provider store={store} key="provider">
+          <Router {...renderProps} render={props => <RenderWithMiddleware {...props} />} />
+        </Provider>
+      </AppContainer>
+    </React.StrictMode>
   );
 });
