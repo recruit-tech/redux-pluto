@@ -1,6 +1,7 @@
 {
   "extends": [
     "eslint-config-airbnb",
+    "plugin:flowtype/recommended",
     "prettier",
     "prettier/flowtype",
     "prettier/react"
@@ -26,6 +27,7 @@
   "plugins": [
     "import",
     "react",
+    "flowtype",
     "dependencies",
     "lodash-fp"
   ],
@@ -106,7 +108,7 @@
     "react/jsx-filename-extension": ["error", {"extensions": [".js", ".jsx"]}],
     "react/jsx-indent": ["error", 2],
     "react/jsx-key": "error",
-    "react/jsx-max-props-per-line": ["error", {"maximum": 3}],
+    "react/jsx-max-props-per-line": "off", // fixed by prettier
     "react/jsx-no-duplicate-props": "error",
     "react/jsx-tag-spacing": ["error", {"beforeSelfClosing": "always"}],
     "react/jsx-wrap-multilines": "error",
@@ -147,8 +149,11 @@
     "lodash-fp/prefer-identity": ["error", {"arrowFunctions": false}],
     "lodash-fp/preferred-alias": "off",
     "lodash-fp/use-fp": "error",
-
     // coding styles
-    "max-len": ["error", 100]
+    "max-len": ["error", 100],
+
+    // Ignore flow values
+    "flowtype/define-flow-type": "error",
+    "flowtype/use-flow-type": "error"
   }
 }
