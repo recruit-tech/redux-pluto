@@ -1,21 +1,20 @@
+/* @flow */
 import createUniversalComponent from "./createUniversalComponent";
 
 const chunkName = "style";
 
-export function loadStyle(_, cb) {
+export function loadStyle(_: *, cb: Function) {
   createUniversalComponent(
-    () =>
-      import(/* webpackChunkName: "style" */ "../components/organisms/Style"),
-    () => require.resolveWeak("../components/organisms/Style"),
+    () => import(/* webpackChunkName: "style" */ "../components/organisms/Style"),
+    () => (require: any).resolveWeak("../components/organisms/Style"),
     chunkName
-  ).then(result => cb(null, result), cb);
+  ).then(result => cb(null, result), (cb: Function));
 }
 
-export function loadStyleList(_, cb) {
+export function loadStyleList(_: *, cb: Function) {
   createUniversalComponent(
-    () =>
-      import(/* webpackChunkName: "style" */ "../components/organisms/StyleList"),
-    () => require.resolveWeak("../components/organisms/StyleList"),
+    () => import(/* webpackChunkName: "style" */ "../components/organisms/StyleList"),
+    () => (require: any).resolveWeak("../components/organisms/StyleList"),
     chunkName
-  ).then(result => cb(null, result), cb);
+  ).then(result => cb(null, result), (cb: Function));
 }

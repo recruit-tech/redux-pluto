@@ -1,18 +1,10 @@
+/* @flow */
 import React from "react";
 import { Route, IndexRoute } from "react-router";
 import { checkLogin, logout } from "../redux/modules/auth";
 
 // non chunked components
-import {
-  App,
-  Error,
-  Footer,
-  Header,
-  Home,
-  Main,
-  NotFound,
-  DefaultLayout
-} from "./main";
+import { App, Error, Footer, Header, Home, Main, NotFound, DefaultLayout } from "./main";
 
 // chunked components
 import {
@@ -30,7 +22,7 @@ import { loadAgreedSalonForm, loadAgreedSalon } from "./agreedsalon";
 
 import { loadStyle, loadStyleList } from "./style";
 
-export default function getRoutes(store) {
+export default function getRoutes(store: $FIXME) {
   return (
     <Route path="/" component={App}>
       <Route component={DefaultLayout}>
@@ -43,11 +35,7 @@ export default function getRoutes(store) {
 
           <Route path="style" onEnter={bindOnEnter(requiredLogin)}>
             <IndexRoute getComponent={loadStyle} />
-            <Route
-              path=":gender"
-              getComponent={loadStyle}
-              onChange={bindOnChange(requiredLogin)}
-            >
+            <Route path=":gender" getComponent={loadStyle} onChange={bindOnChange(requiredLogin)}>
               <Route path=":hairLength" getComponent={loadStyleList} />
             </Route>
           </Route>
@@ -85,8 +73,7 @@ export default function getRoutes(store) {
   );
 
   function bindOnEnter(handler) {
-    return (nextState, replace, cb) =>
-      handler({ nextState, cb: bindCb(replace, cb) });
+    return (nextState, replace, cb) => handler({ nextState, cb: bindCb(replace, cb) });
   }
 
   function bindOnChange(handler) {
@@ -107,10 +94,7 @@ export default function getRoutes(store) {
   function requiredLogin({ nextState, cb }) {
     store
       .dispatch(checkLogin())
-      .then(
-        () => cb(),
-        err => cb(`/login?location=${nextState.location.pathname}`)
-      );
+      .then(() => cb(), err => cb(`/login?location=${nextState.location.pathname}`));
   }
 
   function doLogout({ cb }) {
