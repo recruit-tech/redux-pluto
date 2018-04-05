@@ -1,3 +1,4 @@
+/* @flow */
 import Joi from "joi";
 import { getOptions, normalizeErrors } from "./utils";
 
@@ -23,7 +24,7 @@ const schema = Joi.object().keys({
   password
 });
 
-export default function validate(values) {
+export default function validate(values: *) {
   const { error } = Joi.validate(values, schema, getOptions());
   return normalizeErrors(error);
 }

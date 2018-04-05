@@ -1,3 +1,4 @@
+/* @flow */
 /* eslint-disable max-len */
 // joi@0.8.5
 

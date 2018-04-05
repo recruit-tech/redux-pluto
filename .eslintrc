@@ -63,6 +63,7 @@
     "no-unmodified-loop-condition": "error",
     "no-useless-call": "error",
     "no-void": "off",
+    "no-else-return": "off", // for flow refinements
 
     // Variables
     "no-catch-shadow": "error",
