@@ -1,3 +1,4 @@
+/* @flow */
 import os from "os";
 import path from "path";
 import ms from "ms";
