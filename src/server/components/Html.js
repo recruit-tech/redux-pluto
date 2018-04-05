@@ -15,7 +15,8 @@ export default compose(
     content,
     initialState,
     clientConfig,
-    assets: { publicPath, scripts, stylesheets, inlineStylesheets, cssHashRaw }
+    assets: { publicPath, scripts, stylesheets, inlineStylesheets, cssHashRaw },
+    styles
   } = props;
 
   return (
@@ -23,6 +24,14 @@ export default compose(
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=320,initial-scale=1.0" />
+        {/* TODO: Expand styles without wrapper */}
+        <style
+          type="text/css"
+          media="screen, projection"
+          dangerouslySetInnerHTML={{
+            __html: styles
+          }}
+        />
         {stylesheets &&
           stylesheets.map(style => (
             <link
