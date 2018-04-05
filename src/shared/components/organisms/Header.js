@@ -1,9 +1,23 @@
+/* @flow */
 import React from "react";
 import { compose, pure } from "recompose";
-import { IndexLink, Link } from "react-router";
+import * as ReactRouter from "react-router";
 import styled from "styled-components";
 
-const links = [
+type Props = {
+  location: {
+    pathname: string
+  }
+};
+
+type HeaderLink = {
+  key: string,
+  to: string,
+  label: string,
+  index?: boolean
+};
+
+const links: HeaderLink[] = [
   { key: "home", to: "/", label: "Home", index: true },
   { key: "foo", to: "/foo", label: "Foo" },
   { key: "bar", to: "/bar", label: "Bar" },
@@ -17,7 +31,7 @@ const links = [
   { key: "logout", to: "/logout", label: "Logout" }
 ];
 
-export default compose(pure)(function Header(props) {
+export default compose(pure)(function Header(props: Props) {
   return (
     <Root>
       <hgroup>
@@ -29,9 +43,13 @@ export default compose(pure)(function Header(props) {
           {links.map(({ key, to, label, index }) => (
             <Item key={key}>
               {index ? (
-                <IndexLink to={to}>{label}</IndexLink>
+                <IndexLink to={to} selected={to === props.location.pathname}>
+                  {label}
+                </IndexLink>
               ) : (
-                <StyledLink to={to}>{label}</StyledLink>
+                <Link to={to} selected={to === props.location.pathname}>
+                  {label}
+                </Link>
               )}
             </Item>
           ))}
@@ -68,16 +86,21 @@ const Item = styled.li`
   flex-grow: 1;
 `;
 
-const StyledLink = styled(Link)`
+const Link = styled(ReactRouter.Link)`
   display: block;
   padding: 12px 0;
-  background-color: lightgrey;
+  background-color: ${props => (props.selected ? "grey" : "lightgray")};
 
   &:hover {
     background-color: darkgray;
   }
+`;
 
-  &-isActive {
-    background-color: grey;
+const IndexLink = styled(ReactRouter.IndexLink)`
+  background-color: ${props => (props.selected ? "grey" : "lightgray")};
+  display: block;
+  padding: 12px 0;
+  &:hover {
+    background-color: darkgray;
   }
 `;
