@@ -1,18 +1,22 @@
+/* @flow */
 import React from "react";
-import PropTypes from "prop-types";
-import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
+import pure from "recompose/pure";
 import Menu from "shared/components/atoms/Menu";
 import MenuItem from "shared/components/atoms/MenuItem";
 
-export default compose(
-  onlyUpdateForPropTypes,
-  setPropTypes({
-    gender: PropTypes.string,
-    genderItems: PropTypes.object.isRequired
-  })
-)(function GenderMenu(props) {
+type Gender = "man" | "woman";
+type Props = {
+  gender: ?Gender,
+  genderItems: {
+    [Gender]: {
+      name: string
+    }
+  }
+};
+
+export default pure(function GenderMenu(props: Props) {
   const { genderItems } = props;
-  const gender = props.gender || Object.keys(genderItems)[0];
+  const gender: Gender = props.gender || Object.keys(genderItems)[0];
 
   return (
     <div>
