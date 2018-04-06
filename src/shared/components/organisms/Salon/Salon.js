@@ -1,26 +1,22 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
+/* @flow */
+import React, { Fragment } from "react";
+import pure from "recompose/pure";
+import { type State as SalonState } from "shared/redux/modules/salon";
 
-export default compose(
-  onlyUpdateForPropTypes,
-  setPropTypes({
-    item: PropTypes.shape({
-      name: PropTypes.string,
-      urls: PropTypes.shape({
-        pc: PropTypes.string
-      })
-    }).isRequired
-  })
-)(function Salon(props) {
+type Props = SalonState;
+
+export default pure(function Salon(props: Props) {
   const { item } = props;
-
   return (
     <div>
-      {item.name}
-      <a href={item.urls && item.urls.pc} target="blank">
-        Hot peper beauty のページヘ行く
-      </a>
+      {item && (
+        <Fragment>
+          {item.name}
+          <a href={item.urls && item.urls.pc} target="blank">
+            Hot peper beauty のページヘ行く
+          </a>
+        </Fragment>
+      )}
     </div>
   );
 });
