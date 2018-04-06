@@ -1,3 +1,4 @@
+/* @flow */
 import language from "./languages/ja_jp";
 
 export function getOptions() {
@@ -7,13 +8,13 @@ export function getOptions() {
   };
 }
 
-export function normalizeErrors(error) {
+export function normalizeErrors(error: *): {[string]: string} {
   if (!error || !error.details) {
     return {};
+  } else {
+    return error.details.reduce((errors, { path, message }) => {
+      errors[path] = message.replace(/^"\w+" (.*)$/, "$1");
+      return errors;
+    }, {});
   }
-
-  return error.details.reduce((errors, { path, message }) => {
-    errors[path] = message.replace(/^"\w+" (.*)$/, "$1");
-    return errors;
-  }, {});
 }

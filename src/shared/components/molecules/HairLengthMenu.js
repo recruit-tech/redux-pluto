@@ -1,18 +1,29 @@
+/* @flow */
 import React from "react";
-import PropTypes from "prop-types";
-import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
+import { pure } from "recompose";
 import Menu from "shared/components/atoms/Menu";
 import MenuItem from "shared/components/atoms/MenuItem";
 
-export default compose(
-  onlyUpdateForPropTypes,
-  setPropTypes({
-    gender: PropTypes.string,
-    hairLength: PropTypes.string,
-    genderItems: PropTypes.object.isRequired,
-    hairLengthItems: PropTypes.object.isRequired
-  })
-)(function HairLengthMenu(props) {
+type Gender = "man" | "woman";
+
+type Props = {
+  gender: ?Gender,
+  hairLength: string,
+  hairLengthItems: {
+    [Gender]: {
+      items: Array<{
+        name: string,
+        gender: string,
+        code: string
+      }>
+    }
+  },
+  genderItems: {
+    [Gender]: {}
+  }
+};
+
+export default pure(function HairLengthMenu(props: Props) {
   const { hairLength, genderItems, hairLengthItems } = props;
   const gender = props.gender || Object.keys(genderItems)[0];
   const items = hairLengthItems[gender].items;

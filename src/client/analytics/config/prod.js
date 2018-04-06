@@ -1,3 +1,4 @@
+/* @flow */
 /* eslint-disable no-script-url */
 module.exports = {
   s_account: "rcrtreduxprotoprd",
