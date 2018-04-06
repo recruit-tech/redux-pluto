@@ -11,7 +11,10 @@ declare module 'redux' {
 
   */
 
-  declare export type DispatchAPI<A> = (action: A) => A;
+  // patched for redux-effects-steps
+  declare export type DispatchAPI<A> = (action: A | Promise<A>) => A;
+  // original: declare export type DispatchAPI<A> = (action: A) => A;
+
   declare export type Dispatch<A: { type: $Subtype<string> }> = DispatchAPI<A>;
 
   declare export type MiddlewareAPI<S, A, D = Dispatch<A>> = {
