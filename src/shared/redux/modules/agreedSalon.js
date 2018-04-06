@@ -1,3 +1,4 @@
+/* @flow */
 import { createAction, handleActions } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { fetchrRead } from "redux-effects-fetchr";
@@ -14,6 +15,23 @@ export const [
   FIND_AGREED_SALON_BY_ID_FAIL
 ] = createAsyncActionTypes(`${AGREED_SALON}/find_id`);
 
+type FindSalonByIdRequestAction = {
+  type: typeof FIND_AGREED_SALON_BY_ID_REQUEST
+};
+
+type FindSalonByIdSuccessAction = {
+  type: typeof FIND_AGREED_SALON_BY_ID_SUCCESS,
+  payload: {
+    data: {
+      salon: Array<any>
+    }
+  }
+};
+type FindSalonByIdFailAction = {
+  type: typeof FIND_AGREED_SALON_BY_ID_FAIL,
+  error: {}
+};
+
 /**
  * Action creators
  */
@@ -22,7 +40,7 @@ const findSalonByIdRequest = createAction(FIND_AGREED_SALON_BY_ID_REQUEST);
 const findSalonByIdSuccess = createAction(FIND_AGREED_SALON_BY_ID_SUCCESS);
 const findSalonByIdFail = createAction(FIND_AGREED_SALON_BY_ID_FAIL);
 
-export function findSalonById(id) {
+export function findSalonById(id: string): Promise<FindSalonByIdSuccessAction> {
   return steps(
     findSalonByIdRequest({ resource: "agreedSalon", params: { id } }),
     ({ payload }) => fetchrRead(payload),
@@ -33,10 +51,22 @@ export function findSalonById(id) {
 /**
  * Initial state
  */
-export const INITIAL_STATE = {
+
+export type State = {
+  loading: boolean,
+  loaded: boolean,
+  item: ?{
+    name: string,
+    urls: {
+      pc: string
+    }
+  }
+};
+
+export const INITIAL_STATE: State = {
   loading: false,
   loaded: false,
-  item: {}
+  item: null
 };
 
 /**
@@ -44,13 +74,15 @@ export const INITIAL_STATE = {
  */
 export default handleActions(
   {
-    [FIND_AGREED_SALON_BY_ID_REQUEST]: state => ({
-      ...state,
-      loading: true,
-      loaded: false
-    }),
+    [FIND_AGREED_SALON_BY_ID_REQUEST](state: State, _action: FindSalonByIdRequestAction): State {
+      return {
+        ...state,
+        loading: true,
+        loaded: false
+      };
+    },
 
-    [FIND_AGREED_SALON_BY_ID_SUCCESS]: (state, action) => {
+    [FIND_AGREED_SALON_BY_ID_SUCCESS](state: State, action: FindSalonByIdSuccessAction): State {
       const { payload: { data: { salon: items } } } = action;
 
       return {
@@ -61,12 +93,14 @@ export default handleActions(
       };
     },
 
-    [FIND_AGREED_SALON_BY_ID_FAIL]: (state, { error }) => ({
-      ...state,
-      loading: false,
-      loaded: false,
-      error
-    })
+    [FIND_AGREED_SALON_BY_ID_FAIL](state: State, { error }: FindSalonByIdFailAction): State {
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        error
+      };
+    }
   },
   INITIAL_STATE
 );
