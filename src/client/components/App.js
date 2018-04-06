@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import PropTypes from "prop-types";
 import { Provider } from "react-redux";
@@ -8,6 +9,9 @@ import { useAsyncLoader } from "redux-async-loader";
 import { AppContainer } from "react-hot-loader";
 import { compose, setPropTypes } from "recompose";
 
+// StrictMode: not ready on flowtype
+const StrictMode = (React: any).StrictMode;
+
 export default compose(
   setPropTypes({
     store: PropTypes.object.isRequired
@@ -17,10 +21,7 @@ export default compose(
     useAsyncLoader(),
     useScroll((prevRouterProps, { location, routes }) => {
       if (
-        routes.some(
-          route =>
-            route.ignoreScrollBehavior && route.ignoreScrollBehavior(location)
-        )
+        routes.some(route => route.ignoreScrollBehavior && route.ignoreScrollBehavior(location))
       ) {
         return false;
       }
@@ -30,12 +31,12 @@ export default compose(
   );
 
   return (
-    <React.StrictMode>
+    <StrictMode>
       <AppContainer>
         <Provider store={store} key="provider">
           <Router {...renderProps} render={props => <RenderWithMiddleware {...props} />} />
         </Provider>
       </AppContainer>
-    </React.StrictMode>
+    </StrictMode>
   );
 });

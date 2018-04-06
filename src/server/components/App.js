@@ -1,8 +1,7 @@
+/* @flow */
 import React from "react";
-import PropTypes from "prop-types";
 import { Provider } from "react-redux";
 import RouterContext from "react-router/lib/RouterContext";
-import { compose, setPropTypes } from "recompose";
 import { injectGlobal } from "styled-components";
 
 /* eslint no-unused-expressions: 0 */
@@ -60,13 +59,13 @@ injectGlobal`
     padding: 10px !important;
     backgound-color: red !important;
   }
-`
+`;
 
-export default compose(
-  setPropTypes({
-    store: PropTypes.object.isRequired
-  })
-)(function App(props) {
+type Props = {
+  store: $FIXME // TODO: Set Store
+};
+
+export default function App(props: Props) {
   const { store, ...renderProps } = props;
 
   return (
@@ -74,4 +73,4 @@ export default compose(
       <RouterContext {...renderProps} />
     </Provider>
   );
-});
+}
