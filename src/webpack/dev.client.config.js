@@ -29,7 +29,6 @@ module.exports = {
       }),
     "react-hot-loader/patch",
     path.resolve(rootDir, "src/client/index.js"),
-    path.resolve(rootDir, "src/client/main.scss")
   ],
 
   output: {
