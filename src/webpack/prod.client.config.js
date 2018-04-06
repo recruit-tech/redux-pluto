@@ -18,7 +18,6 @@ module.exports = {
   entry: [
     "babel-polyfill",
     path.resolve(rootDir, "src/client/index.js"),
-    path.resolve(rootDir, "src/client/main.scss")
   ],
 
   output: {
