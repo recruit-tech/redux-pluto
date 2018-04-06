@@ -19,19 +19,12 @@ export default compose(
     })
   })
 )(function Style(props) {
-  const {
-    genderItems,
-    hairLengthItems,
-    children,
-    params: { gender, hairLength }
-  } = props;
+  const { genderItems, hairLengthItems, children, params: { gender, hairLength } } = props;
 
   return (
     <div>
       <GenderMenu genderItems={genderItems} gender={gender} />
-      <HairLengthMenu
-        {...{ gender, hairLength, genderItems, hairLengthItems }}
-      />
+      <HairLengthMenu {...{ gender, hairLength, genderItems, hairLengthItems }} />
       <div>{children}</div>
     </div>
   );

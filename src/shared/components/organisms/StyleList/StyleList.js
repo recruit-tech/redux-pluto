@@ -1,10 +1,8 @@
+/* @flow */
 import React from "react";
+import styled from "styled-components";
 import PropTypes from "prop-types";
 import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
-import { createLocal } from "shared/components/utils/localnames";
-import styles from "./styles.scss";
-
-const { localNames: local } = createLocal(styles);
 
 export default compose(
   onlyUpdateForPropTypes,
@@ -35,15 +33,21 @@ export default compose(
       </div>
       <div>
         {items.map(item => (
-          <div key={item.id} className={local("item")}>
-            <img
-              className={local("img")}
-              src={item.photo.front.m}
-              alt={item.name}
-            />
-          </div>
+          <Item key={item.id}>
+            <Img src={item.photo.front.m} alt={item.name} />
+          </Item>
         ))}
       </div>
     </div>
   );
 });
+
+const Item = styled.div`
+  display: inline-block;
+`;
+
+const Img = styled.img`
+  display: block;
+  height: 219px;
+  width: 164px;
+`;
