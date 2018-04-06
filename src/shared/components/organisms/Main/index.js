@@ -1,18 +1,16 @@
+/* @flow */
 import React from "react";
-import PropTypes from "prop-types";
-import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
-import { createLocal } from "shared/components/utils/localnames";
-import styles from "./styles.scss";
+import styled from "styled-components";
+import pure from "recompose/pure";
 
-const { localNames: local } = createLocal(styles);
-
-export default compose(
-  onlyUpdateForPropTypes,
-  setPropTypes({
-    children: PropTypes.node.isRequired
-  })
-)(function Main(props) {
+export default pure(function Main(props) {
   const { children } = props;
 
-  return <main className={local("root")}>{children}</main>;
+  return <Root>{children}</Root>;
 });
+
+const Root = styled.div`
+  margin: 0 auto;
+  padding-top: 200px;
+  text-align: center;
+`;

@@ -1,11 +1,9 @@
+/* @flow */
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
 import SalonList from "shared/components/molecules/SalonList";
-import { createLocal } from "shared/components/utils/localnames";
-import styles from "./styles.scss";
-
-const { localNames: local } = createLocal(styles);
 
 export default compose(
   onlyUpdateForPropTypes,
@@ -18,16 +16,10 @@ export default compose(
     linkURL: PropTypes.string.isRequired
   })
 )(function SalonLists(props) {
-  const {
-    items,
-    onInnerWindow,
-    shouldAdjustScroll,
-    forceScrollTo,
-    linkURL
-  } = props;
+  const { items, onInnerWindow, shouldAdjustScroll, forceScrollTo, linkURL } = props;
 
   return (
-    <div className={local("root")}>
+    <Root>
       {Object.keys(items).map(page => (
         <SalonList
           items={items[page]}
@@ -40,6 +32,11 @@ export default compose(
           forceScrollTo={forceScrollTo}
         />
       ))}
-    </div>
+    </Root>
   );
 });
+
+export const Root = styled.div`
+  text-align: center;
+  margin: 0 auto;
+`;

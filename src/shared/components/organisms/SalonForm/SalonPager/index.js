@@ -1,11 +1,9 @@
+/* @flow */
 import React from "react";
+import styled from "styled-components";
 import PropTypes from "prop-types";
 import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
-import { Link } from "react-router";
-import { createLocal } from "shared/components/utils/localnames";
-import styles from "./styles.scss";
-
-const { localNames: local } = createLocal(styles);
+import { Link as ReactRouterLink } from "react-router";
 
 const PAGE_WINDOW = 20;
 
@@ -25,15 +23,9 @@ export default compose(
       {slicedPages.map(
         p =>
           page === p ? (
-            <span className={local("current")} key={p}>
-              {p}
-            </span>
+            <Current key={p}>{p}</Current>
           ) : (
-            <Link
-              className={local("link")}
-              key={p}
-              to={`/salon?keyword=${keyword}&page=${p}`}
-            >
+            <Link key={p} to={`/salon?keyword=${keyword}&page=${p}`}>
               {p}
             </Link>
           )
@@ -49,3 +41,15 @@ function slicePages(page, pages) {
 
   return pages.slice(page - PAGE_WINDOW / 2, page + PAGE_WINDOW / 2);
 }
+
+const Link = styled(ReactRouterLink)`
+  color: #0033cc;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 8px 8px;
+`;
+
+const Current = styled.span`
+  text-decoration: bold;
+  padding: 8px 8px;
+`;
