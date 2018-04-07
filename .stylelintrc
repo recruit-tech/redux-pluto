@@ -1,0 +1,13 @@
+{
+ "processors": ["stylelint-processor-styled-components"],
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-styled-components"
+  ],
+  "syntax": "scss",
+  "rules": {
+    "block-no-empty": null,
+    "comment-empty-line-before": null,
+    "declaration-colon-newline-after": null
+  }
+}
