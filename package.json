@@ -8,8 +8,8 @@
     "build": "cross-env NODE_ENV=production RS_ENV=prd run-s clean build:{client,server,size}",
     "build:client": "webpack --verbose --colors --display-error-details --config src/webpack/prod.client.config.js",
     "build:csr": "cross-env DISABLE_SSR=1 npm run build",
-    "build:offload": "cross-env ENABLE_OFFLOAD=1 npm run build",
     "build:link-css": "cross-env DISABLE_INLINE_CSS=1 npm run build",
+    "build:offload": "cross-env ENABLE_OFFLOAD=1 npm run build",
     "build:server": "webpack --verbose --colors --display-error-details --config src/webpack/prod.server.config.js",
     "build:size": "webpack-bundle-size-analyzer build/client/stats.json",
     "check:secure": "nsp check",
@@ -22,21 +22,16 @@
     "prod": "run-s clean build start:prod",
     "start": "npm run start:dev",
     "start:csr": "cross-env DISABLE_SSR=1 npm run start:dev",
-    "start:offload": "cross-env ENABLE_OFFLOAD=1 npm run start:dev",
     "start:dev": "cross-env NODE_ENV=development run-p start:dev:{server,agreed}",
     "start:dev:agreed": "agreed-server --path ./spec/agreed/agreed.js --port 3010",
     "start:dev:server": "cross-env DEBUG=express:*,app:* node bin/start-server.js",
+    "start:offload": "cross-env ENABLE_OFFLOAD=1 npm run start:dev",
     "start:prod": "cross-env NODE_ENV=production run-p start:{prod:server,dev:agreed}",
     "start:prod:server": "node bin/start-server.js",
     "stylelint": "stylelint './src/**/*.js'",
-    "test:all": "run-p test:agreed test:wait-on -r --print-label",
     "test:agreed": "agreed-server --path ./spec/agreed/agreed.js --port 3020",
+    "test:all": "run-p test:agreed test:wait-on -r --print-label",
     "test:wait-on": "wait-on tcp:3020 && cross-env NODE_ENV=test BABEL_ENV=test:unit eater"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
-    }
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -169,7 +164,6 @@
     "strip-loader": "^0.1.2",
     "style-loader": "^0.20.2",
     "stylelint": "^9.2.0",
-    "stylelint-config-recommended": "^2.1.0",
     "stylelint-config-standard": "^18.2.0",
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.3.1",
@@ -180,5 +174,10 @@
     "webpack-hot-middleware": "^2.18.2",
     "webpack-hot-server-middleware": "^0.1.0",
     "write-file-webpack-plugin": "^4.1.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
   }
 }
