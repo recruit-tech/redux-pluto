@@ -1,3 +1,4 @@
+/* @flow */
 import { createAction, handleActions } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { fetchrRead } from "redux-effects-fetchr";
@@ -22,7 +23,7 @@ const findSalonByIdRequest = createAction(FIND_SALON_BY_ID_REQUEST);
 const findSalonByIdSuccess = createAction(FIND_SALON_BY_ID_SUCCESS);
 const findSalonByIdFail = createAction(FIND_SALON_BY_ID_FAIL);
 
-export function findSalonById(id) {
+export function findSalonById(id: string) {
   return steps(
     findSalonByIdRequest({ resource: "salon", params: { id } }),
     ({ payload }) => fetchrRead(payload),
@@ -33,10 +34,21 @@ export function findSalonById(id) {
 /**
  * Initial state
  */
+
+export type State = {
+  loading: boolean,
+  loaded: boolean,
+  item: ?{
+    name: string,
+    urls: {
+      pc: string
+    }
+  }
+};
 export const INITIAL_STATE = {
   loading: false,
   loaded: false,
-  item: {}
+  item: null
 };
 
 /**
