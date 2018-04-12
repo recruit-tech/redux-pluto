@@ -1,4 +1,5 @@
-import { createAction, handleActions } from "redux-actions";
+/* @flow */
+import { createAction, handleActions, type Reducer } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { fetchrRead } from "redux-effects-fetchr";
 import { range } from "lodash/fp";
@@ -33,7 +34,7 @@ const searchSalonListRequest = createAction(AGREED_SALON_LIST_SEARCH_REQUEST);
 const searchSalonListSuccess = createAction(AGREED_SALON_LIST_SEARCH_SUCCESS);
 const searchSalonListFail = createAction(AGREED_SALON_LIST_SEARCH_FAIL);
 
-export function searchSalonList(params) {
+export function searchSalonList(params: *) {
   return steps(
     searchSalonListRequest({ resource: "agreedSalon", params }),
     ({ payload }) => fetchrRead(payload),
@@ -44,21 +45,13 @@ export function searchSalonList(params) {
   );
 }
 
-export const clearSearchSalonList = createAction(
-  AGREED_SALON_LIST_CLEAR_SEARCH_REQUEST
-);
+export const clearSearchSalonList = createAction(AGREED_SALON_LIST_CLEAR_SEARCH_REQUEST);
 
-const searchMoreSalonListRequest = createAction(
-  AGREED_SALON_LIST_SEARCH_MORE_REQUEST
-);
-const searchMoreSalonListSuccess = createAction(
-  AGREED_SALON_LIST_SEARCH_MORE_SUCCESS
-);
-const searchMoreSalonListFail = createAction(
-  AGREED_SALON_LIST_SEARCH_MORE_FAIL
-);
+const searchMoreSalonListRequest = createAction(AGREED_SALON_LIST_SEARCH_MORE_REQUEST);
+const searchMoreSalonListSuccess = createAction(AGREED_SALON_LIST_SEARCH_MORE_SUCCESS);
+const searchMoreSalonListFail = createAction(AGREED_SALON_LIST_SEARCH_MORE_FAIL);
 
-export function searchMoreSalonList(params) {
+export function searchMoreSalonList(params: *) {
   return steps(
     searchMoreSalonListRequest({ resource: "agreedSalon", params }),
     ({ payload }) => fetchrRead(payload),
@@ -72,7 +65,21 @@ export function searchMoreSalonList(params) {
 /**
  * Initial state
  */
-export const INITIAL_STATE = {
+export type State = {
+  loading: boolean,
+  loaded: boolean,
+  params: Object,
+  count: number,
+  page: number,
+  pages: Array<*>,
+  items: Object,
+  canGetNext: boolean,
+  canGetPrev: boolean,
+  shouldAdjustScroll: boolean,
+  forceScrollTo: { x: number, y: number }
+};
+
+export const INITIAL_STATE: State = {
   loading: false,
   loaded: false,
   params: {},
@@ -89,7 +96,7 @@ export const INITIAL_STATE = {
 /**
  * Reducer
  */
-export default handleActions(
+export default (handleActions(
   {
     [AGREED_SALON_LIST_SEARCH_REQUEST]: state => ({
       ...state,
@@ -99,10 +106,7 @@ export default handleActions(
 
     [AGREED_SALON_LIST_SEARCH_SUCCESS]: (state, action) => {
       const {
-        payload: {
-          params,
-          data: { results_available: count, results_start: start, salon: items }
-        }
+        payload: { params, data: { results_available: count, results_start: start, salon: items } }
       } = action;
       const page = +params.page || 0;
 
@@ -145,10 +149,7 @@ export default handleActions(
 
     [AGREED_SALON_LIST_SEARCH_MORE_SUCCESS]: (state, action) => {
       const {
-        payload: {
-          params,
-          data: { results_available: count, results_start: start, salon: items }
-        }
+        payload: { params, data: { results_available: count, results_start: start, salon: items } }
       } = action;
 
       return {
@@ -182,7 +183,7 @@ export default handleActions(
     }
   },
   INITIAL_STATE
-);
+): Reducer<State, *>);
 
 function canGetNext(count, start) {
   return +count > +start + SALON_SEARCH_MAX_COUNT;

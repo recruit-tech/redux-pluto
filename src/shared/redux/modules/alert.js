@@ -1,4 +1,5 @@
-import { createAction, handleActions } from "redux-actions";
+/* @flow */
+import { createAction, handleActions, type Reducer } from "redux-actions";
 
 /**
  * Action types
@@ -17,14 +18,19 @@ export const clearAlert = createAction(ALERT_CLEAR);
 /**
  * Initial state
  */
-const INITIAL_STATE = {
+
+export type State = {
+  message: string
+};
+
+const INITIAL_STATE: State = {
   message: ""
 };
 
 /**
  * Reducer
  */
-export default handleActions(
+export default (handleActions(
   {
     [ALERT_SHOW]: (state, action) => {
       const { payload } = action;
@@ -37,4 +43,4 @@ export default handleActions(
     [ALERT_CLEAR]: (state, action) => INITIAL_STATE
   },
   INITIAL_STATE
-);
+): Reducer<State, *>);
