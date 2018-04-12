@@ -1,22 +1,17 @@
+/* @flow */
 import React from "react";
-import PropTypes from "prop-types";
-import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
+import styled from "styled-components";
+import pure from "recompose/pure";
 import Overlay from "shared/components/atoms/Overlay";
-import { createLocal } from "shared/components/utils/localnames";
-import stopPropagation from "shared/components/utils/stopPropagation";
-import styles from "./styles.scss";
 
-const { localNames: local } = createLocal(styles);
+type Props = {
+  alert: {
+    message: string
+  },
+  onClose: Function
+};
 
-export default compose(
-  onlyUpdateForPropTypes,
-  setPropTypes({
-    alert: PropTypes.shape({
-      message: PropTypes.string.isRequired
-    }).isRequired,
-    onClose: PropTypes.func.isRequired
-  })
-)(function Alert(props) {
+export default pure(function Alert(props: Props) {
   const { alert: { message }, onClose } = props;
 
   if (!message) {
@@ -24,21 +19,60 @@ export default compose(
   }
 
   return (
-    <div className={local("root")}>
+    <Root>
       <Overlay onClick={onClose}>
-        <div className={local("obiOuter")}>
-          <div onClick={stopPropagation} className={local("obiInner")}>
-            <div className={local("displayArea")}>
-              <div className={local("messageArea")}>
+        <ObiOuter>
+          <ObiInner onClick={ev => ev.stopPropagation()}>
+            <DisplayArea>
+              <MessageArea>
                 <span>{message}</span>
-              </div>
-              <div className={local("buttonArea")}>
+              </MessageArea>
+              <ButtonArea>
                 <button onClick={onClose}>閉じる</button>
-              </div>
-            </div>
-          </div>
-        </div>
+              </ButtonArea>
+            </DisplayArea>
+          </ObiInner>
+        </ObiOuter>
       </Overlay>
-    </div>
+    </Root>
   );
 });
+
+const Root = styled.div``;
+
+const ObiOuter = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 100%;
+  height: 200px;
+`;
+
+const ObiInner = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 1);
+`;
+
+const DisplayArea = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  height: 50px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+`;
+
+const MessageArea = styled.div`
+  text-align: center;
+`;
+
+const ButtonArea = styled.div`
+  text-align: center;
+`;
