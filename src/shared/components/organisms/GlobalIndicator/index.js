@@ -1,3 +1,4 @@
+/* @flow */
 import { connect } from "react-redux";
 import { compose } from "recompose";
 import { loadingSelector } from "shared/redux/modules/reducer";

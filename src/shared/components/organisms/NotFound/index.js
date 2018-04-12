@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import { compose, shouldUpdate } from "recompose";
 import { sendAnalytics } from "react-redux-analytics";

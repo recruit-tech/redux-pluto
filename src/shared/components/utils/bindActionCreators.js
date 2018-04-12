@@ -1,5 +1,6 @@
+/* @flow */
 import { bindActionCreators as bind } from "redux";
 
-export default function bindActionCreators(actionCreators) {
-  return dispatch => bind(actionCreators, dispatch);
+export default function bindActionCreators<T>(actionCreators: T): Function => T {
+  return dispatch => (bind: any)(actionCreators, dispatch);
 }

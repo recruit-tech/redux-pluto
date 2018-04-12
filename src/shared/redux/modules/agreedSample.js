@@ -22,7 +22,7 @@ export const getTextRequest = createAction(AGREED_SAMPLE_GET_TEXT_REQUEST);
 export const getTextSuccess = createAction(AGREED_SAMPLE_GET_TEXT_SUCCESS);
 export const getTextFail = createAction(AGREED_SAMPLE_GET_TEXT_FAIL);
 
-export function getText() {
+export function getText(): Promise<{ text: string }> {
   return steps(getTextRequest({ resource: "agreedSample" }), ({ payload }) => fetchrRead(payload), [
     getTextSuccess,
     getTextFail
