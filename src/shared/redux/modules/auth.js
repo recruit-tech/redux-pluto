@@ -1,4 +1,5 @@
-import { createAction, handleActions } from "redux-actions";
+/* @flow */
+import { createAction, handleActions, type Reducer } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { createAsyncActionTypes } from "./utils";
 
@@ -13,17 +14,13 @@ export const [
   AUTH_CHECK_LOGIN_FAIL
 ] = createAsyncActionTypes(`${AUTH}/check`);
 
-export const [
-  AUTH_LOGIN_REQUEST,
-  AUTH_LOGIN_SUCCESS,
-  AUTH_LOGIN_FAIL
-] = createAsyncActionTypes(`${AUTH}/login`);
+export const [AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_FAIL] = createAsyncActionTypes(
+  `${AUTH}/login`
+);
 
-export const [
-  AUTH_LOGOUT_REQUEST,
-  AUTH_LOGOUT_SUCCESS,
-  AUTH_LOGOUT_FAIL
-] = createAsyncActionTypes(`${AUTH}/logout`);
+export const [AUTH_LOGOUT_REQUEST, AUTH_LOGOUT_SUCCESS, AUTH_LOGOUT_FAIL] = createAsyncActionTypes(
+  `${AUTH}/logout`
+);
 
 /**
  * Action creators
@@ -44,7 +41,7 @@ const loginSuccess = createAction(AUTH_LOGIN_SUCCESS);
 
 const loginFail = createAction(AUTH_LOGIN_FAIL);
 
-export function login(username, password, location) {
+export function login(username: string, password: string, location: *) {
   return steps(loginRequest({ params: { username, password }, location }), [
     loginSuccess,
     loginFail
@@ -64,7 +61,12 @@ export function logout() {
 /**
  * Initial state
  */
-const INITIAL_STATE = {
+
+export type State = {
+  login: boolean,
+  username: ?string
+};
+const INITIAL_STATE: State = {
   login: false,
   username: null
 };
@@ -72,7 +74,7 @@ const INITIAL_STATE = {
 /**
  * Reducer
  */
-export default handleActions(
+export default (handleActions(
   {
     [AUTH_CHECK_LOGIN_SUCCESS]: loggedIn,
     [AUTH_LOGIN_SUCCESS]: loggedIn,
@@ -81,7 +83,7 @@ export default handleActions(
     [AUTH_LOGOUT_SUCCESS]: loggedOut
   },
   INITIAL_STATE
-);
+): Reducer<State, *>);
 
 function loggedIn(state, action) {
   const { payload: { sub } } = action;

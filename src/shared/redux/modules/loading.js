@@ -1,4 +1,5 @@
-import { createAction, handleActions } from "redux-actions";
+/* @flow */
+import { createAction, handleActions, type Reducer } from "redux-actions";
 
 /**
  * Action types
@@ -17,15 +18,17 @@ export const stopLoading = createAction(STOP_LOADING);
 /**
  * Initial state
  */
-const INITIAL_STATE = false;
+
+export type State = boolean;
+const INITIAL_STATE: State = false;
 
 /**
  * Reducer
  */
-export default handleActions(
+export default (handleActions(
   {
     [START_LOADING]: () => true,
     [STOP_LOADING]: () => false
   },
   INITIAL_STATE
-);
+): Reducer<State, *>);

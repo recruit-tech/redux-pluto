@@ -1,4 +1,5 @@
-import { createAction, handleActions } from "redux-actions";
+/* @flow */
+import { createAction, handleActions, type Reducer } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { upload } from "../middleware/uploader";
 import { createAsyncActionTypes } from "./utils";
@@ -11,11 +12,9 @@ const UPLOAD_SAMPLE = "redux-proto/uploadsample/";
 const INPUT_FILE = `${UPLOAD_SAMPLE}input`;
 const UPLOAD_FILE = `${UPLOAD_SAMPLE}upload`;
 
-export const [
-  UPLOAD_FILE_REQUEST,
-  UPLOAD_FILE_SUCCESS,
-  UPLOAD_FILE_FAIL
-] = createAsyncActionTypes(UPLOAD_FILE);
+export const [UPLOAD_FILE_REQUEST, UPLOAD_FILE_SUCCESS, UPLOAD_FILE_FAIL] = createAsyncActionTypes(
+  UPLOAD_FILE
+);
 
 /**
  * Action creators
@@ -27,7 +26,7 @@ const uploadFileRequest = createAction(UPLOAD_FILE_REQUEST);
 const uploadFileSuccess = createAction(UPLOAD_FILE_SUCCESS);
 const uploadFileFail = createAction(UPLOAD_FILE_FAIL);
 
-export function uploadFile(file) {
+export function uploadFile(file: *) {
   return steps(uploadFileRequest(), upload("/upload/uploadsample", file), [
     uploadFileSuccess,
     uploadFileFail
@@ -37,7 +36,13 @@ export function uploadFile(file) {
 /**
  * Initial state
  */
-export const INITIAL_STATE = {
+export type State = {
+  loading: boolean,
+  loaded: boolean,
+  value: string,
+  error: ?Error
+};
+export const INITIAL_STATE: State = {
   loading: false,
   loaded: false,
   value: "",
@@ -47,7 +52,7 @@ export const INITIAL_STATE = {
 /**
  * Reducer
  */
-export default handleActions(
+export default (handleActions(
   {
     [INPUT_FILE]: (state, action) => {
       const { payload } = action;
@@ -78,4 +83,4 @@ export default handleActions(
     }
   },
   INITIAL_STATE
-);
+): Reducer<State, *>);

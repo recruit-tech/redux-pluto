@@ -1,4 +1,5 @@
-import { createAction, handleActions } from "redux-actions";
+/* @flow */
+import { createAction, handleActions, type Reducer } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { fetchrRead } from "redux-effects-fetchr";
 import { createAsyncActionTypes } from "./utils";
@@ -21,7 +22,7 @@ const searchStyleSuccess = createAction(SEARCH_STYLE_SUCCESS);
 
 const searchStyleFail = createAction(SEARCH_STYLE_FAIL);
 
-export function searchStyle(params) {
+export function searchStyle(params: *) {
   return steps(
     searchStyleRequest({ resource: "style", params }),
     ({ payload }) => fetchrRead(payload),
@@ -32,7 +33,14 @@ export function searchStyle(params) {
 /**
  * Initial state
  */
-export const INITIAL_STATE = {
+export type State = {
+  loading: boolean,
+  loaded: boolean,
+  params: ?Object,
+  count: number,
+  items: Array<*>
+};
+export const INITIAL_STATE: State = {
   loading: false,
   loaded: false,
   params: null,
@@ -43,7 +51,7 @@ export const INITIAL_STATE = {
 /**
  * Reducer
  */
-export default handleActions(
+export default (handleActions(
   {
     [SEARCH_STYLE_REQUEST]: (state, action) => {
       const { payload: { params } } = action;
@@ -58,9 +66,7 @@ export default handleActions(
     },
 
     [SEARCH_STYLE_SUCCESS]: (state, action) => {
-      const {
-        payload: { data: { results_available: count, style: items } }
-      } = action;
+      const { payload: { data: { results_available: count, style: items } } } = action;
 
       return {
         loading: false,
@@ -85,4 +91,4 @@ export default handleActions(
     }
   },
   INITIAL_STATE
-);
+): Reducer<State, *>);
