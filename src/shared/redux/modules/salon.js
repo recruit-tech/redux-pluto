@@ -1,5 +1,5 @@
 /* @flow */
-import { createAction, handleActions } from "redux-actions";
+import { createAction, handleActions, type Reducer } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { fetchrRead } from "redux-effects-fetchr";
 import { createAsyncActionTypes } from "./utils";
@@ -54,7 +54,7 @@ export const INITIAL_STATE = {
 /**
  * Reducer
  */
-export default handleActions(
+export default (handleActions(
   {
     [FIND_SALON_BY_ID_REQUEST]: state => ({
       ...state,
@@ -81,4 +81,4 @@ export default handleActions(
     })
   },
   INITIAL_STATE
-);
+): Reducer<State, *>);

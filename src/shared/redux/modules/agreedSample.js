@@ -1,4 +1,5 @@
-import { createAction, handleActions } from "redux-actions";
+/* @flow */
+import { createAction, handleActions, type Reducer } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { fetchrRead } from "redux-effects-fetchr";
 import { createAsyncActionTypes } from "./utils";
@@ -22,23 +23,29 @@ export const getTextSuccess = createAction(AGREED_SAMPLE_GET_TEXT_SUCCESS);
 export const getTextFail = createAction(AGREED_SAMPLE_GET_TEXT_FAIL);
 
 export function getText() {
-  return steps(
-    getTextRequest({ resource: "agreedSample" }),
-    ({ payload }) => fetchrRead(payload),
-    [getTextSuccess, getTextFail]
-  );
+  return steps(getTextRequest({ resource: "agreedSample" }), ({ payload }) => fetchrRead(payload), [
+    getTextSuccess,
+    getTextFail
+  ]);
 }
 
 /**
  * Initial state
  */
-const INITIAL_STATE = {
+
+export type State = {
+  loading: boolean,
+  loaded: boolean,
+  text: string
+};
+
+const INITIAL_STATE: State = {
   loading: false,
   loaded: false,
   text: ""
 };
 
-export default handleActions(
+export default (handleActions(
   {
     [AGREED_SAMPLE_GET_TEXT_REQUEST]: state => ({
       ...state,
@@ -65,4 +72,4 @@ export default handleActions(
     }
   },
   INITIAL_STATE
-);
+): Reducer<State, *>);

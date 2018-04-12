@@ -5,38 +5,40 @@ import { reduxAsyncLoader } from "redux-async-loader";
 import { reducer as formReducer } from "redux-form";
 import { pageScopeReducer } from "redux-page-scope";
 import { analyticsReducer } from "react-redux-analytics";
-import agreedSample from "./agreedSample";
-import alert from "./alert";
-import auth from "./auth";
-import counter from "./counter";
-import loading from "./loading";
-import masters from "./masters";
+import agreedSample, { type State as AgreedSampleState } from "./agreedSample";
+import alert, { type State as AlertState } from "./alert";
+import auth, { type State as AuthState } from "./auth";
+import counter, { type State as CounterState } from "./counter";
+import loading, { type State as LoadingState } from "./loading";
+import masters, { type State as MastersState } from "./masters";
 import salon, { type State as SalonState } from "./salon";
 import agreedSalon, { type State as AgreedSalonState } from "./agreedSalon";
-import salonList from "./salonList";
-import agreedSalonList from "./agreedSalonList";
-import style from "./style";
+import salonList, { type State as SalonListState } from "./salonList";
+import agreedSalonList, { type State as AgreedSalonListState } from "./agreedSalonList";
+import style, { type State as StyleState } from "./style";
 import uploadSample from "./uploadSample";
 
 export type State = {
   app: {
-    masters: $FIXME,
-    auth: $FIXME,
-    counter: $FIXME,
-    alert: $FIXME,
-    loading: $FIXME
+    masters: MastersState,
+    auth: AuthState,
+    counter: CounterState,
+    alert: AlertState,
+    loading: LoadingState
   },
   page: {
+    agreedSample: AgreedSampleState,
     agreedSalon: AgreedSalonState,
-    agreedSalonList: $FIXME,
+    agreedSalonList: AgreedSalonListState,
     salon: SalonState,
-    salonList: $FIXME,
-    style: $FIXME
+    salonList: SalonListState,
+    style: StyleState
   },
-  form: $FIXME,
-  reduxAsyncLoader: $FIXME,
-  routing: $FIXME,
-  analytics: $FIXME
+  // libraries
+  form: *,
+  reduxAsyncLoader: *,
+  routing: *,
+  analytics: *
 };
 
 export default combineReducers({
@@ -67,23 +69,23 @@ export default combineReducers({
 /**
  * Selectors
  */
-export function mastersSelector(state: State) {
+export function mastersSelector(state: State): MastersState {
   return state.app.masters;
 }
 
-export function authSelector(state: State) {
+export function authSelector(state: State): AuthState {
   return state.app.auth;
 }
 
-export function counterSelector(state: State) {
+export function counterSelector(state: State): CounterState {
   return state.app.counter;
 }
 
-export function alertSelector(state: State) {
+export function alertSelector(state: State): AlertState {
   return state.app.alert;
 }
 
-export function loadingSelector(state: State) {
+export function loadingSelector(state: State): LoadingState {
   return state.app.loading;
 }
 
@@ -95,15 +97,15 @@ export function agreedSalonSelector(state: State): AgreedSalonState {
   return state.page.agreedSalon;
 }
 
-export function salonListSelector(state: State) {
+export function salonListSelector(state: State): SalonListState {
   return state.page.salonList;
 }
 
-export function agreedSalonListSelector(state: State) {
+export function agreedSalonListSelector(state: State): AgreedSalonListState {
   return state.page.agreedSalonList;
 }
 
-export function styleSelector(state: State) {
+export function styleSelector(state: State): StyleState {
   return state.page.style;
 }
 
