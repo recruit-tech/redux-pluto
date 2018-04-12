@@ -1,5 +1,5 @@
 /* @flow */
-import { createAction, handleActions } from "redux-actions";
+import { createAction, handleActions, type Reducer } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { fetchrRead } from "redux-effects-fetchr";
 import { createAsyncActionTypes } from "./utils";
@@ -72,9 +72,9 @@ export const INITIAL_STATE: State = {
 /**
  * Reducer
  */
-export default handleActions(
+export default (handleActions(
   {
-    [FIND_AGREED_SALON_BY_ID_REQUEST](state: State, _action: FindSalonByIdRequestAction): State {
+    [FIND_AGREED_SALON_BY_ID_REQUEST](state, _action: FindSalonByIdRequestAction) {
       return {
         ...state,
         loading: true,
@@ -82,7 +82,7 @@ export default handleActions(
       };
     },
 
-    [FIND_AGREED_SALON_BY_ID_SUCCESS](state: State, action: FindSalonByIdSuccessAction): State {
+    [FIND_AGREED_SALON_BY_ID_SUCCESS](state, action: FindSalonByIdSuccessAction) {
       const { payload: { data: { salon: items } } } = action;
 
       return {
@@ -93,7 +93,7 @@ export default handleActions(
       };
     },
 
-    [FIND_AGREED_SALON_BY_ID_FAIL](state: State, { error }: FindSalonByIdFailAction): State {
+    [FIND_AGREED_SALON_BY_ID_FAIL](state, { error }: FindSalonByIdFailAction) {
       return {
         ...state,
         loading: false,
@@ -103,4 +103,4 @@ export default handleActions(
     }
   },
   INITIAL_STATE
-);
+): Reducer<State, *>);

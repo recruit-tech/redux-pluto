@@ -1,5 +1,6 @@
+/* @flow */
 import { transform } from "lodash/fp";
-import { createAction, handleActions } from "redux-actions";
+import { createAction, handleActions, type Reducer } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { fetchrRead } from "redux-effects-fetchr";
 import { createAsyncActionTypes } from "./utils";
@@ -7,11 +8,9 @@ import { createAsyncActionTypes } from "./utils";
 /**
  * Action types
  */
-export const [
-  LOAD_MASTER_REQUEST,
-  LOAD_MASTER_SUCCESS,
-  LOAD_MASTER_FAIL
-] = createAsyncActionTypes("redux-proto/masters/load");
+export const [LOAD_MASTER_REQUEST, LOAD_MASTER_SUCCESS, LOAD_MASTER_FAIL] = createAsyncActionTypes(
+  "redux-proto/masters/load"
+);
 
 /**
  * Action creators
@@ -20,10 +19,10 @@ const loadMasterRequest = createAction(LOAD_MASTER_REQUEST, resource => ({
   resource
 }));
 
-const loadMasterSuccess = createAction(
-  LOAD_MASTER_SUCCESS,
-  (resource, items) => ({ resource, items })
-);
+const loadMasterSuccess = createAction(LOAD_MASTER_SUCCESS, (resource, items) => ({
+  resource,
+  items
+}));
 
 const loadMasterFail = createAction(LOAD_MASTER_FAIL, (resource, error) => ({
   resource,
@@ -31,14 +30,10 @@ const loadMasterFail = createAction(LOAD_MASTER_FAIL, (resource, error) => ({
 }));
 
 function loadMaster(resource) {
-  return steps(
-    loadMasterRequest(resource),
-    ({ payload }) => fetchrRead(payload),
-    [
-      payload => loadMasterSuccess(resource, payload.data),
-      error => loadMasterFail(resource, error)
-    ]
-  );
+  return steps(loadMasterRequest(resource), ({ payload }) => fetchrRead(payload), [
+    payload => loadMasterSuccess(resource, payload.data),
+    error => loadMasterFail(resource, error)
+  ]);
 }
 
 export function loadAreaMaster() {
@@ -82,7 +77,15 @@ const RESOURCES = [
   "menuContentMaster"
 ];
 
-export const INITIAL_STATE = transform(
+export type State = {
+  [$Keys<typeof RESOURCES>]: {
+    loading: boolean,
+    loaded: boolean,
+    items: ?mixed
+  }
+};
+
+export const INITIAL_STATE: State = transform(
   (state, resource) => {
     state[resource] = {
       loading: false,
@@ -97,7 +100,7 @@ export const INITIAL_STATE = transform(
 /**
  * Reducer
  */
-export default handleActions(
+export default (handleActions(
   {
     [LOAD_MASTER_REQUEST]: (state, action) => {
       const { payload: { resource } } = action;
@@ -140,4 +143,4 @@ export default handleActions(
     }
   },
   INITIAL_STATE
-);
+): Reducer<State, *>);
