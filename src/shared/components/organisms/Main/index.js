@@ -1,9 +1,11 @@
 /* @flow */
-import React from "react";
+import React, { type Node } from "react";
 import styled from "styled-components";
 import pure from "recompose/pure";
 
-export default pure(function Main(props) {
+type Props = { children: Node };
+
+export default pure(function Main(props: Props) {
   const { children } = props;
 
   return <Root>{children}</Root>;

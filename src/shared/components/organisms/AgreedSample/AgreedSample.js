@@ -1,13 +1,12 @@
+/* @flow */
 import React from "react";
-import PropTypes from "prop-types";
-import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
+import pure from "recompose/pure";
 
-export default compose(
-  onlyUpdateForPropTypes,
-  setPropTypes({
-    text: PropTypes.string.isRequired
-  })
-)(function AgreedSample(props) {
+type Props = {
+  text: string
+};
+
+export default pure(function AgreedSample(props: Props) {
   const { text } = props;
   return <div>{text}</div>;
 });
