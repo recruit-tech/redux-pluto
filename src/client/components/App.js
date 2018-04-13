@@ -1,22 +1,13 @@
 /* @flow */
 import React from "react";
-import PropTypes from "prop-types";
 import { Provider } from "react-redux";
 import Router from "react-router/lib/Router";
 import applyRouterMiddleware from "react-router/lib/applyRouterMiddleware";
 import { useScroll } from "react-router-scroll";
 import { useAsyncLoader } from "redux-async-loader";
 import { AppContainer } from "react-hot-loader";
-import { compose, setPropTypes } from "recompose";
 
-// StrictMode: not ready on flowtype
-const StrictMode = (React: any).StrictMode;
-
-export default compose(
-  setPropTypes({
-    store: PropTypes.object.isRequired
-  })
-)(function App({ store, ...renderProps }) {
+export default function App({ store, ...renderProps }: any) {
   const RenderWithMiddleware = applyRouterMiddleware(
     useAsyncLoader(),
     useScroll((prevRouterProps, { location, routes }) => {
@@ -31,12 +22,10 @@ export default compose(
   );
 
   return (
-    <StrictMode>
-      <AppContainer>
-        <Provider store={store} key="provider">
-          <Router {...renderProps} render={props => <RenderWithMiddleware {...props} />} />
-        </Provider>
-      </AppContainer>
-    </StrictMode>
+    <AppContainer>
+      <Provider store={store} key="provider">
+        <Router {...renderProps} render={props => <RenderWithMiddleware {...props} />} />
+      </Provider>
+    </AppContainer>
   );
-});
+}
