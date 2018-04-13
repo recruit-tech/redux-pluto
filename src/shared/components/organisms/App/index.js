@@ -1,13 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
+/* @flow */
+import React, { type Node } from "react";
+import pure from "recompose/pure";
 
-export default compose(
-  onlyUpdateForPropTypes,
-  setPropTypes({
-    children: PropTypes.node.isRequired
-  })
-)(function App(props) {
+type Props = {|
+  children: Node
+|};
+
+export default pure(function App(props: Props) {
   const { children } = props;
 
   return <div>{children}</div>;
