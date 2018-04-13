@@ -8,6 +8,30 @@ import SalonMore from "shared/components/atoms/SalonMore";
 import SalonLists from "./SalonLists";
 import SalonPager from "./SalonPager";
 
+type FormProps = {
+  handleSubmit: Function,
+  initialValues: {
+    keyword: string
+  },
+  submitting: boolean
+};
+
+type Props = FormProps & {
+  page: number, // optional?
+  pages: Array<*>,
+  count: number,
+  items: Object,
+  onInnerWindow: Function,
+  onClickNext: Function,
+  onClickPrev: Function,
+  canGetNext: boolean,
+  canGetPrev: boolean,
+  shouldAdjustScroll: boolean,
+  linkURL: string,
+  forceScrollTo: ?Object,
+  globalFormDisabled: boolean
+};
+
 export default compose(
   // for performance
   onlyUpdateForPropTypes,
@@ -27,9 +51,11 @@ export default compose(
     forceScrollTo: PropTypes.object,
     globalFormDisabled: PropTypes.bool
   })
-)(function SalonForm(props) {
+)(function SalonForm(props: Props) {
   const {
     handleSubmit,
+    initialValues,
+    submitting,
     count,
     page,
     pages,
@@ -42,8 +68,6 @@ export default compose(
     shouldAdjustScroll,
     linkURL,
     forceScrollTo,
-    initialValues,
-    submitting,
     globalFormDisabled
   } = props;
 

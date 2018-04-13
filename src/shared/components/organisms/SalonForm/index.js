@@ -1,3 +1,4 @@
+/* @flow */
 import { parse } from "querystring";
 import { compose, shouldUpdate, withState } from "recompose";
 import { createSelector } from "reselect";
@@ -16,10 +17,7 @@ import {
   searchMoreSalonList,
   clearSearchSalonList
 } from "shared/redux/modules/salonList";
-import {
-  siteSections,
-  onAsyncLoaderLoaded
-} from "shared/redux/analytics/utils";
+import { siteSections, onAsyncLoaderLoaded } from "shared/redux/analytics/utils";
 import { SALON_KEYWORD } from "shared/redux/analytics/variableNames";
 import SalonForm from "./SalonForm";
 
@@ -58,19 +56,15 @@ export default compose(
     dispatch(clearSearchSalonList());
     return dispatch(searchSalonList({ keyword, page }));
   }),
-  connect(selector, (dispatch, ownProps) => ({
+  (connect: $FIXME)(selector, (dispatch, ownProps) => ({
     onClickPrev: page => () => {
       const keyword = parse(window.location.search.substr(1)).keyword;
-      return dispatch(
-        replace(`/salon?keyword=${keyword}&page=${page - 1}&more=true`)
-      );
+      return dispatch(replace(`/salon?keyword=${keyword}&page=${page - 1}&more=true`));
     },
 
     onClickNext: page => () => {
       const keyword = parse(window.location.search.substr(1)).keyword;
-      return dispatch(
-        replace(`/salon?keyword=${keyword}&page=${page + 1}&more=true`)
-      );
+      return dispatch(replace(`/salon?keyword=${keyword}&page=${page + 1}&more=true`));
     },
 
     // 今見てる window の中の要素でpageのURL位置を変える
@@ -80,9 +74,7 @@ export default compose(
       const currentPage = query.page || "0";
       const keyword = query.keyword;
       if (page !== currentPage) {
-        return void dispatch(
-          replace(`/salon?keyword=${keyword}&page=${page}&more=true`)
-        );
+        return void dispatch(replace(`/salon?keyword=${keyword}&page=${page}&more=true`));
       }
     }
   })),

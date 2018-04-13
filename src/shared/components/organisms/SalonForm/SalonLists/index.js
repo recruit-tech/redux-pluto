@@ -1,21 +1,19 @@
 /* @flow */
 import React from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
-import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
+import pure from "recompose/pure";
 import SalonList from "shared/components/molecules/SalonList";
 
-export default compose(
-  onlyUpdateForPropTypes,
-  setPropTypes({
-    page: PropTypes.number.isRequired,
-    items: PropTypes.object.isRequired,
-    onInnerWindow: PropTypes.func.isRequired,
-    shouldAdjustScroll: PropTypes.bool.isRequired,
-    forceScrollTo: PropTypes.object.isRequired,
-    linkURL: PropTypes.string.isRequired
-  })
-)(function SalonLists(props) {
+type Props = {
+  page: number,
+  items: Object,
+  onInnerWindow: Function,
+  shouldAdjustScroll: boolean,
+  forceScrollTo: ?{ x: number, y: number },
+  linkURL: string
+};
+
+export default pure(function SalonLists(props: Props) {
   const { items, onInnerWindow, shouldAdjustScroll, forceScrollTo, linkURL } = props;
 
   return (

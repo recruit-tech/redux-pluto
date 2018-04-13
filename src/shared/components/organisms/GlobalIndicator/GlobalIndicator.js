@@ -1,14 +1,13 @@
+/* @flow */
 import React from "react";
-import PropTypes from "prop-types";
-import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
+import pure from "recompose/pure";
 import Indicator from "shared/components/atoms/Indicator";
 
-export default compose(
-  onlyUpdateForPropTypes,
-  setPropTypes({
-    loading: PropTypes.bool.isRequired
-  })
-)(function GlobalIndicator(props) {
+type Props = {|
+  loading: boolean
+|};
+
+export default pure(function GlobalIndicator(props: Props) {
   const { loading } = props;
 
   return (

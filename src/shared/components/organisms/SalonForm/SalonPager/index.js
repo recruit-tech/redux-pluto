@@ -1,20 +1,18 @@
 /* @flow */
 import React from "react";
 import styled from "styled-components";
-import PropTypes from "prop-types";
-import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
+import pure from "recompose/pure";
 import { Link as ReactRouterLink } from "react-router";
 
 const PAGE_WINDOW = 20;
 
-export default compose(
-  onlyUpdateForPropTypes,
-  setPropTypes({
-    page: PropTypes.number.isRequired,
-    pages: PropTypes.array.isRequired,
-    keyword: PropTypes.string.isRequired
-  })
-)(function SalonPager(props) {
+type Props = {
+  page: number,
+  pages: number[],
+  keyword: string
+};
+
+export default pure(function SalonPager(props: Props) {
   const { keyword, page, pages } = props;
   const slicedPages = slicePages(page, pages);
 
