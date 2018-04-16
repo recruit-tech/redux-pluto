@@ -19,7 +19,7 @@ export function read(axios, name, pathname, query) {
         });
       }
 
-      const results = responseBody.results;
+      const { results } = responseBody;
       if (results.error) {
         const { code, message } = results.error;
         return rejectWith(fumble.create(code, message), { name, formattedUrl });

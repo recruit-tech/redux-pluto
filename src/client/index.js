@@ -78,7 +78,7 @@ function renderApp() {
       // hydrate に失敗する事がある。
       // SSR が有効の場合は redirect は server の response で行われるのでこの処理は不要。
       if (__DISABLE_SSR__ && redirectLocation && !renderProps) {
-        location.replace(
+        window.location.replace(
           `${redirectLocation.pathname}${redirectLocation.search}`
         );
         return resolve();

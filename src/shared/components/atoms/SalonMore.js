@@ -10,5 +10,5 @@ type Props = {
 
 export default compose(pure, showOnScroll)(function SalonMore(props: Props) {
   const { children, onShow } = props;
-  return <div onClick={onShow}>{children}</div>;
+  return <div onClick={onShow} onKeyDown={onShow}>{children}</div>;
 });

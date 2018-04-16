@@ -19,7 +19,7 @@ test("UploadSample: upload file", () => {
   const apiPath = `${configs.upload.path}${uploadSample.path}`;
   app.post(apiPath, upload.single("file"), uploadSample.createMiddleware());
   const server = app.listen(0, () => {
-    const port = server.address().port;
+    const { port } = server.address();
     const form = new FormData();
     form.append(
       "file",

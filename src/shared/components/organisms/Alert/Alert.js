@@ -27,7 +27,7 @@ export default compose(
     <div className={local("root")}>
       <Overlay onClick={onClose}>
         <div className={local("obiOuter")}>
-          <div onClick={stopPropagation} className={local("obiInner")}>
+          <div onClick={stopPropagation} onKeyDown={stopPropagation} className={local("obiInner")}>
             <div className={local("displayArea")}>
               <div className={local("messageArea")}>
                 <span>{message}</span>
