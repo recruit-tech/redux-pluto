@@ -1,16 +1,15 @@
+/* @flow */
 import React from "react";
-import PropTypes from "prop-types";
-import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
+import pure from "recompose/pure";
 
-export default compose(
-  onlyUpdateForPropTypes,
-  setPropTypes({
-    loading: PropTypes.bool.isRequired,
-    value: PropTypes.string.isRequired,
-    onInputFile: PropTypes.func.isRequired,
-    onSubmitFile: PropTypes.func.isRequired
-  })
-)(function UploadSample(props) {
+type Props = {
+  loading: boolean,
+  value: string,
+  onInputFile: Function,
+  onSubmitFile: Function
+};
+
+export default pure(function UploadSample(props: Props) {
   const { loading, value, onInputFile, onSubmitFile } = props;
 
   return (
