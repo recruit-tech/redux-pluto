@@ -24,8 +24,9 @@ export default function apiErrorMiddleware() {
         if (!statusCode || statusCode >= 500) {
           dispatch(showAlert("サービスに接続できませんでした。"));
         } else if (statusCode === 401) {
-          const pathname = getState().routing.locationBeforeTransitions
-            .pathname;
+          const { routing } = getState();
+          const { locationBeforeTransitions } = routing;
+          const { pathname } = locationBeforeTransitions;
           dispatch(replace(`/login?location=${pathname}`));
         }
 

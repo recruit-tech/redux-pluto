@@ -76,7 +76,8 @@ function setupAppForDevelopment(app) {
 
   const multiCompiler = webpack([clientConfig, serverConfig]);
   const clientCompiler = multiCompiler.compilers[0];
-  const publicPath = clientConfig.output.publicPath;
+  const { output: outputPublicPath } = clientConfig;
+  const { publicPath } = outputPublicPath;
   const promises = [];
 
   app.use(webpackDevMiddleware(multiCompiler, { publicPath }));

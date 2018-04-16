@@ -52,18 +52,20 @@ export default compose(
     <div className={local("root")}>
       <form onSubmit={handleSubmit} method="GET">
         <div>
-          <label htmlFor="keyword">Free Keyword</label>
-          <div>
-            <Field
-              type="text"
-              name="keyword"
-              component="input"
-              autoFocus={!count}
-            />
-            <button type="submit" disabled={globalFormDisabled || submitting}>
-              Search
-            </button>
-          </div>
+          <label htmlFor="keyword">
+            Free Keyword
+            <div id="keyword">
+              <Field
+                type="text"
+                name="keyword"
+                component="input"
+                autoFocus={!count}
+              />
+              <button type="submit" disabled={globalFormDisabled || submitting}>
+                Search
+              </button>
+            </div>
+          </label>
         </div>
       </form>
       <div>

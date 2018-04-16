@@ -11,8 +11,8 @@ const Item = ({ input, index, meta: { dirty, error } }) => (
   <div className={local("row")}>
     <label htmlFor={input.name} className={local("label")}>
       メッセージ {index}
+      <input {...input} id={input.name} type="text" className={local("input")} />
     </label>
-    <input {...input} type="text" className={local("input")} />
     <span className={local("error")}>{dirty && error}</span>
   </div>
 );

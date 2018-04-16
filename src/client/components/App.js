@@ -10,7 +10,7 @@ import { AppContainer } from "react-hot-loader";
 import { compose, setPropTypes } from "recompose";
 
 // StrictMode: not ready on flowtype
-const StrictMode = (React: any).StrictMode;
+const { StrictMode } = (React: any);
 
 export default compose(
   setPropTypes({

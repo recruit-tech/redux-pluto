@@ -44,7 +44,8 @@ export default function renderer({
       (result, asset) => {
         const match = /(\.[^.]*)\.gz/.exec(asset.name);
         if (match) {
-          result[`/${asset.name}`] = match[1];
+          const assetIndex = 1;
+          result[`/${asset.name}`] = match[assetIndex];
         }
       },
       {},

@@ -16,13 +16,14 @@ const RenderInput = ({ input, meta: { dirty, error } }) => (
   <div key={input.name} className={local("row")}>
     <label htmlFor={input.name} className={local("label")}>
       {labels[input.name]}
+      <input
+        {...input}
+        id={input.name}
+        type={input.name === "username" ? "text" : "password"}
+        className={local("input")}
+        tabIndex={0}
+      />
     </label>
-    <input
-      {...input}
-      type={input.name === "username" ? "text" : "password"}
-      className={local("input")}
-      tabIndex={0}
-    />
     <span className={local("message")}>{dirty && error}</span>
   </div>
 );
