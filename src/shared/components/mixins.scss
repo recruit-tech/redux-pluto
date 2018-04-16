@@ -1,8 +1,0 @@
-$border-color: lightgray;
-
-@mixin border-default {
-  border-color: $border-color;
-  border-width: 1px;
-  border-style: solid;
-  padding: 10px;
-}

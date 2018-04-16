@@ -1,24 +1,22 @@
+/* @flow */
 import React from "react";
+import styled from "styled-components";
 import { propTypes as formPropTypes, Field, FieldArray } from "redux-form";
 import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
 import { AutoSizer, List } from "react-virtualized";
-import { createLocal } from "shared/components/utils/localnames";
-import styles from "./styles.scss";
-
-const { localNames: local } = createLocal(styles);
 
 const Item = ({ input, index, meta: { dirty, error } }) => (
-  <div className={local("row")}>
-    <label htmlFor={input.name} className={local("label")}>
+  <Row>
+    <Label htmlFor={input.name}>
       メッセージ {index}
-      <input {...input} id={input.name} type="text" className={local("input")} />
-    </label>
-    <span className={local("error")}>{dirty && error}</span>
-  </div>
+      <Input {...input} id={input.name} type="text" />
+    </Label>
+    <Error>{dirty && error}</Error>
+  </Row>
 );
 
 const Items = ({ fields }) => (
-  <div className={local("list")}>
+  <ListContainer>
     <AutoSizer>
       {({ width, height }) => (
         <List
@@ -32,14 +30,14 @@ const Items = ({ fields }) => (
               <Field
                 name={`${fields.name}[${index}].message`}
                 index={index}
-                component={Item}
+                component={(Item: $FIXME)}
               />
             </div>
           )}
         />
       )}
     </AutoSizer>
-  </div>
+  </ListContainer>
 );
 
 export default compose(
@@ -49,10 +47,35 @@ export default compose(
   })
 )(function LargeForm(props) {
   return (
-    <div className={local("main")}>
+    <Main>
       <form>
-        <FieldArray name="items" component={Items} />
+        <FieldArray name="items" component={(Items: $FIXME)} />
       </form>
-    </div>
+    </Main>
   );
 });
+
+const Main = styled.div``;
+
+const ListContainer = styled.div`
+  height: 800px;
+`;
+
+const Row = styled.div`
+  display: flex;
+  height: 40px;
+`;
+
+const Label = styled.label`
+  flex: 1;
+  text-align: right;
+`;
+
+const Input = styled.input`
+  width: 600px;
+`;
+
+const Error = styled.span`
+  flex: 1;
+  text-align: left;
+`;

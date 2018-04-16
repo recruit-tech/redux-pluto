@@ -1,10 +1,8 @@
+/* @flow */
 import { connect } from "react-redux";
 import { compose } from "recompose";
 import { sendAnalytics } from "react-redux-analytics";
-import {
-  siteSections,
-  onAsyncLoaderLoaded
-} from "shared/redux/analytics/utils";
+import { siteSections, onAsyncLoaderLoaded } from "shared/redux/analytics/utils";
 import Style from "./Style";
 
 export default compose(

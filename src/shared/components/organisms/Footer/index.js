@@ -1,20 +1,31 @@
+/* @flow */
 import React from "react";
+import styled from "styled-components";
 import { format } from "date-fns";
-import { createLocal } from "shared/components/utils/localnames";
 import Counter from "shared/components/organisms/Counter";
-import styles from "./styles.scss";
 
-const { localNames: local } = createLocal(styles);
+type Props = {};
 
-export default function Footer(props) {
+export default function Footer(props: Props) {
   const today = format(new Date(), "YYYY/MM/DD");
 
   return (
-    <footer className={local("root")}>
+    <Root>
       <div>
         <Counter />
-        <div className={local("today")}>{today}</div>
+        <Today>{today}</Today>
       </div>
-    </footer>
+    </Root>
   );
 }
+
+const Root = styled.footer`
+  border-color: lightgrey;
+  border-width: 1px;
+  border-style: solid;
+  padding: 10px;
+`;
+
+const Today = styled.div`
+  text-align: center;
+`;

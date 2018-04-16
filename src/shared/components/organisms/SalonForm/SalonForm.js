@@ -1,16 +1,39 @@
+/* @flow */
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 import { propTypes as formPropTypes, Field } from "redux-form";
 import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
 import SalonMore from "shared/components/atoms/SalonMore";
-import { createLocal } from "shared/components/utils/localnames";
 import SalonLists from "./SalonLists";
 import SalonPager from "./SalonPager";
-import styles from "./styles.scss";
 
-const { localNames: local } = createLocal(styles);
+type FormProps = {
+  handleSubmit: Function,
+  initialValues: {
+    keyword: string
+  },
+  submitting: boolean
+};
+
+type Props = FormProps & {
+  page: number, // optional?
+  pages: Array<*>,
+  count: number,
+  items: Object,
+  onInnerWindow: Function,
+  onClickNext: Function,
+  onClickPrev: Function,
+  canGetNext: boolean,
+  canGetPrev: boolean,
+  shouldAdjustScroll: boolean,
+  linkURL: string,
+  forceScrollTo: ?Object,
+  globalFormDisabled: boolean
+};
 
 export default compose(
+  // for performance
   onlyUpdateForPropTypes,
   setPropTypes({
     ...formPropTypes,
@@ -28,9 +51,11 @@ export default compose(
     forceScrollTo: PropTypes.object,
     globalFormDisabled: PropTypes.bool
   })
-)(function SalonForm(props) {
+)(function SalonForm(props: Props) {
   const {
     handleSubmit,
+    initialValues,
+    submitting,
     count,
     page,
     pages,
@@ -43,24 +68,17 @@ export default compose(
     shouldAdjustScroll,
     linkURL,
     forceScrollTo,
-    initialValues,
-    submitting,
     globalFormDisabled
   } = props;
 
   return (
-    <div className={local("root")}>
+    <Root>
       <form onSubmit={handleSubmit} method="GET">
         <div>
           <label htmlFor="keyword">
             Free Keyword
             <div id="keyword">
-              <Field
-                type="text"
-                name="keyword"
-                component="input"
-                autoFocus={!count}
-              />
+              <Field type="text" name="keyword" component="input" autoFocus={!count} />
               <button type="submit" disabled={globalFormDisabled || submitting}>
                 Search
               </button>
@@ -69,9 +87,7 @@ export default compose(
         </div>
       </form>
       <div>
-        {canGetPrev ? (
-          <SalonMore onShow={onClickPrev(page)}>戻る</SalonMore>
-        ) : null}
+        {canGetPrev ? <SalonMore onShow={onClickPrev(page)}>戻る</SalonMore> : null}
         <div>
           <span>{count || 0}</span>
           <span>件あります</span>
@@ -84,17 +100,18 @@ export default compose(
           shouldAdjustScroll={shouldAdjustScroll}
           forceScrollTo={forceScrollTo}
         />
-        {canGetNext ? (
-          <SalonMore onShow={onClickNext(page)}>進む</SalonMore>
-        ) : null}
+        {canGetNext ? <SalonMore onShow={onClickNext(page)}>進む</SalonMore> : null}
       </div>
-      <div className={local("pager")}>
-        <SalonPager
-          pages={pages}
-          page={page}
-          keyword={initialValues.keyword || ""}
-        />
-      </div>
-    </div>
+      <Pager>
+        <SalonPager pages={pages} page={page} keyword={initialValues.keyword || ""} />
+      </Pager>
+    </Root>
   );
 });
+
+const Root = styled.div``;
+const Pager = styled.div`
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+`;

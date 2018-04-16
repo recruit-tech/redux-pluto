@@ -1,33 +1,23 @@
+/* @flow */
 import React from "react";
-import PropTypes from "prop-types";
-import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
+import styled from "styled-components";
+import pure from "recompose/pure";
 import SalonList from "shared/components/molecules/SalonList";
-import { createLocal } from "shared/components/utils/localnames";
-import styles from "./styles.scss";
 
-const { localNames: local } = createLocal(styles);
+type Props = {
+  page: number,
+  items: Object,
+  onInnerWindow: Function,
+  shouldAdjustScroll: boolean,
+  forceScrollTo: ?{ x: number, y: number },
+  linkURL: string
+};
 
-export default compose(
-  onlyUpdateForPropTypes,
-  setPropTypes({
-    page: PropTypes.number.isRequired,
-    items: PropTypes.object.isRequired,
-    onInnerWindow: PropTypes.func.isRequired,
-    shouldAdjustScroll: PropTypes.bool.isRequired,
-    forceScrollTo: PropTypes.object.isRequired,
-    linkURL: PropTypes.string.isRequired
-  })
-)(function SalonLists(props) {
-  const {
-    items,
-    onInnerWindow,
-    shouldAdjustScroll,
-    forceScrollTo,
-    linkURL
-  } = props;
+export default pure(function SalonLists(props: Props) {
+  const { items, onInnerWindow, shouldAdjustScroll, forceScrollTo, linkURL } = props;
 
   return (
-    <div className={local("root")}>
+    <Root>
       {Object.keys(items).map(page => (
         <SalonList
           items={items[page]}
@@ -40,6 +30,11 @@ export default compose(
           forceScrollTo={forceScrollTo}
         />
       ))}
-    </div>
+    </Root>
   );
 });
+
+export const Root = styled.div`
+  text-align: center;
+  margin: 0 auto;
+`;
