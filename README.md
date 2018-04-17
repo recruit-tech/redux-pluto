@@ -1,5 +1,6 @@
 # React/Redux Isomorphic Prototype
 
+[![CircleCI](https://circleci.com/gh/recruit-tech/redux-pluto.svg?style=svg)](https://circleci.com/gh/recruit-tech/redux-pluto)
 ## インストール
 
 ```

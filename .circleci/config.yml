@@ -32,6 +32,8 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-        
+      - run: yarn lint
+      - run: yarn flow
       - run: yarn test:all
+      - run: yarn build
 
