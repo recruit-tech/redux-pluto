@@ -7,8 +7,10 @@ import { AutoSizer, List } from "react-virtualized";
 
 const Item = ({ input, index, meta: { dirty, error } }) => (
   <Row>
-    <Label htmlFor={input.name}>メッセージ {index}</Label>
-    <Input {...input} type="text" />
+    <Label htmlFor={input.name}>
+      メッセージ {index}
+      <Input {...input} id={input.name} type="text" />
+    </Label>
     <Error>{dirty && error}</Error>
   </Row>
 );
