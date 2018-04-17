@@ -1,7 +1,7 @@
 /* @flow */
 import React from "react";
 import { compose, pure } from "recompose";
-import * as ReactRouter from "react-router";
+import { Link as OriginalLink, IndexLink as OriginalIndexLink } from "react-router";
 import styled from "styled-components";
 
 type Props = {
@@ -86,7 +86,7 @@ const Item = styled.li`
   flex-grow: 1;
 `;
 
-const Link = styled(ReactRouter.Link)`
+const Link = styled(OriginalLink)`
   display: block;
   padding: 12px 0;
   background-color: ${props => (props.selected ? "grey" : "lightgray")};
@@ -96,7 +96,7 @@ const Link = styled(ReactRouter.Link)`
   }
 `;
 
-const IndexLink = styled(ReactRouter.IndexLink)`
+const IndexLink = styled(OriginalIndexLink)`
   background-color: ${props => (props.selected ? "grey" : "lightgray")};
   display: block;
   padding: 12px 0;
