@@ -117,6 +117,17 @@
 
     // a11y
     "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/anchor-is-valid": [ "error", {
+      "components": [ "Link" ],
+      "specialLink": [ "to" ]
+    }],
+    "jsx-a11y/label-has-for": [ 2, {
+      "components": [ "Label" ],
+      "required": {
+        "every": [ "nesting", "id" ]
+      },
+      "allowChildren": false
+    }],
 
     // import
     "import/order": [
