@@ -1,9 +1,9 @@
-import { create as createAxios } from "axios";
 import { read } from "./utils";
 
 export default class BaseService {
   constructor(config, name, pathname, params = {}) {
-    this.axios = createAxios(config.axios);
+    // axiosは継承先でcreateAxiosする
+    this.axios = null;
     this.name = name;
     this.pathname = pathname;
     this.params = params;

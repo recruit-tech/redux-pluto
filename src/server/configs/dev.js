@@ -56,16 +56,6 @@ export default {
   // https://github.com/yahoo/fetchr
   fetchr: {},
 
-  // https://github.com/mzabriskie/axios#request-config
-  axios: {
-    baseURL: "http://beauty.sda.hotpepper.jp/",
-    params: {
-      key: "hK8GrzWsq80d",
-      format: "json"
-    },
-    timeout: 10000
-  },
-
   offload: {
     limit: 5,
     window: ms("1m"),
