@@ -35,7 +35,7 @@ export default compose(pure)(function Header(props: Props) {
   return (
     <Root>
       <hgroup>
-        <ServiceLogo>HOT PEPPER Beauty</ServiceLogo>
+        <ServiceLogo>REDUX PLUTO</ServiceLogo>
         <CorporateLogo>PRODUCED by RECRUIT</CorporateLogo>
       </hgroup>
       <NavLinks>
