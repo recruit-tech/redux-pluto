@@ -1,6 +1,6 @@
-import BaseMaster from "./BaseMaster";
+import AgreedMaster from "./AgreedMaster";
 
-export default class MenuContentMaster extends BaseMaster {
+export default class MenuContentMaster extends AgreedMaster {
   constructor(config) {
     super(
       config,
