@@ -20,7 +20,7 @@ function formatResult(results, smallArea) {
   return reduce(
     (parent, areaName) => {
       const source = areaName ? smallArea[areaName] : smallArea;
-      const code = source.code;
+      const { code } = source;
       if (!parent[code]) {
         parent[code] = {
           code,
