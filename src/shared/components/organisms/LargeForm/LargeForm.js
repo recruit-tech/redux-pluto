@@ -9,7 +9,7 @@ const Item = ({ input, index, meta: { dirty, error } }) => (
   <Row>
     <Label htmlFor={input.name}>
       メッセージ {index}
-      <Input {...input} type="text" />
+      <Input {...input} id={input.name} type="text" />
     </Label>
     <Error>{dirty && error}</Error>
   </Row>
