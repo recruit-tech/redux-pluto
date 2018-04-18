@@ -36,18 +36,20 @@ const selector = createSelector(
 export default compose(
   asyncLoader(({ location }, { dispatch, getState }) => {
     const state = getState();
-    const action = routingSelector(state).locationBeforeTransitions.action;
+    const { locationBeforeTransitions } = routingSelector(state);
+    const { action } = locationBeforeTransitions;
+
     if (action === "POP" && salonListSelector(state).loaded) {
       return Promise.resolve();
     }
 
-    if (location.query && !location.query.keyword) {
+    const { query: locationQuery } = location;
+
+    if (locationQuery && !locationQuery.keyword) {
       return dispatch(clearSearchSalonList());
     }
 
-    const more = location.query.more;
-    const keyword = location.query.keyword;
-    const page = location.query.page;
+    const { more, keyword, page } = locationQuery;
 
     if (more) {
       return dispatch(searchMoreSalonList({ keyword, page }));
@@ -58,12 +60,12 @@ export default compose(
   }),
   (connect: $FIXME)(selector, (dispatch, ownProps) => ({
     onClickPrev: page => () => {
-      const keyword = parse(window.location.search.substr(1)).keyword;
+      const { keyword } = parse(window.location.search.substr(1));
       return dispatch(replace(`/salon?keyword=${keyword}&page=${page - 1}&more=true`));
     },
 
     onClickNext: page => () => {
-      const keyword = parse(window.location.search.substr(1)).keyword;
+      const { keyword } = parse(window.location.search.substr(1));
       return dispatch(replace(`/salon?keyword=${keyword}&page=${page + 1}&more=true`));
     },
 
@@ -72,7 +74,7 @@ export default compose(
       const page = element.getAttribute("data-page");
       const query = parse(window.location.search.substr(1));
       const currentPage = query.page || "0";
-      const keyword = query.keyword;
+      const { keyword } = query;
       if (page !== currentPage) {
         return void dispatch(replace(`/salon?keyword=${keyword}&page=${page}&more=true`));
       }

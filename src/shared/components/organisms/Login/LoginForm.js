@@ -13,8 +13,13 @@ const labels = {
 
 const RenderInput = ({ input, meta: { dirty, error } }): $FIXME => (
   <Row key={input.name}>
-    <Label htmlFor={input.name}>{labels[input.name]}</Label>
-    <Input {...input} type={input.name === "username" ? "text" : "password"} tabIndex={0} />
+    <Label htmlFor={input.name}>
+      {labels[input.name]}
+      <Input {...input}
+             id={input.name}
+             type={input.name === "username" ? "text" : "password"}
+             tabIndex={0} />
+    </Label>
     <Message>{dirty && error}</Message>
   </Row>
 );
