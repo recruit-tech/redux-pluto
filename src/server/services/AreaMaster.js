@@ -1,9 +1,9 @@
 import { reduce, transform } from "lodash/fp";
-import BaseMaster from "./BaseMaster";
+import AgreedMaster from "./AgreedMaster";
 
 const AREA_NAMES = ["service_area", "middle_area", ""];
 
-export default class AreaMaster extends BaseMaster {
+export default class AreaMaster extends AgreedMaster {
   constructor(config) {
     super(
       config,
