@@ -29,7 +29,7 @@
     "start:prod": "cross-env NODE_ENV=production run-p start:{prod:server,dev:agreed}",
     "start:prod:server": "node bin/start-server.js",
     "test": "jest",
-    "test:all": "run-p test:agreed test:wait-on -r --print-label",
+    "test:old": "run-p test:agreed test:wait-on -r --print-label",
     "test:agreed": "agreed-server --path ./spec/agreed/agreed.js --port 3020",
     "test:wait-on": "wait-on tcp:3020 && cross-env NODE_ENV=test BABEL_ENV=test:unit eater"
   },
@@ -124,7 +124,6 @@
     "compression-webpack-plugin": "^1.1.11",
     "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
-    "eater": "^3.2.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-prettier": "^2.9.0",

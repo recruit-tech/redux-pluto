@@ -1,5 +1,5 @@
+/* @flow */
 /* eslint-disable no-undefined */
-import { test } from "eater/runner";
 import assert from "power-assert";
 import Immutable from "seamless-immutable";
 import reducer, { showAlert, clearAlert } from "../alert";

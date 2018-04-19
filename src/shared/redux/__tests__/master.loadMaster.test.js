@@ -1,6 +1,6 @@
+/* @flow */
 /* eslint-disable no-undefined */
 import Fetchr from "fetchr";
-import { test } from "eater/runner";
 import assert from "power-assert";
 import Immutable from "seamless-immutable";
 import * as masters from "../modules/masters";
@@ -30,9 +30,7 @@ const services = [
   {
     name: "genderMaster",
     read(req, resource, params, config, cb) {
-      return needFailure === "genderMaster"
-        ? cb(new Error("error"))
-        : cb(null, ["male", "female"]);
+      return needFailure === "genderMaster" ? cb(new Error("error")) : cb(null, ["male", "female"]);
     }
   },
   {
@@ -46,16 +44,14 @@ const services = [
   {
     name: "menuContentMaster",
     read(req, resource, params, config, cb) {
-      return needFailure === "menuContentMaster"
-        ? cb(new Error("error"))
-        : cb(null, ["menu"]);
+      return needFailure === "menuContentMaster" ? cb(new Error("error")) : cb(null, ["menu"]);
     }
   }
 ];
 
 services.forEach(Fetchr.registerService);
 
-test("master: loadAll success", (done, fail) => {
+test("master: loadAll success", done => {
   const loadAllMastersAction = masters.loadAllMasters();
   const initialState = Immutable({ app: { masters: masters.INITIAL_STATE } });
   const store = createStore({
@@ -94,7 +90,7 @@ test("master: loadAll success", (done, fail) => {
   });
 });
 
-test("master: load each success", (done, fail) => {
+test("master: load each success", done => {
   const initialState = Immutable({ app: { masters: masters.INITIAL_STATE } });
   const store = createStore({
     initialState
@@ -156,10 +152,11 @@ test("master: load each success", (done, fail) => {
     .then(() => {
       const state = store.getState().app.masters;
       assert.deepEqual(state, expects);
+      done();
     });
 });
 
-test("master: loadAll failure", (done, fail) => {
+test("master: loadAll failure", done => {
   const loadAllMastersAction = masters.loadAllMasters();
   const initialState = Immutable({ app: { masters: masters.INITIAL_STATE } });
   const store = createStore({
@@ -196,5 +193,6 @@ test("master: loadAll failure", (done, fail) => {
         items: ["menu"]
       }
     });
+    done();
   });
 });
