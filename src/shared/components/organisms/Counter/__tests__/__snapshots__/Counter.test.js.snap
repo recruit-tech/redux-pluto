@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Counter: render correctly 1`] = `
+<div
+  className="sc-bdVaJa khUSez"
+>
+  access counter: 
+  1
+</div>
+`;
