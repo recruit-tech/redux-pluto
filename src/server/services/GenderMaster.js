@@ -1,7 +1,7 @@
 import { transform } from "lodash/fp";
 import AgreedMaster from "./AgreedMaster";
 
-export default class HairLengthMaster extends AgreedMaster {
+export default class GenderMaster extends AgreedMaster {
   constructor(config) {
     super(
       config,

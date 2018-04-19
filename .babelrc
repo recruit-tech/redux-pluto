@@ -53,10 +53,6 @@
               "transform": "redux-form/es/${member}",
               "preventFullImport": true
             },
-            "recompose": {
-              "transform": "recompose/${member}",
-              "preventFullImport": true
-            },
             "react-virtualized": {
               "transform": "react-virtualized/dist/es/${member}",
               "preventFullImport": true
