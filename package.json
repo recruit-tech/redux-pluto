@@ -35,7 +35,7 @@
   },
   "jest": {
     "testMatch": [
-      "**/__test__/*.test.js"
+      "**/__tests__/*.test.js"
     ]
   },
   "husky": {
