@@ -27,7 +27,7 @@ function formatResult(items, item) {
 }
 
 function getCategory(items, styleCategory) {
-  const code = styleCategory.code;
+  const { code } = styleCategory;
   if (!items[code]) {
     items[code] = {
       code,

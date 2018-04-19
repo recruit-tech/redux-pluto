@@ -1,6 +1,6 @@
-import BaseMaster from "./BaseMaster";
+import AgreedMaster from "./AgreedMaster";
 
-export default class HairColorMaster extends BaseMaster {
+export default class HairColorMaster extends AgreedMaster {
   constructor(config) {
     super(config, "hairColorMaster", "beauty/hairColor/", {}, "hair_color");
   }
