@@ -149,6 +149,22 @@
         "flow",
         "power-assert"
       ]
+    },
+
+    "test": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "node": "8"
+            }
+          }
+        ],
+        "react",
+        "flow",
+        "power-assert"
+      ]
     }
   }
 }
