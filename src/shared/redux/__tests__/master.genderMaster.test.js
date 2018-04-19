@@ -1,19 +1,15 @@
+/* @flow */
 import Fetchr from "fetchr";
-import { test } from "eater/runner";
 import assert from "power-assert";
 import Immutable from "seamless-immutable";
-import {
-  INITIAL_STATE,
-  loadAllMasters,
-  loadHairColorMaster
-} from "../modules/masters";
+import { INITIAL_STATE, loadAllMasters, loadGenderMaster } from "../modules/masters";
 import { createStore } from "./lib/storeUtils";
 import { isSameObject } from "./lib/assertUtils";
 
 /**
  * mock loadMaster service
  */
-let hairColorMaster = ["black", "brown", "blond"];
+let genderMaster = ["male", "female"];
 const services = [
   {
     name: "areaMaster",
@@ -24,13 +20,13 @@ const services = [
   {
     name: "hairColorMaster",
     read(req, resource, params, config, cb) {
-      cb(null, hairColorMaster);
+      cb(null, ["black", "brown", "blond"]);
     }
   },
   {
     name: "genderMaster",
     read(req, resource, params, config, cb) {
-      cb(null, ["male", "female"]);
+      cb(null, genderMaster);
     }
   },
   {
@@ -49,9 +45,9 @@ const services = [
 
 services.forEach(Fetchr.registerService);
 
-test("master: hairColorMaster success", () => {
+test("master: genderMaster success", () => {
   const loadAllMastersAction = loadAllMasters();
-  const loadHairColorMasterAction = loadHairColorMaster();
+  const loadGenderMasterAction = loadGenderMaster();
   const initialState = Immutable({ app: { masters: INITIAL_STATE } });
   const store = createStore({
     initialState
@@ -61,16 +57,16 @@ test("master: hairColorMaster success", () => {
     .dispatch(loadAllMastersAction)
     .then(() => {
       prevMastersState = store.getState().app.masters;
-      hairColorMaster = ["white", "purple"];
-      return store.dispatch(loadHairColorMasterAction);
+      genderMaster = ["unknown"];
+      return store.dispatch(loadGenderMasterAction);
     })
     .then(() => {
       const mastersState = store.getState().app.masters;
-      assert.deepEqual(mastersState.hairColorMaster, {
+      assert.deepEqual(mastersState.genderMaster, {
         loading: false,
         loaded: true,
-        items: hairColorMaster
+        items: genderMaster
       });
-      isSameObject(prevMastersState, mastersState, ["hairColorMaster"]);
+      isSameObject(prevMastersState, mastersState, ["genderMaster"]);
     });
 });

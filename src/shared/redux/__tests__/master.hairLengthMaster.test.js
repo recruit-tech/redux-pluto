@@ -1,19 +1,15 @@
+/* @flow */
 import Fetchr from "fetchr";
-import { test } from "eater/runner";
 import assert from "power-assert";
 import Immutable from "seamless-immutable";
-import {
-  INITIAL_STATE,
-  loadAllMasters,
-  loadMenuContentMaster
-} from "../modules/masters";
+import { INITIAL_STATE, loadAllMasters, loadHairLengthMaster } from "../modules/masters";
 import { createStore } from "./lib/storeUtils";
 import { isSameObject } from "./lib/assertUtils";
 
 /**
  * mock loadMaster service
  */
-let menuContentMaster = ["menu"];
+let hairLengthMaster = ["long", "short", "middle"];
 const services = [
   {
     name: "areaMaster",
@@ -36,13 +32,13 @@ const services = [
   {
     name: "hairLengthMaster",
     read(req, resource, params, config, cb) {
-      cb(null, ["long", "short", "middle"]);
+      cb(null, hairLengthMaster);
     }
   },
   {
     name: "menuContentMaster",
     read(req, resource, params, config, cb) {
-      cb(null, menuContentMaster);
+      cb(null, ["menu"]);
     }
   }
 ];
@@ -51,26 +47,26 @@ services.forEach(Fetchr.registerService);
 
 test("master: hairLengthMaster success", () => {
   const loadAllMastersAction = loadAllMasters();
-  const loadMenuContentMasterAction = loadMenuContentMaster();
+  const loadHairLengthMasterAction = loadHairLengthMaster();
   const initialState = Immutable({ app: { masters: INITIAL_STATE } });
   const store = createStore({
     initialState
   });
-  let prevMastersState = {};
+  let prevMastersState = { app: {} };
   store
     .dispatch(loadAllMastersAction)
     .then(() => {
       prevMastersState = store.getState().app.masters;
-      menuContentMaster = ["menu2"];
-      return store.dispatch(loadMenuContentMasterAction);
+      hairLengthMaster = ["semilong"];
+      return store.dispatch(loadHairLengthMasterAction);
     })
     .then(() => {
       const mastersState = store.getState().app.masters;
-      assert.deepEqual(mastersState.menuContentMaster, {
+      assert.deepEqual(mastersState.hairLengthMaster, {
         loading: false,
         loaded: true,
-        items: menuContentMaster
+        items: hairLengthMaster
       });
-      isSameObject(prevMastersState, mastersState, ["menuContentMaster"]);
+      isSameObject(prevMastersState, mastersState, ["hairLengthMaster"]);
     });
 });

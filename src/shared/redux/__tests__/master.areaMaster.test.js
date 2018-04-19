@@ -1,24 +1,20 @@
+/* @flow */
 import Fetchr from "fetchr";
-import { test } from "eater/runner";
 import assert from "power-assert";
 import Immutable from "seamless-immutable";
-import {
-  INITIAL_STATE,
-  loadAllMasters,
-  loadGenderMaster
-} from "../modules/masters";
+import { INITIAL_STATE, loadAllMasters, loadAreaMaster } from "../modules/masters";
 import { createStore } from "./lib/storeUtils";
 import { isSameObject } from "./lib/assertUtils";
 
 /**
  * mock loadMaster service
  */
-let genderMaster = ["male", "female"];
+let areaMasters = ["tokyo", "saitama", "kanagawa"];
 const services = [
   {
     name: "areaMaster",
     read(req, resource, params, config, cb) {
-      cb(null, ["tokyo", "saitama", "kanagawa"]);
+      cb(null, areaMasters);
     }
   },
   {
@@ -30,7 +26,7 @@ const services = [
   {
     name: "genderMaster",
     read(req, resource, params, config, cb) {
-      cb(null, genderMaster);
+      cb(null, ["male", "female"]);
     }
   },
   {
@@ -49,28 +45,28 @@ const services = [
 
 services.forEach(Fetchr.registerService);
 
-test("master: genderMaster success", () => {
+test("master: areaMaster success", () => {
   const loadAllMastersAction = loadAllMasters();
-  const loadGenderMasterAction = loadGenderMaster();
+  const loadAreaMasterAction = loadAreaMaster();
   const initialState = Immutable({ app: { masters: INITIAL_STATE } });
+  let prevMastersState = { app: {} };
   const store = createStore({
     initialState
   });
-  let prevMastersState = { app: {} };
   store
     .dispatch(loadAllMastersAction)
     .then(() => {
       prevMastersState = store.getState().app.masters;
-      genderMaster = ["unknown"];
-      return store.dispatch(loadGenderMasterAction);
+      areaMasters = ["okinawa", "kagoshima"];
+      return store.dispatch(loadAreaMasterAction);
     })
     .then(() => {
       const mastersState = store.getState().app.masters;
-      assert.deepEqual(mastersState.genderMaster, {
+      assert.deepEqual(mastersState.areaMaster, {
         loading: false,
         loaded: true,
-        items: genderMaster
+        items: areaMasters
       });
-      isSameObject(prevMastersState, mastersState, ["genderMaster"]);
+      isSameObject(prevMastersState, mastersState, ["areaMaster"]);
     });
 });
