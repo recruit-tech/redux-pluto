@@ -1825,7 +1825,7 @@ collection-visit@^1.0.0:
     map-visit "^1.0.0"
     object-visit "^1.0.0"
 
-colo@^0.3.1, colo@^0.3.2:
+colo@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/colo/-/colo-0.3.2.tgz#418c0c81b4577e5174aafa82cba5ea9f5e78c8c1"
 
@@ -2512,16 +2512,6 @@ eastasianwidth@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/eastasianwidth/-/eastasianwidth-0.1.1.tgz#44d656de9da415694467335365fb3147b8572b7c"
 
-eater@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/eater/-/eater-3.2.0.tgz#3e1ddbeef775e431fc05f70ab71d6a14954a8a10"
-  dependencies:
-    colo "^0.3.1"
-    exists-sync "0.0.3"
-    glob "^7.0.4"
-    json5 "^0.5.0"
-    minimist "^1.2.0"
-
 ecc-jsbn@~0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/ecc-jsbn/-/ecc-jsbn-0.1.1.tgz#0fc73a9ed5f0d53c38193398523ef7e543777505"
@@ -3059,10 +3049,6 @@ execa@^0.9.0:
     p-finally "^1.0.0"
     signal-exit "^3.0.0"
     strip-eof "^1.0.0"
-
-exists-sync@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/exists-sync/-/exists-sync-0.0.3.tgz#b910000bedbb113b378b82f5f5a7638107622dcf"
 
 exit@^0.1.2:
   version "0.1.2"
@@ -3652,7 +3638,7 @@ glob@^6.0.4:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-glob@^7.0.3, glob@^7.0.4, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2:
+glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2:
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
   dependencies:

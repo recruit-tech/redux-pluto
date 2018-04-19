@@ -164,6 +164,16 @@
         "react",
         "flow",
         "power-assert"
+      ],
+      "plugins": [
+        "transform-object-rest-spread",
+        "syntax-dynamic-import",
+        [
+          "module-resolver",
+          {
+            "root": ["./src"]
+          }
+        ]
       ]
     }
   }
