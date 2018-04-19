@@ -1,4 +1,4 @@
-import { test } from "eater/runner";
+/* @flow */
 import Joi from "joi";
 import assert from "power-assert";
 import { getOptions } from "../utils";
