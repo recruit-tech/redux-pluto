@@ -1,0 +1,6 @@
+{
+  "rules": {
+    // for storybook modules
+    "import/no-extraneous-dependencies": "off"
+  }
+}
