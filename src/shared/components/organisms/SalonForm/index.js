@@ -38,18 +38,18 @@ export default compose(
     const state = getState();
     const { locationBeforeTransitions } = routingSelector(state);
     const { action } = locationBeforeTransitions;
+
     if (action === "POP" && salonListSelector(state).loaded) {
       return Promise.resolve();
     }
 
-    if (location.query && !location.query.keyword) {
+    const { query: locationQuery } = location;
+
+    if (locationQuery && !locationQuery.keyword) {
       return dispatch(clearSearchSalonList());
     }
 
-    const { query: locationQuery } = location.query;
-    const { more } = locationQuery.more;
-    const { keyword } = locationQuery.keyword;
-    const { page } = locationQuery.page;
+    const { more, keyword, page } = locationQuery;
 
     if (more) {
       return dispatch(searchMoreSalonList({ keyword, page }));
