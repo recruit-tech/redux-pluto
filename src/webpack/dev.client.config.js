@@ -28,7 +28,7 @@ module.exports = {
         noInfo: false
       }),
     "react-hot-loader/patch",
-    path.resolve(rootDir, "src/client/index.js"),
+    path.resolve(rootDir, "src/client/index.js")
   ],
 
   output: {
@@ -42,10 +42,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        include: [
-          path.resolve(rootDir, "src/client"),
-          path.resolve(rootDir, "src/shared")
-        ],
+        include: [path.resolve(rootDir, "src/client"), path.resolve(rootDir, "src/shared")],
         exclude: [/node_modules/],
         use: {
           loader: "babel-loader",
