@@ -1,7 +1,8 @@
-/* @flow */
 import { configure } from "@storybook/react";
 
-const req = (require: any).context("../src/shared", true, /stories\.js$/);
-const loadStories = req.keys().forEach(req);
+function loadStories() {
+  const req = require.context("../src/shared/components", true, /stories\.js$/);
+  req.keys().forEach(req);
+}
 
 configure(loadStories, module);
