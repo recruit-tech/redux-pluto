@@ -1,5 +1,6 @@
 import { map, pick } from "lodash/fp";
-import BaseService from "./BaseService";
+import AgreedService from "./AgreedService";
+import { read } from "./utils";
 
 export const SALON_SEARCH_MAX_COUNT = 50;
 const SALON_SEARCH_ORDER = 3; // Hot pepper beauty のおすすめ順
@@ -17,7 +18,7 @@ const PICK_PROPS = [
 
 const pickProps = map(pick(PICK_PROPS));
 
-export default class Salon extends BaseService {
+export default class Salon extends AgreedService {
   constructor(config) {
     super(config, "salon", "beauty/salon/", {
       count: SALON_SEARCH_MAX_COUNT,
@@ -26,12 +27,13 @@ export default class Salon extends BaseService {
   }
 
   read(req, resource, params, config) {
-    const { page, ...query } = params;
+    const { page, id, ...query } = params;
     if (page) {
       query.start = page * SALON_SEARCH_MAX_COUNT + 1;
     }
+    const pathname = id ? `${this.pathname}${id}` : this.pathname;
 
-    return super.read(req, resource, query, config).then(results => {
+    return read(this.axios, this.name, pathname, query).then(results => {
       const { salon: items, ...rest } = results;
       return {
         ...rest,
@@ -39,4 +41,5 @@ export default class Salon extends BaseService {
       };
     });
   }
+
 }

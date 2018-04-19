@@ -1,7 +1,7 @@
 /* @flow */
 import React from "react";
 import { compose, pure } from "recompose";
-import * as ReactRouter from "react-router";
+import { Link as ReactRouterLink, IndexLink as ReactRouterIndexLink } from "react-router";
 import styled from "styled-components";
 
 type Props = {
@@ -25,7 +25,6 @@ const links: HeaderLink[] = [
   { key: "uploadsample", to: "/uploadsample", label: "UploadSample" },
   { key: "style", to: "/style", label: "Style" },
   { key: "salon", to: "/salon", label: "Salon" },
-  { key: "agreedsalon", to: "/agreedsalon", label: "AgreedSalon" },
   { key: "largeform", to: "/largeform", label: "LargeForm" },
   { key: "login", to: "/login", label: "Login" },
   { key: "logout", to: "/logout", label: "Logout" }
@@ -86,7 +85,7 @@ const Item = styled.li`
   flex-grow: 1;
 `;
 
-const Link = styled(ReactRouter.Link)`
+const Link = styled(ReactRouterLink)`
   display: block;
   padding: 12px 0;
   background-color: ${props => (props.selected ? "grey" : "lightgray")};
@@ -96,7 +95,7 @@ const Link = styled(ReactRouter.Link)`
   }
 `;
 
-const IndexLink = styled(ReactRouter.IndexLink)`
+const IndexLink = styled(ReactRouterIndexLink)`
   background-color: ${props => (props.selected ? "grey" : "lightgray")};
   display: block;
   padding: 12px 0;
