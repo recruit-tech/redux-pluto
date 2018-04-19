@@ -1,6 +1,6 @@
+/* @flow */
 /* eslint-disable no-undefined */
 import Fetchr from "fetchr";
-import { test } from "eater/runner";
 import assert from "power-assert";
 import { ACCESS_TOKEN_AUDIENCE_NAME } from "server/services/AccessToken";
 import { login } from "shared/redux/modules/auth";
@@ -34,39 +34,45 @@ test("auth: login success username scott", () => {
 
 test("auth: login success username foobar", () => {
   const loginAction = login("foobar", "tiger");
-  createWithSignedStore("foobar", ACCESS_TOKEN_AUDIENCE_NAME, {}).then(
-    store => {
-      store.dispatch(loginAction).then(() => {
-        assert.deepEqual(store.getState().app.auth, {
-          login: true,
-          username: "foobar"
-        });
+  createWithSignedStore("foobar", ACCESS_TOKEN_AUDIENCE_NAME, {}).then(store => {
+    store.dispatch(loginAction).then(() => {
+      assert.deepEqual(store.getState().app.auth, {
+        login: true,
+        username: "foobar"
       });
-    }
-  );
-});
-
-test("auth: login failure invalid audience name", (_, fail) => {
-  const loginAction = login("scott", "tiger");
-  createWithSignedStore("scott", "no-such-audience", {})
-    .then(store => store.dispatch(loginAction))
-    .then(fail, e => {
-      assert(e.message === "invalid token");
     });
+  });
 });
 
-test("auth: login failure username is short", (_, fail) => {
+test("auth: login failure invalid audience name", async done => {
+  const loginAction = login("scott", "tiger");
+  const store = await createWithSignedStore("scott", "no-such-audience", {});
+  try {
+    await store.dispatch(loginAction);
+    done.fail();
+  } catch (e) {
+    assert(e.message === "invalid token");
+  }
+  done();
+});
+
+test("auth: login failure username is short", async done => {
   const loginAction = login("s", "tiger");
 
   const store = createStore({
     cookie: {}
   });
 
-  store.dispatch(loginAction).then(fail, e => {
+  try {
+    await store.dispatch(loginAction);
+    done.fail();
+  } catch (e) {
     assert.deepEqual(store.getState().app.auth, {
       login: false,
       username: null
     });
     assert(e);
-  });
+  }
+
+  done();
 });

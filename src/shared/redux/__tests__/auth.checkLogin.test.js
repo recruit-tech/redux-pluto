@@ -1,5 +1,4 @@
 /* eslint-disable no-undefined */
-import { test } from "eater/runner";
 import assert from "power-assert";
 import Fetchr from "fetchr";
 import { ACCESS_TOKEN_AUDIENCE_NAME } from "server/services/AccessToken";
@@ -32,14 +31,14 @@ test("auth: checkLogin success", () => {
   });
 });
 
-test("auth: checkLogin failure", (done, fail) => {
+test("auth: checkLogin failure", done => {
   const checkLoginAction = checkLogin();
 
   const store = createStore({
     cookie: {}
   });
 
-  store.dispatch(checkLoginAction).then(fail, e => {
+  store.dispatch(checkLoginAction).then(done.fail, e => {
     assert.deepEqual(store.getState().app.auth, {
       login: false,
       username: undefined

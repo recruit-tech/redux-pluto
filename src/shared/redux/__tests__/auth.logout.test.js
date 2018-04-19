@@ -1,6 +1,6 @@
+/* @flow */
 /* eslint-disable no-undefined */
 import Fetchr from "fetchr";
-import { test } from "eater/runner";
 import assert from "power-assert";
 import { ACCESS_TOKEN_AUDIENCE_NAME } from "server/services/AccessToken";
 import { login, logout } from "shared/redux/modules/auth";
@@ -36,24 +36,22 @@ test("auth: logout success", done => {
 test("auth: logout success when not logged in", done => {
   const loginAction = login("foobar", "tiger");
   const logoutAction = logout();
-  createWithSignedStore("foobar", ACCESS_TOKEN_AUDIENCE_NAME, {}).then(
-    store => {
-      store
-        .dispatch(loginAction)
-        .then(() => {
-          assert.deepEqual(store.getState().app.auth, {
-            login: true,
-            username: "foobar"
-          });
-          return store.dispatch(logoutAction);
-        })
-        .then(() => {
-          assert.deepEqual(store.getState().app.auth, {
-            login: false,
-            username: undefined
-          });
-          done();
+  createWithSignedStore("foobar", ACCESS_TOKEN_AUDIENCE_NAME, {}).then(store => {
+    store
+      .dispatch(loginAction)
+      .then(() => {
+        assert.deepEqual(store.getState().app.auth, {
+          login: true,
+          username: "foobar"
         });
-    }
-  );
+        return store.dispatch(logoutAction);
+      })
+      .then(() => {
+        assert.deepEqual(store.getState().app.auth, {
+          login: false,
+          username: undefined
+        });
+        done();
+      });
+  });
 });

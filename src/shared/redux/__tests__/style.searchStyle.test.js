@@ -1,6 +1,6 @@
+/* @flow */
 /* eslint-disable no-undefined, callback-return */
 import Fetchr from "fetchr";
-import { test } from "eater/runner";
 import assert from "power-assert";
 import Immutable from "seamless-immutable";
 import { INITIAL_STATE, searchStyle } from "../modules/style";
@@ -16,13 +16,13 @@ Fetchr.registerService({
   }
 });
 
-test("style: searchStyle success", () => {
+test("style: searchStyle success", async () => {
   const searchStyleAction = searchStyle({ query: "foo" });
   const initialState = Immutable({ page: { style: INITIAL_STATE } });
   const store = createStore({
     initialState
   });
-  store.dispatch(searchStyleAction).then(() => {
+  return store.dispatch(searchStyleAction).then(() => {
     const state = store.getState().page.style;
     assert.deepEqual(state, {
       loading: false,
@@ -34,14 +34,14 @@ test("style: searchStyle success", () => {
   });
 });
 
-test("style: searchStyle failure", (_, fail) => {
+test("style: searchStyle failure", done => {
   const searchStyleAction = searchStyle({ query: "foo" });
   const initialState = Immutable({ page: { style: INITIAL_STATE } });
   const store = createStore({
     initialState
   });
   needFailure = true;
-  store.dispatch(searchStyleAction).then(fail, () => {
+  store.dispatch(searchStyleAction).then(done.fail, () => {
     const state = store.getState().page.style;
     assert.deepEqual(state, {
       loading: false,
@@ -51,5 +51,6 @@ test("style: searchStyle failure", (_, fail) => {
       items: [],
       error: true
     });
+    done();
   });
 });

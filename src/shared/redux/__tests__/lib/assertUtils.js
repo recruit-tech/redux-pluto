@@ -1,7 +1,8 @@
+/* @flow */
 /* eslint-disable import/prefer-default-export */
-import assert from "power-assert";
+import assert from "assert";
 
-export function isSameObject(obj1, obj2, ignoreProps) {
+export function isSameObject(obj1: *, obj2: *, ignoreProps: Array<*>) {
   const ignores = ignoreProps || [];
   Object.keys(obj1)
     .filter(key => ignores.indexOf(key) < 0)

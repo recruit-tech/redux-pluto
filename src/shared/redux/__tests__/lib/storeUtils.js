@@ -1,3 +1,4 @@
+/* @flow */
 import Fetchr from "fetchr";
 import { createMemoryHistory } from "react-router";
 import { routerMiddleware } from "react-router-redux";
@@ -10,7 +11,7 @@ import reducer from "shared/redux/modules/reducer";
 import authMiddleware from "shared/redux/middleware/authMiddleware";
 import { sign } from "server/services/AccessToken";
 
-export function createWithSignedStore(name, aud, options) {
+export function createWithSignedStore(name: string, aud: *, options: Object) {
   return sign(
     {
       sub: name,
@@ -28,13 +29,13 @@ export function createWithSignedStore(name, aud, options) {
   });
 }
 
-export function createStore(options) {
+export function createStore(options: Object) {
   const history = createMemoryHistory(options.historyRoute || "/");
   const initialState = options.initialState || {};
-  const store = create(
+  const store = (create: any)(
     reducer,
     initialState,
-    applyMiddleware(
+    (applyMiddleware: any)(
       steps,
       authMiddleware(),
       cookie({ cookies: options.cookie }, {}),
