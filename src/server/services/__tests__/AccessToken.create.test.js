@@ -1,10 +1,10 @@
-import { test } from "eater/runner";
+/* @flow */
 import assert from "power-assert";
 import cookie from "cookie";
 import configs from "server/configs";
 import AccessToken, { verify, ACCESS_TOKEN_COOKIE_NAME } from "../AccessToken";
 
-test("AccessToken: create success", () => {
+test("AccessToken: create success", async () => {
   const accessToken = new AccessToken(configs);
 
   const req = {
@@ -16,7 +16,7 @@ test("AccessToken: create success", () => {
     password: "tiger"
   };
 
-  accessToken.create(req, void 0, params).then(response => {
+  return accessToken.create(req, void 0, params).then(response => {
     const cookies = cookie.parse(response.meta.headers["set-cookie"]);
     verify(
       {
@@ -31,7 +31,7 @@ test("AccessToken: create success", () => {
   });
 });
 
-test("AccessToken: create failure", (_, fail) => {
+test("AccessToken: create failure", async done => {
   const accessToken = new AccessToken(configs);
 
   const req = {
@@ -43,8 +43,9 @@ test("AccessToken: create failure", (_, fail) => {
     password: "notpassword"
   };
 
-  accessToken.create(req, void 0, params).then(fail, e => {
+  return accessToken.create(req, void 0, params).then(done.fail, e => {
     assert(e.statusCode === 400);
     assert(e.message === "Bad Request");
+    done();
   });
 });
