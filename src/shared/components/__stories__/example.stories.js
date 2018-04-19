@@ -2,9 +2,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { withScreenshot } from "storybook-chrome-screenshot";
-
 import { Button } from "@storybook/react/demo";
+import withScreenshot from "./withScreenshot";
 
 storiesOf("Button", module)
   .addDecorator(withScreenshot())
