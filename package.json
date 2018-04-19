@@ -33,7 +33,7 @@
     "test:agreed": "agreed-server --path ./spec/agreed/agreed.js --port 3020",
     "test:wait-on": "wait-on tcp:3020 && cross-env NODE_ENV=test BABEL_ENV=test:unit eater",
     "storybook": "start-storybook -p 6006",
-    "screenshot": "rimraf __screenshots__; storybook-chrome-screenshot -p 9001 -c .storybook",
+    "screenshot": "rimraf __screenshots__; storybook-chrome-screenshot -p 9001 -c .storybook-screenshot",
     "build-storybook": "build-storybook"
   },
   "jest": {
