@@ -16,7 +16,6 @@ export default compose(
         // to show how to send event using react-redux-analytics.
       }
     }),
-    () => ({})
   ),
   bindActionToPropFunctions({
     onClickMe: ([fooVal], props, state) => () =>
