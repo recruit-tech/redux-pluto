@@ -10,13 +10,12 @@ import bindActionToPropFunctions from "shared/components/utils/bindActionToPropF
 export default compose(
   connect(
     (state, props) => ({}),
-    (dispatch, ownProps) => ({
+    () => ({
       onClickMe: fooVal => () => {
         // This is a dummy event handler
         // to show how to send event using react-redux-analytics.
       }
     }),
-    () => ({})
   ),
   bindActionToPropFunctions({
     onClickMe: ([fooVal], props, state) => () =>
