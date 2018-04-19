@@ -12,9 +12,7 @@ import counter, { type State as CounterState } from "./counter";
 import loading, { type State as LoadingState } from "./loading";
 import masters, { type State as MastersState } from "./masters";
 import salon, { type State as SalonState } from "./salon";
-import agreedSalon, { type State as AgreedSalonState } from "./agreedSalon";
 import salonList, { type State as SalonListState } from "./salonList";
-import agreedSalonList, { type State as AgreedSalonListState } from "./agreedSalonList";
 import style, { type State as StyleState } from "./style";
 import uploadSample from "./uploadSample";
 
@@ -28,8 +26,6 @@ export type State = {
   },
   page: {
     agreedSample: AgreedSampleState,
-    agreedSalon: AgreedSalonState,
-    agreedSalonList: AgreedSalonListState,
     salon: SalonState,
     salonList: SalonListState,
     style: StyleState
@@ -53,9 +49,7 @@ export default combineReducers({
     combineReducers({
       agreedSample,
       salon,
-      agreedSalon,
       salonList,
-      agreedSalonList,
       style,
       uploadSample
     })
@@ -93,16 +87,8 @@ export function salonSelector(state: State): SalonState {
   return state.page.salon;
 }
 
-export function agreedSalonSelector(state: State): AgreedSalonState {
-  return state.page.agreedSalon;
-}
-
 export function salonListSelector(state: State): SalonListState {
   return state.page.salonList;
-}
-
-export function agreedSalonListSelector(state: State): AgreedSalonListState {
-  return state.page.agreedSalonList;
 }
 
 export function styleSelector(state: State): StyleState {
