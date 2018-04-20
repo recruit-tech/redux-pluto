@@ -17,8 +17,6 @@ import flushChunks from "webpack-flush-chunks";
 import { mapValues, noop, transform } from "lodash/fp";
 import debugFactory from "debug";
 import createStore from "shared/redux/createStore";
-// import { loadAllMasters as loadAllMastersAction } from "shared/redux/modules/masters";
-// import { checkLogin } from "shared/redux/modules/auth";
 import getRoutes from "shared/routes";
 import Html from "server/components/Html";
 import App from "server/components/App";
@@ -48,13 +46,6 @@ export default function createReduxApp(config) {
       logger
     }
   );
-
-  // debug("Loading initial data");
-  // config.promises.push(
-  //   Promise.all([initialStore.dispatch(loadAllMastersAction())]).then(() => {
-  //     debug("Loaded initial data");
-  //   })
-  // );
 
   return reduxApp;
 

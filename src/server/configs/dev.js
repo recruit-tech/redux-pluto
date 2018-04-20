@@ -135,11 +135,4 @@ export default {
     }
   },
 
-  multer: {
-    dest: tmpDir
-  },
-
-  upload: {
-    path: "/upload"
-  }
 };
