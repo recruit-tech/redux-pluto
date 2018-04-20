@@ -1,16 +1,16 @@
 import Fetchr from "fetchr";
-import debugFactory from "debug";
-import * as services from "server/services";
-import { verify } from "server/services/AccessToken";
+// import debugFactory from "debug";
+// import * as services from "server/services";
+// import { verify } from "server/services/AccessToken";
 
-const debug = debugFactory("app:server:middleware:apiGateway");
+// const debug = debugFactory("app:server:middleware:apiGateway");
 
 export default function apiGateway(config) {
-  Object.values(services).forEach(Service => {
-    const service = new Service(config);
-    debug(`Registering sevice: ${service.name}`);
-    Fetchr.registerService(makeServiceAdapter(service, config.auth.secret));
-  });
+  // Object.values(services).forEach(Service => {
+  //   const service = new Service(config);
+  //   debug(`Registering sevice: ${service.name}`);
+  //   Fetchr.registerService(makeServiceAdapter(service, config.auth.secret));
+  // });
 
   return (req, res, next) => {
     res.startTime("apigateway", "API Gateway");
@@ -23,45 +23,45 @@ export default function apiGateway(config) {
   };
 }
 
-function makeServiceAdapter(service, secret) {
-  const adapter = { name: service.name };
-  const checkLogin = service.requireLogin
-    ? req => verify(req, secret)
-    : () => Promise.resolve();
-
-  ["read", "delete"].forEach(method => {
-    if (service[method]) {
-      adapter[method] = (req, resource, params, config, cb) => {
-        checkLogin(req)
-          .then(() => service[method](req, resource, params, config))
-          .then(
-            (result = {}) => {
-              cb(null, result, result.meta);
-            },
-            error => {
-              cb(error);
-            }
-          );
-      };
-    }
-  });
-
-  ["create", "update"].forEach(method => {
-    if (service[method]) {
-      adapter[method] = (req, resource, params, body, config, cb) => {
-        checkLogin(req)
-          .then(() => service[method](req, resource, params, body, config))
-          .then(
-            (result = {}) => {
-              cb(null, result, result.meta);
-            },
-            error => {
-              cb(error);
-            }
-          );
-      };
-    }
-  });
-
-  return adapter;
-}
+// function makeServiceAdapter(service, secret) {
+//   const adapter = { name: service.name };
+//   const checkLogin = service.requireLogin
+//     ? req => verify(req, secret)
+//     : () => Promise.resolve();
+//
+//   ["read", "delete"].forEach(method => {
+//     if (service[method]) {
+//       adapter[method] = (req, resource, params, config, cb) => {
+//         checkLogin(req)
+//           .then(() => service[method](req, resource, params, config))
+//           .then(
+//             (result = {}) => {
+//               cb(null, result, result.meta);
+//             },
+//             error => {
+//               cb(error);
+//             }
+//           );
+//       };
+//     }
+//   });
+//
+//   ["create", "update"].forEach(method => {
+//     if (service[method]) {
+//       adapter[method] = (req, resource, params, body, config, cb) => {
+//         checkLogin(req)
+//           .then(() => service[method](req, resource, params, body, config))
+//           .then(
+//             (result = {}) => {
+//               cb(null, result, result.meta);
+//             },
+//             error => {
+//               cb(error);
+//             }
+//           );
+//       };
+//     }
+//   });
+//
+//   return adapter;
+// }

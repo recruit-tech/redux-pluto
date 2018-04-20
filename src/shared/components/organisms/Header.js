@@ -19,15 +19,15 @@ type HeaderLink = {
 
 const links: HeaderLink[] = [
   { key: "home", to: "/", label: "Home", index: true },
-  { key: "foo", to: "/foo", label: "Foo" },
-  { key: "bar", to: "/bar", label: "Bar" },
+  // { key: "foo", to: "/foo", label: "Foo" },
+  // { key: "bar", to: "/bar", label: "Bar" },
   { key: "agreedsample", to: "/agreedsample", label: "AgeedSample" },
-  { key: "uploadsample", to: "/uploadsample", label: "UploadSample" },
-  { key: "style", to: "/style", label: "Style" },
-  { key: "salon", to: "/salon", label: "Salon" },
-  { key: "largeform", to: "/largeform", label: "LargeForm" },
-  { key: "login", to: "/login", label: "Login" },
-  { key: "logout", to: "/logout", label: "Logout" }
+  // { key: "uploadsample", to: "/uploadsample", label: "UploadSample" },
+  // { key: "style", to: "/style", label: "Style" },
+  // { key: "salon", to: "/salon", label: "Salon" },
+  // { key: "largeform", to: "/largeform", label: "LargeForm" },
+  // { key: "login", to: "/login", label: "Login" },
+  // { key: "logout", to: "/logout", label: "Logout" }
 ];
 
 export default compose(pure)(function Header(props: Props) {
