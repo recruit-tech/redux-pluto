@@ -1,74 +1,24 @@
 /* @flow */
 import React from "react";
 import styled from "styled-components";
-
-type Item = {
-  by: string,
-  descendants: string,
-  id: number,
-  kids: number[],
-  score: number,
-  time: number,
-  title: string,
-  type: string,
-  url: string
-};
-
-function HNItem({ item }: { item: Item }) {
-  return (
-    <div>
-      <a href={item.url} target="_blank">
-        {item.title}
-      </a>
-    </div>
-  );
-}
-
-function Pager({
-  page,
-  loading,
-  maxPage,
-  onClickNext,
-  onClickPrev
-}: {
-  page: number,
-  maxPage: number,
-  loading: boolean,
-  onClickPrev: Function,
-  onClickNext: Function
-}) {
-  return (
-    <div>
-      {page > 1 && <button onClick={onClickPrev}>prev</button>}
-      Page: {page}
-      {page < 10 && <button onClick={onClickNext}>next</button>}
-      {loading && "- Loading..."}
-    </div>
-  );
-}
+import { type HackerNewsItem } from "shared/types/HackerNews";
+import ListItem from "./ListItem";
 
 type Props = {
-  items: Item[],
-  page: number,
+  items: HackerNewsItem[],
   loading: boolean
 };
 
 export default function HackerNews(props: Props) {
-  const { items, page, loading } = props;
+  const { items, loading } = props;
   return (
     <Container>
       <Title>HackerNews</Title>
-      <Pager
-        page={page}
-        maxPage={10}
-        loading={loading}
-        onClickPrev={() => null /* TODO: paging - 1 */}
-        onClickNext={() => null /* TODO: paging + 1 */}
-      />
+      {loading && "loading..."}
       <ItemListContainer>
         {items.map(item => (
           <ItemContainer key={item.id}>
-            <HNItem item={item} />
+            <ListItem item={item} />
           </ItemContainer>
         ))}
       </ItemListContainer>
