@@ -8,20 +8,18 @@ import favicon from "serve-favicon";
 import multer from "multer";
 import serverTiming from "server-timing";
 import { transform } from "lodash/fp";
+import { shadowFetchMiddleware } from "shadow-fetch-express";
+import { createShadowServer } from "shadow-fetch";
 import config from "./configs";
 import { apiGateway, offloadDetector, reduxApp } from "./middlewares";
 import * as uploaders from "./uploaders";
 
 const upload = multer(config.multer);
 
-export default function renderer({
-  clientStats,
-  server,
-  sessionStore,
-  promises
-}) {
+export default function renderer({ clientStats, server, sessionStore, promises }) {
   const app = express.Router();
 
+  app.use(shadowFetchMiddleware);
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded(config.bodyParser.urlencoded));
   app.use(cookieParser(config.cookieParser));
@@ -73,5 +71,6 @@ export default function renderer({
   }
   app.use(reduxApp({ ...config, clientStats, promises }));
 
+  createShadowServer(app).listen();
   return app;
 }

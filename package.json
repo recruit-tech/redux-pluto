@@ -100,6 +100,8 @@
     "reselect": "^3.0.1",
     "serve-favicon": "^2.5.0",
     "server-timing": "^2.0.0",
+    "shadow-fetch": "^0.2.1",
+    "shadow-fetch-express": "^0.2.0",
     "styled-components": "^3.2.6",
     "webpack-flush-chunks": "^1.1.18"
   },
