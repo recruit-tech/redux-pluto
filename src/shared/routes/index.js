@@ -13,6 +13,7 @@ import {
   loadFoo,
   loadLargeForm,
   loadLogin,
+  loadHackerNews,
   loadUploadSample
 } from "./misc";
 
@@ -50,6 +51,8 @@ export default function getRoutes(store: $FIXME) {
           <Route path="largeform" getComponent={loadLargeForm} />
 
           <Route path="uploadsample" getComponent={loadUploadSample} />
+
+          <Route path="hn" getComponent={loadHackerNews} />
 
           <Route path="login" getComponent={loadLogin} />
           <Route path="logout" onEnter={bindOnEnter(doLogout)} />
