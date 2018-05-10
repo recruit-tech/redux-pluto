@@ -14,6 +14,7 @@ import masters, { type State as MastersState } from "./masters";
 import salon, { type State as SalonState } from "./salon";
 import salonList, { type State as SalonListState } from "./salonList";
 import style, { type State as StyleState } from "./style";
+import hackerNews, { type State as HackerNewsState } from "./hackerNews";
 import uploadSample from "./uploadSample";
 
 export type State = {
@@ -28,7 +29,8 @@ export type State = {
     agreedSample: AgreedSampleState,
     salon: SalonState,
     salonList: SalonListState,
-    style: StyleState
+    style: StyleState,
+    hackerNews: HackerNewsState
   },
   // libraries
   form: *,
@@ -51,7 +53,8 @@ export default combineReducers({
       salon,
       salonList,
       style,
-      uploadSample
+      uploadSample,
+      hackerNews
     })
   ),
   form: formReducer,
@@ -101,4 +104,8 @@ export function routingSelector(state: State) {
 
 export function globalFormDisabledSelector(state: State) {
   return state.reduxAsyncLoader.onServer;
+}
+
+export function hackerNewsSelector(state: State) {
+  return state.page.hackerNews;
 }

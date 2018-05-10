@@ -27,6 +27,14 @@ export function loadFoo(_: *, cb: Function) {
   ).then(result => cb(null, result), (cb: Function));
 }
 
+export function loadHackerNews(_: *, cb: Function) {
+  createUniversalComponent(
+    () => import(/* webpackChunkName: "misc" */ "../components/organisms/HackerNews"),
+    () => (require: any).resolveWeak("../components/organisms/HackerNews"),
+    chunkName
+  ).then(result => cb(null, result), (cb: Function));
+}
+
 export function loadLargeForm(_: *, cb: Function) {
   createUniversalComponent(
     () => import(/* webpackChunkName: "misc" */ "../components/organisms/LargeForm"),
