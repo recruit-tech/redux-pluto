@@ -2,7 +2,6 @@ const path = require("path");
 const qs = require("query-string");
 const webpack = require("webpack");
 const WriteFilePlugin = require("write-file-webpack-plugin");
-const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
 
 const rootDir = path.resolve(__dirname, "../..");
 const outputPath = path.resolve(rootDir, "build/client");
@@ -50,21 +49,6 @@ module.exports = {
             forceEnv: "development:client"
           }
         }
-      },
-      {
-        test: /\.scss$/,
-        use: ExtractCssChunks.extract({
-          use: [
-            {
-              loader: "css-loader",
-              options: {
-                modules: true,
-                localIdentName: "[path]__[name]__[local]--[hash:base64:5]"
-              }
-            },
-            "postcss-loader"
-          ]
-        })
       }
     ]
   },
@@ -84,7 +68,6 @@ module.exports = {
 
   plugins: [
     new WriteFilePlugin(),
-    new ExtractCssChunks(),
 
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify("development"),

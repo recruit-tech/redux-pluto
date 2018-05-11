@@ -1,7 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
 const CompressionPlugin = require("compression-webpack-plugin");
-const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
 const StatsPlugin = require("stats-webpack-plugin");
 
 const rootDir = path.resolve(__dirname, "../..");
@@ -15,10 +14,7 @@ module.exports = {
 
   devtool: false,
 
-  entry: [
-    "babel-polyfill",
-    path.resolve(rootDir, "src/client/index.js"),
-  ],
+  entry: ["babel-polyfill", path.resolve(rootDir, "src/client/index.js")],
 
   output: {
     path: outputPath,
@@ -31,10 +27,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        include: [
-          path.resolve(rootDir, "src/client"),
-          path.resolve(rootDir, "src/shared")
-        ],
+        include: [path.resolve(rootDir, "src/client"), path.resolve(rootDir, "src/shared")],
         exclude: [/node_modules/],
         use: {
           loader: "babel-loader",
@@ -42,22 +35,6 @@ module.exports = {
             forceEnv: "production:client"
           }
         }
-      },
-      {
-        test: /\.scss$/,
-        use: ExtractCssChunks.extract({
-          use: [
-            {
-              loader: "css-loader",
-              options: {
-                modules: true,
-                localIdentName: "[local]--[hash:base64:8]",
-                minimize: true
-              }
-            },
-            "postcss-loader"
-          ]
-        })
       }
     ]
   },
@@ -80,7 +57,6 @@ module.exports = {
     new StatsPlugin("stats.json", {
       chunkModules: true
     }),
-    new ExtractCssChunks(),
 
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify("production"),
