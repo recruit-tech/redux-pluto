@@ -13,7 +13,7 @@ export default pure(function Salon(props: Props) {
         <Fragment>
           {item.name}
           <a href={item.urls && item.urls.pc} target="blank">
-            Hot peper beauty のページヘ行く
+            詳細のページヘ行く
           </a>
         </Fragment>
       )}
