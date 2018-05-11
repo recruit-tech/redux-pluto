@@ -1,9 +1,9 @@
-const SALON_SEARCH_MAX_COUNT = 50;
+const SEARCH_MAX_COUNT = 50;
 const RESULTS_COUNT = 500;
 
-const salonList = [];
-for (let i = 1; i <= SALON_SEARCH_MAX_COUNT; i++) {
-  salonList.push(
+const searchList = [];
+for (let i = 1; i <= SEARCH_MAX_COUNT; i++) {
+  searchList.push(
     {
       id: i.toString(),
       last_update: '2017-01-04 00:00:00',
@@ -21,7 +21,7 @@ for (let i = 1; i <= SALON_SEARCH_MAX_COUNT; i++) {
 
 module.exports = {
   request: {
-    path: '/beauty/salon',
+    path: '/beauty/search',
     method: 'GET',
     params: {
       keyword: '{:keyword}',
@@ -41,15 +41,15 @@ module.exports = {
         results_returned: '{:results_returned}',
         results_start: '{:results_start}',
         status: '{:status}',
-        salon: '{:salon}',
+        search: '{:search}',
       },
     },
     values: {
       results_available: RESULTS_COUNT,
-      results_returned: SALON_SEARCH_MAX_COUNT,
+      results_returned: SEARCH_MAX_COUNT,
       results_start: '1',
       status: 'OK',
-      salon: salonList,
+      search: searchList,
     },
   },
 };

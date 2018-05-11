@@ -17,9 +17,7 @@ import {
   loadUploadSample
 } from "./misc";
 
-import { loadSalonForm, loadSalon } from "./salon";
-
-import { loadStyle, loadStyleList } from "./style";
+import { loadSearchForm, loadSearch } from "./search";
 
 export default function getRoutes(store: $FIXME) {
   return (
@@ -32,20 +30,13 @@ export default function getRoutes(store: $FIXME) {
 
           <Route path="agreedsample" getComponent={loadAgreedSample} />
 
-          <Route path="style" onEnter={bindOnEnter(requiredLogin)}>
-            <IndexRoute getComponent={loadStyle} />
-            <Route path=":gender" getComponent={loadStyle} onChange={bindOnChange(requiredLogin)}>
-              <Route path=":hairLength" getComponent={loadStyleList} />
-            </Route>
-          </Route>
-
-          <Route path="salon">
+          <Route path="search" onEnter={bindOnEnter(requiredLogin)}>
             <IndexRoute
               queryKeys="keyword, page, more"
-              getComponent={loadSalonForm}
+              getComponent={loadSearchForm}
               ignoreScrollBehavior={ignoreScrollBehavior}
             />
-            <Route path=":salonId" getComponent={loadSalon} />
+            <Route path=":searchId" getComponent={loadSearch} />
           </Route>
 
           <Route path="largeform" getComponent={loadLargeForm} />
@@ -66,11 +57,6 @@ export default function getRoutes(store: $FIXME) {
 
   function bindOnEnter(handler) {
     return (nextState, replace, cb) => handler({ nextState, cb: bindCb(replace, cb) });
-  }
-
-  function bindOnChange(handler) {
-    return (prevState, nextState, replace, cb) =>
-      handler({ prevState, nextState, cb: bindCb(replace, cb) });
   }
 
   function bindCb(replace, cb) {

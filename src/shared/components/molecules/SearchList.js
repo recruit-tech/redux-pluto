@@ -2,7 +2,7 @@
 import React from "react";
 import { compose, pure, type HOC } from "recompose";
 import { showOnScroll, adjustScroll, forceScroll } from "shared/components/utils/scrollComponents";
-import SalonListItem from "shared/components/atoms/SalonListItem";
+import SearchListItem from "shared/components/atoms/SearchListItem";
 
 type Props = {
   items: Array<{
@@ -17,7 +17,7 @@ type Props = {
 
 const enhance: HOC<Props, Props> = compose(pure, showOnScroll, adjustScroll, forceScroll);
 
-export default enhance(function SalonList(props: Props) {
+export default enhance(function SearchList(props: Props) {
   const { items, page, linkURL } = props;
 
   if (items.length === 0) {
@@ -27,7 +27,7 @@ export default enhance(function SalonList(props: Props) {
   return (
     <div data-page={page}>
       <span>~~~~ {page} ~~~~</span>
-      {items.map(item => <SalonListItem item={item} key={item.id} linkURL={linkURL} />)}
+      {items.map(item => <SearchListItem item={item} key={item.id} linkURL={linkURL} />)}
     </div>
   );
 });

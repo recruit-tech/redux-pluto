@@ -7,7 +7,7 @@ import { createAsyncActionTypes } from "./utils";
 /**
  * Action types
  */
-const SALON = "redux-proto/salon";
+const SALON = "redux-proto/search";
 
 export const [
   FIND_SALON_BY_ID_REQUEST,
@@ -25,7 +25,7 @@ const findSalonByIdFail = createAction(FIND_SALON_BY_ID_FAIL);
 
 export function findSalonById(id: string) {
   return steps(
-    findSalonByIdRequest({ resource: "salon", params: { id } }),
+    findSalonByIdRequest({ resource: "search", params: { id } }),
     ({ payload }) => fetchrRead(payload),
     [findSalonByIdSuccess, findSalonByIdFail]
   );
@@ -63,7 +63,11 @@ export default (handleActions(
     }),
 
     [FIND_SALON_BY_ID_SUCCESS]: (state, action) => {
-      const { payload: { data: { salon: items } } } = action;
+      const {
+        payload: {
+          data: { search: items }
+        }
+      } = action;
 
       return {
         ...state,
