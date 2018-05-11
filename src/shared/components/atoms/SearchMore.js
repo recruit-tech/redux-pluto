@@ -8,7 +8,11 @@ type Props = {
   onShow: boolean
 };
 
-export default compose(pure, showOnScroll)(function SalonMore(props: Props) {
+export default compose(pure, showOnScroll)(function SearchMore(props: Props) {
   const { children, onShow } = props;
-  return <div onClick={onShow} onKeyDown={onShow}>{children}</div>;
+  return (
+    <div onClick={onShow} onKeyDown={onShow}>
+      {children}
+    </div>
+  );
 });

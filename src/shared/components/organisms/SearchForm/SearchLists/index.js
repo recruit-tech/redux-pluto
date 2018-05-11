@@ -2,7 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import pure from "recompose/pure";
-import SalonList from "shared/components/molecules/SalonList";
+import SearchList from "shared/components/molecules/SearchList";
 
 type Props = {
   page: number,
@@ -13,13 +13,13 @@ type Props = {
   linkURL: string
 };
 
-export default pure(function SalonLists(props: Props) {
+export default pure(function SearchLists(props: Props) {
   const { items, onInnerWindow, shouldAdjustScroll, forceScrollTo, linkURL } = props;
 
   return (
     <Root>
       {Object.keys(items).map(page => (
-        <SalonList
+        <SearchList
           items={items[page]}
           linkURL={linkURL}
           page={+page}

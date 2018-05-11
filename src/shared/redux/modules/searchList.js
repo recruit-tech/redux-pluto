@@ -5,12 +5,12 @@ import { fetchrRead } from "redux-effects-fetchr";
 import { range } from "lodash/fp";
 import { createAsyncActionTypes } from "./utils";
 
-export const SALON_SEARCH_MAX_COUNT = 50;
+export const SEARCH_MAX_COUNT = 50;
 
 /**
  * Action types
  */
-const SALON_LIST = "redux-proto/salonList";
+const SALON_LIST = "redux-proto/searchList";
 
 export const [
   SALON_LIST_SEARCH_REQUEST,
@@ -30,34 +30,34 @@ export const [
  * Action creators
  */
 
-const searchSalonListRequest = createAction(SALON_LIST_SEARCH_REQUEST);
-const searchSalonListSuccess = createAction(SALON_LIST_SEARCH_SUCCESS);
-const searchSalonListFail = createAction(SALON_LIST_SEARCH_FAIL);
+const searchSearchListRequest = createAction(SALON_LIST_SEARCH_REQUEST);
+const searchSearchListsuccess = createAction(SALON_LIST_SEARCH_SUCCESS);
+const searchSearchListFail = createAction(SALON_LIST_SEARCH_FAIL);
 
-export function searchSalonList(params: *) {
+export function searchSearchList(params: *) {
   return steps(
-    searchSalonListRequest({ resource: "salon", params }),
+    searchSearchListRequest({ resource: "search", params }),
     ({ payload }) => fetchrRead(payload),
     [
-      payload => searchSalonListSuccess({ params, data: payload.data }),
-      error => searchSalonListFail({ params, error })
+      payload => searchSearchListsuccess({ params, data: payload.data }),
+      error => searchSearchListFail({ params, error })
     ]
   );
 }
 
-export const clearSearchSalonList = createAction(SALON_LIST_CLEAR_SEARCH_REQUEST);
+export const clearSearchSearchList = createAction(SALON_LIST_CLEAR_SEARCH_REQUEST);
 
-const searchMoreSalonListRequest = createAction(SALON_LIST_SEARCH_MORE_REQUEST);
-const searchMoreSalonListSuccess = createAction(SALON_LIST_SEARCH_MORE_SUCCESS);
-const searchMoreSalonListFail = createAction(SALON_LIST_SEARCH_MORE_FAIL);
+const searchMoreSearchListRequest = createAction(SALON_LIST_SEARCH_MORE_REQUEST);
+const searchMoreSearchListsuccess = createAction(SALON_LIST_SEARCH_MORE_SUCCESS);
+const searchMoreSearchListFail = createAction(SALON_LIST_SEARCH_MORE_FAIL);
 
-export function searchMoreSalonList(params: *) {
+export function searchMoreSearchList(params: *) {
   return steps(
-    searchMoreSalonListRequest({ resource: "salon", params }),
+    searchMoreSearchListRequest({ resource: "search", params }),
     ({ payload }) => fetchrRead(payload),
     [
-      payload => searchMoreSalonListSuccess({ params, data: payload.data }),
-      error => searchMoreSalonListFail({ params, error })
+      payload => searchMoreSearchListsuccess({ params, data: payload.data }),
+      error => searchMoreSearchListFail({ params, error })
     ]
   );
 }
@@ -105,7 +105,7 @@ export default (handleActions(
 
     [SALON_LIST_SEARCH_SUCCESS]: (state, action) => {
       const {
-        payload: { params, data: { results_available: count, results_start: start, salon: items } }
+        payload: { params, data: { results_available: count, results_start: start, search: items } }
       } = action;
       const page = +params.page || 0;
 
@@ -149,7 +149,7 @@ export default (handleActions(
 
     [SALON_LIST_SEARCH_MORE_SUCCESS]: (state, action) => {
       const {
-        payload: { params, data: { results_available: count, results_start: start, salon: items } }
+        payload: { params, data: { results_available: count, results_start: start, search: items } }
       } = action;
 
       return {
@@ -186,7 +186,7 @@ export default (handleActions(
 ): Reducer<State, *>);
 
 function canGetNext(count, start) {
-  return +count > +start + SALON_SEARCH_MAX_COUNT;
+  return +count > +start + SEARCH_MAX_COUNT;
 }
 
 function canGetPrev(page) {
@@ -194,6 +194,6 @@ function canGetPrev(page) {
 }
 
 function createPages(count) {
-  const maxPage = count / SALON_SEARCH_MAX_COUNT;
+  const maxPage = count / SEARCH_MAX_COUNT;
   return range(0, maxPage);
 }

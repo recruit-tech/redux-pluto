@@ -8,26 +8,26 @@ import { reduxForm } from "redux-form";
 import { asyncLoader } from "redux-async-loader";
 import { sendAnalytics } from "react-redux-analytics";
 import {
-  salonListSelector,
+  SearchListselector,
   routingSelector,
   globalFormDisabledSelector
 } from "shared/redux/modules/reducer";
 import {
-  searchSalonList,
-  searchMoreSalonList,
-  clearSearchSalonList
-} from "shared/redux/modules/salonList";
+  searchSearchList,
+  searchMoreSearchList,
+  clearSearchSearchList
+} from "shared/redux/modules/searchList";
 import { siteSections, onAsyncLoaderLoaded } from "shared/redux/analytics/utils";
 import { SALON_KEYWORD } from "shared/redux/analytics/variableNames";
-import SalonForm from "./SalonForm";
+import SearchForm from "./SearchForm";
 
 const selector = createSelector(
-  salonListSelector,
+  SearchListselector,
   state => state.routing.locationBeforeTransitions.query.keyword,
   globalFormDisabledSelector,
-  (salonList, keyword, globalFormDisabled) => ({
-    ...salonList,
-    shouldForceScroll: salonList.canGetPrev,
+  (searchList, keyword, globalFormDisabled) => ({
+    ...searchList,
+    shouldForceScroll: searchList.canGetPrev,
     initialValues: { keyword },
     globalFormDisabled
   })
@@ -39,34 +39,34 @@ export default compose(
     const { locationBeforeTransitions } = routingSelector(state);
     const { action } = locationBeforeTransitions;
 
-    if (action === "POP" && salonListSelector(state).loaded) {
+    if (action === "POP" && SearchListselector(state).loaded) {
       return Promise.resolve();
     }
 
     const { query: locationQuery } = location;
 
     if (locationQuery && !locationQuery.keyword) {
-      return dispatch(clearSearchSalonList());
+      return dispatch(clearSearchSearchList());
     }
 
     const { more, keyword, page } = locationQuery;
 
     if (more) {
-      return dispatch(searchMoreSalonList({ keyword, page }));
+      return dispatch(searchMoreSearchList({ keyword, page }));
     }
 
-    dispatch(clearSearchSalonList());
-    return dispatch(searchSalonList({ keyword, page }));
+    dispatch(clearSearchSearchList());
+    return dispatch(searchSearchList({ keyword, page }));
   }),
   (connect: $FIXME)(selector, (dispatch, ownProps) => ({
     onClickPrev: page => () => {
       const { keyword } = parse(window.location.search.substr(1));
-      return dispatch(replace(`/salon?keyword=${keyword}&page=${page - 1}&more=true`));
+      return dispatch(replace(`/search?keyword=${keyword}&page=${page - 1}&more=true`));
     },
 
     onClickNext: page => () => {
       const { keyword } = parse(window.location.search.substr(1));
-      return dispatch(replace(`/salon?keyword=${keyword}&page=${page + 1}&more=true`));
+      return dispatch(replace(`/search?keyword=${keyword}&page=${page + 1}&more=true`));
     },
 
     // 今見てる window の中の要素でpageのURL位置を変える
@@ -76,25 +76,25 @@ export default compose(
       const currentPage = query.page || "0";
       const { keyword } = query;
       if (page !== currentPage) {
-        return void dispatch(replace(`/salon?keyword=${keyword}&page=${page}&more=true`));
+        return void dispatch(replace(`/search?keyword=${keyword}&page=${page}&more=true`));
       }
     }
   })),
-  withState("linkURL", "handleChangeLinkURL", "/salon"),
+  withState("linkURL", "handleChangeLinkURL", "/search"),
   sendAnalytics({
-    ...siteSections("salon", "form"),
+    ...siteSections("search", "form"),
     onDataReady: onAsyncLoaderLoaded,
     mapPropsToVariables: ({ location = {}, count }, state) => ({
       [SALON_KEYWORD]: location.query && location.query.keyword
     })
   }),
   reduxForm({
-    form: "salon",
+    form: "search",
 
     // キーワード検索開始
     onSubmit({ keyword }, dispatch) {
-      dispatch(push(`/salon?keyword=${keyword}&page=0`));
+      dispatch(push(`/search?keyword=${keyword}&page=0`));
     }
   }),
   shouldUpdate((props, nextProps) => nextProps.loaded)
-)(SalonForm);
+)(SearchForm);
