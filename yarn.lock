@@ -5410,13 +5410,6 @@ isomorphic-fetch@^2.1.1:
     node-fetch "^1.0.1"
     whatwg-fetch ">=0.10.0"
 
-isomorphic-unfetch@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/isomorphic-unfetch/-/isomorphic-unfetch-2.0.0.tgz#f50140a4c163d7582b5f37f1591968c4f809a645"
-  dependencies:
-    node-fetch "^1.7.1"
-    unfetch "^3.0.0"
-
 isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
@@ -6708,7 +6701,7 @@ node-emoji@^1.8.1:
   dependencies:
     lodash.toarray "^4.4.0"
 
-node-fetch@^1.0.1, node-fetch@^1.7.1:
+node-fetch@^1.0.1:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.7.3.tgz#980f6f72d85211a5347c6b2bc18c5b84c3eb47ef"
   dependencies:
@@ -9142,6 +9135,16 @@ sha.js@^2.4.0, sha.js@^2.4.8:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
+shadow-fetch-express@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/shadow-fetch-express/-/shadow-fetch-express-0.2.0.tgz#e39d1734f3081386b8a8645adfc20a25169ae17f"
+  dependencies:
+    shadow-fetch "^0.2.0"
+
+shadow-fetch@^0.2.0, shadow-fetch@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/shadow-fetch/-/shadow-fetch-0.2.1.tgz#197a9b2339748fd47a68c154f64f1713552279cb"
+
 shallowequal@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/shallowequal/-/shallowequal-0.2.2.tgz#1e32fd5bcab6ad688a4812cb0cc04efc75c7014e"
@@ -9946,10 +9949,6 @@ uid-safe@~2.1.5:
 ultron@~1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ultron/-/ultron-1.1.1.tgz#9fe1536a10a664a65266a1e3ccf85fd36302bc9c"
-
-unfetch@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/unfetch/-/unfetch-3.0.0.tgz#8d1e0513a4ecd0e5ff2d41a6ba77771aae8b6482"
 
 union-value@^1.0.0:
   version "1.0.0"
