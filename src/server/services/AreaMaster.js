@@ -1,18 +1,12 @@
+/* @flow */
 import { reduce, transform } from "lodash/fp";
 import AgreedMaster from "./AgreedMaster";
 
 const AREA_NAMES = ["service_area", "middle_area", ""];
 
 export default class AreaMaster extends AgreedMaster {
-  constructor(config) {
-    super(
-      config,
-      "areaMaster",
-      "beauty/smallArea/",
-      {},
-      "small_area",
-      transform(formatResult, {})
-    );
+  constructor(config: any) {
+    super(config, "areaMaster", "beauty/smallArea/", {}, "small_area", transform(formatResult, {}));
   }
 }
 

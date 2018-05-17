@@ -1,3 +1,4 @@
+/* @flow */
 import cookie from "cookie";
 import jwt from "jsonwebtoken";
 import fumble from "fumble";
@@ -11,14 +12,18 @@ export const ACCESS_TOKEN_COOKIE_NAME = "access-token";
 export const ACCESS_TOKEN_AUDIENCE_NAME = "redux-proto";
 
 export default class AccessToken {
-  constructor(config) {
+  name: string;
+  maxAge: number;
+  key: string;
+  secret: string;
+  constructor(config: any) {
     this.name = "accessToken";
     this.maxAge = config.auth.maxAge;
     this.key = config.auth.key;
     this.secret = config.auth.secret;
   }
 
-  create(req, resource, params, body, config) {
+  create(req: any, resource: any, params: any, body: any, config: any) {
     const validationErrors = validate(params);
     if (Object.keys(validationErrors).length) {
       return rejectWith(fumble.http.badRequest(), validationErrors);
@@ -61,7 +66,7 @@ export default class AccessToken {
     );
   }
 
-  delete(req, resource, params, config) {
+  delete(req: any, resource: any, params: any, config: any) {
     return Promise.resolve({
       meta: {
         headers: {
@@ -74,13 +79,13 @@ export default class AccessToken {
   }
 }
 
-export function sign(payload, key) {
+export function sign(payload: any, key: string) {
   return jwtSign(payload, key, {
     algorithm: "RS256"
   });
 }
 
-export function verify(req, secret) {
+export function verify(req: any, secret: string) {
   const accessToken = req.cookies && req.cookies[ACCESS_TOKEN_COOKIE_NAME];
   if (!accessToken) {
     return rejectWith(fumble.http.unauthorized(), { reason: "no tokoen" });
@@ -89,29 +94,17 @@ export function verify(req, secret) {
   return jwtVerify(accessToken, secret, {
     algorithm: "RS256",
     audience: ACCESS_TOKEN_AUDIENCE_NAME
-  }).catch(error =>
-    rejectWith(fumble.http.unauthorized(), { reason: error.message })
+  }).catch(error => rejectWith(fumble.http.unauthorized(), { reason: error.message }));
+}
+
+function jwtSign(payload: any, key: string, options: any) {
+  return new Promise((resolve, reject) =>
+    jwt.sign(payload, key, options, (err, token) => (err ? reject(err) : resolve(token)))
   );
 }
 
-function jwtSign(payload, key, options) {
+function jwtVerify(token: string, secret: string, options: any) {
   return new Promise((resolve, reject) =>
-    jwt.sign(
-      payload,
-      key,
-      options,
-      (err, token) => (err ? reject(err) : resolve(token))
-    )
-  );
-}
-
-function jwtVerify(token, secret, options) {
-  return new Promise((resolve, reject) =>
-    jwt.verify(
-      token,
-      secret,
-      options,
-      (err, decoded) => (err ? reject(err) : resolve(decoded))
-    )
+    jwt.verify(token, secret, options, (err, decoded) => (err ? reject(err) : resolve(decoded)))
   );
 }

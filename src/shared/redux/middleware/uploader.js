@@ -1,3 +1,4 @@
+/* @flow */
 import querystring from "querystring";
 import axios from "axios";
 
@@ -9,7 +10,7 @@ export const UPLOADER = "EFFECT_UPLOADER";
 /*
  * Action creators
  */
-export function upload(path, file, params, config) {
+export function upload(path: string, file: any, params?: Object, config?: Object) {
   return {
     type: UPLOADER,
     payload: {
@@ -24,8 +25,8 @@ export function upload(path, file, params, config) {
 /**
  * uploader middleware
  */
-export default function uploadMiddleware(_csrf) {
-  return ({ dispatch }) => next => action => {
+export default function uploadMiddleware(_csrf: any) {
+  return ({ dispatch }: any) => (next: Function) => (action: any) => {
     const { type, payload } = action;
     if (type !== UPLOADER) {
       return next(action);

@@ -1,7 +1,14 @@
+/* @flow */
 import { startLoading, stopLoading } from "shared/redux/modules/loading";
 import { handleActions } from "./utils";
 
-export default function loadingMiddleware({ start, stop, delay }) {
+type LoadingMiddlewareOption = {
+  start: any,
+  stop: any,
+  delay: number
+};
+
+export default function loadingMiddleware({ start, stop, delay }: LoadingMiddlewareOption) {
   let timerId = null;
 
   return handleActions({

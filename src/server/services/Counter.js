@@ -1,14 +1,17 @@
+/* @flow */
 export default class Counter {
+  name: string;
+  counter: number;
   constructor() {
     this.name = "counter";
     this.counter = 0;
   }
 
-  read(req, resource, params, config) {
+  read(_req: any, _resource: any, params: any, _config: any) {
     return Promise.resolve(this.counter);
   }
 
-  update(req, resource, params, config) {
+  update(_req: any, _resource: any, _params: any, _config: any) {
     return Promise.resolve(++this.counter);
   }
 }
