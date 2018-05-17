@@ -1,11 +1,11 @@
 /* @flow */
 import React, { Fragment } from "react";
 import pure from "recompose/pure";
-import { type State as SalonState } from "shared/redux/modules/salon";
+import { type State as SearchState } from "shared/redux/modules/search";
 
-type Props = SalonState;
+type Props = SearchState;
 
-export default pure(function Salon(props: Props) {
+export default pure(function Search(props: Props) {
   const { item } = props;
   return (
     <div>

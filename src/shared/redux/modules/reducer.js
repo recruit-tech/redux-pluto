@@ -11,8 +11,8 @@ import auth, { type State as AuthState } from "./auth";
 import counter, { type State as CounterState } from "./counter";
 import loading, { type State as LoadingState } from "./loading";
 import masters, { type State as MastersState } from "./masters";
-import salon, { type State as SalonState } from "./salon";
-import salonList, { type State as SalonListState } from "./salonList";
+import search, { type State as SearchState } from "./search";
+import searchList, { type State as SearchListstate } from "./searchList";
 import style, { type State as StyleState } from "./style";
 import hackerNews, { type State as HackerNewsState } from "./hackerNews";
 import uploadSample from "./uploadSample";
@@ -27,8 +27,8 @@ export type State = {
   },
   page: {
     agreedSample: AgreedSampleState,
-    salon: SalonState,
-    salonList: SalonListState,
+    search: SearchState,
+    searchList: SearchListstate,
     style: StyleState,
     hackerNews: HackerNewsState
   },
@@ -50,8 +50,8 @@ export default combineReducers({
   page: pageScopeReducer(
     combineReducers({
       agreedSample,
-      salon,
-      salonList,
+      search,
+      searchList,
       style,
       uploadSample,
       hackerNews
@@ -86,12 +86,12 @@ export function loadingSelector(state: State): LoadingState {
   return state.app.loading;
 }
 
-export function salonSelector(state: State): SalonState {
-  return state.page.salon;
+export function searchSelector(state: State): SearchState {
+  return state.page.search;
 }
 
-export function salonListSelector(state: State): SalonListState {
-  return state.page.salonList;
+export function SearchListselector(state: State): SearchListstate {
+  return state.page.searchList;
 }
 
 export function styleSelector(state: State): StyleState {
