@@ -12,7 +12,7 @@ type Props = {
   keyword: string
 };
 
-export default pure(function SalonPager(props: Props) {
+export default pure(function SearchPager(props: Props) {
   const { keyword, page, pages } = props;
   const slicedPages = slicePages(page, pages);
 
@@ -23,7 +23,7 @@ export default pure(function SalonPager(props: Props) {
           page === p ? (
             <Current key={p}>{p}</Current>
           ) : (
-            <Link key={p} to={`/salon?keyword=${keyword}&page=${p}`}>
+            <Link key={p} to={`/search?keyword=${keyword}&page=${p}`}>
               {p}
             </Link>
           )

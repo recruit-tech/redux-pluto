@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { propTypes as formPropTypes, Field } from "redux-form";
 import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
-import SalonMore from "shared/components/atoms/SalonMore";
-import SalonLists from "./SalonLists";
-import SalonPager from "./SalonPager";
+import SearchMore from "shared/components/atoms/SearchMore";
+import SearchLists from "./SearchLists";
+import SearchPager from "./SearchPager";
 
 type FormProps = {
   handleSubmit: Function,
@@ -51,7 +51,7 @@ export default compose(
     forceScrollTo: PropTypes.object,
     globalFormDisabled: PropTypes.bool
   })
-)(function SalonForm(props: Props) {
+)(function SearchForm(props: Props) {
   const {
     handleSubmit,
     initialValues,
@@ -87,12 +87,12 @@ export default compose(
         </div>
       </form>
       <div>
-        {canGetPrev ? <SalonMore onShow={onClickPrev(page)}>戻る</SalonMore> : null}
+        {canGetPrev ? <SearchMore onShow={onClickPrev(page)}>戻る</SearchMore> : null}
         <div>
           <span>{count || 0}</span>
           <span>件あります</span>
         </div>
-        <SalonLists
+        <SearchLists
           page={page}
           items={items}
           linkURL={linkURL}
@@ -100,10 +100,10 @@ export default compose(
           shouldAdjustScroll={shouldAdjustScroll}
           forceScrollTo={forceScrollTo}
         />
-        {canGetNext ? <SalonMore onShow={onClickNext(page)}>進む</SalonMore> : null}
+        {canGetNext ? <SearchMore onShow={onClickNext(page)}>進む</SearchMore> : null}
       </div>
       <Pager>
-        <SalonPager pages={pages} page={page} keyword={initialValues.keyword || ""} />
+        <SearchPager pages={pages} page={page} keyword={initialValues.keyword || ""} />
       </Pager>
     </Root>
   );

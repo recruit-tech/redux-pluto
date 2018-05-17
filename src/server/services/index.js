@@ -6,6 +6,5 @@ export { default as GenderMaster } from "./GenderMaster";
 export { default as HairColorMaster } from "./HairColorMaster";
 export { default as HairLengthMaster } from "./HairLengthMaster";
 export { default as MenuContentMaster } from "./MenuContentMaster";
-export { default as Style } from "./Style";
-export { default as Salon } from "./Salon";
+export { default as Search } from "./Search";
 export { default as HackerNews } from "./HackerNews";
