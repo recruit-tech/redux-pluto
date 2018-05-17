@@ -1,3 +1,4 @@
+/* @flow */
 import Fetchr from "fetchr";
 import debugFactory from "debug";
 import * as services from "server/services";
@@ -5,14 +6,14 @@ import { verify } from "server/services/AccessToken";
 
 const debug = debugFactory("app:server:middleware:apiGateway");
 
-export default function apiGateway(config) {
-  Object.values(services).forEach(Service => {
+export default function apiGateway(config: any) {
+  Object.values(services).forEach((Service: any) => {
     const service = new Service(config);
     debug(`Registering sevice: ${service.name}`);
     Fetchr.registerService(makeServiceAdapter(service, config.auth.secret));
   });
 
-  return (req, res, next) => {
+  return (req: any, res: any, next: Function) => {
     res.startTime("apigateway", "API Gateway");
     return Fetchr.middleware({
       responseFormatter: (req, res, data) => {
@@ -24,8 +25,8 @@ export default function apiGateway(config) {
 }
 
 function makeServiceAdapter(service, secret) {
-  const adapter = { name: service.name };
-  const checkLogin = service.requireLogin
+  const adapter: any = { name: service.name };
+  const checkLogin: any = service.requireLogin
     ? req => verify(req, secret)
     : () => Promise.resolve();
 

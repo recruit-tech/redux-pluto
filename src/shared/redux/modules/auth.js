@@ -63,7 +63,7 @@ export function logout() {
  */
 
 export type State = {
-  login: boolean,
+  login: any,
   username: ?string
 };
 const INITIAL_STATE: State = {
@@ -86,7 +86,9 @@ export default (handleActions(
 ): Reducer<State, *>);
 
 function loggedIn(state, action) {
-  const { payload: { sub } } = action;
+  const {
+    payload: { sub }
+  } = action;
 
   return state.login && state.username === sub
     ? state

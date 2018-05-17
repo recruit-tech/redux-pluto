@@ -1,3 +1,4 @@
+/* @flow */
 import { replace } from "react-router-redux";
 import { cookie } from "redux-effects-universal-cookie";
 import { fetchrCreate, fetchrDelete } from "redux-effects-fetchr";
@@ -18,7 +19,9 @@ export default function authMiddleware() {
 
     [AUTH_LOGIN_REQUEST]({ dispatch }, next, action) {
       next(action); // eslint-disable-line callback-return
-      const { payload: { params, location } } = action;
+      const {
+        payload: { params, location }
+      } = action;
       return dispatch(fetchrCreate("accessToken", params))
         .then(() => checkAccessToken(dispatch))
         .then(payload => {
