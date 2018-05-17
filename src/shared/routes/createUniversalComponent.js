@@ -6,11 +6,7 @@ const debug = debugFactory("app:shared:routes:createUniversalComponent");
 
 const cssPromiseCache = {};
 
-export default function createUniversalComponent(
-  component,
-  resolve,
-  chunkName
-) {
+export default function createUniversalComponent(component, resolve, chunkName) {
   return Promise.all([
     component(),
     universal(component, { resolve, chunkName, loading: "loading..." }),
@@ -41,14 +37,10 @@ function importCss(chunkName) {
     if (__DEVELOPMENT__) {
       // eslint-disable-next-line no-underscore-dangle
       if (__SERVER__ || !window.__CSS_CHUNKS__) {
-        debug(
-          '[DUAL-IMPORT] no css chunks hash found at "window.__CSS_CHUNKS__"'
-        );
+        debug('[DUAL-IMPORT] no css chunks hash found at "window.__CSS_CHUNKS__"');
         return null;
       }
-      debug(
-        `[DUAL-IMPORT] no chunk, ${chunkName}, found in "window.__CSS_CHUNKS__"`
-      );
+      debug(`[DUAL-IMPORT] no chunk, ${chunkName}, found in "window.__CSS_CHUNKS__"`);
     }
     return null;
   }

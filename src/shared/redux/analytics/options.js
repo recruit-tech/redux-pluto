@@ -1,3 +1,5 @@
+/* @flow */
+import { type State as RootState } from "shared/redux/modules/reducer";
 import {
   SERVER,
   URL,
@@ -11,9 +13,11 @@ import {
   USERNAME
 } from "./variableNames";
 
-const mapStateToVariables = state => {
+const mapStateToVariables = (state: RootState) => {
   /* eslint-disable no-unused-vars */
-  const { app: { auth } } = state;
+  const {
+    app: { auth }
+  } = state;
   return {
     [SERVER]: window.location.hostname,
     [URL]: "D=g", // uses s.PageURL on server
@@ -23,19 +27,17 @@ const mapStateToVariables = state => {
   };
 };
 
-const suppressPageView = (state, action) => {
+const suppressPageView = (state: RootState, action: any) => {
   const lastPageView = state.analytics.page.lastPageViewSent;
   // 既にPageViewを送っていて、locationの変更のない場合はPageViewを送らない
   return lastPageView && lastPageView.location === action.payload.location;
 };
 
-const getLocationInStore = state => state.routing.locationBeforeTransitions;
+const getLocationInStore = (state: RootState) => state.routing.locationBeforeTransitions;
 
-const composeEventName = (variables, state) => {
+const composeEventName = (variables: any, state: RootState) => {
   const pageName = variables[PAGE_NAME] || "*";
-  const eventCd = Array.isArray(variables[EVENTS])
-    ? variables[EVENTS].sort().join("+")
-    : "*";
+  const eventCd = Array.isArray(variables[EVENTS]) ? variables[EVENTS].sort().join("+") : "*";
   return `${pageName}/${eventCd}`;
 };
 
