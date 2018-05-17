@@ -16,10 +16,9 @@ export default compose(
     content,
     initialState,
     clientConfig,
-    assets: { publicPath, scripts, stylesheets, inlineStylesheets, cssHashRaw },
+    assets: { publicPath, scripts },
     styles
   } = props;
-
   return (
     <html lang="ja">
       <head>
@@ -33,35 +32,9 @@ export default compose(
             __html: styles
           }}
         />
-        {stylesheets &&
-          stylesheets.map(style => (
-            <link
-              key={style}
-              href={`${publicPath}/${style}`}
-              media="screen, projection"
-              rel="stylesheet"
-              type="text/css"
-            />
-          ))}
-        {inlineStylesheets &&
-          inlineStylesheets.map(style => (
-            <style
-              key={style.name}
-              type="text/css"
-              media="screen, projection"
-              dangerouslySetInnerHTML={{
-                __html: style.content
-              }}
-            />
-          ))}
         {scripts &&
           scripts.map(script => (
-            <script
-              key={script}
-              src={`${publicPath}/${script}`}
-              charSet="utf-8"
-              async
-            />
+            <script key={script} src={`${publicPath}/${script}`} charSet="utf-8" async />
           ))}
       </head>
       <body>
@@ -69,12 +42,6 @@ export default compose(
         <div id="devtools" />
         <script id="initial-state" type="text/plain" data-json={initialState} />
         <script id="client-config" type="text/plain" data-json={clientConfig} />
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{
-            __html: `window.__CSS_CHUNKS__= ${JSON.stringify(cssHashRaw)}`
-          }}
-        />
       </body>
     </html>
   );
