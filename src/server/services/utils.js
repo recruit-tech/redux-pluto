@@ -1,10 +1,11 @@
+/* @flow */
 import { format as formatUrl } from "url";
 import fumble from "fumble";
 import debugFactory from "debug";
 
 const debug = debugFactory("app:server:services");
 
-export function read(axios, name, pathname, query) {
+export function read(axios: any, name: string, pathname: string, query: any) {
   const formattedUrl = formatUrl({ pathname, query });
   debug(`[${name}]: GET ${formattedUrl}`);
 
@@ -27,12 +28,18 @@ export function read(axios, name, pathname, query) {
 
       return results;
     },
-    error =>
-      rejectWith(fumble.create(), { name, formattedUrl, reason: error.message })
+    error => rejectWith(fumble.create(), { name, formattedUrl, reason: error.message })
   );
 }
 
-export function readAll(axios, name, pathname, params, itemsName, loaded = []) {
+export function readAll(
+  axios: any,
+  name: string,
+  pathname: string,
+  params: any,
+  itemsName: string,
+  loaded: any = []
+) {
   const actualParams = { ...params, start: loaded.length + 1 };
   return read(axios, name, pathname, actualParams).then(results => {
     const available = +results.results_available; // eslint-disable-line camelcase
@@ -47,14 +54,18 @@ export function readAll(axios, name, pathname, params, itemsName, loaded = []) {
       return results;
     }
 
-    return readAll(axios, name, pathname, params, itemsName, [
-      ...loaded,
-      ...items
-    ]);
+    return readAll(axios, name, pathname, params, itemsName, [...loaded, ...items]);
   });
 }
 
-export function create(axios, name, pathname, body, query, headers) {
+export function create(
+  axios: any,
+  name: string,
+  pathname: string,
+  body: any,
+  query: any,
+  headers: any
+) {
   const formattedUrl = formatUrl({ pathname, query });
   debug(`[${name}]: POST ${formattedUrl} with body: ${JSON.stringify(body)}`);
 
@@ -77,7 +88,7 @@ export function create(axios, name, pathname, body, query, headers) {
   );
 }
 
-export function rejectWith(error, output = {}) {
+export function rejectWith(error: any, output: any = {}) {
   error.output = output;
   debug(error);
   return Promise.reject(error);

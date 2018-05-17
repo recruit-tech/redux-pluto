@@ -34,16 +34,16 @@ test("AccessToken: create success", async () => {
 test("AccessToken: create failure", async done => {
   const accessToken = new AccessToken(configs);
 
-  const req = {
+  const req: any = {
     cookie: {}
   };
 
-  const params = {
+  const params: any = {
     username: "notuser",
     password: "notpassword"
   };
 
-  return accessToken.create(req, void 0, params).then(done.fail, e => {
+  return (accessToken: any).create(req, void 0, params).then(done.fail, e => {
     assert(e.statusCode === 400);
     assert(e.message === "Bad Request");
     done();
