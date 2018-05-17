@@ -1,3 +1,4 @@
+/* @flow */
 import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
@@ -14,12 +15,7 @@ import * as uploaders from "./uploaders";
 
 const upload = multer(config.multer);
 
-export default function renderer({
-  clientStats,
-  server,
-  sessionStore,
-  promises
-}) {
+export default function renderer({ clientStats, server, sessionStore, promises }: any) {
   const app = express.Router();
 
   app.use(bodyParser.json());
@@ -30,7 +26,7 @@ export default function renderer({
   app.use(serverTiming());
   app.use(favicon(config.favicon));
 
-  Object.values(uploaders).forEach(Uploader => {
+  Object.values(uploaders).forEach((Uploader: any) => {
     const uploader = new Uploader(config);
     app.post(
       `${config.upload.path}${uploader.path}`,

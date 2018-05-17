@@ -1,8 +1,9 @@
+/* @flow */
 import { transform } from "lodash/fp";
 import AgreedMaster from "./AgreedMaster";
 
 export default class GenderMaster extends AgreedMaster {
-  constructor(config) {
+  constructor(config: any) {
     super(
       config,
       "genderMaster",

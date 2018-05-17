@@ -1,3 +1,4 @@
+/* @flow */
 import { map, pick } from "lodash/fp";
 import AgreedService from "./AgreedService";
 import { read } from "./utils";
@@ -19,14 +20,14 @@ const PICK_PROPS = [
 const pickProps = map(pick(PICK_PROPS));
 
 export default class Search extends AgreedService {
-  constructor(config) {
+  constructor(config: any) {
     super(config, "search", "beauty/search/", {
       count: SEARCH_MAX_COUNT,
       order: SEARCH_ORDER
     });
   }
 
-  read(req, resource, params, config) {
+  read(req: any, resource: any, params: { page: number, id: any, start: number }, config: any) {
     const { page, id, ...query } = params;
     if (page) {
       query.start = page * SEARCH_MAX_COUNT + 1;
