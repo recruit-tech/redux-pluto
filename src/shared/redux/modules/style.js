@@ -10,7 +10,7 @@ import { createAsyncActionTypes } from "./utils";
 export const [
   SEARCH_STYLE_REQUEST,
   SEARCH_STYLE_SUCCESS,
-  SEARCH_STYLE_FAIL
+  SEARCH_STYLE_FAIL,
 ] = createAsyncActionTypes("redux-proto/style/search");
 
 /**
@@ -26,7 +26,7 @@ export function searchStyle(params: *) {
   return steps(
     searchStyleRequest({ resource: "style", params }),
     ({ payload }) => fetchrRead(payload),
-    [searchStyleSuccess, searchStyleFail]
+    [searchStyleSuccess, searchStyleFail],
   );
 }
 
@@ -38,14 +38,14 @@ export type State = {
   loaded: boolean,
   params: ?Object,
   count: number,
-  items: Array<*>
+  items: Array<*>,
 };
 export const INITIAL_STATE: State = {
   loading: false,
   loaded: false,
   params: null,
   count: 0,
-  items: []
+  items: [],
 };
 
 /**
@@ -54,26 +54,32 @@ export const INITIAL_STATE: State = {
 export default (handleActions(
   {
     [SEARCH_STYLE_REQUEST]: (state, action) => {
-      const { payload: { params } } = action;
+      const {
+        payload: { params },
+      } = action;
 
       return {
         loading: true,
         loaded: false,
         params,
         count: state.count,
-        items: state.items
+        items: state.items,
       };
     },
 
     [SEARCH_STYLE_SUCCESS]: (state, action) => {
-      const { payload: { data: { results_available: count, style: items } } } = action;
+      const {
+        payload: {
+          data: { results_available: count, style: items },
+        },
+      } = action;
 
       return {
         loading: false,
         loaded: true,
         params: state.params,
         count: +count,
-        items
+        items,
       };
     },
 
@@ -86,9 +92,9 @@ export default (handleActions(
         params: state.params,
         count: 0,
         items: [],
-        error
+        error,
       };
-    }
+    },
   },
-  INITIAL_STATE
+  INITIAL_STATE,
 ): Reducer<State, *>);

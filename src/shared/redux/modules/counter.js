@@ -10,7 +10,7 @@ import { createAsyncActionTypes } from "./utils";
 export const [
   COUNTER_INCREMENT_REQUEST,
   COUNTER_INCREMENT_SUCCESS,
-  COUNTER_INCREMENT_FAIL
+  COUNTER_INCREMENT_FAIL,
 ] = createAsyncActionTypes("redux-proto/counter/increment");
 
 /**
@@ -23,10 +23,11 @@ const incrementSuccess = createAction(COUNTER_INCREMENT_SUCCESS);
 const incrementFail = createAction(COUNTER_INCREMENT_FAIL);
 
 export function increment() {
-  return steps(incrementRequest({ resource: "counter" }), ({ payload }) => fetchrUpdate(payload), [
-    incrementSuccess,
-    incrementFail
-  ]);
+  return steps(
+    incrementRequest({ resource: "counter" }),
+    ({ payload }) => fetchrUpdate(payload),
+    [incrementSuccess, incrementFail],
+  );
 }
 
 /**
@@ -34,10 +35,10 @@ export function increment() {
  */
 
 export type State = {
-  value: number
+  value: number,
 };
 const INITIAL_STATE: State = {
-  value: 0
+  value: 0,
 };
 
 /**
@@ -46,12 +47,14 @@ const INITIAL_STATE: State = {
 export default (handleActions(
   {
     [COUNTER_INCREMENT_SUCCESS]: (state, action) => {
-      const { payload: { data } } = action;
+      const {
+        payload: { data },
+      } = action;
 
       return {
-        value: data
+        value: data,
       };
-    }
+    },
   },
-  INITIAL_STATE
+  INITIAL_STATE,
 ): Reducer<State, *>);

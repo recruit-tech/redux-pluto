@@ -28,7 +28,7 @@ const INITIAL_STATE: State = false;
 export default (handleActions(
   {
     [START_LOADING]: () => true,
-    [STOP_LOADING]: () => false
+    [STOP_LOADING]: () => false,
   },
-  INITIAL_STATE
+  INITIAL_STATE,
 ): Reducer<State, *>);

@@ -19,7 +19,7 @@ export default function apiGateway(config: any) {
       responseFormatter: (req, res, data) => {
         res.endTime("apigateway");
         return data;
-      }
+      },
     })(req, res, next);
   };
 }
@@ -41,7 +41,7 @@ function makeServiceAdapter(service, secret) {
             },
             error => {
               cb(error);
-            }
+            },
           );
       };
     }
@@ -58,7 +58,7 @@ function makeServiceAdapter(service, secret) {
             },
             error => {
               cb(error);
-            }
+            },
           );
       };
     }

@@ -6,7 +6,7 @@ import decode from "jwt-decode";
 import {
   AUTH_CHECK_LOGIN_REQUEST,
   AUTH_LOGIN_REQUEST,
-  AUTH_LOGOUT_REQUEST
+  AUTH_LOGOUT_REQUEST,
 } from "shared/redux/modules/auth";
 import { handleActions } from "./utils";
 
@@ -20,7 +20,7 @@ export default function authMiddleware() {
     [AUTH_LOGIN_REQUEST]({ dispatch }, next, action) {
       next(action); // eslint-disable-line callback-return
       const {
-        payload: { params, location }
+        payload: { params, location },
       } = action;
       return dispatch(fetchrCreate("accessToken", params))
         .then(() => checkAccessToken(dispatch))
@@ -33,7 +33,7 @@ export default function authMiddleware() {
     [AUTH_LOGOUT_REQUEST]({ dispatch }, next, action) {
       next(action); // eslint-disable-line callback-return
       return dispatch(fetchrDelete("accessToken"));
-    }
+    },
   });
 }
 

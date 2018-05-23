@@ -8,32 +8,41 @@ import { createAsyncActionTypes } from "./utils";
 /**
  * Action types
  */
-export const [LOAD_MASTER_REQUEST, LOAD_MASTER_SUCCESS, LOAD_MASTER_FAIL] = createAsyncActionTypes(
-  "redux-proto/masters/load"
-);
+export const [
+  LOAD_MASTER_REQUEST,
+  LOAD_MASTER_SUCCESS,
+  LOAD_MASTER_FAIL,
+] = createAsyncActionTypes("redux-proto/masters/load");
 
 /**
  * Action creators
  */
 const loadMasterRequest = createAction(LOAD_MASTER_REQUEST, resource => ({
-  resource
+  resource,
 }));
 
-const loadMasterSuccess = createAction(LOAD_MASTER_SUCCESS, (resource, items) => ({
-  resource,
-  items
-}));
+const loadMasterSuccess = createAction(
+  LOAD_MASTER_SUCCESS,
+  (resource, items) => ({
+    resource,
+    items,
+  }),
+);
 
 const loadMasterFail = createAction(LOAD_MASTER_FAIL, (resource, error) => ({
   resource,
-  error
+  error,
 }));
 
 function loadMaster(resource) {
-  return steps(loadMasterRequest(resource), ({ payload }) => fetchrRead(payload), [
-    payload => loadMasterSuccess(resource, payload.data),
-    error => loadMasterFail(resource, error)
-  ]);
+  return steps(
+    loadMasterRequest(resource),
+    ({ payload }) => fetchrRead(payload),
+    [
+      payload => loadMasterSuccess(resource, payload.data),
+      error => loadMasterFail(resource, error),
+    ],
+  );
 }
 
 export function loadAreaMaster() {
@@ -62,7 +71,7 @@ export function loadAllMasters() {
     loadGenderMaster(),
     loadHairColorMaster(),
     loadHairLengthMaster(),
-    loadMenuContentMaster()
+    loadMenuContentMaster(),
   ]);
 }
 
@@ -74,15 +83,15 @@ const RESOURCES = [
   "genderMaster",
   "hairColorMaster",
   "hairLengthMaster",
-  "menuContentMaster"
+  "menuContentMaster",
 ];
 
 export type State = {
   [$Keys<typeof RESOURCES>]: {
     loading: boolean,
     loaded: boolean,
-    items: ?mixed
-  }
+    items: ?mixed,
+  },
 };
 
 export const INITIAL_STATE: State = transform(
@@ -90,11 +99,11 @@ export const INITIAL_STATE: State = transform(
     state[resource] = {
       loading: false,
       loaded: false,
-      items: null
+      items: null,
     };
   },
   {},
-  RESOURCES
+  RESOURCES,
 );
 
 /**
@@ -103,33 +112,40 @@ export const INITIAL_STATE: State = transform(
 export default (handleActions(
   {
     [LOAD_MASTER_REQUEST]: (state, action) => {
-      const { payload: { resource } } = action;
+      const {
+        payload: { resource },
+      } = action;
 
       return {
         ...state,
         [resource]: {
           loading: true,
           loaded: false,
-          items: []
-        }
+          items: [],
+        },
       };
     },
 
     [LOAD_MASTER_SUCCESS]: (state, action) => {
-      const { payload: { resource, items } } = action;
+      const {
+        payload: { resource, items },
+      } = action;
 
       return {
         ...state,
         [resource]: {
           loading: false,
           loaded: true,
-          items
-        }
+          items,
+        },
       };
     },
 
     [LOAD_MASTER_FAIL]: (state, action) => {
-      const { payload: { resource }, error } = action;
+      const {
+        payload: { resource },
+        error,
+      } = action;
 
       return {
         ...state,
@@ -137,10 +153,10 @@ export default (handleActions(
           loading: false,
           loaded: false,
           items: [],
-          error
-        }
+          error,
+        },
       };
-    }
+    },
   },
-  INITIAL_STATE
+  INITIAL_STATE,
 ): Reducer<State, *>);

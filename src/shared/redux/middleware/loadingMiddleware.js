@@ -5,10 +5,14 @@ import { handleActions } from "./utils";
 type LoadingMiddlewareOption = {
   start: any,
   stop: any,
-  delay: number
+  delay: number,
 };
 
-export default function loadingMiddleware({ start, stop, delay }: LoadingMiddlewareOption) {
+export default function loadingMiddleware({
+  start,
+  stop,
+  delay,
+}: LoadingMiddlewareOption) {
   let timerId = null;
 
   return handleActions({
@@ -35,6 +39,6 @@ export default function loadingMiddleware({ start, stop, delay }: LoadingMiddlew
       }
 
       dispatch(stopLoading());
-    }
+    },
   });
 }

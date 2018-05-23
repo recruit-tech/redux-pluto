@@ -4,7 +4,7 @@ import styled from "styled-components";
 import pure from "recompose/pure";
 
 type Props = {
-  children: Node
+  children: Node,
 };
 
 export default pure(function Menu(props: Props) {

@@ -1,20 +1,23 @@
 /* @flow */
 import React from "react";
 import { compose, pure } from "recompose";
-import { Link as ReactRouterLink, IndexLink as ReactRouterIndexLink } from "react-router";
+import {
+  Link as ReactRouterLink,
+  IndexLink as ReactRouterIndexLink,
+} from "react-router";
 import styled from "styled-components";
 
 type Props = {
   location: {
-    pathname: string
-  }
+    pathname: string,
+  },
 };
 
 type HeaderLink = {
   key: string,
   to: string,
   label: string,
-  index?: boolean
+  index?: boolean,
 };
 
 const links: HeaderLink[] = [
@@ -27,7 +30,7 @@ const links: HeaderLink[] = [
   { key: "largeform", to: "/largeform", label: "LargeForm" },
   { key: "hacker-news", to: "/hn", label: "HackerNews" },
   { key: "login", to: "/login", label: "Login" },
-  { key: "logout", to: "/logout", label: "Logout" }
+  { key: "logout", to: "/logout", label: "Logout" },
 ];
 
 export default compose(pure)(function Header(props: Props) {

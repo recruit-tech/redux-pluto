@@ -2,7 +2,11 @@
 import Fetchr from "fetchr";
 import assert from "power-assert";
 import Immutable from "seamless-immutable";
-import { INITIAL_STATE, loadAllMasters, loadHairLengthMaster } from "../modules/masters";
+import {
+  INITIAL_STATE,
+  loadAllMasters,
+  loadHairLengthMaster,
+} from "../modules/masters";
 import { createStore } from "./lib/storeUtils";
 import { isSameObject } from "./lib/assertUtils";
 
@@ -15,32 +19,32 @@ const services = [
     name: "areaMaster",
     read(req, resource, params, config, cb) {
       cb(null, ["tokyo", "saitama", "kanagawa"]);
-    }
+    },
   },
   {
     name: "hairColorMaster",
     read(req, resource, params, config, cb) {
       cb(null, ["black", "brown", "blond"]);
-    }
+    },
   },
   {
     name: "genderMaster",
     read(req, resource, params, config, cb) {
       cb(null, ["male", "female"]);
-    }
+    },
   },
   {
     name: "hairLengthMaster",
     read(req, resource, params, config, cb) {
       cb(null, hairLengthMaster);
-    }
+    },
   },
   {
     name: "menuContentMaster",
     read(req, resource, params, config, cb) {
       cb(null, ["menu"]);
-    }
-  }
+    },
+  },
 ];
 
 services.forEach(Fetchr.registerService);
@@ -50,7 +54,7 @@ test("master: hairLengthMaster success", () => {
   const loadHairLengthMasterAction = loadHairLengthMaster();
   const initialState = Immutable({ app: { masters: INITIAL_STATE } });
   const store = createStore({
-    initialState
+    initialState,
   });
   let prevMastersState = { app: {} };
   store
@@ -65,7 +69,7 @@ test("master: hairLengthMaster success", () => {
       assert.deepEqual(mastersState.hairLengthMaster, {
         loading: false,
         loaded: true,
-        items: hairLengthMaster
+        items: hairLengthMaster,
       });
       isSameObject(prevMastersState, mastersState, ["hairLengthMaster"]);
     });

@@ -6,6 +6,6 @@ import GlobalIndicator from "./GlobalIndicator";
 
 export default compose(
   connect(state => ({
-    loading: loadingSelector(state)
-  }))
+    loading: loadingSelector(state),
+  })),
 )(GlobalIndicator);

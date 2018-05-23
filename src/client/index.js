@@ -15,7 +15,7 @@ import siteCatalystOptions from "client/analytics";
 
 const store = configStore();
 const history = syncHistoryWithStore(browserHistory, store, {
-  adjustUrlOnReplay: __DEVELOPMENT__
+  adjustUrlOnReplay: __DEVELOPMENT__,
 });
 const root = document.getElementById("root");
 
@@ -57,7 +57,7 @@ function configStore() {
     history: browserHistory,
     devTools: __DEVELOPMENT__,
     analytics: analyticsOptions,
-    siteCatalyst: siteCatalystOptions
+    siteCatalyst: siteCatalystOptions,
   });
 }
 
@@ -79,7 +79,7 @@ function renderApp() {
       // SSR が有効の場合は redirect は server の response で行われるのでこの処理は不要。
       if (__DISABLE_SSR__ && redirectLocation && !renderProps) {
         window.location.replace(
-          `${redirectLocation.pathname}${redirectLocation.search}`
+          `${redirectLocation.pathname}${redirectLocation.search}`,
         );
         return resolve();
       }

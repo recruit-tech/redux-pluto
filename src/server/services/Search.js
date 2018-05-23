@@ -14,7 +14,7 @@ const PICK_PROPS = [
   "logo_image",
   "logo_image_square",
   "urls",
-  "description"
+  "description",
 ];
 
 const pickProps = map(pick(PICK_PROPS));
@@ -23,11 +23,16 @@ export default class Search extends AgreedService {
   constructor(config: any) {
     super(config, "search", "beauty/search/", {
       count: SEARCH_MAX_COUNT,
-      order: SEARCH_ORDER
+      order: SEARCH_ORDER,
     });
   }
 
-  read(req: any, resource: any, params: { page: number, id: any, start: number }, config: any) {
+  read(
+    req: any,
+    resource: any,
+    params: { page: number, id: any, start: number },
+    config: any,
+  ) {
     const { page, id, ...query } = params;
     if (page) {
       query.start = page * SEARCH_MAX_COUNT + 1;
@@ -38,7 +43,7 @@ export default class Search extends AgreedService {
       const { search: items, ...rest } = results;
       return {
         ...rest,
-        search: pickProps(items)
+        search: pickProps(items),
       };
     });
   }

@@ -7,6 +7,6 @@ module.exports = {
     linkInternalFilters: "javascript:,r.recruit.co.jp",
     // linkTrackVars: '',
     visitorNamespace: "recruit",
-    trackingServer: "recruit.112.2o7.net"
-  }
+    trackingServer: "recruit.112.2o7.net",
+  },
 };

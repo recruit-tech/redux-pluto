@@ -10,15 +10,20 @@ export const UPLOADER = "EFFECT_UPLOADER";
 /*
  * Action creators
  */
-export function upload(path: string, file: any, params?: Object, config?: Object) {
+export function upload(
+  path: string,
+  file: any,
+  params?: Object,
+  config?: Object,
+) {
   return {
     type: UPLOADER,
     payload: {
       path,
       file,
       params,
-      config
-    }
+      config,
+    },
   };
 }
 

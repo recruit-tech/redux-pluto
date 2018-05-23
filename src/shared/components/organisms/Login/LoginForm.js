@@ -8,17 +8,19 @@ import skipSSR from "../../utils/skipSSR";
 
 const labels = {
   username: "Username",
-  password: "Password"
+  password: "Password",
 };
 
 const RenderInput = ({ input, meta: { dirty, error } }): $FIXME => (
   <Row key={input.name}>
     <Label htmlFor={input.name}>
       {labels[input.name]}
-      <Input {...input}
-             id={input.name}
-             type={input.name === "username" ? "text" : "password"}
-             tabIndex={0} />
+      <Input
+        {...input}
+        id={input.name}
+        type={input.name === "username" ? "text" : "password"}
+        tabIndex={0}
+      />
     </Label>
     <Message>{dirty && error}</Message>
   </Row>
@@ -32,9 +34,9 @@ export default compose(
   onlyUpdateForPropTypes,
   setPropTypes({
     globalFormDisabled: PropTypes.bool,
-    ...formPropTypes
+    ...formPropTypes,
   }),
-  skipSSR(<Alternative />)
+  skipSSR(<Alternative />),
 )(function LoginForm(props) {
   const {
     globalFormDisabled,
@@ -43,13 +45,15 @@ export default compose(
     reset,
     submitting,
     submitFailed,
-    anyTouched
+    anyTouched,
   } = props;
 
   return (
     <form onSubmit={handleSubmit}>
       {error && <div>{error}</div>}
-      {!error && submitFailed && anyTouched && <div>ログインできませんでした</div>}
+      {!error &&
+        submitFailed &&
+        anyTouched && <div>ログインできませんでした</div>}
       <div>
         <Field name="username" component={RenderInput} />
         <Field name="password" component={RenderInput} />
@@ -58,7 +62,10 @@ export default compose(
         <button type="submit" disabled={globalFormDisabled || submitting}>
           Login
         </button>
-        <button type="button" disabled={globalFormDisabled || submitting} onClick={reset}>
+        <button
+          type="button"
+          disabled={globalFormDisabled || submitting}
+          onClick={reset}>
           Clear
         </button>
       </div>

@@ -16,14 +16,14 @@ export function createWithSignedStore(name: string, aud: *, options: Object) {
     {
       sub: name,
       aud,
-      exp: Math.floor(Date.now() / 1000)
+      exp: Math.floor(Date.now() / 1000),
     },
-    configs.auth.key
+    configs.auth.key,
   ).then(token => {
     const store = createStore({
       cookie: {
-        "access-token": token
-      }
+        "access-token": token,
+      },
     });
     return store;
   });
@@ -40,8 +40,8 @@ export function createStore(options: Object) {
       authMiddleware(),
       cookie({ cookies: options.cookie }, {}),
       fetchr(new Fetchr({ ...configs.fetchr, req: {} })),
-      routerMiddleware(history)
-    )
+      routerMiddleware(history),
+    ),
   );
   return store;
 }

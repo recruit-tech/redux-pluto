@@ -15,7 +15,7 @@ export default class UploadSample {
       return create(this.axios, this.name, this.path, { path }, {}, {})
         .then(result => {
           res.json({
-            path
+            path,
           });
         })
         .catch(next);

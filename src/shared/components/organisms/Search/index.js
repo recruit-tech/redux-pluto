@@ -4,31 +4,40 @@ import { connect } from "react-redux";
 import { compose, type HOC } from "recompose";
 import { asyncLoader } from "redux-async-loader";
 import { sendAnalytics } from "react-redux-analytics";
-import { searchSelector, type State as RootState } from "shared/redux/modules/reducer";
-import { findSalonById, type State as SearchState } from "shared/redux/modules/search";
-import { siteSections, onAsyncLoaderLoaded } from "shared/redux/analytics/utils";
+import {
+  searchSelector,
+  type State as RootState,
+} from "shared/redux/modules/reducer";
+import {
+  findSalonById,
+  type State as SearchState,
+} from "shared/redux/modules/search";
+import {
+  siteSections,
+  onAsyncLoaderLoaded,
+} from "shared/redux/analytics/utils";
 import { SALON_ID } from "shared/redux/analytics/variableNames";
 import Search from "./Search";
 
 type Props = {
   params: {
-    searchId: string
-  }
+    searchId: string,
+  },
 };
 
 const enhancer: HOC<SearchState, Props> = compose(
   asyncLoader(
     ({ params }: Props, { dispatch, getState }: MiddlewareAPI<RootState, *>) =>
-      getState().page.search.loaded || dispatch(findSalonById(params.searchId))
+      getState().page.search.loaded || dispatch(findSalonById(params.searchId)),
   ),
   connect(searchSelector),
   sendAnalytics({
     ...siteSections("search", "detail"),
     onDataReady: onAsyncLoaderLoaded,
     mapPropsToVariables: (props, state) => ({
-      [SALON_ID]: props.params && props.params.searchId
-    })
-  })
+      [SALON_ID]: props.params && props.params.searchId,
+    }),
+  }),
 );
 
 export default enhancer(Search);

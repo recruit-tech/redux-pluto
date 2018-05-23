@@ -14,13 +14,13 @@ type Props = {
       items: Array<{
         name: string,
         gender: string,
-        code: string
-      }>
-    }
+        code: string,
+      }>,
+    },
   },
   genderItems: {
-    [Gender]: {}
-  }
+    [Gender]: {},
+  },
 };
 
 export default pure(function HairLengthMenu(props: Props) {
@@ -34,8 +34,7 @@ export default pure(function HairLengthMenu(props: Props) {
         <MenuItem
           key={item.code}
           to={`/style/${item.gender}/${item.code}`}
-          checked={item.code === hairLength}
-        >
+          checked={item.code === hairLength}>
           {item.name}
         </MenuItem>
       ))}

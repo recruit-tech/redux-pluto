@@ -9,5 +9,5 @@ export type HackerNewsItem = {
   time: number,
   title: string,
   type: string,
-  url: string
+  url: string,
 };
