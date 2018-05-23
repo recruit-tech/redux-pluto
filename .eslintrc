@@ -2,6 +2,7 @@
   "extends": [
     "eslint-config-airbnb",
     "plugin:flowtype/recommended",
+    "plugin:react/recommended",
     "prettier",
     "prettier/flowtype",
     "prettier/react"
@@ -30,7 +31,8 @@
     "react",
     "flowtype",
     "dependencies",
-    "lodash-fp"
+    "lodash-fp",
+    "prettier",
   ],
 
   "globals": {
@@ -168,6 +170,9 @@
 
     // Ignore flow values
     "flowtype/define-flow-type": "error",
-    "flowtype/use-flow-type": "error"
+    "flowtype/use-flow-type": "error",
+
+    // prettier
+    "prettier/prettier": ["error"]
   }
 }
