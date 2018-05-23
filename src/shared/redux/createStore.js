@@ -31,10 +31,10 @@ export default function(initialState, options = {}) {
     options.siteCatalyst
       ? siteCatalystMiddleware({
           ...options.siteCatalyst,
-          debug: __DEVELOPMENT__
+          debug: __DEVELOPMENT__,
         })
       : null,
-    options.logger
+    options.logger,
   ]);
 
   const devTools = [];
@@ -45,7 +45,7 @@ export default function(initialState, options = {}) {
       devTools.push(
         window.devToolsExtension
           ? window.devToolsExtension()
-          : DevTools.instrument()
+          : DevTools.instrument(),
       );
     }
   }

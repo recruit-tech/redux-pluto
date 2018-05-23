@@ -9,7 +9,7 @@ const PAGE_WINDOW = 20;
 type Props = {
   page: number,
   pages: number[],
-  keyword: string
+  keyword: string,
 };
 
 export default pure(function SearchPager(props: Props) {
@@ -26,7 +26,7 @@ export default pure(function SearchPager(props: Props) {
             <Link key={p} to={`/search?keyword=${keyword}&page=${p}`}>
               {p}
             </Link>
-          )
+          ),
       )}
     </div>
   );

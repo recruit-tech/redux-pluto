@@ -14,8 +14,8 @@ const externals = fs
   .filter(
     module =>
       !/\.bin|react-universal-component|require-universal-module|webpack-flush-chunks/.test(
-        module
-      )
+        module,
+      ),
   )
   .reduce((ext, module) => {
     ext[module] = `commonjs ${module}`;
@@ -36,12 +36,12 @@ module.exports = {
   output: {
     path: outputPath,
     filename: "[name].js",
-    libraryTarget: "commonjs2"
+    libraryTarget: "commonjs2",
   },
 
   node: {
     __filename: true,
-    __dirname: true
+    __dirname: true,
   },
 
   module: {
@@ -50,15 +50,15 @@ module.exports = {
         test: /\.js$/,
         include: [
           path.resolve(rootDir, "src/server"),
-          path.resolve(rootDir, "src/shared")
+          path.resolve(rootDir, "src/shared"),
         ],
         exclude: [/node_modules/],
         use: {
           loader: "babel-loader",
           options: {
-            forceEnv: "production:server"
-          }
-        }
+            forceEnv: "production:server",
+          },
+        },
       },
       {
         test: /\.scss$/,
@@ -68,19 +68,19 @@ module.exports = {
             loader: "css-loader/locals",
             options: {
               modules: true,
-              localIdentName: "[local]--[hash:base64:8]"
-            }
+              localIdentName: "[local]--[hash:base64:8]",
+            },
           },
-          "postcss-loader"
-        ]
-      }
-    ]
+          "postcss-loader",
+        ],
+      },
+    ],
   },
 
   plugins: [
     new webpack.DefinePlugin({
       "process.env": {
-        NODE_ENV: JSON.stringify("production")
+        NODE_ENV: JSON.stringify("production"),
       },
       __CLIENT__: false,
       __SERVER__: true,
@@ -88,12 +88,12 @@ module.exports = {
       __DEVTOOLS__: false,
       __DISABLE_SSR__: !!process.env.DISABLE_SSR,
       __ENABLE_OFFLOAD__: !!process.env.ENABLE_OFFLOAD,
-      __DISABLE_INLINE_CSS__: !!process.env.DISABLE_INLINE_CSS
+      __DISABLE_INLINE_CSS__: !!process.env.DISABLE_INLINE_CSS,
     }),
 
     // optimizations
     new webpack.optimize.LimitChunkCountPlugin({
-      maxChunks: 1
-    })
-  ]
+      maxChunks: 1,
+    }),
+  ],
 };

@@ -12,9 +12,11 @@ const UPLOAD_SAMPLE = "redux-proto/uploadsample/";
 const INPUT_FILE = `${UPLOAD_SAMPLE}input`;
 const UPLOAD_FILE = `${UPLOAD_SAMPLE}upload`;
 
-export const [UPLOAD_FILE_REQUEST, UPLOAD_FILE_SUCCESS, UPLOAD_FILE_FAIL] = createAsyncActionTypes(
-  UPLOAD_FILE
-);
+export const [
+  UPLOAD_FILE_REQUEST,
+  UPLOAD_FILE_SUCCESS,
+  UPLOAD_FILE_FAIL,
+] = createAsyncActionTypes(UPLOAD_FILE);
 
 /**
  * Action creators
@@ -29,7 +31,7 @@ const uploadFileFail = createAction(UPLOAD_FILE_FAIL);
 export function uploadFile(file: *) {
   return steps(uploadFileRequest(), upload("/upload/uploadsample", file), [
     uploadFileSuccess,
-    uploadFileFail
+    uploadFileFail,
   ]);
 }
 
@@ -40,13 +42,13 @@ export type State = {
   loading: boolean,
   loaded: boolean,
   value: string,
-  error: ?Error
+  error: ?Error,
 };
 export const INITIAL_STATE: State = {
   loading: false,
   loaded: false,
   value: "",
-  error: null
+  error: null,
 };
 
 /**
@@ -58,19 +60,19 @@ export default (handleActions(
       const { payload } = action;
       return {
         ...state,
-        value: payload
+        value: payload,
       };
     },
     [UPLOAD_FILE_REQUEST]: state => ({
       ...state,
       loading: true,
-      loaded: false
+      loaded: false,
     }),
     [UPLOAD_FILE_SUCCESS]: state => ({
       ...state,
       value: "",
       loading: false,
-      loaded: true
+      loaded: true,
     }),
     [UPLOAD_FILE_FAIL]: (state, action) => {
       const { error } = action;
@@ -78,9 +80,9 @@ export default (handleActions(
         ...state,
         error,
         loading: false,
-        loaded: false
+        loaded: false,
       };
-    }
+    },
   },
-  INITIAL_STATE
+  INITIAL_STATE,
 ): Reducer<State, *>);

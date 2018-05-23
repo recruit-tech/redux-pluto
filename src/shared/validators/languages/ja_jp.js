@@ -6,7 +6,7 @@ export default {
   root: "value",
   key: '"{{!key}}" ',
   messages: {
-    wrapArrays: true
+    wrapArrays: true,
   },
   any: {
     unknown: "is not allowed",
@@ -14,10 +14,10 @@ export default {
     empty: "is not allowed to be empty",
     required: "必須項目です。",
     allowOnly: "must be one of {{valids}}",
-    default: "threw an error when running default method"
+    default: "threw an error when running default method",
   },
   alternatives: {
-    base: "not matching any of the allowed alternatives"
+    base: "not matching any of the allowed alternatives",
   },
   array: {
     base: "must be an array",
@@ -40,16 +40,16 @@ export default {
     orderedLength:
       "at position {{pos}} fails because array must contain at most {{limit}} items",
     sparse: "must not be a sparse array",
-    unique: "position {{pos}} contains a duplicate value"
+    unique: "position {{pos}} contains a duplicate value",
   },
   boolean: {
-    base: "must be a boolean"
+    base: "must be a boolean",
   },
   binary: {
     base: "must be a buffer or a string",
     min: "must be at least {{limit}} bytes",
     max: "must be less than or equal to {{limit}} bytes",
-    length: "must be {{limit}} bytes"
+    length: "must be {{limit}} bytes",
   },
   date: {
     base: "must be a number of milliseconds or valid date string",
@@ -58,15 +58,15 @@ export default {
     isoDate: "must be a valid ISO 8601 date",
     timestamp: {
       javascript: "must be a valid timestamp or number of milliseconds",
-      unix: "must be a valid timestamp or number of seconds"
+      unix: "must be a valid timestamp or number of seconds",
     },
-    ref: 'references "{{ref}}" which is not a date'
+    ref: 'references "{{ref}}" which is not a date',
   },
   function: {
     base: "must be a Function",
     arity: "must have an arity of {{n}}",
     minArity: "must have an arity greater or equal to {{n}}",
-    maxArity: "must have an arity lesser or equal to {{n}}"
+    maxArity: "must have an arity lesser or equal to {{n}}",
   },
   object: {
     base: "must be an object",
@@ -88,9 +88,9 @@ export default {
       multiple:
         'cannot rename child "{{from}}" because multiple renames are disabled and another key was already renamed to "{{to}}"',
       override:
-        'cannot rename child "{{from}}" because override is disabled and target "{{to}}" exists'
+        'cannot rename child "{{from}}" because override is disabled and target "{{to}}" exists',
     },
-    type: 'must be an instance of "{{type}}"'
+    type: 'must be an instance of "{{type}}"',
   },
   number: {
     base: "must be a number",
@@ -104,7 +104,7 @@ export default {
     positive: "must be a positive number",
     precision: "must have no more than {{limit}} decimal places",
     ref: 'references "{{ref}}" which is not a number',
-    multiple: "must be a multiple of {{multiple}}"
+    multiple: "must be a multiple of {{multiple}}",
   },
   string: {
     base: "must be a string",
@@ -116,7 +116,7 @@ export default {
     regex: {
       base:
         'with value "{{!value}}" fails to match the required pattern: {{pattern}}',
-      name: 'with value "{{!value}}" fails to match the {{name}} pattern'
+      name: 'with value "{{!value}}" fails to match the {{name}} pattern',
     },
     email: "must be a valid email",
     uri: "must be a valid uri",
@@ -133,6 +133,6 @@ export default {
     ref: 'references "{{ref}}" which is not a number',
     ip: "must be a valid ip address with a {{cidr}} CIDR",
     ipVersion:
-      "must be a valid ip address of one of the following versions {{version}} with a {{cidr}} CIDR"
-  }
+      "must be a valid ip address of one of the following versions {{version}} with a {{cidr}} CIDR",
+  },
 };

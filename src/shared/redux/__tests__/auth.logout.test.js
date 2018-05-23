@@ -17,7 +17,7 @@ Fetchr.registerService({
 
   delete(req, resource, params, config, cb) {
     cb(null, null);
-  }
+  },
 });
 
 test("auth: logout success", done => {
@@ -26,7 +26,7 @@ test("auth: logout success", done => {
     store.dispatch(logoutAction).then(() => {
       assert.deepEqual(store.getState().app.auth, {
         login: false,
-        username: undefined
+        username: undefined,
       });
       done();
     });
@@ -36,22 +36,24 @@ test("auth: logout success", done => {
 test("auth: logout success when not logged in", done => {
   const loginAction = login("foobar", "tiger");
   const logoutAction = logout();
-  createWithSignedStore("foobar", ACCESS_TOKEN_AUDIENCE_NAME, {}).then(store => {
-    store
-      .dispatch(loginAction)
-      .then(() => {
-        assert.deepEqual(store.getState().app.auth, {
-          login: true,
-          username: "foobar"
+  createWithSignedStore("foobar", ACCESS_TOKEN_AUDIENCE_NAME, {}).then(
+    store => {
+      store
+        .dispatch(loginAction)
+        .then(() => {
+          assert.deepEqual(store.getState().app.auth, {
+            login: true,
+            username: "foobar",
+          });
+          return store.dispatch(logoutAction);
+        })
+        .then(() => {
+          assert.deepEqual(store.getState().app.auth, {
+            login: false,
+            username: undefined,
+          });
+          done();
         });
-        return store.dispatch(logoutAction);
-      })
-      .then(() => {
-        assert.deepEqual(store.getState().app.auth, {
-          login: false,
-          username: undefined
-        });
-        done();
-      });
-  });
+    },
+  );
 });

@@ -16,7 +16,7 @@ Fetchr.registerService({
 
   delete(req, resource, params, config, cb) {
     cb(null, null);
-  }
+  },
 });
 
 test("auth: checkLogin success", () => {
@@ -25,7 +25,7 @@ test("auth: checkLogin success", () => {
     store.dispatch(checkLoginAction).then(() => {
       assert.deepEqual(store.getState().app.auth, {
         login: true,
-        username: "scott"
+        username: "scott",
       });
     });
   });
@@ -35,13 +35,13 @@ test("auth: checkLogin failure", done => {
   const checkLoginAction = checkLogin();
 
   const store = createStore({
-    cookie: {}
+    cookie: {},
   });
 
   store.dispatch(checkLoginAction).then(done.fail, e => {
     assert.deepEqual(store.getState().app.auth, {
       login: false,
-      username: undefined
+      username: undefined,
     });
     assert(e.message === "no token");
     return done();

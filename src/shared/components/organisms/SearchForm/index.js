@@ -10,14 +10,17 @@ import { sendAnalytics } from "react-redux-analytics";
 import {
   SearchListselector,
   routingSelector,
-  globalFormDisabledSelector
+  globalFormDisabledSelector,
 } from "shared/redux/modules/reducer";
 import {
   searchSearchList,
   searchMoreSearchList,
-  clearSearchSearchList
+  clearSearchSearchList,
 } from "shared/redux/modules/searchList";
-import { siteSections, onAsyncLoaderLoaded } from "shared/redux/analytics/utils";
+import {
+  siteSections,
+  onAsyncLoaderLoaded,
+} from "shared/redux/analytics/utils";
 import { SALON_KEYWORD } from "shared/redux/analytics/variableNames";
 import SearchForm from "./SearchForm";
 
@@ -29,8 +32,8 @@ const selector = createSelector(
     ...searchList,
     shouldForceScroll: searchList.canGetPrev,
     initialValues: { keyword },
-    globalFormDisabled
-  })
+    globalFormDisabled,
+  }),
 );
 
 export default compose(
@@ -61,12 +64,16 @@ export default compose(
   (connect: $FIXME)(selector, (dispatch, ownProps) => ({
     onClickPrev: page => () => {
       const { keyword } = parse(window.location.search.substr(1));
-      return dispatch(replace(`/search?keyword=${keyword}&page=${page - 1}&more=true`));
+      return dispatch(
+        replace(`/search?keyword=${keyword}&page=${page - 1}&more=true`),
+      );
     },
 
     onClickNext: page => () => {
       const { keyword } = parse(window.location.search.substr(1));
-      return dispatch(replace(`/search?keyword=${keyword}&page=${page + 1}&more=true`));
+      return dispatch(
+        replace(`/search?keyword=${keyword}&page=${page + 1}&more=true`),
+      );
     },
 
     // 今見てる window の中の要素でpageのURL位置を変える
@@ -76,17 +83,19 @@ export default compose(
       const currentPage = query.page || "0";
       const { keyword } = query;
       if (page !== currentPage) {
-        return void dispatch(replace(`/search?keyword=${keyword}&page=${page}&more=true`));
+        return void dispatch(
+          replace(`/search?keyword=${keyword}&page=${page}&more=true`),
+        );
       }
-    }
+    },
   })),
   withState("linkURL", "handleChangeLinkURL", "/search"),
   sendAnalytics({
     ...siteSections("search", "form"),
     onDataReady: onAsyncLoaderLoaded,
     mapPropsToVariables: ({ location = {}, count }, state) => ({
-      [SALON_KEYWORD]: location.query && location.query.keyword
-    })
+      [SALON_KEYWORD]: location.query && location.query.keyword,
+    }),
   }),
   reduxForm({
     form: "search",
@@ -94,7 +103,7 @@ export default compose(
     // キーワード検索開始
     onSubmit({ keyword }, dispatch) {
       dispatch(push(`/search?keyword=${keyword}&page=0`));
-    }
+    },
   }),
-  shouldUpdate((props, nextProps) => nextProps.loaded)
+  shouldUpdate((props, nextProps) => nextProps.loaded),
 )(SearchForm);

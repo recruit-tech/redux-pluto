@@ -62,7 +62,7 @@ injectGlobal`
 `;
 
 type Props = {
-  store: $FIXME // TODO: Set Store
+  store: $FIXME, // TODO: Set Store
 };
 
 export default function App(props: Props) {

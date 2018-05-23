@@ -10,20 +10,20 @@ import {
   SECTION_LEVEL2,
   SECTION_LEVEL3,
   IS_LOGIN_USER,
-  USERNAME
+  USERNAME,
 } from "./variableNames";
 
 const mapStateToVariables = (state: RootState) => {
   /* eslint-disable no-unused-vars */
   const {
-    app: { auth }
+    app: { auth },
   } = state;
   return {
     [SERVER]: window.location.hostname,
     [URL]: "D=g", // uses s.PageURL on server
     [SITE_ID]: "redux-proto",
     [USERNAME]: auth.username ? `${auth.username}` : "",
-    [IS_LOGIN_USER]: `${auth.login}`
+    [IS_LOGIN_USER]: `${auth.login}`,
   };
 };
 
@@ -33,11 +33,14 @@ const suppressPageView = (state: RootState, action: any) => {
   return lastPageView && lastPageView.location === action.payload.location;
 };
 
-const getLocationInStore = (state: RootState) => state.routing.locationBeforeTransitions;
+const getLocationInStore = (state: RootState) =>
+  state.routing.locationBeforeTransitions;
 
 const composeEventName = (variables: any, state: RootState) => {
   const pageName = variables[PAGE_NAME] || "*";
-  const eventCd = Array.isArray(variables[EVENTS]) ? variables[EVENTS].sort().join("+") : "*";
+  const eventCd = Array.isArray(variables[EVENTS])
+    ? variables[EVENTS].sort().join("+")
+    : "*";
   return `${pageName}/${eventCd}`;
 };
 
@@ -52,10 +55,10 @@ export default {
     SECTION_LEVEL2,
     SECTION_LEVEL3,
     IS_LOGIN_USER,
-    USERNAME
+    USERNAME,
   ],
   mapStateToVariables,
   getLocationInStore,
   composeEventName,
-  suppressPageView
+  suppressPageView,
 };

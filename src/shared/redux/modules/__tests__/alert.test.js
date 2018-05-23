@@ -7,11 +7,11 @@ import reducer, { showAlert, clearAlert } from "../alert";
 test("State: showAlert", done => {
   const showAlertAction = showAlert("test");
   const INITIAL_STATE = Immutable({
-    message: ""
+    message: "",
   });
   const state = reducer(INITIAL_STATE, showAlertAction);
   assert.deepEqual(state, {
-    message: "test"
+    message: "test",
   });
   done();
 });
@@ -19,11 +19,11 @@ test("State: showAlert", done => {
 test("State: clearAlert", done => {
   const clearAlertAction = clearAlert();
   const INITIAL_STATE = Immutable({
-    message: "test"
+    message: "test",
   });
   const state = reducer(INITIAL_STATE, clearAlertAction);
   assert.deepEqual(state, {
-    message: ""
+    message: "",
   });
   done();
 });

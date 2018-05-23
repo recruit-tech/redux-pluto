@@ -5,8 +5,8 @@ import { compose, pure, setPropTypes } from "recompose";
 export default compose(
   pure,
   setPropTypes({
-    children: PropTypes.node.isRequired
-  })
+    children: PropTypes.node.isRequired,
+  }),
 )(function Children(props) {
   const { children, ...rest } = props;
 

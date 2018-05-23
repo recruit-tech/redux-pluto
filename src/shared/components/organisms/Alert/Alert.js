@@ -6,13 +6,16 @@ import Overlay from "shared/components/atoms/Overlay";
 
 type Props = {
   alert: {
-    message: string
+    message: string,
   },
-  onClose: Function
+  onClose: Function,
 };
 
 export default pure(function Alert(props: Props) {
-  const { alert: { message }, onClose } = props;
+  const {
+    alert: { message },
+    onClose,
+  } = props;
 
   if (!message) {
     return null;

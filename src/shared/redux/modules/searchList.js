@@ -15,7 +15,7 @@ const SALON_LIST = "redux-proto/searchList";
 export const [
   SALON_LIST_SEARCH_REQUEST,
   SALON_LIST_SEARCH_SUCCESS,
-  SALON_LIST_SEARCH_FAIL
+  SALON_LIST_SEARCH_FAIL,
 ] = createAsyncActionTypes(`${SALON_LIST}/search`);
 
 export const SALON_LIST_CLEAR_SEARCH_REQUEST = `${SALON_LIST}/clear_search/request`;
@@ -23,7 +23,7 @@ export const SALON_LIST_CLEAR_SEARCH_REQUEST = `${SALON_LIST}/clear_search/reque
 export const [
   SALON_LIST_SEARCH_MORE_REQUEST,
   SALON_LIST_SEARCH_MORE_SUCCESS,
-  SALON_LIST_SEARCH_MORE_FAIL
+  SALON_LIST_SEARCH_MORE_FAIL,
 ] = createAsyncActionTypes(`${SALON_LIST}/search_more`);
 
 /**
@@ -40,15 +40,21 @@ export function searchSearchList(params: *) {
     ({ payload }) => fetchrRead(payload),
     [
       payload => searchSearchListsuccess({ params, data: payload.data }),
-      error => searchSearchListFail({ params, error })
-    ]
+      error => searchSearchListFail({ params, error }),
+    ],
   );
 }
 
-export const clearSearchSearchList = createAction(SALON_LIST_CLEAR_SEARCH_REQUEST);
+export const clearSearchSearchList = createAction(
+  SALON_LIST_CLEAR_SEARCH_REQUEST,
+);
 
-const searchMoreSearchListRequest = createAction(SALON_LIST_SEARCH_MORE_REQUEST);
-const searchMoreSearchListsuccess = createAction(SALON_LIST_SEARCH_MORE_SUCCESS);
+const searchMoreSearchListRequest = createAction(
+  SALON_LIST_SEARCH_MORE_REQUEST,
+);
+const searchMoreSearchListsuccess = createAction(
+  SALON_LIST_SEARCH_MORE_SUCCESS,
+);
 const searchMoreSearchListFail = createAction(SALON_LIST_SEARCH_MORE_FAIL);
 
 export function searchMoreSearchList(params: *) {
@@ -57,8 +63,8 @@ export function searchMoreSearchList(params: *) {
     ({ payload }) => fetchrRead(payload),
     [
       payload => searchMoreSearchListsuccess({ params, data: payload.data }),
-      error => searchMoreSearchListFail({ params, error })
-    ]
+      error => searchMoreSearchListFail({ params, error }),
+    ],
   );
 }
 
@@ -76,7 +82,7 @@ export type State = {
   canGetNext: boolean,
   canGetPrev: boolean,
   shouldAdjustScroll: boolean,
-  forceScrollTo: { x: number, y: number }
+  forceScrollTo: { x: number, y: number },
 };
 export const INITIAL_STATE: State = {
   loading: false,
@@ -89,7 +95,7 @@ export const INITIAL_STATE: State = {
   canGetNext: false,
   canGetPrev: false,
   shouldAdjustScroll: false,
-  forceScrollTo: { x: 0, y: 100 }
+  forceScrollTo: { x: 0, y: 100 },
 };
 
 /**
@@ -100,12 +106,19 @@ export default (handleActions(
     [SALON_LIST_SEARCH_REQUEST]: state => ({
       ...state,
       loading: true,
-      loaded: false
+      loaded: false,
     }),
 
     [SALON_LIST_SEARCH_SUCCESS]: (state, action) => {
       const {
-        payload: { params, data: { results_available: count, results_start: start, search: items } }
+        payload: {
+          params,
+          data: {
+            results_available: count,
+            results_start: start,
+            search: items,
+          },
+        },
       } = action;
       const page = +params.page || 0;
 
@@ -119,7 +132,8 @@ export default (handleActions(
         items: { [page]: items || [] },
         canGetNext: canGetNext(count, start),
         canGetPrev: canGetPrev(page),
-        forceScrollTo: params.page && page > 0 ? INITIAL_STATE.forceScrollTo : {}
+        forceScrollTo:
+          params.page && page > 0 ? INITIAL_STATE.forceScrollTo : {},
       };
     },
 
@@ -132,24 +146,31 @@ export default (handleActions(
         loaded: false,
         count: 0,
         items: {},
-        error
+        error,
       };
     },
 
     [SALON_LIST_CLEAR_SEARCH_REQUEST]: (state, action) => ({
       ...INITIAL_STATE,
-      loaded: true
+      loaded: true,
     }),
 
     [SALON_LIST_SEARCH_MORE_REQUEST]: state => ({
       ...state,
       loading: true,
-      loaded: false
+      loaded: false,
     }),
 
     [SALON_LIST_SEARCH_MORE_SUCCESS]: (state, action) => {
       const {
-        payload: { params, data: { results_available: count, results_start: start, search: items } }
+        payload: {
+          params,
+          data: {
+            results_available: count,
+            results_start: start,
+            search: items,
+          },
+        },
       } = action;
 
       return {
@@ -161,13 +182,14 @@ export default (handleActions(
         pages: createPages(+count),
         items: {
           ...state.items,
-          [+params.page]: items || []
+          [+params.page]: items || [],
         },
         item: {},
         canGetNext: canGetNext(count, start),
         canGetPrev: canGetPrev(+params.page),
-        shouldAdjustScroll: state.page > +params.page && !state.items[+params.page],
-        forceScrollTo: {}
+        shouldAdjustScroll:
+          state.page > +params.page && !state.items[+params.page],
+        forceScrollTo: {},
       };
     },
 
@@ -178,11 +200,11 @@ export default (handleActions(
         ...state,
         loading: false,
         loaded: false,
-        error
+        error,
       };
-    }
+    },
   },
-  INITIAL_STATE
+  INITIAL_STATE,
 ): Reducer<State, *>);
 
 function canGetNext(count, start) {

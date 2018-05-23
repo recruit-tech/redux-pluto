@@ -17,7 +17,7 @@ Fetchr.registerService({
     }
 
     cb(null, null);
-  }
+  },
 });
 
 test("auth: login success username scott", () => {
@@ -26,7 +26,7 @@ test("auth: login success username scott", () => {
     store.dispatch(loginAction).then(() => {
       assert.deepEqual(store.getState().app.auth, {
         login: true,
-        username: "scott"
+        username: "scott",
       });
     });
   });
@@ -34,14 +34,16 @@ test("auth: login success username scott", () => {
 
 test("auth: login success username foobar", () => {
   const loginAction = login("foobar", "tiger");
-  createWithSignedStore("foobar", ACCESS_TOKEN_AUDIENCE_NAME, {}).then(store => {
-    store.dispatch(loginAction).then(() => {
-      assert.deepEqual(store.getState().app.auth, {
-        login: true,
-        username: "foobar"
+  createWithSignedStore("foobar", ACCESS_TOKEN_AUDIENCE_NAME, {}).then(
+    store => {
+      store.dispatch(loginAction).then(() => {
+        assert.deepEqual(store.getState().app.auth, {
+          login: true,
+          username: "foobar",
+        });
       });
-    });
-  });
+    },
+  );
 });
 
 test("auth: login failure invalid audience name", async done => {
@@ -60,7 +62,7 @@ test("auth: login failure username is short", async done => {
   const loginAction = login("s", "tiger");
 
   const store = createStore({
-    cookie: {}
+    cookie: {},
   });
 
   try {
@@ -69,7 +71,7 @@ test("auth: login failure username is short", async done => {
   } catch (e) {
     assert.deepEqual(store.getState().app.auth, {
       login: false,
-      username: null
+      username: null,
     });
     assert(e);
   }

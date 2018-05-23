@@ -10,6 +10,6 @@ import HackerNews from "./HackerNews";
 export default compose(
   asyncLoader((props, { dispatch }) => dispatch(fetchItems())),
   connect(state => ({
-    hackerNews: hackerNewsSelector(state)
-  }))
+    hackerNews: hackerNewsSelector(state),
+  })),
 )(props => <HackerNews {...props.hackerNews} />);

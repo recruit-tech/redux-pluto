@@ -9,9 +9,9 @@ type Props = {
     id: string,
     name: string,
     logo_image_square: string,
-    description: string
+    description: string,
   },
-  linkURL: string
+  linkURL: string,
 };
 
 export default pure(function SearchListItem(props: Props) {

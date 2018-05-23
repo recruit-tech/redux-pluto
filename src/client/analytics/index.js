@@ -8,5 +8,5 @@ const config =
 
 export default {
   s_gi,
-  config
+  config,
 };

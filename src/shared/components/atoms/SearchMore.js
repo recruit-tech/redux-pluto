@@ -5,7 +5,7 @@ import { showOnScroll } from "shared/components/utils/scrollComponents";
 
 type Props = {
   children: Node,
-  onShow: boolean
+  onShow: boolean,
 };
 
 export default compose(pure, showOnScroll)(function SearchMore(props: Props) {

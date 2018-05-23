@@ -6,7 +6,7 @@ import ListItem from "./ListItem";
 
 type Props = {
   items: HackerNewsItem[],
-  loading: boolean
+  loading: boolean,
 };
 
 export default function HackerNews(props: Props) {

@@ -5,9 +5,10 @@ const chunkName = "misc";
 
 export function loadAgreedSample(_: *, cb: Function) {
   createUniversalComponent(
-    () => import(/* webpackChunkName: "misc" */ "../components/organisms/AgreedSample"),
+    () =>
+      import(/* webpackChunkName: "misc" */ "../components/organisms/AgreedSample"),
     () => (require: any).resolveWeak("../components/organisms/AgreedSample"),
-    chunkName
+    chunkName,
   ).then(result => cb(null, result), (cb: Function));
 }
 
@@ -15,7 +16,7 @@ export function loadBar(_: *, cb: Function) {
   createUniversalComponent(
     () => import(/* webpackChunkName: "misc" */ "../components/organisms/Bar"),
     () => (require: any).resolveWeak("../components/organisms/Bar"),
-    chunkName
+    chunkName,
   ).then(result => cb(null, result), (cb: Function));
 }
 
@@ -23,38 +24,42 @@ export function loadFoo(_: *, cb: Function) {
   createUniversalComponent(
     () => import(/* webpackChunkName: "misc" */ "../components/organisms/Foo"),
     () => (require: any).resolveWeak("../components/organisms/Foo"),
-    chunkName
+    chunkName,
   ).then(result => cb(null, result), (cb: Function));
 }
 
 export function loadHackerNews(_: *, cb: Function) {
   createUniversalComponent(
-    () => import(/* webpackChunkName: "misc" */ "../components/organisms/HackerNews"),
+    () =>
+      import(/* webpackChunkName: "misc" */ "../components/organisms/HackerNews"),
     () => (require: any).resolveWeak("../components/organisms/HackerNews"),
-    chunkName
+    chunkName,
   ).then(result => cb(null, result), (cb: Function));
 }
 
 export function loadLargeForm(_: *, cb: Function) {
   createUniversalComponent(
-    () => import(/* webpackChunkName: "misc" */ "../components/organisms/LargeForm"),
+    () =>
+      import(/* webpackChunkName: "misc" */ "../components/organisms/LargeForm"),
     () => (require: any).resolveWeak("../components/organisms/LargeForm"),
-    chunkName
+    chunkName,
   ).then(result => cb(null, result), (cb: Function));
 }
 
 export function loadLogin(_: *, cb: Function) {
   createUniversalComponent(
-    () => import(/* webpackChunkName: "misc" */ "../components/organisms/Login"),
+    () =>
+      import(/* webpackChunkName: "misc" */ "../components/organisms/Login"),
     () => (require: any).resolveWeak("../components/organisms/Login"),
-    chunkName
+    chunkName,
   ).then(result => cb(null, result), (cb: Function));
 }
 
 export function loadUploadSample(_: *, cb: Function) {
   createUniversalComponent(
-    () => import(/* webpackChunkName: "misc" */ "../components/organisms/UploadSample"),
+    () =>
+      import(/* webpackChunkName: "misc" */ "../components/organisms/UploadSample"),
     () => (require: any).resolveWeak("../components/organisms/UploadSample"),
-    chunkName
+    chunkName,
   ).then(result => cb(null, result), (cb: Function));
 }

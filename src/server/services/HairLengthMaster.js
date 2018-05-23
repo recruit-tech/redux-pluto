@@ -10,7 +10,7 @@ export default class HairLengthMaster extends AgreedMaster {
       "beauty/hairLength/v3/",
       {},
       "hair_length",
-      transform(formatResult, {})
+      transform(formatResult, {}),
     );
   }
 }
@@ -22,7 +22,7 @@ function formatResult(items, item) {
     gender: category.code,
     code: item.code,
     name: item.name,
-    seoName: item.hair_length_seo_name
+    seoName: item.hair_length_seo_name,
   });
   /* eslint-enable camelcase */
 }
@@ -33,7 +33,7 @@ function getCategory(items, styleCategory) {
     items[code] = {
       code,
       name: styleCategory.name,
-      items: []
+      items: [],
     };
   }
 

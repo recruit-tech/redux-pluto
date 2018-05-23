@@ -33,7 +33,7 @@ export const showOnScroll = ComposedComponent =>
         el.bottom,
         headerBottom,
         height,
-        this.heightRatio
+        this.heightRatio,
       );
       if (shown && this.props.onShow) {
         this.props.onShow(element);
@@ -44,7 +44,7 @@ export const showOnScroll = ComposedComponent =>
         el.bottom,
         headerBottom,
         height,
-        this.heightRatio
+        this.heightRatio,
       );
       if (isInWindow && this.props.onInnerWindow) {
         this.props.onInnerWindow(element);
@@ -59,7 +59,7 @@ export const showOnScroll = ComposedComponent =>
         elBottom,
         headerBottom,
         windowHeight,
-        heightRatio
+        heightRatio,
       );
       return isTopShown || isBottomShown || isInWindow;
     }

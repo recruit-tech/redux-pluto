@@ -14,8 +14,8 @@ export default {
 
     // https://github.com/expressjs/body-parser#bodyparserurlencodedoptions
     urlencoded: {
-      extended: true
-    }
+      extended: true,
+    },
   },
 
   // https://github.com/jshttp/cookie
@@ -25,12 +25,12 @@ export default {
   session: {
     secret: "redux-proto",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
   },
 
   // https://github.com/expressjs/csurf
   csurf: {
-    cookie: true
+    cookie: true,
   },
 
   // https://github.com/expressjs/serve-favicon
@@ -40,17 +40,17 @@ export default {
   assets: [
     {
       mount: "/public",
-      path: path.resolve(rootDir, "statics")
+      path: path.resolve(rootDir, "statics"),
     },
     {
       mount: "/public",
       path: path.resolve(rootDir, "build/client"),
-      buildOutput: true
+      buildOutput: true,
     },
     {
       mount: "/public",
-      path: path.resolve(tmpDir)
-    }
+      path: path.resolve(tmpDir),
+    },
   ].filter(Boolean),
 
   // https://github.com/yahoo/fetchr
@@ -60,8 +60,8 @@ export default {
     limit: 5,
     window: ms("1m"),
     cache: {
-      maxAge: ms("3m")
-    }
+      maxAge: ms("3m"),
+    },
   },
 
   auth: {
@@ -105,7 +105,7 @@ export default {
       c70poixG32dAYuKthf70sqvJcdFqj9nikhRpWffLlilrvvYrcb5DJGMjvRbRTssC
       SwIDAQAB
       -----END PUBLIC KEY-----
-    `.replace(/^[ \t\n]*/gm, "")
+    `.replace(/^[ \t\n]*/gm, ""),
   },
 
   clientConfig: {
@@ -115,31 +115,31 @@ export default {
       xhrTimeout: 1000000,
       context: {},
       contextPicker: {
-        GET: []
-      }
+        GET: [],
+      },
     },
 
     fetchrCache: {
       max: 100,
       maxAge: ms("10m"),
-      excludes: []
-    }
+      excludes: [],
+    },
   },
 
   agreed: {
     config: {
       axios: {
         baseURL: "http://localhost:3010/",
-        timeout: 10000
-      }
-    }
+        timeout: 10000,
+      },
+    },
   },
 
   multer: {
-    dest: tmpDir
+    dest: tmpDir,
   },
 
   upload: {
-    path: "/upload"
-  }
+    path: "/upload",
+  },
 };

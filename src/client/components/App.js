@@ -12,19 +12,25 @@ export default function App({ store, ...renderProps }: any) {
     useAsyncLoader(),
     useScroll((prevRouterProps, { location, routes }) => {
       if (
-        routes.some(route => route.ignoreScrollBehavior && route.ignoreScrollBehavior(location))
+        routes.some(
+          route =>
+            route.ignoreScrollBehavior && route.ignoreScrollBehavior(location),
+        )
       ) {
         return false;
       }
 
       return true;
-    })
+    }),
   );
 
   return (
     <AppContainer>
       <Provider store={store} key="provider">
-        <Router {...renderProps} render={props => <RenderWithMiddleware {...props} />} />
+        <Router
+          {...renderProps}
+          render={props => <RenderWithMiddleware {...props} />}
+        />
       </Provider>
     </AppContainer>
   );

@@ -17,7 +17,7 @@ const services = [
       return needFailure === "areaMaster"
         ? cb(new Error("error"))
         : cb(null, ["tokyo", "saitama", "kanagawa"]);
-    }
+    },
   },
   {
     name: "hairColorMaster",
@@ -25,13 +25,15 @@ const services = [
       return needFailure === "hairColorMaster"
         ? cb(new Error("error"))
         : cb(null, ["black", "brown", "blond"]);
-    }
+    },
   },
   {
     name: "genderMaster",
     read(req, resource, params, config, cb) {
-      return needFailure === "genderMaster" ? cb(new Error("error")) : cb(null, ["male", "female"]);
-    }
+      return needFailure === "genderMaster"
+        ? cb(new Error("error"))
+        : cb(null, ["male", "female"]);
+    },
   },
   {
     name: "hairLengthMaster",
@@ -39,14 +41,16 @@ const services = [
       return needFailure === "hairLengthMaster"
         ? cb(new Error("error"))
         : cb(null, ["long", "short", "middle"]);
-    }
+    },
   },
   {
     name: "menuContentMaster",
     read(req, resource, params, config, cb) {
-      return needFailure === "menuContentMaster" ? cb(new Error("error")) : cb(null, ["menu"]);
-    }
-  }
+      return needFailure === "menuContentMaster"
+        ? cb(new Error("error"))
+        : cb(null, ["menu"]);
+    },
+  },
 ];
 
 services.forEach(Fetchr.registerService);
@@ -55,7 +59,7 @@ test("master: loadAll success", done => {
   const loadAllMastersAction = masters.loadAllMasters();
   const initialState = Immutable({ app: { masters: masters.INITIAL_STATE } });
   const store = createStore({
-    initialState
+    initialState,
   });
   store.dispatch(loadAllMastersAction).then(() => {
     const state = store.getState().app.masters;
@@ -63,28 +67,28 @@ test("master: loadAll success", done => {
       areaMaster: {
         loading: false,
         loaded: true,
-        items: ["tokyo", "saitama", "kanagawa"]
+        items: ["tokyo", "saitama", "kanagawa"],
       },
       hairColorMaster: {
         loading: false,
         loaded: true,
-        items: ["black", "brown", "blond"]
+        items: ["black", "brown", "blond"],
       },
       genderMaster: {
         loading: false,
         loaded: true,
-        items: ["male", "female"]
+        items: ["male", "female"],
       },
       hairLengthMaster: {
         loading: false,
         loaded: true,
-        items: ["long", "short", "middle"]
+        items: ["long", "short", "middle"],
       },
       menuContentMaster: {
         loading: false,
         loaded: true,
-        items: ["menu"]
-      }
+        items: ["menu"],
+      },
     });
     done();
   });
@@ -93,35 +97,35 @@ test("master: loadAll success", done => {
 test("master: load each success", done => {
   const initialState = Immutable({ app: { masters: masters.INITIAL_STATE } });
   const store = createStore({
-    initialState
+    initialState,
   });
 
   const expects = Immutable({
     areaMaster: {
       loading: false,
       loaded: true,
-      items: ["tokyo", "saitama", "kanagawa"]
+      items: ["tokyo", "saitama", "kanagawa"],
     },
     genderMaster: {
       loading: false,
       loaded: true,
-      items: ["male", "female"]
+      items: ["male", "female"],
     },
     hairColorMaster: {
       loading: false,
       loaded: true,
-      items: ["black", "brown", "blond"]
+      items: ["black", "brown", "blond"],
     },
     hairLengthMaster: {
       loading: false,
       loaded: true,
-      items: ["long", "short", "middle"]
+      items: ["long", "short", "middle"],
     },
     menuContentMaster: {
       loading: false,
       loaded: true,
-      items: ["menu"]
-    }
+      items: ["menu"],
+    },
   });
 
   const actions = {
@@ -129,7 +133,7 @@ test("master: load each success", done => {
     genderMaster: masters.loadGenderMaster(),
     hairColorMaster: masters.loadHairColorMaster(),
     hairLengthMaster: masters.loadHairLengthMaster(),
-    menuContentMaster: masters.loadMenuContentMaster()
+    menuContentMaster: masters.loadMenuContentMaster(),
   };
 
   let prevState = store.getState().app.masters;
@@ -147,7 +151,7 @@ test("master: load each success", done => {
           });
           prevState = nextState;
         }),
-      Promise.resolve()
+      Promise.resolve(),
     )
     .then(() => {
       const state = store.getState().app.masters;
@@ -160,7 +164,7 @@ test("master: loadAll failure", done => {
   const loadAllMastersAction = masters.loadAllMasters();
   const initialState = Immutable({ app: { masters: masters.INITIAL_STATE } });
   const store = createStore({
-    initialState
+    initialState,
   });
   needFailure = "areaMaster";
   store.dispatch(loadAllMastersAction).then(() => {
@@ -170,28 +174,28 @@ test("master: loadAll failure", done => {
         loading: false,
         loaded: false,
         items: [],
-        error: undefined
+        error: undefined,
       },
       hairColorMaster: {
         loading: false,
         loaded: true,
-        items: ["black", "brown", "blond"]
+        items: ["black", "brown", "blond"],
       },
       genderMaster: {
         loading: false,
         loaded: true,
-        items: ["male", "female"]
+        items: ["male", "female"],
       },
       hairLengthMaster: {
         loading: false,
         loaded: true,
-        items: ["long", "short", "middle"]
+        items: ["long", "short", "middle"],
       },
       menuContentMaster: {
         loading: false,
         loaded: true,
-        items: ["menu"]
-      }
+        items: ["menu"],
+      },
     });
     done();
   });

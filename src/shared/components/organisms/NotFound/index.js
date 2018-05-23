@@ -7,8 +7,8 @@ import { siteSections } from "shared/redux/analytics/utils";
 export default compose(
   shouldUpdate(() => false),
   sendAnalytics({
-    ...siteSections("error", "notfound")
-  })
+    ...siteSections("error", "notfound"),
+  }),
 )(function NotFound(props) {
   return <div>NotFound!</div>;
 });

@@ -12,7 +12,7 @@ export default class BaseMaster extends BaseService {
     pathname: string,
     params: any,
     itemsName: string,
-    formatResult: Function = identity
+    formatResult: Function = identity,
   ) {
     super(config, name, pathname, params);
     this.itemsName = itemsName;
@@ -20,8 +20,12 @@ export default class BaseMaster extends BaseService {
   }
 
   read(req: any, resource: any, params: any, config: any) {
-    return readAll(this.axios, this.name, this.pathname, params, this.itemsName).then(result =>
-      this.formatResult(result[this.itemsName])
-    );
+    return readAll(
+      this.axios,
+      this.name,
+      this.pathname,
+      params,
+      this.itemsName,
+    ).then(result => this.formatResult(result[this.itemsName]));
   }
 }

@@ -32,7 +32,7 @@ export default class AccessToken {
     const { username, password } = params;
     if (username !== "scott" || password !== "tiger") {
       return rejectWith(fumble.http.badRequest(), {
-        _error: "ユーザ名またはパスワードが間違っています。"
+        _error: "ユーザ名またはパスワードが間違っています。",
       });
     }
 
@@ -41,9 +41,9 @@ export default class AccessToken {
       {
         sub: username,
         aud: ACCESS_TOKEN_AUDIENCE_NAME,
-        exp: Math.floor(expires / 1000)
+        exp: Math.floor(expires / 1000),
       },
-      this.key
+      this.key,
     ).then(
       token => {
         debug(token);
@@ -51,18 +51,18 @@ export default class AccessToken {
           meta: {
             headers: {
               "set-cookie": cookie.serialize(ACCESS_TOKEN_COOKIE_NAME, token, {
-                expires: new Date(expires)
-              })
-            }
-          }
+                expires: new Date(expires),
+              }),
+            },
+          },
         };
       },
       error => {
         debug(error);
         return rejectWith(fumble.http.create(), {
-          _error: "エラーが発生しました。"
+          _error: "エラーが発生しました。",
         });
-      }
+      },
     );
   }
 
@@ -71,17 +71,17 @@ export default class AccessToken {
       meta: {
         headers: {
           "set-cookie": cookie.serialize(ACCESS_TOKEN_COOKIE_NAME, null, {
-            expires: new Date(0)
-          })
-        }
-      }
+            expires: new Date(0),
+          }),
+        },
+      },
     });
   }
 }
 
 export function sign(payload: any, key: string) {
   return jwtSign(payload, key, {
-    algorithm: "RS256"
+    algorithm: "RS256",
   });
 }
 
@@ -93,18 +93,30 @@ export function verify(req: any, secret: string) {
 
   return jwtVerify(accessToken, secret, {
     algorithm: "RS256",
-    audience: ACCESS_TOKEN_AUDIENCE_NAME
-  }).catch(error => rejectWith(fumble.http.unauthorized(), { reason: error.message }));
+    audience: ACCESS_TOKEN_AUDIENCE_NAME,
+  }).catch(error =>
+    rejectWith(fumble.http.unauthorized(), { reason: error.message }),
+  );
 }
 
 function jwtSign(payload: any, key: string, options: any) {
   return new Promise((resolve, reject) =>
-    jwt.sign(payload, key, options, (err, token) => (err ? reject(err) : resolve(token)))
+    jwt.sign(
+      payload,
+      key,
+      options,
+      (err, token) => (err ? reject(err) : resolve(token)),
+    ),
   );
 }
 
 function jwtVerify(token: string, secret: string, options: any) {
   return new Promise((resolve, reject) =>
-    jwt.verify(token, secret, options, (err, decoded) => (err ? reject(err) : resolve(decoded)))
+    jwt.verify(
+      token,
+      secret,
+      options,
+      (err, decoded) => (err ? reject(err) : resolve(decoded)),
+    ),
   );
 }

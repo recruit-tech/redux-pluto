@@ -8,12 +8,12 @@ test("AccessToken: create success", async () => {
   const accessToken = new AccessToken(configs);
 
   const req = {
-    cookie: {}
+    cookie: {},
   };
 
   const params = {
     username: "scott",
-    password: "tiger"
+    password: "tiger",
   };
 
   return accessToken.create(req, void 0, params).then(response => {
@@ -21,10 +21,10 @@ test("AccessToken: create success", async () => {
     verify(
       {
         cookies: {
-          [ACCESS_TOKEN_COOKIE_NAME]: cookies["access-token"]
-        }
+          [ACCESS_TOKEN_COOKIE_NAME]: cookies["access-token"],
+        },
       },
-      configs.auth.secret
+      configs.auth.secret,
     ).then(token => {
       assert(token.sub === "scott");
     });
@@ -35,12 +35,12 @@ test("AccessToken: create failure", async done => {
   const accessToken = new AccessToken(configs);
 
   const req: any = {
-    cookie: {}
+    cookie: {},
   };
 
   const params: any = {
     username: "notuser",
-    password: "notpassword"
+    password: "notpassword",
   };
 
   return (accessToken: any).create(req, void 0, params).then(done.fail, e => {

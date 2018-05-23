@@ -12,7 +12,7 @@ export default class GenderMaster extends AgreedMaster {
       "style_category",
       transform((results, item) => {
         results[item.code] = item;
-      }, {})
+      }, {}),
     );
   }
 }

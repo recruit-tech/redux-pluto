@@ -5,16 +5,18 @@ const chunkName = "search";
 
 export function loadSearch(_: *, cb: Function) {
   createUniversalComponent(
-    () => import(/* webpackChunkName: "search" */ "../components/organisms/Search"),
+    () =>
+      import(/* webpackChunkName: "search" */ "../components/organisms/Search"),
     () => (require: any).resolveWeak("../components/organisms/Search"),
-    chunkName
+    chunkName,
   ).then(result => cb(null, result), (cb: Function));
 }
 
 export function loadSearchForm(_: *, cb: Function) {
   createUniversalComponent(
-    () => import(/* webpackChunkName: "search" */ "../components/organisms/SearchForm"),
+    () =>
+      import(/* webpackChunkName: "search" */ "../components/organisms/SearchForm"),
     () => (require: any).resolveWeak("../components/organisms/SearchForm"),
-    chunkName
+    chunkName,
   ).then(result => cb(null, result), (cb: Function));
 }

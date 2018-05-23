@@ -7,8 +7,8 @@ export default {
     config: {
       axios: {
         baseURL: "http://localhost:3020/",
-        timeout: 10000
-      }
-    }
-  }
+        timeout: 10000,
+      },
+    },
+  },
 };

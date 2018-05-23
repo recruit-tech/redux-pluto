@@ -6,7 +6,7 @@ type Props = {
   loading: boolean,
   value: string,
   onInputFile: Function,
-  onSubmitFile: Function
+  onSubmitFile: Function,
 };
 
 export default pure(function UploadSample(props: Props) {

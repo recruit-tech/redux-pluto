@@ -7,25 +7,28 @@ import { globalFormDisabledSelector } from "shared/redux/modules/reducer";
 import { login } from "shared/redux/modules/auth";
 import normalizeFormError from "shared/components/utils/normalizeFormError";
 import validate from "shared/validators/login";
-import { siteSections, onAsyncLoaderLoaded } from "shared/redux/analytics/utils";
+import {
+  siteSections,
+  onAsyncLoaderLoaded,
+} from "shared/redux/analytics/utils";
 import LoginForm from "./LoginForm";
 
 export default compose(
   connect(state => ({
     invalid: isInvalid("loginForm")(state),
-    globalFormDisabled: globalFormDisabledSelector(state)
+    globalFormDisabled: globalFormDisabledSelector(state),
   })),
   sendAnalytics({
     ...siteSections("login", "top"),
-    onDataReady: onAsyncLoaderLoaded
+    onDataReady: onAsyncLoaderLoaded,
   }),
   reduxForm({
     form: "loginForm",
     validate,
     onSubmit({ username, password }, dispatch, ownProps) {
-      return dispatch(login(username, password, ownProps.location.query.location || "/")).catch(
-        normalizeFormError
-      );
-    }
-  })
+      return dispatch(
+        login(username, password, ownProps.location.query.location || "/"),
+      ).catch(normalizeFormError);
+    },
+  }),
 )(LoginForm);
