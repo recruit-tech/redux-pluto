@@ -518,6 +518,10 @@ agreed@^3.1.0:
     json5 "^0.5.1"
     minimist "^1.2.0"
 
+agrios@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/agrios/-/agrios-1.0.0.tgz#4ff517aa3e6fcc19de5d8d6dd68c199ff54dc8d3"
+
 airbnb-js-shims@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/airbnb-js-shims/-/airbnb-js-shims-1.4.1.tgz#cc3e8eb8d35877f9d0fdc6583e26b0ee75b98ad0"
@@ -5916,6 +5920,12 @@ json3@3.3.0:
 json3@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/json3/-/json3-3.3.2.tgz#3c0434743df93e2f5c42aee7b19bcb483575f4e1"
+
+json5-loader@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/json5-loader/-/json5-loader-1.0.1.tgz#c169f46655dde445cf3906b5eb6eb59615ced1cc"
+  dependencies:
+    json5 "^0.5.0"
 
 json5@^0.5.0, json5@^0.5.1:
   version "0.5.1"

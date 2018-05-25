@@ -1,15 +1,21 @@
-/* @flow */
 import { format as formatUrl } from "url";
 import fumble from "fumble";
 import debugFactory from "debug";
+import agrios from "agrios";
+
+const agreed = require("../../../spec/agreed/agreed.js");
+
+const agreedAdapter = agrios(agreed);
 
 const debug = debugFactory("app:server:services");
 
-export function read(axios: any, name: string, pathname: string, query: any) {
+export function read(axios, name, pathname, query) {
   const formattedUrl = formatUrl({ pathname, query });
   debug(`[${name}]: GET ${formattedUrl}`);
+  debug(`[${name}]: ${axios}`);
+  axios.defaults.adapter = agreedAdapter;
 
-  return axios.get(formattedUrl).then(
+  return axios.get(formattedUrl, {adapter: agreedAdapter}).then(
     response => {
       const responseBody = response.data;
       if (!responseBody || !responseBody.results) {
@@ -23,23 +29,17 @@ export function read(axios: any, name: string, pathname: string, query: any) {
       const { results } = responseBody;
       if (results.error) {
         const { code, message } = results.error;
+        debug(results.error);
         return rejectWith(fumble.create(code, message), { name, formattedUrl });
       }
 
       return results;
     },
-    error => rejectWith(fumble.create(), { name, formattedUrl, reason: error.message })
+    error => console.error(error)
   );
 }
 
-export function readAll(
-  axios: any,
-  name: string,
-  pathname: string,
-  params: any,
-  itemsName: string,
-  loaded: any = []
-) {
+export function readAll(axios, name, pathname, params, itemsName, loaded = []) {
   const actualParams = { ...params, start: loaded.length + 1 };
   return read(axios, name, pathname, actualParams).then(results => {
     const available = +results.results_available; // eslint-disable-line camelcase
@@ -54,22 +54,19 @@ export function readAll(
       return results;
     }
 
-    return readAll(axios, name, pathname, params, itemsName, [...loaded, ...items]);
+    return readAll(axios, name, pathname, params, itemsName, [
+      ...loaded,
+      ...items
+    ]);
   });
 }
 
-export function create(
-  axios: any,
-  name: string,
-  pathname: string,
-  body: any,
-  query: any,
-  headers: any
-) {
+export function create(axios, name, pathname, body, query, headers) {
   const formattedUrl = formatUrl({ pathname, query });
   debug(`[${name}]: POST ${formattedUrl} with body: ${JSON.stringify(body)}`);
+  axios.defaults.adapter = agreedAdapter;
 
-  return axios.post(formattedUrl, body, { headers }).then(
+  return axios.post(formattedUrl, body, { headers, adapter: agreedAdapter }).then(
     response => response.data,
     error => {
       if (error.response) {
@@ -88,7 +85,7 @@ export function create(
   );
 }
 
-export function rejectWith(error: any, output: any = {}) {
+export function rejectWith(error, output = {}) {
   error.output = output;
   debug(error);
   return Promise.reject(error);

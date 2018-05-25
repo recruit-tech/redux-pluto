@@ -76,6 +76,14 @@ module.exports = {
           },
           "postcss-loader"
         ]
+      },
+      {
+        test: /\.json5$/,
+        include: [
+          path.resolve(rootDir, "../spec"),
+        ],
+        exclude: [/node_modules/],
+        use: "json5-loader"
       }
     ]
   },
