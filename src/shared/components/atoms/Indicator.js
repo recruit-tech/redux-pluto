@@ -24,7 +24,7 @@ const Loader = styled.div`
 `;
 
 type Props = {
-  loading: boolean
+  loading: boolean,
 };
 
 export default pure(function Indicator(props: Props) {

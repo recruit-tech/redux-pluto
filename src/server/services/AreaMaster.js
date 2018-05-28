@@ -6,7 +6,14 @@ const AREA_NAMES = ["service_area", "middle_area", ""];
 
 export default class AreaMaster extends AgreedMaster {
   constructor(config: any) {
-    super(config, "areaMaster", "beauty/smallArea/", {}, "small_area", transform(formatResult, {}));
+    super(
+      config,
+      "areaMaster",
+      "beauty/smallArea/",
+      {},
+      "small_area",
+      transform(formatResult, {}),
+    );
   }
 }
 
@@ -20,12 +27,12 @@ function formatResult(results, smallArea) {
           code,
           name: source.name,
           count: source.cnt,
-          ...(areaName ? { items: {} } : {})
+          ...(areaName ? { items: {} } : {}),
         };
       }
       return parent[code].items;
     },
     results,
-    AREA_NAMES
+    AREA_NAMES,
   );
 }

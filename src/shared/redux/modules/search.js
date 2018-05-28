@@ -12,7 +12,7 @@ const SALON = "redux-proto/search";
 export const [
   FIND_SALON_BY_ID_REQUEST,
   FIND_SALON_BY_ID_SUCCESS,
-  FIND_SALON_BY_ID_FAIL
+  FIND_SALON_BY_ID_FAIL,
 ] = createAsyncActionTypes(`${SALON}/find_id`);
 
 /**
@@ -27,7 +27,7 @@ export function findSalonById(id: string) {
   return steps(
     findSalonByIdRequest({ resource: "search", params: { id } }),
     ({ payload }) => fetchrRead(payload),
-    [findSalonByIdSuccess, findSalonByIdFail]
+    [findSalonByIdSuccess, findSalonByIdFail],
   );
 }
 
@@ -41,14 +41,14 @@ export type State = {
   item: ?{
     name: string,
     urls: {
-      pc: string
-    }
-  }
+      pc: string,
+    },
+  },
 };
 export const INITIAL_STATE = {
   loading: false,
   loaded: false,
-  item: null
+  item: null,
 };
 
 /**
@@ -59,21 +59,21 @@ export default (handleActions(
     [FIND_SALON_BY_ID_REQUEST]: state => ({
       ...state,
       loading: true,
-      loaded: false
+      loaded: false,
     }),
 
     [FIND_SALON_BY_ID_SUCCESS]: (state, action) => {
       const {
         payload: {
-          data: { search: items }
-        }
+          data: { search: items },
+        },
       } = action;
 
       return {
         ...state,
         loading: false,
         loaded: true,
-        item: items[0]
+        item: items[0],
       };
     },
 
@@ -81,8 +81,8 @@ export default (handleActions(
       ...state,
       loading: false,
       loaded: false,
-      error
-    })
+      error,
+    }),
   },
-  INITIAL_STATE
+  INITIAL_STATE,
 ): Reducer<State, *>);

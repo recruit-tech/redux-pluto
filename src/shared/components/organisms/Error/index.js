@@ -8,9 +8,9 @@ type Props = {};
 
 export default compose(
   sendAnalytics({
-    ...siteSections("error", "error")
+    ...siteSections("error", "error"),
   }),
-  shouldUpdate(() => false)
+  shouldUpdate(() => false),
 )(function Error(props: Props) {
   return <div>Error!</div>;
 });

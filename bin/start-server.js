@@ -36,7 +36,10 @@ createApp()
 
 function createApp() {
   const app = express();
-  return (development ? setupAppForDevelopment(app) : setupAppForProduction(app)).then(() => {
+  return (development
+    ? setupAppForDevelopment(app)
+    : setupAppForProduction(app)
+  ).then(() => {
     app.use((req, res) => {
       res.status(404).send("Not found");
     });
@@ -63,8 +66,8 @@ function setupAppForProduction(app) {
     serverRender({
       clientStats,
       server,
-      promises
-    })
+      promises,
+    }),
   );
   return Promise.all(promises);
 }
@@ -91,9 +94,9 @@ function setupAppForDevelopment(app) {
       serverRendererOptions: {
         server,
         sessionStore: new MemoryStore(),
-        promises
-      }
-    })
+        promises,
+      },
+    }),
   );
 
   debug("Compiling webpack...");

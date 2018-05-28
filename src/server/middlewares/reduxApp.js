@@ -6,7 +6,7 @@ import { ServerStyleSheet } from "styled-components";
 import {
   renderToNodeStream,
   renderToStaticNodeStream,
-  renderToStaticMarkup
+  renderToStaticMarkup,
 } from "react-dom/server";
 import { createMemoryHistory, match } from "react-router";
 import { syncHistoryWithStore } from "react-router-redux";
@@ -45,15 +45,15 @@ export default function createReduxApp(config) {
       cookie: [{ cookies: {} }, {}],
       fetchr: new Fetchr({ ...config.fetchr, req: {} }),
       history: createMemoryHistory("/"),
-      logger
-    }
+      logger,
+    },
   );
 
   debug("Loading initial data");
   config.promises.push(
     Promise.all([initialStore.dispatch(loadAllMastersAction())]).then(() => {
       debug("Loaded initial data");
-    })
+    }),
   );
 
   return reduxApp;
@@ -73,7 +73,7 @@ export default function createReduxApp(config) {
       cookie: [req, res],
       fetchr: new Fetchr({ ...config.fetchr, req }),
       history: memoryHistory,
-      logger
+      logger,
     });
     const history = syncHistoryWithStore(memoryHistory, store);
     const clientConfig = getClientConfig(config, req);
@@ -100,7 +100,7 @@ export default function createReduxApp(config) {
         if (redirectLocation) {
           return res.redirect(
             302,
-            redirectLocation.pathname + redirectLocation.search
+            redirectLocation.pathname + redirectLocation.search,
           );
         }
 
@@ -114,7 +114,7 @@ export default function createReduxApp(config) {
         timing.startTime("prefetch", "Prefetch onLoad");
         return Promise.all([
           loadOnServer(renderProps, store),
-          store.dispatch(checkLogin()).catch(() => null)
+          store.dispatch(checkLogin()).catch(() => null),
         ]).then(() => {
           timing.endTime("prefetch");
 
@@ -128,7 +128,7 @@ export default function createReduxApp(config) {
             config,
             clientConfig,
             cssChunks,
-            timing
+            timing,
           });
         });
       })
@@ -149,10 +149,10 @@ function getClientConfig(config, req) {
       ...fetchr,
       context: {
         ...fetchr.context,
-        _csrf: csrfToken
-      }
+        _csrf: csrfToken,
+      },
     },
-    csrfToken
+    csrfToken,
   };
 }
 
@@ -180,15 +180,15 @@ function renderSSR({
   config,
   clientConfig,
   cssChunks,
-  timing
+  timing,
 }) {
   /*
    * メインコンテンツをレンダリングします。
    */
 
   const sheet = new ServerStyleSheet(); // <-- creating out stylesheet
-  const jsx = sheet.collectStyles(<App store={store} {...renderProps} />)
-  const stream = sheet.interleaveWithNodeStream(renderToNodeStream(jsx))
+  const jsx = sheet.collectStyles(<App store={store} {...renderProps} />);
+  const stream = sheet.interleaveWithNodeStream(renderToNodeStream(jsx));
   const styles = sheet.getStyleTags();
 
   const assets = getAssets({ clientStats: config.clientStats, cssChunks });
@@ -203,7 +203,7 @@ function renderSSR({
     clientConfig,
     assets,
     timing,
-    styles
+    styles,
   });
 }
 
@@ -214,14 +214,14 @@ function sendCSRResponse({
   clientConfig,
   content,
   assets,
-  timing
+  timing,
 }) {
   timing.startTime("html", "Rendering HTML");
   const props = {
     content,
     assets,
     initialState: JSON.stringify(store.getState()),
-    clientConfig: JSON.stringify(clientConfig)
+    clientConfig: JSON.stringify(clientConfig),
   };
   const html = renderToStaticMarkup(<Html {...props} />);
   timing.endTime("html");
@@ -236,7 +236,7 @@ function sendSSRResponse({
   assets,
   stream,
   timing,
-  styles
+  styles,
 }) {
   /*
    * HTML全体をレンダリングします。
@@ -255,7 +255,7 @@ function sendSSRResponse({
       assets,
       styles,
       initialState: JSON.stringify(store.getState()),
-      clientConfig: JSON.stringify(clientConfig)
+      clientConfig: JSON.stringify(clientConfig),
     };
 
     const htmlStream = renderToStaticNodeStream(<Html {...props} />);
@@ -280,14 +280,14 @@ function loadCssChunks({ clientStats, assets }) {
       if (cssChunk) {
         result[cssChunk] = {
           href: `${publicPath}${cssChunk}`,
-          content: fs.readFileSync(path.join(outputPath, cssChunk), "utf-8")
+          content: fs.readFileSync(path.join(outputPath, cssChunk), "utf-8"),
         };
       }
 
       return result;
     },
     {},
-    Object.keys(chunks)
+    Object.keys(chunks),
   );
 }
 
@@ -310,16 +310,16 @@ function getAssets({ clientStats, cssChunks }) {
   const assets = flushChunks(clientStats, { chunkNames });
   const { publicPath } = assets;
   const stylesheets = assets.stylesheets.map(
-    stylesheet => `${publicPath}/${stylesheet}`
+    stylesheet => `${publicPath}/${stylesheet}`,
   );
   assets.cssHashRaw = mapValues(
-    value => (stylesheets.includes(value) ? "loaded" : value)
+    value => (stylesheets.includes(value) ? "loaded" : value),
   )(assets.cssHashRaw);
 
   if (!__DISABLE_INLINE_CSS__) {
     assets.inlineStylesheets = assets.stylesheets.map(chunkName => ({
       name: chunkName,
-      content: cssChunks[chunkName].content
+      content: cssChunks[chunkName].content,
     }));
     assets.stylesheets = null;
   }

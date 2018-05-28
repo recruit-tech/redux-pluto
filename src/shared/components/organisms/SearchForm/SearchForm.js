@@ -11,9 +11,9 @@ import SearchPager from "./SearchPager";
 type FormProps = {
   handleSubmit: Function,
   initialValues: {
-    keyword: string
+    keyword: string,
   },
-  submitting: boolean
+  submitting: boolean,
 };
 
 type Props = FormProps & {
@@ -29,7 +29,7 @@ type Props = FormProps & {
   shouldAdjustScroll: boolean,
   linkURL: string,
   forceScrollTo: ?Object,
-  globalFormDisabled: boolean
+  globalFormDisabled: boolean,
 };
 
 export default compose(
@@ -49,8 +49,8 @@ export default compose(
     shouldAdjustScroll: PropTypes.bool.isRequired,
     linkURL: PropTypes.string.isRequired,
     forceScrollTo: PropTypes.object,
-    globalFormDisabled: PropTypes.bool
-  })
+    globalFormDisabled: PropTypes.bool,
+  }),
 )(function SearchForm(props: Props) {
   const {
     handleSubmit,
@@ -68,7 +68,7 @@ export default compose(
     shouldAdjustScroll,
     linkURL,
     forceScrollTo,
-    globalFormDisabled
+    globalFormDisabled,
   } = props;
 
   return (
@@ -78,7 +78,12 @@ export default compose(
           <label htmlFor="keyword">
             Free Keyword
             <div id="keyword">
-              <Field type="text" name="keyword" component="input" autoFocus={!count} />
+              <Field
+                type="text"
+                name="keyword"
+                component="input"
+                autoFocus={!count}
+              />
               <button type="submit" disabled={globalFormDisabled || submitting}>
                 Search
               </button>
@@ -87,7 +92,9 @@ export default compose(
         </div>
       </form>
       <div>
-        {canGetPrev ? <SearchMore onShow={onClickPrev(page)}>戻る</SearchMore> : null}
+        {canGetPrev ? (
+          <SearchMore onShow={onClickPrev(page)}>戻る</SearchMore>
+        ) : null}
         <div>
           <span>{count || 0}</span>
           <span>件あります</span>
@@ -100,10 +107,16 @@ export default compose(
           shouldAdjustScroll={shouldAdjustScroll}
           forceScrollTo={forceScrollTo}
         />
-        {canGetNext ? <SearchMore onShow={onClickNext(page)}>進む</SearchMore> : null}
+        {canGetNext ? (
+          <SearchMore onShow={onClickNext(page)}>進む</SearchMore>
+        ) : null}
       </div>
       <Pager>
-        <SearchPager pages={pages} page={page} keyword={initialValues.keyword || ""} />
+        <SearchPager
+          pages={pages}
+          page={page}
+          keyword={initialValues.keyword || ""}
+        />
       </Pager>
     </Root>
   );

@@ -27,7 +27,7 @@ const flatten = reduce((classes, arg) => {
 
 export function createLocal(styles) {
   return {
-    localNames
+    localNames,
   };
 
   function localNames(...args) {

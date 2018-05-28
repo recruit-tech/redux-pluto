@@ -11,16 +11,20 @@ const AUTH = "redux-proto/auth";
 export const [
   AUTH_CHECK_LOGIN_REQUEST,
   AUTH_CHECK_LOGIN_SUCCESS,
-  AUTH_CHECK_LOGIN_FAIL
+  AUTH_CHECK_LOGIN_FAIL,
 ] = createAsyncActionTypes(`${AUTH}/check`);
 
-export const [AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_FAIL] = createAsyncActionTypes(
-  `${AUTH}/login`
-);
+export const [
+  AUTH_LOGIN_REQUEST,
+  AUTH_LOGIN_SUCCESS,
+  AUTH_LOGIN_FAIL,
+] = createAsyncActionTypes(`${AUTH}/login`);
 
-export const [AUTH_LOGOUT_REQUEST, AUTH_LOGOUT_SUCCESS, AUTH_LOGOUT_FAIL] = createAsyncActionTypes(
-  `${AUTH}/logout`
-);
+export const [
+  AUTH_LOGOUT_REQUEST,
+  AUTH_LOGOUT_SUCCESS,
+  AUTH_LOGOUT_FAIL,
+] = createAsyncActionTypes(`${AUTH}/logout`);
 
 /**
  * Action creators
@@ -44,7 +48,7 @@ const loginFail = createAction(AUTH_LOGIN_FAIL);
 export function login(username: string, password: string, location: *) {
   return steps(loginRequest({ params: { username, password }, location }), [
     loginSuccess,
-    loginFail
+    loginFail,
   ]);
 }
 
@@ -64,11 +68,11 @@ export function logout() {
 
 export type State = {
   login: any,
-  username: ?string
+  username: ?string,
 };
 const INITIAL_STATE: State = {
   login: false,
-  username: null
+  username: null,
 };
 
 /**
@@ -80,21 +84,21 @@ export default (handleActions(
     [AUTH_LOGIN_SUCCESS]: loggedIn,
     [AUTH_CHECK_LOGIN_FAIL]: loggedOut,
     [AUTH_LOGIN_FAIL]: loggedOut,
-    [AUTH_LOGOUT_SUCCESS]: loggedOut
+    [AUTH_LOGOUT_SUCCESS]: loggedOut,
   },
-  INITIAL_STATE
+  INITIAL_STATE,
 ): Reducer<State, *>);
 
 function loggedIn(state, action) {
   const {
-    payload: { sub }
+    payload: { sub },
   } = action;
 
   return state.login && state.username === sub
     ? state
     : {
         login: true,
-        username: sub
+        username: sub,
       };
 }
 

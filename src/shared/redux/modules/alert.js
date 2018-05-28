@@ -20,11 +20,11 @@ export const clearAlert = createAction(ALERT_CLEAR);
  */
 
 export type State = {
-  message: string
+  message: string,
 };
 
 const INITIAL_STATE: State = {
-  message: ""
+  message: "",
 };
 
 /**
@@ -36,11 +36,11 @@ export default (handleActions(
       const { payload } = action;
 
       return {
-        message: payload
+        message: payload,
       };
     },
 
-    [ALERT_CLEAR]: (state, action) => INITIAL_STATE
+    [ALERT_CLEAR]: (state, action) => INITIAL_STATE,
   },
-  INITIAL_STATE
+  INITIAL_STATE,
 ): Reducer<State, *>);

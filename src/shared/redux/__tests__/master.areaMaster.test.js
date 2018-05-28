@@ -2,7 +2,11 @@
 import Fetchr from "fetchr";
 import assert from "power-assert";
 import Immutable from "seamless-immutable";
-import { INITIAL_STATE, loadAllMasters, loadAreaMaster } from "../modules/masters";
+import {
+  INITIAL_STATE,
+  loadAllMasters,
+  loadAreaMaster,
+} from "../modules/masters";
 import { createStore } from "./lib/storeUtils";
 import { isSameObject } from "./lib/assertUtils";
 
@@ -15,32 +19,32 @@ const services = [
     name: "areaMaster",
     read(req, resource, params, config, cb) {
       cb(null, areaMasters);
-    }
+    },
   },
   {
     name: "hairColorMaster",
     read(req, resource, params, config, cb) {
       cb(null, ["black", "brown", "blond"]);
-    }
+    },
   },
   {
     name: "genderMaster",
     read(req, resource, params, config, cb) {
       cb(null, ["male", "female"]);
-    }
+    },
   },
   {
     name: "hairLengthMaster",
     read(req, resource, params, config, cb) {
       cb(null, ["long", "short", "middle"]);
-    }
+    },
   },
   {
     name: "menuContentMaster",
     read(req, resource, params, config, cb) {
       cb(null, ["menu"]);
-    }
-  }
+    },
+  },
 ];
 
 services.forEach(Fetchr.registerService);
@@ -51,7 +55,7 @@ test("master: areaMaster success", () => {
   const initialState = Immutable({ app: { masters: INITIAL_STATE } });
   let prevMastersState = { app: {} };
   const store = createStore({
-    initialState
+    initialState,
   });
   store
     .dispatch(loadAllMastersAction)
@@ -65,7 +69,7 @@ test("master: areaMaster success", () => {
       assert.deepEqual(mastersState.areaMaster, {
         loading: false,
         loaded: true,
-        items: areaMasters
+        items: areaMasters,
       });
       isSameObject(prevMastersState, mastersState, ["areaMaster"]);
     });

@@ -12,7 +12,7 @@ const AGREED_SAMPLE = "redux-proto/agreedsample";
 export const [
   AGREED_SAMPLE_GET_TEXT_REQUEST,
   AGREED_SAMPLE_GET_TEXT_SUCCESS,
-  AGREED_SAMPLE_GET_TEXT_FAIL
+  AGREED_SAMPLE_GET_TEXT_FAIL,
 ] = createAsyncActionTypes(`${AGREED_SAMPLE}/get`);
 
 /**
@@ -23,10 +23,11 @@ export const getTextSuccess = createAction(AGREED_SAMPLE_GET_TEXT_SUCCESS);
 export const getTextFail = createAction(AGREED_SAMPLE_GET_TEXT_FAIL);
 
 export function getText(): Promise<{ text: string }> {
-  return steps(getTextRequest({ resource: "agreedSample" }), ({ payload }) => fetchrRead(payload), [
-    getTextSuccess,
-    getTextFail
-  ]);
+  return steps(
+    getTextRequest({ resource: "agreedSample" }),
+    ({ payload }) => fetchrRead(payload),
+    [getTextSuccess, getTextFail],
+  );
 }
 
 /**
@@ -36,13 +37,13 @@ export function getText(): Promise<{ text: string }> {
 export type State = {
   loading: boolean,
   loaded: boolean,
-  text: string
+  text: string,
 };
 
 const INITIAL_STATE: State = {
   loading: false,
   loaded: false,
-  text: ""
+  text: "",
 };
 
 export default (handleActions(
@@ -50,15 +51,19 @@ export default (handleActions(
     [AGREED_SAMPLE_GET_TEXT_REQUEST]: state => ({
       ...state,
       loading: true,
-      loaded: false
+      loaded: false,
     }),
     [AGREED_SAMPLE_GET_TEXT_SUCCESS]: (state, action) => {
-      const { payload: { data: { text } } } = action;
+      const {
+        payload: {
+          data: { text },
+        },
+      } = action;
       return {
         ...state,
         text,
         loading: false,
-        loaded: true
+        loaded: true,
       };
     },
     [AGREED_SAMPLE_GET_TEXT_FAIL]: (state, action) => {
@@ -67,9 +72,9 @@ export default (handleActions(
         ...state,
         error,
         loading: false,
-        loaded: false
+        loaded: false,
       };
-    }
+    },
   },
-  INITIAL_STATE
+  INITIAL_STATE,
 ): Reducer<State, *>);

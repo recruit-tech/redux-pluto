@@ -15,7 +15,12 @@ import * as uploaders from "./uploaders";
 
 const upload = multer(config.multer);
 
-export default function renderer({ clientStats, server, sessionStore, promises }: any) {
+export default function renderer({
+  clientStats,
+  server,
+  sessionStore,
+  promises,
+}: any) {
   const app = express.Router();
 
   app.use(bodyParser.json());
@@ -31,7 +36,7 @@ export default function renderer({ clientStats, server, sessionStore, promises }
     app.post(
       `${config.upload.path}${uploader.path}`,
       upload.single("file"),
-      uploader.createMiddleware()
+      uploader.createMiddleware(),
     );
   });
 
@@ -45,7 +50,7 @@ export default function renderer({ clientStats, server, sessionStore, promises }
         }
       },
       {},
-      clientStats.assets
+      clientStats.assets,
     );
     app.use(clientStats.publicPath, (req, res, next) => {
       const fileType = gzipFiles[req.url + ".gz"];

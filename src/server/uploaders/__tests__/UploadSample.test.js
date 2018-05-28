@@ -22,7 +22,10 @@ test.skip("UploadSample: upload file", done => {
   const server = app.listen(0, () => {
     const { port } = server.address();
     const form = new FormData();
-    form.append("file", fs.createReadStream(path.join(__dirname, "/fixtures/logo.png")));
+    form.append(
+      "file",
+      fs.createReadStream(path.join(__dirname, "/fixtures/logo.png")),
+    );
 
     form.submit(`http://localhost:${port}${apiPath}`, (err, res) => {
       if (err) {
@@ -30,7 +33,7 @@ test.skip("UploadSample: upload file", done => {
       }
 
       assertStream.expect({
-        path: /public/
+        path: /public/,
       });
       res.pipe(assertStream);
       assertStream.on("finish", () => {

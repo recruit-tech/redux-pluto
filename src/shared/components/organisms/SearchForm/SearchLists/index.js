@@ -10,11 +10,17 @@ type Props = {
   onInnerWindow: Function,
   shouldAdjustScroll: boolean,
   forceScrollTo: ?{ x: number, y: number },
-  linkURL: string
+  linkURL: string,
 };
 
 export default pure(function SearchLists(props: Props) {
-  const { items, onInnerWindow, shouldAdjustScroll, forceScrollTo, linkURL } = props;
+  const {
+    items,
+    onInnerWindow,
+    shouldAdjustScroll,
+    forceScrollTo,
+    linkURL,
+  } = props;
 
   return (
     <Root>

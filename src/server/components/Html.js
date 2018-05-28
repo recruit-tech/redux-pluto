@@ -9,15 +9,15 @@ export default compose(
     assets: PropTypes.object.isRequired,
     content: PropTypes.string,
     initialState: PropTypes.string.isRequired,
-    clientConfig: PropTypes.string.isRequired
-  })
+    clientConfig: PropTypes.string.isRequired,
+  }),
 )(function Html(props) {
   const {
     content,
     initialState,
     clientConfig,
     assets: { publicPath, scripts, stylesheets, inlineStylesheets, cssHashRaw },
-    styles
+    styles,
   } = props;
 
   return (
@@ -30,7 +30,7 @@ export default compose(
           type="text/css"
           media="screen, projection"
           dangerouslySetInnerHTML={{
-            __html: styles
+            __html: styles,
           }}
         />
         {stylesheets &&
@@ -50,7 +50,7 @@ export default compose(
               type="text/css"
               media="screen, projection"
               dangerouslySetInnerHTML={{
-                __html: style.content
+                __html: style.content,
               }}
             />
           ))}
@@ -72,7 +72,7 @@ export default compose(
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{
-            __html: `window.__CSS_CHUNKS__= ${JSON.stringify(cssHashRaw)}`
+            __html: `window.__CSS_CHUNKS__= ${JSON.stringify(cssHashRaw)}`,
           }}
         />
       </body>

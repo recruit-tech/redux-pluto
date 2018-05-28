@@ -9,6 +9,6 @@ import Counter from "./Counter";
 export default compose(
   deferLoader((props, { dispatch }) => dispatch(increment())),
   connect(state => ({
-    counterValue: counterSelector(state).value
-  }))
+    counterValue: counterSelector(state).value,
+  })),
 )(Counter);

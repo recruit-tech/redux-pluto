@@ -33,6 +33,6 @@ export default function apiErrorMiddleware() {
 
         return Promise.reject(error);
       });
-    }
+    },
   });
 }

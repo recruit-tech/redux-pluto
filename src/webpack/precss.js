@@ -8,80 +8,80 @@ const processors = [
   {
     plugin: require("postcss-partial-import"),
     namespace: "import",
-    defaults: {}
+    defaults: {},
   },
   {
     plugin: require("postcss-sassy-mixins"), // changed from postcss-mixins
     namespace: "mixins",
-    defaults: {}
+    defaults: {},
   },
   {
     plugin: require("postcss-advanced-variables"),
     namespace: "variables",
-    defaults: {}
+    defaults: {},
   },
   {
     plugin: require("postcss-custom-media"),
     namespace: "media",
-    defaults: {}
+    defaults: {},
   },
   {
     plugin: require("postcss-custom-properties"),
     namespace: "properties",
-    defaults: {}
+    defaults: {},
   },
   {
     plugin: require("postcss-media-minmax"),
     namespace: "minmax",
-    defaults: {}
+    defaults: {},
   },
   {
     plugin: require("postcss-color-function"),
     namespace: "color",
-    defaults: {}
+    defaults: {},
   },
   {
     plugin: require("postcss-nesting"),
     namespace: "nesting",
-    defaults: {}
+    defaults: {},
   },
   {
     plugin: require("postcss-nested"),
     namespace: "nested",
-    defaults: {}
+    defaults: {},
   },
   {
     plugin: require("postcss-custom-selectors"),
     namespace: "selectors",
-    defaults: {}
+    defaults: {},
   },
   {
     plugin: require("postcss-atroot"),
     namespace: "atroot",
-    defaults: {}
+    defaults: {},
   },
   {
     plugin: require("postcss-property-lookup"),
     namespace: "lookup",
     defaults: {
-      logLevel: "warn"
-    }
+      logLevel: "warn",
+    },
   },
   {
     plugin: require("postcss-extend"),
     namespace: "extend",
-    defaults: {}
+    defaults: {},
   },
   {
     plugin: require("postcss-selector-matches"),
     namespace: "matches",
-    defaults: {}
+    defaults: {},
   },
   {
     plugin: require("postcss-selector-not"),
     namespace: "not",
-    defaults: {}
-  }
+    defaults: {},
+  },
 ];
 
 // load all plugins

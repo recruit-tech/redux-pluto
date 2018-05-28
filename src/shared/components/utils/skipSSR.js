@@ -9,7 +9,7 @@ const skipSSR = (AlternativeComponent = <div />) => ComposedComponent =>
     constructor(props, context) {
       super(props, context);
       this.state = {
-        show: false
+        show: false,
       };
       this.onShow = this.onShow.bind(this);
     }
