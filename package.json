@@ -19,6 +19,7 @@
     "eslint:fix": "eslint bin src --fix",
     "fixpack": "fixpack",
     "lint": "run-s eslint",
+    "lint:fix": "run-s eslint:fix",
     "prod": "run-s clean build start:prod",
     "start": "npm run start:dev",
     "start:csr": "cross-env DISABLE_SSR=1 npm run start:dev",

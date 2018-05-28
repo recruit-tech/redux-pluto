@@ -14,7 +14,9 @@ export async function fetchTopStoryIds(): Promise<number[]> {
   return res.data;
 }
 
-export async function fetchTopStories(page: number = 1): Promise<HackerNewsItem[]> {
+export async function fetchTopStories(
+  page: number = 1,
+): Promise<HackerNewsItem[]> {
   const ids = await fetchTopStoryIds();
   const slicedIds = ids.slice((page - 1) * 10, page * 10);
   return Promise.all(slicedIds.map(id => fetchItem(id)));

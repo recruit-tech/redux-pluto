@@ -23,20 +23,20 @@ export type State = {
     auth: AuthState,
     counter: CounterState,
     alert: AlertState,
-    loading: LoadingState
+    loading: LoadingState,
   },
   page: {
     agreedSample: AgreedSampleState,
     search: SearchState,
     searchList: SearchListstate,
     style: StyleState,
-    hackerNews: HackerNewsState
+    hackerNews: HackerNewsState,
   },
   // libraries
   form: *,
   reduxAsyncLoader: *,
   routing: *,
-  analytics: *
+  analytics: *,
 };
 
 export default combineReducers({
@@ -45,7 +45,7 @@ export default combineReducers({
     auth,
     counter,
     alert,
-    loading
+    loading,
   }),
   page: pageScopeReducer(
     combineReducers({
@@ -54,13 +54,13 @@ export default combineReducers({
       searchList,
       style,
       uploadSample,
-      hackerNews
-    })
+      hackerNews,
+    }),
   ),
   form: formReducer,
   reduxAsyncLoader,
   routing: routerReducer,
-  analytics: analyticsReducer
+  analytics: analyticsReducer,
 });
 
 /**

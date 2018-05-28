@@ -8,8 +8,10 @@ let needFailure = null;
 Fetchr.registerService({
   name: "agreedSample",
   read(req, resource, params, config, cb) {
-    return needFailure ? cb(new Error("failure")) : cb(needFailure, { text: "Hello world" });
-  }
+    return needFailure
+      ? cb(new Error("failure"))
+      : cb(needFailure, { text: "Hello world" });
+  },
 });
 
 test("agreedSample: getText success", async () => {
@@ -18,7 +20,7 @@ test("agreedSample: getText success", async () => {
   assert.deepEqual(store.getState().page.agreedSample, {
     text: "Hello world",
     loading: false,
-    loaded: true
+    loaded: true,
   });
 });
 
@@ -33,7 +35,7 @@ test("agreedSample: getText failure", async done => {
       text: "",
       error: true,
       loading: false,
-      loaded: false
+      loaded: false,
     });
     done();
   }

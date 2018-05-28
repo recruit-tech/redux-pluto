@@ -29,7 +29,7 @@ const decorateFunction = (decorator, props, { dispatch, getState }) => func => (
 
 const getPropFunctionDecorator = decorators => (
   props,
-  { dispatch, getState }
+  { dispatch, getState },
 ) =>
   reduce((acc, [key, mapFunc]) => {
     const func = props[key];
@@ -46,24 +46,24 @@ export default (mapPropsToActions = {}) => WrappedComponent => {
   const getDecoratedPropFunctions = compose(
     getPropFunctionDecorator,
     filter(([_, v]) => isFunction(v)),
-    entries
+    entries,
   )(mapPropsToActions);
 
   class WrapperComponent extends Component {
     render() {
       const props = {
         ...this.props,
-        ...getDecoratedPropFunctions(this.props, this.context.store)
+        ...getDecoratedPropFunctions(this.props, this.context.store),
       };
       return <WrappedComponent {...props} />;
     }
   }
 
   WrapperComponent.displayName = `BindActionToPropFunctions(${getDisplayName(
-    WrappedComponent
+    WrappedComponent,
   )})`;
   WrapperComponent.contextTypes = {
-    store: PropTypes.object.isRequired
+    store: PropTypes.object.isRequired,
   };
 
   return hoistStatics(WrapperComponent, WrappedComponent);

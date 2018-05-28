@@ -7,7 +7,7 @@ import { Link as ReactRouterLink } from "react-router";
 type Props = {
   children: Node,
   to: string,
-  checked: boolean
+  checked: boolean,
 };
 
 export default pure(function MenuItem(props: Props) {
@@ -22,7 +22,7 @@ export default pure(function MenuItem(props: Props) {
 
 const Item = styled.div.attrs({
   role: "menuitemradio",
-  "aria-checked": props => props.checked
+  "aria-checked": props => props.checked,
 })`
   flex-grow: 1;
   background-color: lightgrey;

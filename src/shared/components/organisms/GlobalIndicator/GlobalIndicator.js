@@ -4,7 +4,7 @@ import pure from "recompose/pure";
 import Indicator from "shared/components/atoms/Indicator";
 
 type Props = {|
-  loading: boolean
+  loading: boolean,
 |};
 
 export default pure(function GlobalIndicator(props: Props) {

@@ -3,8 +3,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { compose, shouldUpdate } from "recompose";
 import { sendAnalytics, sendEvent } from "react-redux-analytics";
-import { siteSections, onAsyncLoaderLoaded } from "shared/redux/analytics/utils";
-import { FOO_EVENT_VARIABLE, EVENTS } from "shared/redux/analytics/variableNames";
+import {
+  siteSections,
+  onAsyncLoaderLoaded,
+} from "shared/redux/analytics/utils";
+import {
+  FOO_EVENT_VARIABLE,
+  EVENTS,
+} from "shared/redux/analytics/variableNames";
 import bindActionToPropFunctions from "shared/components/utils/bindActionToPropFunctions";
 
 export default compose(
@@ -14,7 +20,7 @@ export default compose(
       onClickMe: fooVal => () => {
         // This is a dummy event handler
         // to show how to send event using react-redux-analytics.
-      }
+      },
     }),
   ),
   bindActionToPropFunctions({
@@ -22,16 +28,16 @@ export default compose(
       sendEvent(
         {
           [EVENTS]: ["event10"],
-          [FOO_EVENT_VARIABLE]: fooVal
+          [FOO_EVENT_VARIABLE]: fooVal,
         },
-        []
-      )
+        [],
+      ),
   }),
   sendAnalytics({
     ...siteSections("foo", "top"),
-    onDataReady: onAsyncLoaderLoaded
+    onDataReady: onAsyncLoaderLoaded,
   }),
-  shouldUpdate(() => false)
+  shouldUpdate(() => false),
 )(function Foo(props) {
   const { onClickMe } = props;
 

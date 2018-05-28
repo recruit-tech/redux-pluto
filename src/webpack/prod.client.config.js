@@ -15,16 +15,13 @@ module.exports = {
 
   devtool: false,
 
-  entry: [
-    "babel-polyfill",
-    path.resolve(rootDir, "src/client/index.js"),
-  ],
+  entry: ["babel-polyfill", path.resolve(rootDir, "src/client/index.js")],
 
   output: {
     path: outputPath,
     filename: "[name]-[chunkhash].js",
     chunkFilename: "[name]-[chunkhash].js",
-    publicPath: outputPublicPath
+    publicPath: outputPublicPath,
   },
 
   module: {
@@ -33,15 +30,15 @@ module.exports = {
         test: /\.js$/,
         include: [
           path.resolve(rootDir, "src/client"),
-          path.resolve(rootDir, "src/shared")
+          path.resolve(rootDir, "src/shared"),
         ],
         exclude: [/node_modules/],
         use: {
           loader: "babel-loader",
           options: {
-            forceEnv: "production:client"
-          }
-        }
+            forceEnv: "production:client",
+          },
+        },
       },
       {
         test: /\.scss$/,
@@ -52,33 +49,33 @@ module.exports = {
               options: {
                 modules: true,
                 localIdentName: "[local]--[hash:base64:8]",
-                minimize: true
-              }
+                minimize: true,
+              },
             },
-            "postcss-loader"
-          ]
-        })
-      }
-    ]
+            "postcss-loader",
+          ],
+        }),
+      },
+    ],
   },
 
   resolve: {
     modules: [
       path.resolve(rootDir, "src/client"),
       path.resolve(rootDir, "src/shared"),
-      "node_modules"
+      "node_modules",
     ],
     extensions: [".js", ".jsx"],
     enforceModuleExtension: false,
     alias: {
       "lodash-es": "lodash",
-      joi: "joi-browser"
-    }
+      joi: "joi-browser",
+    },
   },
 
   plugins: [
     new StatsPlugin("stats.json", {
-      chunkModules: true
+      chunkModules: true,
     }),
     new ExtractCssChunks(),
 
@@ -89,7 +86,7 @@ module.exports = {
       __DEVELOPMENT__: false,
       __DEVTOOLS__: false,
       __DISABLE_SSR__: !!process.env.DISABLE_SSR,
-      __REPORTSUITE_ENV__: JSON.stringify(process.env.RS_ENV)
+      __REPORTSUITE_ENV__: JSON.stringify(process.env.RS_ENV),
     }),
 
     // optimizations
@@ -97,22 +94,22 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       names: ["bootstrap"], // needed to put webpack bootstrap code before chunks
       filename: "[name].[chunkhash].js",
-      minChunks: Infinity
+      minChunks: Infinity,
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         unused: true,
         dead_code: true,
         warnings: false,
-        screw_ie8: true
-      }
+        screw_ie8: true,
+      },
     }),
     new CompressionPlugin({
       asset: "[path].gz[query]",
       algorithm: "gzip",
       test: /\.js$|\.css$|\.html$/,
       threshold: 1024,
-      minRatio: 0.8
-    })
-  ]
+      minRatio: 0.8,
+    }),
+  ],
 };

@@ -1,7 +1,11 @@
 /* @flow */
 import React from "react";
 import { compose, pure, type HOC } from "recompose";
-import { showOnScroll, adjustScroll, forceScroll } from "shared/components/utils/scrollComponents";
+import {
+  showOnScroll,
+  adjustScroll,
+  forceScroll,
+} from "shared/components/utils/scrollComponents";
 import SearchListItem from "shared/components/atoms/SearchListItem";
 
 type Props = {
@@ -9,13 +13,18 @@ type Props = {
     id: string,
     name: string,
     logo_image_square: string,
-    description: string
+    description: string,
   }>,
   page: number,
-  linkURL: string
+  linkURL: string,
 };
 
-const enhance: HOC<Props, Props> = compose(pure, showOnScroll, adjustScroll, forceScroll);
+const enhance: HOC<Props, Props> = compose(
+  pure,
+  showOnScroll,
+  adjustScroll,
+  forceScroll,
+);
 
 export default enhance(function SearchList(props: Props) {
   const { items, page, linkURL } = props;
@@ -27,7 +36,9 @@ export default enhance(function SearchList(props: Props) {
   return (
     <div data-page={page}>
       <span>~~~~ {page} ~~~~</span>
-      {items.map(item => <SearchListItem item={item} key={item.id} linkURL={linkURL} />)}
+      {items.map(item => (
+        <SearchListItem item={item} key={item.id} linkURL={linkURL} />
+      ))}
     </div>
   );
 });

@@ -43,8 +43,8 @@ const Items = ({ fields }) => (
 export default compose(
   onlyUpdateForPropTypes,
   setPropTypes({
-    ...formPropTypes
-  })
+    ...formPropTypes,
+  }),
 )(function LargeForm(props) {
   return (
     <Main>

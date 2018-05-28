@@ -14,14 +14,14 @@ const password = Joi.string()
   .options({
     language: {
       string: {
-        regex: { base: "3文字以上15文字以下の英数字を入力してください。" }
-      }
-    }
+        regex: { base: "3文字以上15文字以下の英数字を入力してください。" },
+      },
+    },
   });
 
 const schema = Joi.object().keys({
   username,
-  password
+  password,
 });
 
 export default function validate(values: *) {

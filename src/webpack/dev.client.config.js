@@ -25,31 +25,34 @@ module.exports = {
         timeout: 20000,
         reload: false,
         quiet: false,
-        noInfo: false
+        noInfo: false,
       }),
     "react-hot-loader/patch",
-    path.resolve(rootDir, "src/client/index.js")
+    path.resolve(rootDir, "src/client/index.js"),
   ],
 
   output: {
     path: outputPath,
     filename: "[name].js",
     chunkFilename: "[name].js",
-    publicPath: outputPublicPath
+    publicPath: outputPublicPath,
   },
 
   module: {
     rules: [
       {
         test: /\.js$/,
-        include: [path.resolve(rootDir, "src/client"), path.resolve(rootDir, "src/shared")],
+        include: [
+          path.resolve(rootDir, "src/client"),
+          path.resolve(rootDir, "src/shared"),
+        ],
         exclude: [/node_modules/],
         use: {
           loader: "babel-loader",
           options: {
-            forceEnv: "development:client"
-          }
-        }
+            forceEnv: "development:client",
+          },
+        },
       },
       {
         test: /\.scss$/,
@@ -59,27 +62,27 @@ module.exports = {
               loader: "css-loader",
               options: {
                 modules: true,
-                localIdentName: "[path]__[name]__[local]--[hash:base64:5]"
-              }
+                localIdentName: "[path]__[name]__[local]--[hash:base64:5]",
+              },
             },
-            "postcss-loader"
-          ]
-        })
-      }
-    ]
+            "postcss-loader",
+          ],
+        }),
+      },
+    ],
   },
 
   resolve: {
     modules: [
       path.resolve(rootDir, "src/client"),
       path.resolve(rootDir, "src/shared"),
-      "node_modules"
+      "node_modules",
     ],
     extensions: [".js", ".jsx"],
     enforceModuleExtension: false,
     alias: {
-      joi: "joi-browser"
-    }
+      joi: "joi-browser",
+    },
   },
 
   plugins: [
@@ -93,7 +96,7 @@ module.exports = {
       __DEVELOPMENT__: true,
       __DEVTOOLS__: true,
       __DISABLE_SSR__: !!process.env.DISABLE_SSR,
-      __REPORTSUITE_ENV__: JSON.stringify("dev")
+      __REPORTSUITE_ENV__: JSON.stringify("dev"),
     }),
 
     new webpack.NoEmitOnErrorsPlugin(),
@@ -103,7 +106,7 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       names: ["bootstrap"], // needed to put webpack bootstrap code before chunks
       filename: "[name].js",
-      minChunks: Infinity
-    })
-  ]
+      minChunks: Infinity,
+    }),
+  ],
 };

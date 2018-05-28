@@ -4,7 +4,16 @@ import { Route, IndexRoute } from "react-router";
 import { checkLogin, logout } from "../redux/modules/auth";
 
 // non chunked components
-import { App, Error, Footer, Header, Home, Main, NotFound, DefaultLayout } from "./main";
+import {
+  App,
+  Error,
+  Footer,
+  Header,
+  Home,
+  Main,
+  NotFound,
+  DefaultLayout,
+} from "./main";
 
 // chunked components
 import {
@@ -14,7 +23,7 @@ import {
   loadLargeForm,
   loadLogin,
   loadHackerNews,
-  loadUploadSample
+  loadUploadSample,
 } from "./misc";
 
 import { loadSearchForm, loadSearch } from "./search";
@@ -56,7 +65,8 @@ export default function getRoutes(store: $FIXME) {
   );
 
   function bindOnEnter(handler) {
-    return (nextState, replace, cb) => handler({ nextState, cb: bindCb(replace, cb) });
+    return (nextState, replace, cb) =>
+      handler({ nextState, cb: bindCb(replace, cb) });
   }
 
   function bindCb(replace, cb) {
@@ -72,7 +82,10 @@ export default function getRoutes(store: $FIXME) {
   function requiredLogin({ nextState, cb }) {
     store
       .dispatch(checkLogin())
-      .then(() => cb(), err => cb(`/login?location=${nextState.location.pathname}`));
+      .then(
+        () => cb(),
+        err => cb(`/login?location=${nextState.location.pathname}`),
+      );
   }
 
   function doLogout({ cb }) {

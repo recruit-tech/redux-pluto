@@ -9,9 +9,9 @@ type Props = {
   gender: ?Gender,
   genderItems: {
     [Gender]: {
-      name: string
-    }
-  }
+      name: string,
+    },
+  },
 };
 
 export default pure(function GenderMenu(props: Props) {

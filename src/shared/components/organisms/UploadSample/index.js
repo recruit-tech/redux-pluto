@@ -9,7 +9,7 @@ export default compose(
   (connect: $FIXME)(
     state => ({
       loading: state.page.uploadSample.loading,
-      value: state.page.uploadSample.value
+      value: state.page.uploadSample.value,
     }),
     (dispatch, ownProps) => ({
       onInputFile: e => {
@@ -23,7 +23,7 @@ export default compose(
         dispatch(uploadFile(file)).then(() => {
           file = null;
         });
-      }
-    })
-  )
+      },
+    }),
+  ),
 )(UploadSample);

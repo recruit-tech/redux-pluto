@@ -8,7 +8,7 @@ import GlobalIndicator from "shared/components/organisms/GlobalIndicator";
 type Props = {
   header: Node,
   main: Node,
-  footer: Node
+  footer: Node,
 };
 
 export default pure((props: Props) => {

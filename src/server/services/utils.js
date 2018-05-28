@@ -16,7 +16,7 @@ export function read(axios: any, name: string, pathname: string, query: any) {
         return rejectWith(fumble.create(), {
           name,
           formattedUrl,
-          reason: "no result"
+          reason: "no result",
         });
       }
 
@@ -28,7 +28,12 @@ export function read(axios: any, name: string, pathname: string, query: any) {
 
       return results;
     },
-    error => rejectWith(fumble.create(), { name, formattedUrl, reason: error.message })
+    error =>
+      rejectWith(fumble.create(), {
+        name,
+        formattedUrl,
+        reason: error.message,
+      }),
   );
 }
 
@@ -38,7 +43,7 @@ export function readAll(
   pathname: string,
   params: any,
   itemsName: string,
-  loaded: any = []
+  loaded: any = [],
 ) {
   const actualParams = { ...params, start: loaded.length + 1 };
   return read(axios, name, pathname, actualParams).then(results => {
@@ -54,7 +59,10 @@ export function readAll(
       return results;
     }
 
-    return readAll(axios, name, pathname, params, itemsName, [...loaded, ...items]);
+    return readAll(axios, name, pathname, params, itemsName, [
+      ...loaded,
+      ...items,
+    ]);
   });
 }
 
@@ -64,7 +72,7 @@ export function create(
   pathname: string,
   body: any,
   query: any,
-  headers: any
+  headers: any,
 ) {
   const formattedUrl = formatUrl({ pathname, query });
   debug(`[${name}]: POST ${formattedUrl} with body: ${JSON.stringify(body)}`);
@@ -76,15 +84,15 @@ export function create(
         return rejectWith(fumble.http.create(error.response.status), {
           name,
           formattedUrl,
-          reason: error.response.data
+          reason: error.response.data,
         });
       }
       return rejectWith(fumble.http.create(500), {
         name,
         formattedUrl,
-        reason: error.message
+        reason: error.message,
       });
-    }
+    },
   );
 }
 

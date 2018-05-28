@@ -9,10 +9,10 @@ import Alert from "./Alert";
 export default compose(
   connect(
     state => ({
-      alert: alertSelector(state)
+      alert: alertSelector(state),
     }),
     bindActionCreators({
-      onClose: clearAlert
-    })
-  )
+      onClose: clearAlert,
+    }),
+  ),
 )(Alert);

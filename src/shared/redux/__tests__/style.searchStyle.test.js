@@ -13,14 +13,14 @@ Fetchr.registerService({
     return needFailure
       ? cb(new Error("failure"))
       : cb(null, { results_available: "10", style: ["foo", "bar"] });
-  }
+  },
 });
 
 test("style: searchStyle success", async () => {
   const searchStyleAction = searchStyle({ query: "foo" });
   const initialState = Immutable({ page: { style: INITIAL_STATE } });
   const store = createStore({
-    initialState
+    initialState,
   });
   return store.dispatch(searchStyleAction).then(() => {
     const state = store.getState().page.style;
@@ -29,7 +29,7 @@ test("style: searchStyle success", async () => {
       loaded: true,
       params: { query: "foo" },
       count: 10,
-      items: ["foo", "bar"]
+      items: ["foo", "bar"],
     });
   });
 });
@@ -38,7 +38,7 @@ test("style: searchStyle failure", done => {
   const searchStyleAction = searchStyle({ query: "foo" });
   const initialState = Immutable({ page: { style: INITIAL_STATE } });
   const store = createStore({
-    initialState
+    initialState,
   });
   needFailure = true;
   store.dispatch(searchStyleAction).then(done.fail, () => {
@@ -49,7 +49,7 @@ test("style: searchStyle failure", done => {
       params: { query: "foo" },
       count: 0,
       items: [],
-      error: true
+      error: true,
     });
     done();
   });

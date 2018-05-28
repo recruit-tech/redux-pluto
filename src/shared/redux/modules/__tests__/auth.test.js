@@ -8,18 +8,18 @@ test("State: checkLoginSuccess", done => {
   const steps = checkLoginAction.meta.steps[0];
   const INITIAL_STATE = Immutable({
     login: false,
-    username: null
+    username: null,
   });
   const checkLoginSuccess = steps[0];
   const state = reducer(
     INITIAL_STATE,
     checkLoginSuccess({
-      sub: "haruka"
-    })
+      sub: "haruka",
+    }),
   );
   assert.deepEqual(state, {
     login: true,
-    username: "haruka"
+    username: "haruka",
   });
   done();
 });
@@ -29,13 +29,13 @@ test("State: checkLoginFail", done => {
   const steps = checkLoginAction.meta.steps[0];
   const INITIAL_STATE = Immutable({
     login: true,
-    username: "haruka"
+    username: "haruka",
   });
   const checkLoginFail = steps[1];
   const state = reducer(INITIAL_STATE, checkLoginFail());
   assert.deepEqual(state, {
     login: false,
-    username: null
+    username: null,
   });
   done();
 });
@@ -45,18 +45,18 @@ test("State: loginSuccess", done => {
   const steps = loginAction.meta.steps[0];
   const INITIAL_STATE = Immutable({
     login: false,
-    username: null
+    username: null,
   });
   const loginSuccessAction = steps[0];
   const state = reducer(
     INITIAL_STATE,
     loginSuccessAction({
-      sub: "haruka"
-    })
+      sub: "haruka",
+    }),
   );
   assert.deepEqual(state, {
     login: true,
-    username: "haruka"
+    username: "haruka",
   });
   done();
 });
@@ -66,13 +66,13 @@ test("State: loginFail", done => {
   const steps = loginAction.meta.steps[0];
   const INITIAL_STATE = Immutable({
     login: true,
-    username: "haruka"
+    username: "haruka",
   });
   const loginFailAction = steps[1];
   const state = reducer(INITIAL_STATE, loginFailAction());
   assert.deepEqual(state, {
     login: false,
-    username: undefined
+    username: undefined,
   });
   done();
 });
@@ -82,13 +82,13 @@ test("State: logoutSuccess", done => {
   const steps = logoutAction.meta.steps[0];
   const INITIAL_STATE = Immutable({
     login: true,
-    username: "haruka"
+    username: "haruka",
   });
   const logoutSuccessAction = steps[0];
   const state = reducer(INITIAL_STATE, logoutSuccessAction());
   assert.deepEqual(state, {
     login: false,
-    username: undefined
+    username: undefined,
   });
   done();
 });
@@ -98,7 +98,7 @@ test("State: logoutFail", done => {
   const steps = logoutAction.meta.steps[0];
   const INITIAL_STATE = Immutable({
     login: true,
-    username: "haruka"
+    username: "haruka",
   });
   const logoutFailAction = steps[1];
   const state = reducer(INITIAL_STATE, logoutFailAction());
