@@ -50,7 +50,10 @@ export default function(initialState, options = {}) {
     }
   }
 
-  const enhancer = compose(applyMiddleware(...middlewares), ...devTools);
+  const enhancer = compose(
+    applyMiddleware(...middlewares),
+    ...devTools,
+  );
 
   const store = createStore(reducer, initialState, enhancer);
 
