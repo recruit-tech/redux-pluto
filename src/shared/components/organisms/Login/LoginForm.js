@@ -75,7 +75,6 @@ export default compose(
 
 const Row = styled.div`
   display: flex;
-}
 `;
 
 const Label = styled.label`
