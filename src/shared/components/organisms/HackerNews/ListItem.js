@@ -9,9 +9,7 @@ type Props = {
 export default function ListItem({ item }: Props) {
   return (
     <div>
-      <a href={item.url} target="_blank">
-        {item.title}
-      </a>
+      <a href={item.url}>{item.title}</a>
     </div>
   );
 }
