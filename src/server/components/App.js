@@ -24,7 +24,7 @@ injectGlobal`
 
   h2 {
     font-size: 36px;
-    line-height: calc(48/36);
+    line-height: calc(48 / 36);
     margin-bottom: 24px;
   }
 
@@ -57,7 +57,7 @@ injectGlobal`
     border-width: 10px !important;
     border-style: solid !important;
     padding: 10px !important;
-    backgound-color: red !important;
+    background-color: red !important;
   }
 `;
 
