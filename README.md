@@ -29,7 +29,7 @@ $ yarn run start:prod
 
 ### 開発チュートリアル
 
-[https://atlassian.rtc.sc/confluence/pages/viewpage.action?pageId=53231269](https://atlassian.rtc.sc/confluence/pages/viewpage.action?pageId=53231269)
+TBD
 
 ## WebStormユーザ
 
