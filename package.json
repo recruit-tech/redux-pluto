@@ -183,5 +183,16 @@
     "webpack-hot-middleware": "^2.18.2",
     "webpack-hot-server-middleware": "^0.1.0",
     "write-file-webpack-plugin": "^4.1.0"
+  },
+  "greenkeeper": {
+    "ignore": [
+      "react-router",
+      "webpack",
+      "webpack-flush-chunks",
+      "extract-css-chunks-webpack-plugin",
+      "webpack-dev-middleware",
+      "webpack-hot-middleware",
+      "webpack-hot-server-middleware"
+    ]
   }
 }
