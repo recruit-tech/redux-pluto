@@ -1,6 +1,6 @@
 # React/Redux Isomorphic Prototype
 
-[![CircleCI](https://circleci.com/gh/recruit-tech/redux-pluto.svg?style=svg)](https://circleci.com/gh/recruit-tech/redux-pluto)
+[![CircleCI](https://circleci.com/gh/recruit-tech/redux-pluto.svg?style=svg)](https://circleci.com/gh/recruit-tech/redux-pluto) [![Greenkeeper badge](https://badges.greenkeeper.io/recruit-tech/redux-pluto.svg)](https://greenkeeper.io/)
 ## インストール
 
 ```
