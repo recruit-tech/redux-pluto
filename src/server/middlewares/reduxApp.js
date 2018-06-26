@@ -244,6 +244,8 @@ function sendSSRResponse({
   timing.startTime("html", "Rendering HTML");
   timing.startTime("ssr", "Server Side Rendering");
 
+  res.set("Content-Type", "text/html");
+
   let content = "";
   stream.on("data", chunk => {
     content += chunk;
