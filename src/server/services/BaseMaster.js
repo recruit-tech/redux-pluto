@@ -5,7 +5,9 @@ import { readAll } from "./utils";
 
 export default class BaseMaster extends BaseService {
   itemsName: string;
+
   formatResult: Function;
+
   constructor(
     config: any,
     name: string,

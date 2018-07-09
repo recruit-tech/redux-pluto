@@ -63,7 +63,7 @@ export default (mapPropsToActions = {}) => WrappedComponent => {
     WrappedComponent,
   )})`;
   WrapperComponent.contextTypes = {
-    store: PropTypes.object.isRequired,
+    store: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   };
 
   return hoistStatics(WrapperComponent, WrappedComponent);

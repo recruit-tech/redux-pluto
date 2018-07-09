@@ -4,8 +4,11 @@ import { read } from "./utils";
 
 export default class AgreedSample {
   name: string;
+
   axios: any;
+
   pathname: string;
+
   constructor(config: any) {
     this.name = "agreedSample";
     this.axios = createAxios(config.agreed.config.axios); // サンプル用にここだけ agreed server 向けの axios を利用

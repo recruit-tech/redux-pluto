@@ -13,9 +13,13 @@ export const ACCESS_TOKEN_AUDIENCE_NAME = "redux-proto";
 
 export default class AccessToken {
   name: string;
+
   maxAge: number;
+
   key: string;
+
   secret: string;
+
   constructor(config: any) {
     this.name = "accessToken";
     this.maxAge = config.auth.maxAge;
