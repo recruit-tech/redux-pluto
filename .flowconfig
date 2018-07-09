@@ -5,6 +5,7 @@
 [libs]
 
 [lints]
+deprecated-call-syntax=off
 
 [options]
 suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
