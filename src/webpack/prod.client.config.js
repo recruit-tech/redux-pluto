@@ -53,7 +53,6 @@ module.exports = {
     enforceModuleExtension: false,
     alias: {
       "lodash-es": "lodash",
-      joi: "joi-browser",
     },
   },
 
