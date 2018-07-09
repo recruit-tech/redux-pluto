@@ -118,7 +118,6 @@
     "react/jsx-no-duplicate-props": "error",
     "react/jsx-tag-spacing": ["error", {"beforeSelfClosing": "always"}],
     "react/jsx-wrap-multilines": "error",
-    "react/button-has-type": "off",
 
     // a11y
     "jsx-a11y/no-static-element-interactions": "off",

@@ -43,7 +43,9 @@ export default compose(
 
   return (
     <div>
-      Foo!<button onClick={onClickMe("fooooo")}>Click me!</button>
+      Foo!<button type="button" onClick={onClickMe("fooooo")}>
+        Click me!
+      </button>
     </div>
   );
 });
