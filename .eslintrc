@@ -107,6 +107,7 @@
     "react/prefer-stateless-function": "error",
     "react/prop-types": "off",
     "react/self-closing-comp": "off",
+    "react/destructuring-assignment": "off",
 
     // JSX
     "react/jsx-equals-spacing": "error",
@@ -124,13 +125,9 @@
       "components": [ "Link" ],
       "specialLink": [ "to" ]
     }],
-    "jsx-a11y/label-has-for": [ 2, {
-      "components": [ "Label" ],
-      "required": {
-        "every": [ "nesting", "id" ]
-      },
-      "allowChildren": false
-    }],
+    // this rules Deprecated. 
+    // see:https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/label-has-for.md
+    "jsx-a11y/label-has-for": "off",
 
     // import
     "import/order": [

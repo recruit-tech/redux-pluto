@@ -4,6 +4,8 @@ import { compose } from "recompose";
 import { isFunction, entries, reduce, filter } from "lodash/fp";
 import hoistStatics from "hoist-non-react-statics";
 
+const { isRequired } = PropTypes.object;
+
 const getDisplayName = component => component.displayName || component.name;
 
 const isAction = obj =>
@@ -63,7 +65,7 @@ export default (mapPropsToActions = {}) => WrappedComponent => {
     WrappedComponent,
   )})`;
   WrapperComponent.contextTypes = {
-    store: PropTypes.object.isRequired,
+    store: isRequired,
   };
 
   return hoistStatics(WrapperComponent, WrappedComponent);

@@ -1,7 +1,9 @@
 /* @flow */
 export default class Counter {
   name: string;
+
   counter: number;
+
   constructor() {
     this.name = "counter";
     this.counter = 0;

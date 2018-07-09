@@ -18,7 +18,7 @@ export default pure(function UploadSample(props: Props) {
         <input type="file" onChange={onInputFile} value={value} />
       </div>
       <div>
-        <button onClick={onSubmitFile} disabled={loading}>
+        <button type="button" onClick={onSubmitFile} disabled={loading}>
           submit
         </button>
       </div>

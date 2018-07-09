@@ -31,7 +31,9 @@ export default pure(function Alert(props: Props) {
                 <span>{message}</span>
               </MessageArea>
               <ButtonArea>
-                <button onClick={onClose}>閉じる</button>
+                <button type="button" onClick={onClose}>
+                  閉じる
+                </button>
               </ButtonArea>
             </DisplayArea>
           </ObiInner>
