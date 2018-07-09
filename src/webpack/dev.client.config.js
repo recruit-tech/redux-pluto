@@ -54,21 +54,6 @@ module.exports = {
           },
         },
       },
-      {
-        test: /\.scss$/,
-        use: ExtractCssChunks.extract({
-          use: [
-            {
-              loader: "css-loader",
-              options: {
-                modules: true,
-                localIdentName: "[path]__[name]__[local]--[hash:base64:5]",
-              },
-            },
-            "postcss-loader",
-          ],
-        }),
-      },
     ],
   },
 

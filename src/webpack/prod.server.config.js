@@ -60,20 +60,6 @@ module.exports = {
           },
         },
       },
-      {
-        test: /\.scss$/,
-        exclude: [/node_modules/],
-        use: [
-          {
-            loader: "css-loader/locals",
-            options: {
-              modules: true,
-              localIdentName: "[local]--[hash:base64:8]",
-            },
-          },
-          "postcss-loader",
-        ],
-      },
     ],
   },
 
