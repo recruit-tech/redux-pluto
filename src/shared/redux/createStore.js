@@ -13,6 +13,7 @@ import apiError from "./middleware/apiErrorMiddleware";
 import auth from "./middleware/authMiddleware";
 import loading from "./middleware/loadingMiddleware";
 import uploader from "./middleware/uploader";
+import fetchrMock from "./middleware/fetchrMockMiddleware";
 import reducer from "./modules/reducer";
 
 export default function(initialState, options = {}) {
@@ -21,6 +22,7 @@ export default function(initialState, options = {}) {
     auth(),
     cookie(...options.cookie),
     options.fetchrCache ? fetchrCache(options.fetchrCache) : null,
+    fetchrMock(options.fetchrMock),
     apiError(),
     options.csrfToken ? uploader(options.csrfToken) : null,
     fetchr(options.fetchr),

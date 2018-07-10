@@ -10,7 +10,7 @@ import multer from "multer";
 import serverTiming from "server-timing";
 import { transform } from "lodash/fp";
 import config from "./configs";
-import { apiGateway, offloadDetector, reduxApp } from "./middlewares";
+import { apiGateway, offloadDetector, reduxApp, recorder } from "./middlewares";
 import * as uploaders from "./uploaders";
 
 const upload = multer(config.multer);
@@ -26,6 +26,9 @@ export default function renderer({
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded(config.bodyParser.urlencoded));
   app.use(cookieParser(config.cookieParser));
+  if (__DEVELOPMENT__) {
+    config.recorder && app.use("/recorder", recorder(config.recorder));
+  }
   app.use(session({ store: sessionStore, ...config.session }));
   app.use(csurf(config.csurf));
   app.use(serverTiming());

@@ -28,6 +28,10 @@ export default {
     saveUninitialized: false,
   },
 
+  recorder: {
+    path: path.resolve(rootDir, "build", "mock.json"),
+  },
+
   // https://github.com/expressjs/csurf
   csurf: {
     cookie: true,
@@ -55,6 +59,9 @@ export default {
 
   // https://github.com/yahoo/fetchr
   fetchr: {},
+  fetchrMock: {
+    baseURL: "http://localhost:3000"
+  },
 
   offload: {
     limit: 5,
