@@ -1,7 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
 const CompressionPlugin = require("compression-webpack-plugin");
-const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
 const StatsPlugin = require("stats-webpack-plugin");
 
 const rootDir = path.resolve(__dirname, "../..");
@@ -61,7 +60,6 @@ module.exports = {
     new StatsPlugin("stats.json", {
       chunkModules: true,
     }),
-    new ExtractCssChunks(),
 
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify("production"),
