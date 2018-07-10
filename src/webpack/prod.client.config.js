@@ -1,7 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
 const CompressionPlugin = require("compression-webpack-plugin");
-const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
 const StatsPlugin = require("stats-webpack-plugin");
 
 const rootDir = path.resolve(__dirname, "../..");
@@ -9,11 +8,11 @@ const outputPath = path.resolve(rootDir, "build/client");
 const outputPublicPath = "/public/";
 
 module.exports = {
+  mode: "production",
+
   name: "client",
 
   target: "web",
-
-  devtool: false,
 
   entry: ["babel-polyfill", path.resolve(rootDir, "src/client/index.js")],
 
@@ -56,11 +55,17 @@ module.exports = {
     },
   },
 
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+      name: "bootstrap",
+    },
+  },
+
   plugins: [
     new StatsPlugin("stats.json", {
       chunkModules: true,
     }),
-    new ExtractCssChunks(),
 
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify("production"),
@@ -73,20 +78,6 @@ module.exports = {
     }),
 
     // optimizations
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ["bootstrap"], // needed to put webpack bootstrap code before chunks
-      filename: "[name].[chunkhash].js",
-      minChunks: Infinity,
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        unused: true,
-        dead_code: true,
-        warnings: false,
-        screw_ie8: true,
-      },
-    }),
     new CompressionPlugin({
       asset: "[path].gz[query]",
       algorithm: "gzip",

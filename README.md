@@ -20,9 +20,8 @@ $ yarn start
 ### プロダクションモード
 
 ```
-$ yarn run clean
-$ yarn run build
-$ yarn run start:prod
+$ yarn build
+$ yarn start:prod
 ```
 
 [見る](http://localhost:3000)

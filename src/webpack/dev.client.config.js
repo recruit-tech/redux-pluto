@@ -2,13 +2,14 @@ const path = require("path");
 const qs = require("query-string");
 const webpack = require("webpack");
 const WriteFilePlugin = require("write-file-webpack-plugin");
-const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
 
 const rootDir = path.resolve(__dirname, "../..");
 const outputPath = path.resolve(rootDir, "build/client");
 const outputPublicPath = "/public/";
 
 module.exports = {
+  mode: "development",
+
   name: "client",
 
   target: "web",
@@ -67,9 +68,16 @@ module.exports = {
     enforceModuleExtension: false,
   },
 
+  optimization: {
+    noEmitOnErrors: true,
+    splitChunks: {
+      chunks: "all",
+      name: "bootstrap",
+    },
+  },
+
   plugins: [
     new WriteFilePlugin(),
-    new ExtractCssChunks(),
 
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify("development"),
@@ -80,15 +88,6 @@ module.exports = {
       __DISABLE_SSR__: !!process.env.DISABLE_SSR,
       __REPORTSUITE_ENV__: JSON.stringify("dev"),
     }),
-
-    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
-
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ["bootstrap"], // needed to put webpack bootstrap code before chunks
-      filename: "[name].js",
-      minChunks: Infinity,
-    }),
   ],
 };
