@@ -168,7 +168,6 @@
       "react-router",
       "webpack",
       "webpack-flush-chunks",
-      "extract-css-chunks-webpack-plugin",
       "webpack-dev-middleware",
       "webpack-hot-middleware",
       "webpack-hot-server-middleware",
