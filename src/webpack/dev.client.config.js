@@ -64,9 +64,6 @@ module.exports = {
     ],
     extensions: [".js", ".jsx"],
     enforceModuleExtension: false,
-    alias: {
-      joi: "joi-browser",
-    },
   },
 
   plugins: [
