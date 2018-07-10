@@ -8,11 +8,11 @@ const outputPath = path.resolve(rootDir, "build/client");
 const outputPublicPath = "/public/";
 
 module.exports = {
+  mode: "production",
+
   name: "client",
 
   target: "web",
-
-  devtool: false,
 
   entry: ["babel-polyfill", path.resolve(rootDir, "src/client/index.js")],
 
@@ -55,6 +55,13 @@ module.exports = {
     },
   },
 
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+      name: "bootstrap",
+    },
+  },
+
   plugins: [
     new StatsPlugin("stats.json", {
       chunkModules: true,
@@ -71,20 +78,6 @@ module.exports = {
     }),
 
     // optimizations
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ["bootstrap"], // needed to put webpack bootstrap code before chunks
-      filename: "[name].[chunkhash].js",
-      minChunks: Infinity,
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        unused: true,
-        dead_code: true,
-        warnings: false,
-        screw_ie8: true,
-      },
-    }),
     new CompressionPlugin({
       asset: "[path].gz[query]",
       algorithm: "gzip",

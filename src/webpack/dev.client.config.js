@@ -8,6 +8,8 @@ const outputPath = path.resolve(rootDir, "build/client");
 const outputPublicPath = "/public/";
 
 module.exports = {
+  mode: "development",
+
   name: "client",
 
   target: "web",
@@ -66,6 +68,14 @@ module.exports = {
     enforceModuleExtension: false,
   },
 
+  optimization: {
+    noEmitOnErrors: true,
+    splitChunks: {
+      chunks: "all",
+      name: "bootstrap",
+    },
+  },
+
   plugins: [
     new WriteFilePlugin(),
 
@@ -78,15 +88,6 @@ module.exports = {
       __DISABLE_SSR__: !!process.env.DISABLE_SSR,
       __REPORTSUITE_ENV__: JSON.stringify("dev"),
     }),
-
-    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
-
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ["bootstrap"], // needed to put webpack bootstrap code before chunks
-      filename: "[name].js",
-      minChunks: Infinity,
-    }),
   ],
 };

@@ -25,6 +25,8 @@ const externals = fs
   }, {});
 
 module.exports = {
+  mode: "development",
+
   name: "server",
 
   target: "node",
