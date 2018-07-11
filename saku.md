@@ -67,6 +67,10 @@ lint:style
 ---
     $(npm bin)/stylelint src
 
+flow
+---
+    $(npm bin)/flow
+
 prod
 ---
     $(npm bin)/saku clean build start:prod
