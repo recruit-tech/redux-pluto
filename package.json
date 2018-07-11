@@ -126,7 +126,6 @@
     "eslint-plugin-react": "^7.10.0",
     "flow-bin": "^0.76.0",
     "form-data": "^2.3.1",
-    "husky": "^0.15.0-rc.13",
     "jest": "^23.3.0",
     "npm-run-all": "^4.0.2",
     "nsp": "^3.2.1",
@@ -165,11 +164,6 @@
       "eslint-config-airbnb",
       "flow-bin"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
-    }
   },
   "jest": {
     "testMatch": [
