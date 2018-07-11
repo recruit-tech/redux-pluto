@@ -1,4 +1,3 @@
-/* eslint-disable no-undefined */
 import Fetchr from "fetchr";
 import assert from "power-assert";
 import { getText } from "../modules/agreedSample";

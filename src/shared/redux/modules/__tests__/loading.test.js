@@ -1,5 +1,4 @@
 /* @flow */
-/* eslint-disable no-undefined */
 import assert from "power-assert";
 import reducer, { startLoading, stopLoading } from "../loading";
 
