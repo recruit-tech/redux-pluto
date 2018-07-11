@@ -5,7 +5,7 @@ analytics
 build
 ---
 
-    $(npm bin)/cross-env NODE_ENV=production RS_ENV=prd saku clean build:client build:server build:size
+    $(npm bin)/cross-env NODE_ENV=production RS_ENV=prd $(npm bin)/saku clean build:client build:server build:size
 
 build-storybook
 ---
