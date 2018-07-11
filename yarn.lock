@@ -4101,18 +4101,6 @@ execa@^0.7.0:
     signal-exit "^3.0.0"
     strip-eof "^1.0.0"
 
-execa@^0.9.0:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/execa/-/execa-0.9.0.tgz#adb7ce62cf985071f60580deb4a88b9e34712d01"
-  dependencies:
-    cross-spawn "^5.0.1"
-    get-stream "^3.0.0"
-    is-stream "^1.1.0"
-    npm-run-path "^2.0.0"
-    p-finally "^1.0.0"
-    signal-exit "^3.0.0"
-    strip-eof "^1.0.0"
-
 execall@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/execall/-/execall-1.0.0.tgz#73d0904e395b3cab0658b08d09ec25307f29bb73"
@@ -5105,19 +5093,6 @@ https-proxy-agent@^2.1.0:
 humanize@0.0.9:
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/humanize/-/humanize-0.0.9.tgz#1994ffaecdfe9c441ed2bdac7452b7bb4c9e41a4"
-
-husky@^0.15.0-rc.13:
-  version "0.15.0-rc.13"
-  resolved "https://registry.yarnpkg.com/husky/-/husky-0.15.0-rc.13.tgz#a27550b7b51d2f472e284b48fc9257a6d6b3f681"
-  dependencies:
-    cosmiconfig "^4.0.0"
-    execa "^0.9.0"
-    is-ci "^1.1.0"
-    pkg-dir "^2.0.0"
-    pupa "^1.0.0"
-    read-pkg "^3.0.0"
-    run-node "^0.2.0"
-    slash "^1.0.0"
 
 hyphenate-style-name@^1.0.1, hyphenate-style-name@^1.0.2:
   version "1.0.2"
@@ -8241,10 +8216,6 @@ punycode@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
 
-pupa@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/pupa/-/pupa-1.0.0.tgz#9a9568a5af7e657b8462a6e9d5328743560ceff6"
-
 puppeteer@^1.2.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-1.4.0.tgz#437f0f3450d76e437185c0bf06f446e80f184692"
@@ -9215,10 +9186,6 @@ run-async@^2.2.0:
   resolved "https://registry.yarnpkg.com/run-async/-/run-async-2.3.0.tgz#0371ab4ae0bdd720d4166d7dfda64ff7a445a6c0"
   dependencies:
     is-promise "^2.1.0"
-
-run-node@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/run-node/-/run-node-0.2.0.tgz#b26e942e94205dedbe532cddf0fd1dbd56649af6"
 
 run-queue@^1.0.0, run-queue@^1.0.3:
   version "1.0.3"
