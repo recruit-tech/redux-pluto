@@ -39,16 +39,11 @@ function importCss(chunkName) {
   const href = getHref(chunkName);
   if (!href) {
     if (__DEVELOPMENT__) {
-      // eslint-disable-next-line no-underscore-dangle
-      if (__SERVER__ || !window.__CSS_CHUNKS__) {
-        debug(
-          '[DUAL-IMPORT] no css chunks hash found at "window.__CSS_CHUNKS__"',
-        );
+      if (__SERVER__ || !__CSS_CHUNKS__) {
+        debug('[DUAL-IMPORT] no css chunks hash found at "__CSS_CHUNKS__"');
         return null;
       }
-      debug(
-        `[DUAL-IMPORT] no chunk, ${chunkName}, found in "window.__CSS_CHUNKS__"`,
-      );
+      debug(`[DUAL-IMPORT] no chunk, ${chunkName}, found in "__CSS_CHUNKS__"`);
     }
     return null;
   }
@@ -92,9 +87,9 @@ function importCss(chunkName) {
 
 function getHref(chunkName) {
   /* eslint-disable no-underscore-dangle */
-  if (__SERVER__ || !window.__CSS_CHUNKS__) {
+  if (__SERVER__ || !__CSS_CHUNKS__) {
     return null;
   }
-  return window.__CSS_CHUNKS__[chunkName];
+  return __CSS_CHUNKS__[chunkName];
   /* eslint-enable no-underscore-dangle */
 }

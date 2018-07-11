@@ -43,7 +43,8 @@
     "__DISABLE_SSR__": true,
     "__ENABLE_OFFLOAD__": true,
     "__DISABLE_INLINE_CSS__": true,
-    "__REPORTSUITE_ENV__": true
+    "__REPORTSUITE_ENV__": true,
+    "__CSS_CHUNKS__": true
   },
 
   "settings": {

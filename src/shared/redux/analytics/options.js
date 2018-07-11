@@ -14,7 +14,6 @@ import {
 } from "./variableNames";
 
 const mapStateToVariables = (state: RootState) => {
-  /* eslint-disable no-unused-vars */
   const {
     app: { auth },
   } = state;
