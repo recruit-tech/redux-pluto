@@ -32,9 +32,9 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run: yarn lint
-      - run: yarn flow
-      - run: yarn test
-      - run: yarn analytics
-      - run: yarn build
-      - run: yarn build-storybook
+      - run: npx saku lint
+      - run: npx saku flow
+      - run: npx saku test
+      - run: npx saku analytics
+      - run: npx saku build
+      - run: npx saku build-storybook
