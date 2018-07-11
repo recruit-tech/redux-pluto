@@ -5,6 +5,7 @@
   "private": true,
   "main": "src/server/server.js",
   "scripts": {
+    "analytics": "sonarish src",
     "build": "cross-env NODE_ENV=production RS_ENV=prd run-s clean build:{client,server,size}",
     "build-storybook": "build-storybook",
     "build:client": "webpack --verbose --colors --display-error-details --config src/webpack/prod.client.config.js",
