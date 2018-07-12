@@ -4,7 +4,7 @@
 ## インストール
 
 ```
-$ yarn
+$ npm i --nosave
 ```
 
 ## 実行
@@ -12,7 +12,7 @@ $ yarn
 ### 開発モード (SSRあり)
 
 ```
-$ yarn start
+$ npm start
 ```
 
 [見る](http://localhost:3000)
@@ -20,8 +20,8 @@ $ yarn start
 ### プロダクションモード
 
 ```
-$ yarn build
-$ yarn start:prod
+$ npm run build
+$ npm run start:prod
 ```
 
 [見る](http://localhost:3000)
