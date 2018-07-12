@@ -1,0 +1,13 @@
+{
+  "eslintOptions": {
+    "parser": "babel-eslint",
+    "useEslintrc": true
+  },
+  "extends": [
+    "sonarish-ruleset/recommended"
+  ],
+  "prefer": "sonarish|eslint",
+  "scoreRules": {
+    "code-quality": []
+  }
+}

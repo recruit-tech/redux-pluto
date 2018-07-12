@@ -1,8 +1,10 @@
 /* @flow */
 import React from "react";
+import { type Store } from "redux";
 import { Provider } from "react-redux";
 import RouterContext from "react-router/lib/RouterContext";
 import { injectGlobal } from "styled-components";
+import { type State } from "../../shared/redux/modules/reducer";
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
@@ -62,7 +64,7 @@ injectGlobal`
 `;
 
 type Props = {
-  store: $FIXME, // TODO: Set Store
+  store: Store<State, *>,
 };
 
 export default function App(props: Props) {

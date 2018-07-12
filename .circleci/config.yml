@@ -36,5 +36,6 @@ jobs:
       - run: npm run flow
       - run: npm test
       - run: npm audit
+      - run: npm run analytics
       - run: npm run build
       - run: npm run build-storybook
