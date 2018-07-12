@@ -89,10 +89,11 @@
     "webpack-flush-chunks": "^1.1.18"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^3.4.2",
-    "@storybook/addon-storyshots": "^3.4.2",
-    "@storybook/addons": "^3.4.2",
-    "@storybook/react": "^3.4.2",
+    "@storybook/addon-actions": "^4.0.0-alpha.14",
+    "@storybook/addon-storyshots": "^4.0.0-alpha.14",
+    "@storybook/addons": "^4.0.0-alpha.14",
+    "@storybook/core": "^4.0.0-alpha.14",
+    "@storybook/react": "^4.0.0-alpha.14",
     "agreed": "^3.1.0",
     "assert-stream": "^1.1.1",
     "babel-cli": "^6.24.1",
