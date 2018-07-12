@@ -166,6 +166,7 @@
         "power-assert"
       ],
       "plugins": [
+        "require-context-hook",
         "transform-object-rest-spread",
         "syntax-dynamic-import",
         [
