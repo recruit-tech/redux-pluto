@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const CompressionPlugin = require("compression-webpack-plugin");
+const WorkboxPlugin = require("workbox-webpack-plugin");
 const StatsPlugin = require("stats-webpack-plugin");
 
 const rootDir = path.resolve(__dirname, "../..");
@@ -84,6 +85,12 @@ module.exports = {
       test: /\.js$|\.css$|\.html$/,
       threshold: 1024,
       minRatio: 0.8,
+    }),
+
+    new WorkboxPlugin.GenerateSW({
+      swDest: "sw/sw.js",
+      clientsClaim: true,
+      skipWaiting: true,
     }),
   ],
 };

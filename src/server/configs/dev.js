@@ -39,6 +39,10 @@ export default {
   // https://github.com/expressjs/serve-static
   assets: [
     {
+      mount: "/",
+      path: path.resolve(rootDir, "build/client/sw"),
+    },
+    {
       mount: "/public",
       path: path.resolve(rootDir, "statics"),
     },
