@@ -34,8 +34,8 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: npm run lint
       - run: npm run flow
-      - run: npm test
-        # - run: npm audit --prod if npm is updated.
+      - run: npm run test:coverage
+      - run: npm audit
       - run: npm run analytics
       - run: npm run build
       - run: npm run build-storybook
