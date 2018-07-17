@@ -1,7 +1,7 @@
 /* @flow */
 /* eslint-disable react/no-danger */
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 import { compose, setPropTypes } from "recompose";
 
 export default compose(
@@ -31,6 +31,26 @@ export default compose(
           media="screen, projection"
           dangerouslySetInnerHTML={{
             __html: styles,
+          }}
+        />
+        {/* Install serviceWorker only modern browser */}
+        <script
+          type="module"
+          dangerouslySetInnerHTML={{
+            __html: `
+            if (navigator.serviceWorker != null) {
+              let isFirstInstall = navigator.serviceWorker.controller == null;
+              navigator.serviceWorker.addEventListener('controllerchange', () => {
+                if (isFirstInstall) {
+                  isFirstInstall = true
+                } else {
+                  // Update detected
+                  // Prompt to reload
+                }
+              });
+              navigator.serviceWorker.register('/sw.js');
+            }
+            `,
           }}
         />
         {stylesheets &&
