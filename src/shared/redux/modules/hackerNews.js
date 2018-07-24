@@ -28,7 +28,7 @@ export function fetchItems(page: number = 1) {
   return steps(
     fetchItemsRequest({ resource: "hackerNews", params: { page } }),
     ({ payload }) => fetchrRead(payload),
-    [fetchItemsSuccess, fetchItemsFail],
+    [fetchItemsSuccess, error => fetchItemsFail({ error })],
   );
 }
 
@@ -70,10 +70,17 @@ export default (handleActions(
       };
     },
 
-    [FETCH_ITEMS_FAIL]: (state, { error }) => ({
-      ...state,
-      loading: false,
-    }),
+    [FETCH_ITEMS_FAIL]: (state, action) => {
+      const {
+        payload: { error },
+      } = action;
+
+      return {
+        ...state,
+        loading: false,
+        error,
+      };
+    },
   },
   INITIAL_STATE,
 ): Reducer<State, *>);
