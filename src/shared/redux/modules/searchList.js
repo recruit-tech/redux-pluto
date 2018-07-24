@@ -138,7 +138,9 @@ export default (handleActions(
     },
 
     [SALON_LIST_SEARCH_FAIL]: (state, action) => {
-      const { error } = action;
+      const {
+        payload: { error },
+      } = action;
 
       return {
         ...state,
@@ -194,7 +196,9 @@ export default (handleActions(
     },
 
     [SALON_LIST_SEARCH_MORE_FAIL]: (state, action) => {
-      const { error } = action;
+      const {
+        payload: { error },
+      } = action;
 
       return {
         ...state,
