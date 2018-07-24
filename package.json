@@ -162,11 +162,6 @@
   "greenkeeper": {
     "ignore": [
       "react-router",
-      "webpack",
-      "webpack-flush-chunks",
-      "webpack-dev-middleware",
-      "webpack-hot-middleware",
-      "webpack-hot-server-middleware",
       "eslint-config-airbnb",
       "flow-bin"
     ]
