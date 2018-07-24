@@ -1,6 +1,6 @@
 import Fetchr from "fetchr";
 import assert from "power-assert";
-import range from "lodash/fp/range";
+import { range } from "lodash/fp";
 import { searchSearchList, searchMoreSearchList } from "../modules/searchList";
 import { createStore } from "./lib/storeUtils";
 

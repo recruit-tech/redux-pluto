@@ -1,6 +1,6 @@
 import Fetchr from "fetchr";
 import assert from "power-assert";
-import times from "lodash/fp/times";
+import { times } from "lodash/fp";
 import { increment } from "../modules/counter";
 import { createStore } from "./lib/storeUtils";
 
