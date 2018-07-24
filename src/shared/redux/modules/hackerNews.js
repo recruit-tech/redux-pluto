@@ -73,6 +73,7 @@ export default (handleActions(
     [FETCH_ITEMS_FAIL]: (state, { error }) => ({
       ...state,
       loading: false,
+      error,
     }),
   },
   INITIAL_STATE,

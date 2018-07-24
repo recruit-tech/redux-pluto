@@ -40,7 +40,7 @@ export function searchSearchList(params: *) {
     ({ payload }) => fetchrRead(payload),
     [
       payload => searchSearchListsuccess({ params, data: payload.data }),
-      error => searchSearchListFail({ params, error }),
+      searchSearchListFail,
     ],
   );
 }
@@ -63,7 +63,7 @@ export function searchMoreSearchList(params: *) {
     ({ payload }) => fetchrRead(payload),
     [
       payload => searchMoreSearchListsuccess({ params, data: payload.data }),
-      error => searchMoreSearchListFail({ params, error }),
+      searchMoreSearchListFail,
     ],
   );
 }
@@ -137,18 +137,14 @@ export default (handleActions(
       };
     },
 
-    [SALON_LIST_SEARCH_FAIL]: (state, action) => {
-      const { error } = action;
-
-      return {
-        ...state,
-        loading: false,
-        loaded: false,
-        count: 0,
-        items: {},
-        error,
-      };
-    },
+    [SALON_LIST_SEARCH_FAIL]: (state, { error }) => ({
+      ...state,
+      loading: false,
+      loaded: false,
+      count: 0,
+      items: {},
+      error,
+    }),
 
     [SALON_LIST_CLEAR_SEARCH_REQUEST]: (state, action) => ({
       ...INITIAL_STATE,
@@ -193,16 +189,12 @@ export default (handleActions(
       };
     },
 
-    [SALON_LIST_SEARCH_MORE_FAIL]: (state, action) => {
-      const { error } = action;
-
-      return {
-        ...state,
-        loading: false,
-        loaded: false,
-        error,
-      };
-    },
+    [SALON_LIST_SEARCH_MORE_FAIL]: (state, { error }) => ({
+      ...state,
+      loading: false,
+      loaded: false,
+      error,
+    }),
   },
   INITIAL_STATE,
 ): Reducer<State, *>);
