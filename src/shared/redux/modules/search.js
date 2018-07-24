@@ -27,7 +27,7 @@ export function findSalonById(id: string) {
   return steps(
     findSalonByIdRequest({ resource: "search", params: { id } }),
     ({ payload }) => fetchrRead(payload),
-    [findSalonByIdSuccess, findSalonByIdFail],
+    [findSalonByIdSuccess, error => findSalonByIdFail({ error })],
   );
 }
 
@@ -77,12 +77,18 @@ export default (handleActions(
       };
     },
 
-    [FIND_SALON_BY_ID_FAIL]: (state, { error }) => ({
-      ...state,
-      loading: false,
-      loaded: false,
-      error,
-    }),
+    [FIND_SALON_BY_ID_FAIL]: (state, action) => {
+      const {
+        payload: { error },
+      } = action;
+
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        error,
+      };
+    },
   },
   INITIAL_STATE,
 ): Reducer<State, *>);
