@@ -40,7 +40,7 @@ export function searchSearchList(params: *) {
     ({ payload }) => fetchrRead(payload),
     [
       payload => searchSearchListsuccess({ params, data: payload.data }),
-      error => searchSearchListFail({ params, error }),
+      searchSearchListFail,
     ],
   );
 }
@@ -137,20 +137,14 @@ export default (handleActions(
       };
     },
 
-    [SALON_LIST_SEARCH_FAIL]: (state, action) => {
-      const {
-        payload: { error },
-      } = action;
-
-      return {
-        ...state,
-        loading: false,
-        loaded: false,
-        count: 0,
-        items: {},
-        error,
-      };
-    },
+    [SALON_LIST_SEARCH_FAIL]: (state, { error }) => ({
+      ...state,
+      loading: false,
+      loaded: false,
+      count: 0,
+      items: {},
+      error,
+    }),
 
     [SALON_LIST_CLEAR_SEARCH_REQUEST]: (state, action) => ({
       ...INITIAL_STATE,
