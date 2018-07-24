@@ -26,7 +26,8 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: npm ci
+      # see https://github.com/recruit-tech/redux-pluto/pull/77
+      - run: case $CIRCLE_BRANCH in greenkeeper*) npm i;; *) npm ci;; esac;
 
       - save_cache:
           paths:
