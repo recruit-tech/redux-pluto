@@ -63,7 +63,7 @@ export function searchMoreSearchList(params: *) {
     ({ payload }) => fetchrRead(payload),
     [
       payload => searchMoreSearchListsuccess({ params, data: payload.data }),
-      error => searchMoreSearchListFail({ params, error }),
+      searchMoreSearchListFail,
     ],
   );
 }
@@ -195,18 +195,12 @@ export default (handleActions(
       };
     },
 
-    [SALON_LIST_SEARCH_MORE_FAIL]: (state, action) => {
-      const {
-        payload: { error },
-      } = action;
-
-      return {
-        ...state,
-        loading: false,
-        loaded: false,
-        error,
-      };
-    },
+    [SALON_LIST_SEARCH_MORE_FAIL]: (state, { error }) => ({
+      ...state,
+      loading: false,
+      loaded: false,
+      error,
+    }),
   },
   INITIAL_STATE,
 ): Reducer<State, *>);
