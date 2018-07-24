@@ -1,10 +1,10 @@
 import Fetchr from "fetchr";
 import assert from "power-assert";
+import range from "lodash/fp/range";
 import { searchSearchList, searchMoreSearchList } from "../modules/searchList";
 import { createStore } from "./lib/storeUtils";
 
-// create array : [0, 1, 2, ..., 49]
-const searchedItems = Array(...{ length: 50 }).map(Number.call, Number);
+const searchedItems = range(50);
 let needFailure = false;
 let payloadInjection = {};
 Fetchr.registerService({
