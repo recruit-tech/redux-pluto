@@ -15,7 +15,7 @@ import search, { type State as SearchState } from "./search";
 import searchList, { type State as SearchListstate } from "./searchList";
 import style, { type State as StyleState } from "./style";
 import hackerNews, { type State as HackerNewsState } from "./hackerNews";
-import uploadSample from "./uploadSample";
+import uploadSample, { type State as UploadSampleState } from "./uploadSample";
 
 export type State = {
   app: {
@@ -31,6 +31,7 @@ export type State = {
     searchList: SearchListstate,
     style: StyleState,
     hackerNews: HackerNewsState,
+    uploadSample: UploadSampleState,
   },
   // libraries
   form: *,
