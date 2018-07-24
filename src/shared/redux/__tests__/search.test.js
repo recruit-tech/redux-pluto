@@ -1,7 +1,7 @@
 import Fetchr from "fetchr";
 import assert from "power-assert";
-import { createStore } from "./lib/storeUtils";
 import { findSalonById } from "../modules/search";
+import { createStore } from "./lib/storeUtils";
 
 const searchedItems = [
   {

@@ -1,6 +1,6 @@
 import assert from "power-assert";
-import { createStore } from "./lib/storeUtils";
 import { uploadFile } from "../modules/uploadSample";
+import { createStore } from "./lib/storeUtils";
 
 test("uploadSample: uploadFile success", async () => {
   const store = createStore({ cookie: {} });

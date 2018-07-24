@@ -1,13 +1,10 @@
 import Fetchr from "fetchr";
 import assert from "power-assert";
-import { createStore } from "./lib/storeUtils";
 import { searchSearchList, searchMoreSearchList } from "../modules/searchList";
+import { createStore } from "./lib/storeUtils";
 
 // create array : [0, 1, 2, ..., 49]
-const searchedItems = Array.apply(null, { length: 50 }).map(
-  Number.call,
-  Number,
-);
+const searchedItems = Array(...{ length: 50 }).map(Number.call, Number);
 let needFailure = false;
 let payloadInjection = {};
 Fetchr.registerService({
