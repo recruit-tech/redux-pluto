@@ -172,6 +172,11 @@
     ],
     "testMatch": [
       "**/__tests__/*.test.js"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/**/__test__/*.js",
+      "!src/**/*.test.js"
     ]
   }
 }
