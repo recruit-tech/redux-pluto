@@ -16,7 +16,6 @@
     "build:size": "webpack-bundle-size-analyzer build/client/stats.json",
     "clean": "rimraf build/*",
     "clean-start": "run-s clean build start:prod",
-    "test:coverage": "jest --coverage && cat ./coverage/lcov.info | codacy-coverage",
     "fix": "run-s fix:*",
     "fix:js": "eslint bin src --fix",
     "flow": "flow",
@@ -37,7 +36,8 @@
     "test": "jest",
     "test:agreed": "agreed-server --path ./spec/agreed/agreed.js --port 3020",
     "test:old": "run-p test:agreed test:wait-on -r --print-label",
-    "test:wait-on": "wait-on tcp:3020 && cross-env NODE_ENV=test BABEL_ENV=test:unit eater"
+    "test:wait-on": "wait-on tcp:3020 && cross-env NODE_ENV=test BABEL_ENV=test:unit eater",
+    "test:coverage": "jest --coverage && cat ./coverage/lcov.info | codacy-coverage"
   },
   "dependencies": {
     "axios": "^0.18.0",
