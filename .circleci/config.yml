@@ -68,36 +68,43 @@ jobs:
     <<: *build_image
     steps:
       - <<: *restore
+      - <<: *restore_lock
       - run: npm run lint
   flow:
     <<: *build_image
     steps:
       - <<: *restore
+      - <<: *restore_lock
       - run: npm run flow
   audit:
     <<: *build_image
     steps:
       - <<: *restore
+      - <<: *restore_lock
       - run: npm audit
   test:
     <<: *build_image
     steps:
       - <<: *restore
+      - <<: *restore_lock
       - run: npm run test:coverage
   analytics:
     <<: *build_image
     steps:
       - <<: *restore
+      - <<: *restore_lock
       - run: npm run analytics
   build-asset:
     <<: *build_image
     steps:
       - <<: *restore
+      - <<: *restore_lock
       - run: npm run build
   build-storybook:
     <<: *build_image
     steps:
       - <<: *restore
+      - <<: *restore_lock
       - run: npm run build-storybook
 
 workflows:
