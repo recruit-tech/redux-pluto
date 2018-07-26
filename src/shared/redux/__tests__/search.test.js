@@ -44,5 +44,6 @@ test("search: findSalonById fail", async done => {
     const searchState = store.getState().page.search;
     assert.equal(searchState.error, true);
     assert.equal(e.message, "failure");
+    done();
   }
 });

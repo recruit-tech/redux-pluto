@@ -56,6 +56,7 @@ test("searchList: searchSearchList fail", async done => {
     const searchListState = store.getState().page.searchList;
     assert.equal(searchListState.error, true);
     assert.equal(e.message, "failure");
+    done();
   }
 });
 
@@ -103,5 +104,6 @@ test("searchList: searchMoreSearchList fail", async done => {
     const searchListState = store.getState().page.searchList;
     assert.equal(searchListState.error, true);
     assert.equal(e.message, "failure");
+    done();
   }
 });

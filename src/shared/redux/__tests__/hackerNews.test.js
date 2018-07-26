@@ -38,5 +38,6 @@ test("hackerNews: fetchItems fail", async done => {
     const hackerNewsState = store.getState().page.hackerNews;
     assert.equal(hackerNewsState.error, true);
     assert.equal(e.message, "failure");
+    done();
   }
 });
