@@ -3,7 +3,7 @@ import React from "react";
 import pure from "recompose/pure";
 import styled from "styled-components";
 
-const Loader = styled.div`
+export const Loader = styled.div`
   position: absolute;
   margin: -15 0 0 -15;
   width: 30px;
