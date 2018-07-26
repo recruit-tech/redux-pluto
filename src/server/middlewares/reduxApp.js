@@ -140,6 +140,7 @@ export default function createReduxApp(config) {
             }
             // TODO(yosuke): 401系だったらリダイレクトが良いかも。
             // その他の400系の場合は render させる
+            res.statusCode = err.statusCode;
             return renderSSR({
               res,
               store,
