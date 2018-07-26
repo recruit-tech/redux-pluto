@@ -62,6 +62,7 @@ jobs:
       - <<: *restore_lock
       - run: case $CIRCLE_BRANCH in greenkeeper*) npm i;; *) npm ci;; esac;
       - <<: *save_lock
+      - <<: *save
 
   lint:
     <<: *build_image
