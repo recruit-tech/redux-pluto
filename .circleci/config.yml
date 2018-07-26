@@ -13,66 +13,90 @@ build_image: &build_image
     - <<: *base_image
   working_directory: ~/repo
 
-save: &save
+save_lock: &save_lock
   save_cache:
     key: node_modules-{{ checksum "package-lock.json" }}
     paths:
       - node_modules
 
-restore: &restore
+restore_lock: &restore_lock
   restore_cache:
     keys: 
       - node_modules-{{ checksum "package-lock.json" }}
       - node_modules-
 
+save: &save
+  save_cache:
+    key: code-{{ .Revision }}
+    paths:
+      - .
+      - ".git"
+      - "~/.ssh"
+      - "~/repo"
+
+restore: &restore
+  restore_cache:
+    keys: 
+      - code-{{ .Revision }}
 jobs:
   build:
     <<: *build_image
     steps:
       - checkout
+      - <<: *save
+
 
   upload_lock:
     <<: *build_image
     steps:
       - <<: *restore
+      - <<: *restore_lock
       - run: sudo npm install greenkeeper-lockfile@2 -g
       - run: greenkeeper-lockfile-upload
-      - <<: *save
+      - <<: *save_lock
 
   install:
     <<: *build_image
     steps:
       - <<: *restore
+      - <<: *restore_lock
       - run: case $CIRCLE_BRANCH in greenkeeper*) npm i;; *) npm ci;; esac;
-      - <<: *save
+      - <<: *save_lock
 
   lint:
     <<: *build_image
     steps:
+      - <<: *restore
       - run: npm run lint
   flow:
     <<: *build_image
     steps:
+      - <<: *restore
       - run: npm run flow
   audit:
     <<: *build_image
     steps:
+      - <<: *restore
       - run: npm audit
   test:
     <<: *build_image
     steps:
+      - <<: *restore
       - run: npm run test:coverage
   analytics:
     <<: *build_image
     steps:
+      - <<: *restore
       - run: npm run analytics
   build-asset:
     <<: *build_image
     steps:
+      - <<: *restore
       - run: npm run build
   build-storybook:
     <<: *build_image
     steps:
+      - <<: *restore
       - run: npm run build-storybook
 
 workflows:
