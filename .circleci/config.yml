@@ -3,40 +3,139 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 version: 2
+
+base_image: &base_image
+  image: circleci/node:10
+
+
+build_image: &build_image
+  docker:
+    - <<: *base_image
+  working_directory: ~/repo
+
+save_lock: &save_lock
+  save_cache:
+    key: node_modules-{{ checksum "package-lock.json" }}
+    paths:
+      - node_modules
+
+restore_lock: &restore_lock
+  restore_cache:
+    keys: 
+      - node_modules-{{ checksum "package-lock.json" }}
+      - node_modules-
+
+save: &save
+  save_cache:
+    key: code-{{ .Revision }}
+    paths:
+      - .
+      - ".git"
+      - "~/.ssh"
+      - "~/repo"
+
+restore: &restore
+  restore_cache:
+    keys: 
+      - code-{{ .Revision }}
 jobs:
   build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/node:10
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
-    working_directory: ~/repo
-
+    <<: *build_image
     steps:
       - checkout
+      - <<: *save
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
 
-      # see https://github.com/recruit-tech/redux-pluto/pull/77
+  upload_lock:
+    <<: *build_image
+    steps:
+      - <<: *restore
+      - <<: *restore_lock
+      - run: sudo npm install greenkeeper-lockfile@2 -g
+      - run: greenkeeper-lockfile-upload
+      - <<: *save_lock
+
+  install:
+    <<: *build_image
+    steps:
+      - <<: *restore
+      - <<: *restore_lock
       - run: case $CIRCLE_BRANCH in greenkeeper*) npm i;; *) npm ci;; esac;
+      - <<: *save_lock
+      - <<: *save
 
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+  lint:
+    <<: *build_image
+    steps:
+      - <<: *restore
+      - <<: *restore_lock
       - run: npm run lint
+  flow:
+    <<: *build_image
+    steps:
+      - <<: *restore
+      - <<: *restore_lock
       - run: npm run flow
-      - run: npm run test:coverage
+  audit:
+    <<: *build_image
+    steps:
+      - <<: *restore
+      - <<: *restore_lock
       - run: npm audit
+  test:
+    <<: *build_image
+    steps:
+      - <<: *restore
+      - <<: *restore_lock
+      - run: npm run test:coverage
+  analytics:
+    <<: *build_image
+    steps:
+      - <<: *restore
+      - <<: *restore_lock
       - run: npm run analytics
+  build-asset:
+    <<: *build_image
+    steps:
+      - <<: *restore
+      - <<: *restore_lock
       - run: npm run build
+  build-storybook:
+    <<: *build_image
+    steps:
+      - <<: *restore
+      - <<: *restore_lock
       - run: npm run build-storybook
+
+workflows:
+  version: 2
+  exec:
+    jobs:
+      - build
+      - install:
+          requires:
+            - build
+      - upload_lock:
+          requires:
+            - install
+      - lint:
+          requires:
+            - install
+      - flow:
+          requires:
+            - install
+      - audit:
+          requires:
+            - install
+      - test:
+          requires:
+            - install
+      - analytics:
+          requires:
+            - install
+      - build-asset:
+          requires:
+            - install
+      - build-storybook:
+          requires:
+            - install
