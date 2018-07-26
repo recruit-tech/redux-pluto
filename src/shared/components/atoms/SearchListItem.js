@@ -38,7 +38,7 @@ const ShopName = styled.div`
   float: left;
 `;
 
-const Description = styled.div`
+export const Description = styled.div`
   clear: left;
   font-size: 5px;
   border: thin solid grey;
