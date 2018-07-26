@@ -177,8 +177,11 @@
     ],
     "collectCoverageFrom": [
       "src/**/*.js",
-      "!src/**/__test__/*.js",
-      "!src/**/*.test.js"
+      "!src/**/__tests__/**/*.js",
+      "!src/**/*.test.js",
+      "!src/webpack/*.js",
+      "!src/shared/types/*.js",
+      "!src/client/vendor/**/*.js"
     ]
   }
 }
