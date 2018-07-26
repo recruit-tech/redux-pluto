@@ -105,7 +105,7 @@ function setupAppForDevelopment(app) {
   }, 3000);
 
   return new Promise((resolve, reject) => {
-    multiCompiler.plugin("done", multiStats => {
+    multiCompiler.hooks.done.tap("done", multiStats => {
       debug("Done compile");
       clearInterval(intervalId);
       resolve();
