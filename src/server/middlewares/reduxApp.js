@@ -115,25 +115,45 @@ export default function createReduxApp(config) {
         return Promise.all([
           loadOnServer(renderProps, store),
           store.dispatch(checkLogin()).catch(() => null),
-        ]).then(() => {
-          timing.endTime("prefetch");
+        ])
+          .then(() => {
+            timing.endTime("prefetch");
 
-          /*
-         * サーバサイドレンダリングを行います。
-         */
-          renderSSR({
-            res,
-            store,
-            renderProps,
-            config,
-            clientConfig,
-            cssChunks,
-            timing,
+            /*
+            * サーバサイドレンダリングを行います。
+            */
+            renderSSR({
+              res,
+              store,
+              renderProps,
+              config,
+              clientConfig,
+              cssChunks,
+              timing,
+            });
+          })
+          .catch(err => {
+            debug(err);
+            // status コードを見て、 500 系の場合は render しない
+            if (!err.statusCode || err.statusCode >= 500) {
+              throw err;
+            }
+            // TODO(yosuke): 401系だったらリダイレクトが良いかも。
+            // その他の400系の場合は render させる
+            return renderSSR({
+              res,
+              store,
+              renderProps,
+              config,
+              clientConfig,
+              cssChunks,
+              timing,
+            });
           });
-        });
       })
       .catch(err => {
         debug(err);
+        debug(store.getState());
         debug(store.getState().routing);
         return next(err);
       });

@@ -28,12 +28,20 @@ export function read(axios: any, name: string, pathname: string, query: any) {
 
       return results;
     },
-    error =>
-      rejectWith(fumble.create(), {
+    error => {
+      if (error.response) {
+        return rejectWith(fumble.http.create(error.response.status), {
+          name,
+          formattedUrl,
+          reason: error.response.data,
+        });
+      }
+      return rejectWith(fumble.create(500), {
         name,
         formattedUrl,
         reason: error.message,
-      }),
+      });
+    },
   );
 }
 

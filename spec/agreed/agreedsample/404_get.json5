@@ -2,8 +2,12 @@
   request: {
     path: '/agreedsample',
     method: 'GET',
+    query: {
+      status: '404',
+    },
   },
   response: {
+    status: 404,
     body: {
       results: {
         text: '{:text}',
@@ -14,3 +18,5 @@
     },
   },
 }
+
+

@@ -24,11 +24,15 @@ export default function apiErrorMiddleware() {
         const { statusCode } = error;
         if (!statusCode || statusCode >= 500) {
           dispatch(showAlert("サービスに接続できませんでした。"));
+        } else if (statusCode === 400) {
+          dispatch(showAlert("不正なリクエストが発生しました。"));
         } else if (statusCode === 401) {
           const { routing } = getState();
           const { locationBeforeTransitions } = routing;
           const { pathname } = locationBeforeTransitions;
           dispatch(replace(`/login?location=${pathname}`));
+        } else if (statusCode === 404) {
+          dispatch(showAlert("何も見つかりませんでした。"));
         }
 
         return Promise.reject(error);
