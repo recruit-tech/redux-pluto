@@ -27,12 +27,13 @@ test("hackerNews: fetchItems success", async () => {
   });
 });
 
-test("hackerNews: fetchItems fail", async () => {
+test("hackerNews: fetchItems fail", async done => {
   needFailure = true;
   const store = createStore({ cookie: {} });
   const fetchItemsAction = fetchItems(1);
   try {
     await store.dispatch(fetchItemsAction);
+    done.fail();
   } catch (e) {
     const hackerNewsState = store.getState().page.hackerNews;
     assert.equal(hackerNewsState.error, true);
