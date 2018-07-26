@@ -33,15 +33,17 @@ test("search: findSalonById success", async () => {
   });
 });
 
-test("search: findSalonById fail", async () => {
+test("search: findSalonById fail", async done => {
   needFailure = true;
   const store = createStore({ cookie: {} });
   const findSalonByIdAction = findSalonById("salon-id");
   try {
     await store.dispatch(findSalonByIdAction);
+    done.fail();
   } catch (e) {
     const searchState = store.getState().page.search;
     assert.equal(searchState.error, true);
     assert.equal(e.message, "failure");
+    done();
   }
 });

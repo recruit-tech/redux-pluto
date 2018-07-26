@@ -44,17 +44,19 @@ test("searchList: searchSearchList success", async () => {
   });
 });
 
-test("searchList: searchSearchList fail", async () => {
+test("searchList: searchSearchList fail", async done => {
   needFailure = true;
   const store = createStore({ cookie: {} });
   const searchSearchListAction = searchSearchList({});
 
   try {
     await store.dispatch(searchSearchListAction);
+    done.fail();
   } catch (e) {
     const searchListState = store.getState().page.searchList;
     assert.equal(searchListState.error, true);
     assert.equal(e.message, "failure");
+    done();
   }
 });
 
@@ -90,16 +92,18 @@ test("searchList: searchMoreSearchList success", async () => {
   });
 });
 
-test("searchList: searchMoreSearchList fail", async () => {
+test("searchList: searchMoreSearchList fail", async done => {
   needFailure = true;
   const store = createStore({ cookie: {} });
 
   const searchMoreSearchListAction = searchMoreSearchList({});
   try {
     await store.dispatch(searchMoreSearchListAction);
+    done.fail();
   } catch (e) {
     const searchListState = store.getState().page.searchList;
     assert.equal(searchListState.error, true);
     assert.equal(e.message, "failure");
+    done();
   }
 });
