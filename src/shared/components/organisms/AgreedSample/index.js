@@ -11,7 +11,14 @@ import {
 import AgreedSample from "./AgreedSample";
 
 const enhancer = compose(
-  asyncLoader((_, { dispatch }) => dispatch(getText())),
+  asyncLoader(({ location }, { dispatch }) => {
+    const { query: locationQuery } = location;
+    if (!locationQuery) {
+      return dispatch(getText());
+    }
+    const { status } = locationQuery;
+    return dispatch(getText(status));
+  }),
   connect(state => ({
     text: state.page.agreedSample.text,
   })),
