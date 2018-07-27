@@ -13,4 +13,5 @@ module.exports = {
     "^.+\\.json5?$": "json5-jest",
     "^.+\\.js$": "babel-jest",
   },
+  testEnvironment: "node",
 };
