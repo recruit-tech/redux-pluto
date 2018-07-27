@@ -11,6 +11,6 @@ module.exports = {
   ],
   transform: {
     "^.+\\.json5?$": "json5-jest",
-    "^.+\\.js?$": "babel-jest",
+    "^.+\\.js$": "babel-jest",
   },
 };
