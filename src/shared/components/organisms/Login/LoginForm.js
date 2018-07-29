@@ -4,7 +4,6 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { propTypes as formPropTypes, Field } from "redux-form";
 import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
-import skipSSR from "../../utils/skipSSR";
 
 const labels = {
   username: "Username",
@@ -26,17 +25,12 @@ const RenderInput = ({ input, meta: { dirty, error } }): $FIXME => (
   </Row>
 );
 
-const Alternative = styled.div`
-  height: 63px;
-`;
-
 export default compose(
   onlyUpdateForPropTypes,
   setPropTypes({
     globalFormDisabled: PropTypes.bool,
     ...formPropTypes,
   }),
-  skipSSR(<Alternative />),
 )(function LoginForm(props) {
   const {
     globalFormDisabled,
