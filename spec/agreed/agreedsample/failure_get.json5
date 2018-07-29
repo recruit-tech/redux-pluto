@@ -3,11 +3,11 @@
     path: '/agreedsample',
     method: 'GET',
     query: {
-      status: '400',
+      status: '{:status}',
     },
   },
   response: {
-    status: 400,
+    status: '{:status}',
     body: {
       results: {
         text: '{:text}',
@@ -18,4 +18,5 @@
     },
   },
 }
+
 
