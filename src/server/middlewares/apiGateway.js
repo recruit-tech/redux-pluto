@@ -3,14 +3,16 @@ import Fetchr from "fetchr";
 import debugFactory from "debug";
 import * as services from "server/services";
 import { verify } from "server/services/AccessToken";
+import requestAdapter from "./requestAdapter";
 
 const debug = debugFactory("app:server:middleware:apiGateway");
 
-export default function apiGateway(config: any) {
+export default function apiGateway(config: any, app: any) {
   Object.values(services).forEach((Service: any) => {
     const service = new Service(config);
     debug(`Registering sevice: ${service.name}`);
     Fetchr.registerService(makeServiceAdapter(service, config.auth.secret));
+    requestAdapter(service, app, config);
   });
 
   return (req: any, res: any, next: Function) => {

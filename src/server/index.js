@@ -67,7 +67,7 @@ export default function renderer({
     app.use(asset.mount, express.static(asset.path));
   });
 
-  app.use(config.clientConfig.fetchr.xhrPath, apiGateway(config));
+  app.use(config.clientConfig.fetchr.xhrPath, apiGateway(config, app));
   app.use(compression());
   if (__ENABLE_OFFLOAD__) {
     app.use(offloadDetector(config.offload));

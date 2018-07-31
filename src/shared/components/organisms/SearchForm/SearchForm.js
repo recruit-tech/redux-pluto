@@ -29,7 +29,6 @@ type Props = FormProps & {
   shouldAdjustScroll: boolean,
   linkURL: string,
   forceScrollTo: ?Object,
-  globalFormDisabled: boolean,
 };
 
 export default compose(
@@ -49,7 +48,6 @@ export default compose(
     shouldAdjustScroll: PropTypes.bool.isRequired,
     linkURL: PropTypes.string.isRequired,
     forceScrollTo: PropTypes.object,
-    globalFormDisabled: PropTypes.bool,
   }),
 )(function SearchForm(props: Props) {
   const {
@@ -68,7 +66,6 @@ export default compose(
     shouldAdjustScroll,
     linkURL,
     forceScrollTo,
-    globalFormDisabled,
   } = props;
 
   return (
@@ -84,7 +81,7 @@ export default compose(
                 component="input"
                 autoFocus={!count}
               />
-              <button type="submit" disabled={globalFormDisabled || submitting}>
+              <button type="submit" disabled={submitting}>
                 Search
               </button>
             </div>

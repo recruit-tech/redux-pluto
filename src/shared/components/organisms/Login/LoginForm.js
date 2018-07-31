@@ -1,7 +1,6 @@
 /* @flow */
 import React from "react";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 import { propTypes as formPropTypes, Field } from "redux-form";
 import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
 
@@ -28,22 +27,21 @@ const RenderInput = ({ input, meta: { dirty, error } }): $FIXME => (
 export default compose(
   onlyUpdateForPropTypes,
   setPropTypes({
-    globalFormDisabled: PropTypes.bool,
     ...formPropTypes,
   }),
 )(function LoginForm(props) {
   const {
-    globalFormDisabled,
     error,
     handleSubmit,
     reset,
     submitting,
     submitFailed,
     anyTouched,
+    csrf,
   } = props;
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} method="POST">
       {error && <div>{error}</div>}
       {!error &&
         submitFailed &&
@@ -52,14 +50,12 @@ export default compose(
         <Field name="username" component={RenderInput} />
         <Field name="password" component={RenderInput} />
       </div>
+      <input type="hidden" name="_csrf" value={csrf} />
       <div>
-        <button type="submit" disabled={globalFormDisabled || submitting}>
+        <button type="submit" disabled={submitting}>
           Login
         </button>
-        <button
-          type="button"
-          disabled={globalFormDisabled || submitting}
-          onClick={reset}>
+        <button type="button" disabled={submitting} onClick={reset}>
           Clear
         </button>
       </div>
