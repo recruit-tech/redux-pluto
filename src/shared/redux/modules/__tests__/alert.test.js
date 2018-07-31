@@ -1,5 +1,5 @@
 /* @flow */
-import assert from "power-assert";
+import assert from "assert";
 import Immutable from "seamless-immutable";
 import reducer, { showAlert, clearAlert } from "../alert";
 
@@ -9,7 +9,7 @@ test("State: showAlert", done => {
     message: "",
   });
   const state = reducer(INITIAL_STATE, showAlertAction);
-  assert.deepEqual(state, {
+  assert.deepStrictEqual(state, {
     message: "test",
   });
   done();
@@ -21,7 +21,7 @@ test("State: clearAlert", done => {
     message: "test",
   });
   const state = reducer(INITIAL_STATE, clearAlertAction);
-  assert.deepEqual(state, {
+  assert.deepStrictEqual(state, {
     message: "",
   });
   done();

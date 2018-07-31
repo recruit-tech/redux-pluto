@@ -1,10 +1,10 @@
 /* @flow */
 import fs from "fs";
 import path from "path";
+import assert from "assert";
 import multer from "multer";
 import express from "express";
 import FormData from "form-data";
-import assert from "power-assert";
 import AssertStream from "assert-stream";
 import UploadSample from "../UploadSample";
 import configs from "../../configs";

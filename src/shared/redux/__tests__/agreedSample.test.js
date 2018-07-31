@@ -1,5 +1,5 @@
+import assert from "assert";
 import Fetchr from "fetchr";
-import assert from "power-assert";
 import { getText } from "../modules/agreedSample";
 import { createStore } from "./lib/storeUtils";
 
@@ -16,7 +16,7 @@ Fetchr.registerService({
 test("agreedSample: getText success", async () => {
   const store = createStore({ cookie: {} });
   await store.dispatch(getText());
-  assert.deepEqual(store.getState().page.agreedSample, {
+  assert.deepStrictEqual(store.getState().page.agreedSample, {
     text: "Hello world",
     loading: false,
     loaded: true,
@@ -30,7 +30,7 @@ test("agreedSample: getText failure", async done => {
     await store.dispatch(getText());
     done.fail();
   } catch (_e) {
-    assert.deepEqual(store.getState().page.agreedSample, {
+    assert.deepStrictEqual(store.getState().page.agreedSample, {
       text: "",
       error: true,
       loading: false,

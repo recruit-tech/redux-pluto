@@ -1,7 +1,7 @@
 /* @flow */
 /* eslint-disable no-undefined, callback-return */
+import assert from "assert";
 import Fetchr from "fetchr";
-import assert from "power-assert";
 import Immutable from "seamless-immutable";
 import { INITIAL_STATE, searchStyle } from "../modules/style";
 import { createStore } from "./lib/storeUtils";
@@ -24,7 +24,7 @@ test("style: searchStyle success", async () => {
   });
   return store.dispatch(searchStyleAction).then(() => {
     const state = store.getState().page.style;
-    assert.deepEqual(state, {
+    assert.deepStrictEqual(state, {
       loading: false,
       loaded: true,
       params: { query: "foo" },
@@ -43,7 +43,7 @@ test("style: searchStyle failure", done => {
   needFailure = true;
   store.dispatch(searchStyleAction).then(done.fail, () => {
     const state = store.getState().page.style;
-    assert.deepEqual(state, {
+    assert.deepStrictEqual(state, {
       loading: false,
       loaded: false,
       params: { query: "foo" },

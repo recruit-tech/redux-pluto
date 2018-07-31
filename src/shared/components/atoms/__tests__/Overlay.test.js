@@ -1,6 +1,6 @@
+import assert from "assert";
 import React from "react";
 import { mount } from "enzyme";
-import assert from "power-assert";
 import Overlay from "../Overlay";
 
 const Text = () => <div>Text</div>;
@@ -13,7 +13,7 @@ test("Overlay: onClick", () => {
     </Overlay>,
   );
   wrapper.simulate("click");
-  assert.equal(onClick.mock.calls.length, 1);
+  assert.strictEqual(onClick.mock.calls.length, 1);
 });
 
 test("Overlay: has children", () => {
@@ -23,5 +23,5 @@ test("Overlay: has children", () => {
       <Text />
     </Overlay>,
   );
-  assert.equal(wrapper.find(Text).length, 1);
+  assert.strictEqual(wrapper.find(Text).length, 1);
 });

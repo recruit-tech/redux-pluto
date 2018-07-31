@@ -1,24 +1,24 @@
 /* @flow */
-import assert from "power-assert";
+import assert from "assert";
 import reducer, { startLoading, stopLoading } from "../loading";
 
 test("loading: startLoading success", done => {
   const startLoadingAction = startLoading();
   const state = reducer(false, startLoadingAction);
-  assert(state === true);
+  assert.strictEqual(state, true);
   done();
 });
 
 test("loading: stopLoading success", done => {
   const stopLoadingAction = stopLoading();
   const state = reducer(true, stopLoadingAction);
-  assert(state === false);
+  assert.strictEqual(state, false);
   done();
 });
 
 test("loading: stopLoading success", done => {
   const stopLoadingAction = stopLoading();
   const state = reducer(false, stopLoadingAction);
-  assert(state === false);
+  assert.strictEqual(state, false);
   done();
 });

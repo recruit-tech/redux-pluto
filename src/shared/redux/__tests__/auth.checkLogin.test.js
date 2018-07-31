@@ -1,5 +1,5 @@
 /* eslint-disable no-undefined */
-import assert from "power-assert";
+import assert from "assert";
 import Fetchr from "fetchr";
 import { ACCESS_TOKEN_AUDIENCE_NAME } from "server/services/AccessToken";
 import { checkLogin } from "shared/redux/modules/auth";
@@ -23,7 +23,7 @@ test("auth: checkLogin success", () => {
   const checkLoginAction = checkLogin();
   createWithSignedStore("scott", ACCESS_TOKEN_AUDIENCE_NAME, {}).then(store => {
     store.dispatch(checkLoginAction).then(() => {
-      assert.deepEqual(store.getState().app.auth, {
+      assert.deepStrictEqual(store.getState().app.auth, {
         login: true,
         username: "scott",
       });
@@ -39,11 +39,11 @@ test("auth: checkLogin failure", done => {
   });
 
   store.dispatch(checkLoginAction).then(done.fail, e => {
-    assert.deepEqual(store.getState().app.auth, {
+    assert.deepStrictEqual(store.getState().app.auth, {
       login: false,
-      username: undefined,
+      username: null,
     });
-    assert(e.message === "no token");
+    assert.strictEqual(e.message, "no token");
     return done();
   });
 });

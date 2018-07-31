@@ -1,6 +1,6 @@
 /* @flow */
+import assert from "assert";
 import Fetchr from "fetchr";
-import assert from "power-assert";
 import Immutable from "seamless-immutable";
 import {
   INITIAL_STATE,
@@ -66,7 +66,7 @@ test("master: hairColorMaster success", () => {
     })
     .then(() => {
       const mastersState = store.getState().app.masters;
-      assert.deepEqual(mastersState.hairColorMaster, {
+      assert.deepStrictEqual(mastersState.hairColorMaster, {
         loading: false,
         loaded: true,
         items: hairColorMaster,

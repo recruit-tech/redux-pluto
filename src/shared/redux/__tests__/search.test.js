@@ -1,5 +1,5 @@
+import assert from "assert";
 import Fetchr from "fetchr";
-import assert from "power-assert";
 import { findSalonById } from "../modules/search";
 import { createStore } from "./lib/storeUtils";
 
@@ -26,7 +26,7 @@ test("search: findSalonById success", async () => {
   await store.dispatch(findSalonByIdAction);
   const searchState = store.getState().page.search;
 
-  assert.deepEqual(searchState, {
+  assert.deepStrictEqual(searchState, {
     loading: false,
     loaded: true,
     item: searchedItems[0],
@@ -42,8 +42,8 @@ test("search: findSalonById fail", async done => {
     done.fail();
   } catch (e) {
     const searchState = store.getState().page.search;
-    assert.equal(searchState.error, true);
-    assert.equal(e.message, "failure");
+    assert.strictEqual(searchState.error, true);
+    assert.strictEqual(e.message, "failure");
     done();
   }
 });

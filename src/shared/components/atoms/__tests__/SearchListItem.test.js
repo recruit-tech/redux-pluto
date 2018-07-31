@@ -1,6 +1,6 @@
+import assert from "assert";
 import React from "react";
 import { mount } from "enzyme";
-import assert from "power-assert";
 import { Link } from "react-router";
 import SearchListItem, { Description } from "../SearchListItem";
 
@@ -15,12 +15,15 @@ test("SearchListItem: rendered correctly", () => {
     linkURL: "link",
   };
   const wrapper = mount(<SearchListItem {...props} />);
-  assert.equal(wrapper.find("img").prop("src"), props.item.logo_image_square);
-  assert.equal(wrapper.find("img").prop("alt"), props.item.name);
-  assert.equal(
+  assert.strictEqual(
+    wrapper.find("img").prop("src"),
+    props.item.logo_image_square,
+  );
+  assert.strictEqual(wrapper.find("img").prop("alt"), props.item.name);
+  assert.strictEqual(
     wrapper.find(Link).prop("to"),
     `${props.linkURL}/${props.item.id}`,
   );
-  assert.equal(wrapper.find(Link).text(), props.item.name);
-  assert.equal(wrapper.find(Description).text(), props.item.description);
+  assert.strictEqual(wrapper.find(Link).text(), props.item.name);
+  assert.strictEqual(wrapper.find(Description).text(), props.item.description);
 });
