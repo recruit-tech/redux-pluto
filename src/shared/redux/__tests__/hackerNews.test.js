@@ -1,5 +1,5 @@
+import assert from "assert";
 import Fetchr from "fetchr";
-import assert from "power-assert";
 import { fetchItems } from "../modules/hackerNews";
 import { createStore } from "./lib/storeUtils";
 
@@ -20,7 +20,7 @@ test("hackerNews: fetchItems success", async () => {
   await store.dispatch(fetchItemsAction);
   const hackerNewsState = store.getState().page.hackerNews;
 
-  assert.deepEqual(hackerNewsState, {
+  assert.deepStrictEqual(hackerNewsState, {
     loading: false,
     items: searchedItems,
     page: 1,
@@ -36,8 +36,8 @@ test("hackerNews: fetchItems fail", async done => {
     done.fail();
   } catch (e) {
     const hackerNewsState = store.getState().page.hackerNews;
-    assert.equal(hackerNewsState.error, true);
-    assert.equal(e.message, "failure");
+    assert.strictEqual(hackerNewsState.error, true);
+    assert.strictEqual(e.message, "failure");
     done();
   }
 });

@@ -4,7 +4,6 @@ import path from "path";
 import multer from "multer";
 import express from "express";
 import FormData from "form-data";
-import assert from "power-assert";
 import AssertStream from "assert-stream";
 import UploadSample from "../UploadSample";
 import configs from "../../configs";
@@ -29,7 +28,8 @@ test.skip("UploadSample: upload file", done => {
 
     form.submit(`http://localhost:${port}${apiPath}`, (err, res) => {
       if (err) {
-        assert.fail(err);
+        done.fail(err);
+        return;
       }
 
       assertStream.expect({

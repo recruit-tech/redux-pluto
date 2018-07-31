@@ -1,5 +1,5 @@
+import assert from "assert";
 import Fetchr from "fetchr";
-import assert from "power-assert";
 import { times } from "lodash/fp";
 import { increment } from "../modules/counter";
 import { createStore } from "./lib/storeUtils";
@@ -20,7 +20,7 @@ test("counter: increment success", async () => {
 
   await Promise.all(times(() => store.dispatch(incrementAction), 10));
 
-  assert.deepEqual(store.getState().app.counter, {
+  assert.deepStrictEqual(store.getState().app.counter, {
     value: 10,
   });
 });

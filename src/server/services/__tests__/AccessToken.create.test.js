@@ -1,5 +1,5 @@
 /* @flow */
-import assert from "power-assert";
+import assert from "assert";
 import cookie from "cookie";
 import configs from "server/configs";
 import AccessToken, { verify, ACCESS_TOKEN_COOKIE_NAME } from "../AccessToken";
@@ -26,7 +26,7 @@ test("AccessToken: create success", async () => {
       },
       configs.auth.secret,
     ).then(token => {
-      assert(token.sub === "scott");
+      assert.strictEqual(token.sub, "scott");
     });
   });
 });
@@ -44,8 +44,8 @@ test("AccessToken: create failure", async done => {
   };
 
   return (accessToken: any).create(req, void 0, params).then(done.fail, e => {
-    assert(e.statusCode === 400);
-    assert(e.message === "Bad Request");
+    assert.strictEqual(e.statusCode, 400);
+    assert.strictEqual(e.message, "Bad Request");
     done();
   });
 });

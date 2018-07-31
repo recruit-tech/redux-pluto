@@ -1,5 +1,5 @@
+import assert from "assert";
 import Fetchr from "fetchr";
-import assert from "power-assert";
 import { range } from "lodash/fp";
 import { searchSearchList, searchMoreSearchList } from "../modules/searchList";
 import { createStore } from "./lib/storeUtils";
@@ -27,7 +27,7 @@ test("searchList: searchSearchList success", async () => {
   await store.dispatch(searchSearchListAction);
   const searchListState = store.getState().page.searchList;
 
-  assert.deepEqual(searchListState, {
+  assert.deepStrictEqual(searchListState, {
     loading: false,
     loaded: true,
     params: {},
@@ -54,8 +54,8 @@ test("searchList: searchSearchList fail", async done => {
     done.fail();
   } catch (e) {
     const searchListState = store.getState().page.searchList;
-    assert.equal(searchListState.error, true);
-    assert.equal(e.message, "failure");
+    assert.strictEqual(searchListState.error, true);
+    assert.strictEqual(e.message, "failure");
     done();
   }
 });
@@ -73,7 +73,7 @@ test("searchList: searchMoreSearchList success", async () => {
   await store.dispatch(searchMoreSearchListAction);
   const searchListState = store.getState().page.searchList;
 
-  assert.deepEqual(searchListState, {
+  assert.deepStrictEqual(searchListState, {
     loading: false,
     loaded: true,
     params: {},
@@ -102,8 +102,8 @@ test("searchList: searchMoreSearchList fail", async done => {
     done.fail();
   } catch (e) {
     const searchListState = store.getState().page.searchList;
-    assert.equal(searchListState.error, true);
-    assert.equal(e.message, "failure");
+    assert.strictEqual(searchListState.error, true);
+    assert.strictEqual(e.message, "failure");
     done();
   }
 });

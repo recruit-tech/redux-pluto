@@ -1,4 +1,4 @@
-import assert from "power-assert";
+import assert from "assert";
 import { uploadFile } from "../modules/uploadSample";
 import { createStore } from "./lib/storeUtils";
 
@@ -7,7 +7,7 @@ test("uploadSample: uploadFile success", async () => {
   const file = "file";
   const uploadFileAction = uploadFile(file);
   await store.dispatch(uploadFileAction);
-  assert.deepEqual(store.getState().page.uploadSample, {
+  assert.deepStrictEqual(store.getState().page.uploadSample, {
     loading: false,
     loaded: true,
     value: "",

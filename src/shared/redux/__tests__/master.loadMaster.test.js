@@ -1,7 +1,7 @@
 /* @flow */
 /* eslint-disable no-undefined */
+import assert from "assert";
 import Fetchr from "fetchr";
-import assert from "power-assert";
 import Immutable from "seamless-immutable";
 import * as masters from "../modules/masters";
 import { createStore } from "./lib/storeUtils";
@@ -63,7 +63,7 @@ test("master: loadAll success", done => {
   });
   store.dispatch(loadAllMastersAction).then(() => {
     const state = store.getState().app.masters;
-    assert.deepEqual(state, {
+    assert.deepStrictEqual(state, {
       areaMaster: {
         loading: false,
         loaded: true,
@@ -144,9 +144,13 @@ test("master: load each success", done => {
           const nextState = store.getState().app.masters;
           Object.keys(nextState).forEach(propName => {
             if (propName === actionName) {
-              assert.deepEqual(nextState[propName], expects[propName]);
+              assert.deepStrictEqual(nextState[propName], expects[propName]);
             } else {
-              assert(nextState[propName] === prevState[propName], actionName);
+              assert.strictEqual(
+                nextState[propName],
+                prevState[propName],
+                actionName,
+              );
             }
           });
           prevState = nextState;
@@ -155,7 +159,7 @@ test("master: load each success", done => {
     )
     .then(() => {
       const state = store.getState().app.masters;
-      assert.deepEqual(state, expects);
+      assert.deepStrictEqual(state, expects);
       done();
     });
 });
@@ -169,7 +173,7 @@ test("master: loadAll failure", done => {
   needFailure = "areaMaster";
   store.dispatch(loadAllMastersAction).then(() => {
     const state = store.getState().app.masters;
-    assert.deepEqual(state, {
+    assert.deepStrictEqual(state, {
       areaMaster: {
         loading: false,
         loaded: false,

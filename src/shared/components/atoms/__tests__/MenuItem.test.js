@@ -1,6 +1,6 @@
+import assert from "assert";
 import React from "react";
 import { mount } from "enzyme";
-import assert from "power-assert";
 import MenuItem from "../MenuItem";
 
 const LinkText = () => <div>LinkText</div>;
@@ -15,7 +15,7 @@ test("MenuItem: checked", () => {
       <LinkText />
     </MenuItem>,
   );
-  assert.equal(wrapper.getDOMNode().getAttribute("aria-checked"), "true");
+  assert.strictEqual(wrapper.getDOMNode().getAttribute("aria-checked"), "true");
 });
 
 test("MenuItem: has children", () => {
@@ -28,5 +28,5 @@ test("MenuItem: has children", () => {
       <LinkText />
     </MenuItem>,
   );
-  assert.equal(wrapper.find(LinkText).length, 1);
+  assert.strictEqual(wrapper.find(LinkText).length, 1);
 });

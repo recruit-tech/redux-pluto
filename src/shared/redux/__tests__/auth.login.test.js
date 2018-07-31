@@ -1,7 +1,7 @@
 /* @flow */
 /* eslint-disable no-undefined */
+import assert from "assert";
 import Fetchr from "fetchr";
-import assert from "power-assert";
 import { ACCESS_TOKEN_AUDIENCE_NAME } from "server/services/AccessToken";
 import { login } from "shared/redux/modules/auth";
 import { createStore, createWithSignedStore } from "./lib/storeUtils";
@@ -24,7 +24,7 @@ test("auth: login success username scott", () => {
   const loginAction = login("scott", "tiger");
   createWithSignedStore("scott", ACCESS_TOKEN_AUDIENCE_NAME, {}).then(store => {
     store.dispatch(loginAction).then(() => {
-      assert.deepEqual(store.getState().app.auth, {
+      assert.deepStrictEqual(store.getState().app.auth, {
         login: true,
         username: "scott",
       });
@@ -37,7 +37,7 @@ test("auth: login success username foobar", () => {
   createWithSignedStore("foobar", ACCESS_TOKEN_AUDIENCE_NAME, {}).then(
     store => {
       store.dispatch(loginAction).then(() => {
-        assert.deepEqual(store.getState().app.auth, {
+        assert.deepStrictEqual(store.getState().app.auth, {
           login: true,
           username: "foobar",
         });
@@ -53,7 +53,7 @@ test("auth: login failure invalid audience name", async done => {
     await store.dispatch(loginAction);
     done.fail();
   } catch (e) {
-    assert(e.message === "invalid token");
+    assert.strictEqual(e.message, "invalid token");
   }
   done();
 });
@@ -69,7 +69,7 @@ test("auth: login failure username is short", async done => {
     await store.dispatch(loginAction);
     done.fail();
   } catch (e) {
-    assert.deepEqual(store.getState().app.auth, {
+    assert.deepStrictEqual(store.getState().app.auth, {
       login: false,
       username: null,
     });
