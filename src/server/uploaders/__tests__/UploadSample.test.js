@@ -1,7 +1,6 @@
 /* @flow */
 import fs from "fs";
 import path from "path";
-import assert from "assert";
 import multer from "multer";
 import express from "express";
 import FormData from "form-data";
@@ -29,7 +28,8 @@ test.skip("UploadSample: upload file", done => {
 
     form.submit(`http://localhost:${port}${apiPath}`, (err, res) => {
       if (err) {
-        assert.fail(err);
+        done.fail(err);
+        return;
       }
 
       assertStream.expect({
