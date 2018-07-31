@@ -15,8 +15,8 @@ export default class AgreedSample {
     this.pathname = "agreedsample";
   }
 
-  read(req: any, _resource: any, params: any, _config: any) {
-    const status = params.status || 200;
+  read(req: any, _resource: any, params: any = { status: 200 }, _config: any) {
+    const status = params.status;
     return read(this.axios, this.name, this.pathname, { status });
   }
 }
