@@ -52,7 +52,7 @@ jobs:
       - <<: *restore
       - <<: *restore_lock
       - run: sudo npm install greenkeeper-lockfile@2 -g
-      - run: greenkeeper-lockfile-upload
+      - run: CI_PULL_REQUEST='' greenkeeper-lockfile-upload
       - <<: *save_lock
 
   install:
@@ -62,7 +62,7 @@ jobs:
       - <<: *restore_lock
       - run: case $CIRCLE_BRANCH in greenkeeper*) npm i;; *) npm ci;; esac;
       - run: sudo npm install greenkeeper-lockfile@2 -g
-      - run: greenkeeper-lockfile-update
+      - run: CI_PULL_REQUEST='' greenkeeper-lockfile-update
       - <<: *save_lock
       - <<: *save
 
