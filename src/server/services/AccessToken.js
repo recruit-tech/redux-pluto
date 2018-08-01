@@ -3,6 +3,7 @@ import cookie from "cookie";
 import jwt from "jsonwebtoken";
 import fumble from "fumble";
 import debugFactory from "debug";
+import isRedirectableUrl from "is-redirectable-url";
 import validate from "shared/validators/login";
 import { rejectWith } from "./utils";
 
@@ -20,11 +21,14 @@ export default class AccessToken {
 
   secret: string;
 
+  requestHandlers: Array<string>;
+
   constructor(config: any) {
     this.name = "accessToken";
     this.maxAge = config.auth.maxAge;
     this.key = config.auth.key;
     this.secret = config.auth.secret;
+    this.requestHandlers = ["login", "logout"];
   }
 
   create(req: any, resource: any, params: any, body: any, config: any) {
@@ -80,6 +84,33 @@ export default class AccessToken {
         },
       },
     });
+  }
+
+  login(config: any) {
+    return {
+      path: "/login",
+      post(req: any, res: any, next: Function) {
+        this.create(req, {}, req.body, config).then(result => {
+          res.set(result.meta.headers);
+          if (isRedirectableUrl(req.query.location)) {
+            return res.redirect(req.query.location);
+          }
+          return res.redirect("/");
+        });
+      },
+    };
+  }
+
+  logout(config: any) {
+    return {
+      path: "/logout",
+      get(req: any, res: any, next: Function) {
+        this.delete(req, {}, {}, config).then(result => {
+          res.set(result.meta.headers);
+          res.redirect("/");
+        });
+      },
+    };
   }
 }
 

@@ -36,7 +36,7 @@ export function read(axios: any, name: string, pathname: string, query: any) {
           reason: error.response.data,
         });
       }
-      return rejectWith(fumble.create(500), {
+      return rejectWith(fumble.create(), {
         name,
         formattedUrl,
         reason: error.message,
