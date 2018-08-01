@@ -38,33 +38,18 @@ restore: &restore
   restore_cache:
     keys: 
       - code-{{ .Revision }}
+
 jobs:
-  build:
-    <<: *build_image
-    steps:
-      - checkout
-      - <<: *save
-
-
-  upload_lock:
-    <<: *build_image
-    steps:
-      - <<: *restore
-      - <<: *restore_lock
-        # TODO: This uses a workaround repository of greenkeeper-lockfile.
-        # Should be fixed when it gets working in the main repository.
-      - run: npx --package jasonLaster/greenkeeper-lockfile greenkeeper-lockfile-upload
-      - <<: *save_lock
-
   install:
     <<: *build_image
     steps:
-      - <<: *restore
+      - checkout
       - <<: *restore_lock
       - run: case $CIRCLE_BRANCH in greenkeeper*) npm i;; *) npm ci;; esac;
         # TODO: This uses a workaround repository of greenkeeper-lockfile.
         # Should be fixed when it gets working in the main repository.
       - run: npx --package jasonLaster/greenkeeper-lockfile greenkeeper-lockfile-update
+      - run: npx --package jasonLaster/greenkeeper-lockfile greenkeeper-lockfile-upload
       - <<: *save_lock
       - <<: *save
 
@@ -119,13 +104,7 @@ workflows:
   version: 2
   exec:
     jobs:
-      - build
       - install:
-          requires:
-            - build
-      - upload_lock:
-          requires:
-            - install
       - lint:
           requires:
             - install
