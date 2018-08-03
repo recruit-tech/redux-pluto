@@ -48,6 +48,7 @@ export const INITIAL_STATE: State = {
   loading: false,
   loaded: false,
   value: "",
+  path: "",
   error: null,
 };
 
@@ -68,9 +69,9 @@ export default (handleActions(
       loading: true,
       loaded: false,
     }),
-    [UPLOAD_FILE_SUCCESS]: state => ({
+    [UPLOAD_FILE_SUCCESS]: (state, action) => ({
       ...state,
-      value: "",
+      path: action.payload.data.path,
       loading: false,
       loaded: true,
     }),

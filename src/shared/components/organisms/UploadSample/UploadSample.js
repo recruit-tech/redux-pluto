@@ -4,18 +4,19 @@ import pure from "recompose/pure";
 
 type Props = {
   loading: boolean,
-  value: string,
+  path: string,
   onInputFile: Function,
   onSubmitFile: Function,
 };
 
 export default pure(function UploadSample(props: Props) {
-  const { loading, value, onInputFile, onSubmitFile } = props;
+  const { loading, path, onInputFile, onSubmitFile } = props;
 
   return (
     <div>
+      <div>{path && <img src={path} alt="" />}</div>
       <div>
-        <input type="file" onChange={onInputFile} value={value} />
+        <input type="file" onChange={onInputFile} />
       </div>
       <div>
         <button type="button" onClick={onSubmitFile} disabled={loading}>
