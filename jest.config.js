@@ -9,8 +9,4 @@ module.exports = {
     "!src/shared/types/*.js",
     "!src/client/vendor/**/*.js",
   ],
-  transform: {
-    "^.+\\.json5?$": "json5-jest",
-    "^.+\\.js$": "babel-jest",
-  },
 };
