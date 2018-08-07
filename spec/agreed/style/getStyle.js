@@ -2,10 +2,10 @@ const style = [];
 for (let i = 1; i <= 100; i++) {
   style.push({
     id: i.toString(),
-    name: 'ヘアスタイル',
+    name: "ヘアスタイル",
     photo: {
       front: {
-        m: '/public/cat_medium.jpeg',
+        m: "/public/cat_medium.jpeg",
       },
     },
   });
@@ -13,10 +13,10 @@ for (let i = 1; i <= 100; i++) {
 
 module.exports = {
   request: {
-    path: '/beauty/style/v3',
-    method: 'GET',
+    path: "/beauty/style/v3",
+    method: "GET",
     params: {
-      start: '{:start}',
+      start: "{:start}",
     },
     values: {
       start: 1,
@@ -25,18 +25,18 @@ module.exports = {
   response: {
     body: {
       results: {
-        results_available: '{:results_available}',
-        results_returned: '{:results_returned}',
-        results_start: '{:results_start}',
-        status: '{:status}',
-        style: '{:style}',
+        results_available: "{:results_available}",
+        results_returned: "{:results_returned}",
+        results_start: "{:results_start}",
+        status: "{:status}",
+        style: "{:style}",
       },
     },
     values: {
-      results_available: '10000',
-      results_returned: '100',
-      results_start: '1',
-      status: 'OK',
+      results_available: "10000",
+      results_returned: "100",
+      results_start: "1",
+      status: "OK",
       style,
     },
   },
