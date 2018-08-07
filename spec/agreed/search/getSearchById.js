@@ -1,7 +1,7 @@
-{
+module.exports = {
   request: {
     path: "/beauty/search/:id",
-    method: "GET"
+    method: "GET",
   },
   response: {
     body: {
@@ -11,16 +11,16 @@
             name: "{:name}",
             urls: {
               pc: "{:pc}",
-              mobile: "{:mobile}"
-            }
-          }
-        ]
-      }
+              mobile: "{:mobile}",
+            },
+          },
+        ],
+      },
     },
     values: {
       name: "サロン",
       pc: "/public/cat_large.jpeg",
-      mobile: "/public/cat_small.jpeg"
-    }
-  }
-}
+      mobile: "/public/cat_small.jpeg",
+    },
+  },
+};
