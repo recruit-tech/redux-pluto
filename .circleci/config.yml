@@ -86,10 +86,6 @@ jobs:
     steps:
       - <<: *restore
       - <<: *restore_lock
-      - run:
-          name: start agreed server
-          command: npm run test:agreed
-          background: true
       - run: npm run test:coverage
   analytics:
     <<: *build_image
