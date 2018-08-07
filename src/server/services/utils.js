@@ -13,7 +13,7 @@ export function read(axios: any, name: string, pathname: string, query: any) {
     response => {
       const responseBody = response.data;
       if (!responseBody || !responseBody.results) {
-        return rejectWith(fumble.create(), {
+        return rejectWith(fumble.http.create(), {
           name,
           formattedUrl,
           reason: "no result",
@@ -23,7 +23,10 @@ export function read(axios: any, name: string, pathname: string, query: any) {
       const { results } = responseBody;
       if (results.error) {
         const { code, message } = results.error;
-        return rejectWith(fumble.create(code, message), { name, formattedUrl });
+        return rejectWith(fumble.http.create(code, message), {
+          name,
+          formattedUrl,
+        });
       }
 
       return results;
@@ -36,7 +39,7 @@ export function read(axios: any, name: string, pathname: string, query: any) {
           reason: error.response.data,
         });
       }
-      return rejectWith(fumble.create(), {
+      return rejectWith(fumble.http.create(), {
         name,
         formattedUrl,
         reason: error.message,
