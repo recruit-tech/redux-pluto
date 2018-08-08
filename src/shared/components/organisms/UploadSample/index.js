@@ -20,7 +20,7 @@ export default compose(
         if (!file) {
           return;
         }
-        dispatch(uploadFile(file)).then(() => {
+        dispatch(uploadFile("/upload/uploadsample", file)).then(() => {
           file = null;
         });
       },
