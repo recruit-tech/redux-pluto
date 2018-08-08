@@ -26,14 +26,14 @@ export type State = {
     counter: CounterState,
     alert: AlertState,
     loading: LoadingState,
+    agreedSample: AgreedSampleState,
+    uploadSample: UploadSampleState,
   },
   page: {
-    agreedSample: AgreedSampleState,
     search: SearchState,
     searchList: SearchListstate,
     style: StyleState,
     hackerNews: HackerNewsState,
-    uploadSample: UploadSampleState,
   },
   // libraries
   form: *,
@@ -50,14 +50,14 @@ export default combineReducers({
     counter,
     alert,
     loading,
+    agreedSample,
+    uploadSample,
   }),
   page: pageScopeReducer(
     combineReducers({
-      agreedSample,
       search,
       searchList,
       style,
-      uploadSample,
       hackerNews,
     }),
   ),
