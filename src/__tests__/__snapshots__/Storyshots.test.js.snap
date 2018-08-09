@@ -1,5 +1,160 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Storyshots Atoms/Indicator loading 1`] = `
+<span>
+  <div
+    className="sc-bdVaJa fCGgGM"
+  />
+</span>
+`;
+
+exports[`Storyshots Atoms/Menu MenuItems 1`] = `
+<span>
+  <div
+    className="sc-bwzfXH igUcTJ"
+  >
+    <div
+      aria-checked={true}
+      checked={true}
+      className="sc-htpNat cbYUUr"
+      role="menuitemradio"
+    >
+      <a
+        className="sc-bxivhb bSNjLp"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        item 1
+      </a>
+    </div>
+    <div
+      aria-checked={false}
+      checked={false}
+      className="sc-htpNat cbYUUr"
+      role="menuitemradio"
+    >
+      <a
+        className="sc-bxivhb bSNjLp"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        item 2
+      </a>
+    </div>
+    <div
+      aria-checked={false}
+      checked={false}
+      className="sc-htpNat cbYUUr"
+      role="menuitemradio"
+    >
+      <a
+        className="sc-bxivhb bSNjLp"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        item 3
+      </a>
+    </div>
+  </div>
+</span>
+`;
+
+exports[`Storyshots Atoms/MenuItem checked 1`] = `
+<span>
+  <div
+    aria-checked={true}
+    checked={true}
+    className="sc-htpNat cbYUUr"
+    role="menuitemradio"
+  >
+    <a
+      className="sc-bxivhb bSNjLp"
+      onClick={[Function]}
+      style={Object {}}
+    >
+      item
+    </a>
+  </div>
+</span>
+`;
+
+exports[`Storyshots Atoms/MenuItem to 1`] = `
+<span>
+  <div
+    aria-checked={false}
+    checked={false}
+    className="sc-htpNat cbYUUr"
+    role="menuitemradio"
+  >
+    <a
+      className="sc-bxivhb bSNjLp"
+      onClick={[Function]}
+      style={Object {}}
+    >
+      item
+    </a>
+  </div>
+</span>
+`;
+
+exports[`Storyshots Atoms/Overlay onClick 1`] = `
+<span>
+  <div
+    className="sc-ifAKCX gUkEFp"
+    onClick={[Function]}
+  >
+    <div
+      className="sc-EHOje cxnRxF"
+    >
+      overlay
+    </div>
+  </div>
+</span>
+`;
+
+exports[`Storyshots Atoms/SearchListItem example 1`] = `
+<span>
+  <div
+    className="sc-bZQynM ivOhcj"
+  >
+    <div
+      className="sc-gzVnrw jxVSzQ"
+    >
+      <img
+        alt="name"
+        src="/cat_large.jpeg"
+      />
+      <a
+        onClick={[Function]}
+        style={Object {}}
+      >
+        name
+      </a>
+    </div>
+    <div
+      className="sc-htoDjs bOebYL"
+    >
+      description
+    </div>
+  </div>
+</span>
+`;
+
+exports[`Storyshots Atoms/SearchMore onClick 1`] = `
+<span>
+  <div
+    onClick={[Function]}
+    onKeyDown={[Function]}
+  >
+    <button
+      type="button"
+    >
+      more
+    </button>
+  </div>
+</span>
+`;
+
 exports[`Storyshots Button with some emoji 1`] = `
 <span>
   <button
