@@ -23,7 +23,6 @@ restore_lock: &restore_lock
   restore_cache:
     keys: 
       - node_modules-{{ checksum "package-lock.json" }}
-      - node_modules-
 
 save: &save
   save_cache:
