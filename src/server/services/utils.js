@@ -52,8 +52,8 @@ export function readAll(
   axios: any,
   name: string,
   pathname: string,
-  params: any,
-  itemsName: string,
+  params: ?any,
+  itemsName: ?string,
   loaded: Array<any> = [],
 ) {
   const actualParams = { ...params, start: loaded.length + 1 };

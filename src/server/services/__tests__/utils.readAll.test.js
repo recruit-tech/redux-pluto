@@ -7,15 +7,12 @@ test("should provide an http object nothing available success", async () => {
     axios,
     "foo",
     "http://localhost:3020/agreedsample",
-    {
-      stats: 200,
-    },
   );
   expect(result).toEqual({ text: "Hello world" });
 });
 
 test("should provide an http object available success", async () => {
-  const result = await readAll(
+  await readAll(
     axios,
     "foo",
     "http://localhost:3020/beauty/smallArea",
