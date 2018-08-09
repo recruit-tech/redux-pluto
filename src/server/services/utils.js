@@ -54,7 +54,7 @@ export function readAll(
   pathname: string,
   params: any,
   itemsName: string,
-  loaded: any = [],
+  loaded: Array<any> = [],
 ) {
   const actualParams = { ...params, start: loaded.length + 1 };
   return read(axios, name, pathname, actualParams).then(results => {
