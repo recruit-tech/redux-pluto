@@ -8,8 +8,8 @@ let file;
 export default compose(
   (connect: $FIXME)(
     state => ({
-      loading: state.page.uploadSample.loading,
-      value: state.page.uploadSample.value,
+      loading: state.app.uploadSample.loading,
+      path: state.app.uploadSample.path,
     }),
     (dispatch, ownProps) => ({
       onInputFile: e => {
@@ -20,7 +20,7 @@ export default compose(
         if (!file) {
           return;
         }
-        dispatch(uploadFile(file)).then(() => {
+        dispatch(uploadFile("/upload/uploadsample", file)).then(() => {
           file = null;
         });
       },

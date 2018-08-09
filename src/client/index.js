@@ -19,13 +19,6 @@ const history = syncHistoryWithStore(browserHistory, store, {
 });
 const root = document.getElementById("root");
 
-// 初回表示直後に、表示している画面と同じURLのリンクをクリックした場合にPUSHステートされてしまう現象の回避策。
-// 通常、現在表示している画面と同じURLへのPUSHはHistoryモジュールによりREPLACEに置換される。
-// https://github.com/ReactTraining/history/blob/57d24e6/modules/createHistory.js#L105
-// しかし、初回表示時点ではcurrentLocationが未設定のためにprevPathが得られず、PUSHされてしまう。
-// これを回避するため、ここで現在のロケーションにREPLACEすることでcurrentLocationを設定する。
-history.replace(history.getCurrentLocation());
-
 const locationSubscriber = createLocationSubscriber(store);
 history.listen(location => {
   // At the moment, we do not use page stack functionality of react-redux-analytics.

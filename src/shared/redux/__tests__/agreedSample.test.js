@@ -16,7 +16,7 @@ Fetchr.registerService({
 test("agreedSample: getText success", async () => {
   const store = createStore({ cookie: {} });
   await store.dispatch(getText());
-  assert.deepStrictEqual(store.getState().page.agreedSample, {
+  assert.deepStrictEqual(store.getState().app.agreedSample, {
     text: "Hello world",
     loading: false,
     loaded: true,
@@ -30,7 +30,7 @@ test("agreedSample: getText failure", async done => {
     await store.dispatch(getText());
     done.fail();
   } catch (_e) {
-    assert.deepStrictEqual(store.getState().page.agreedSample, {
+    assert.deepStrictEqual(store.getState().app.agreedSample, {
       text: "",
       error: true,
       loading: false,

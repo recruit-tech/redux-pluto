@@ -1,7 +1,7 @@
 /* @flow */
 import { createAction, handleActions, type Reducer } from "redux-actions";
 import { steps } from "redux-effects-steps";
-import { upload } from "../middleware/uploader";
+import { upload } from "redux-effects-formdata-uploader";
 import { createAsyncActionTypes } from "./utils";
 
 /**
@@ -28,8 +28,8 @@ const uploadFileRequest = createAction(UPLOAD_FILE_REQUEST);
 const uploadFileSuccess = createAction(UPLOAD_FILE_SUCCESS);
 const uploadFileFail = createAction(UPLOAD_FILE_FAIL);
 
-export function uploadFile(file: *) {
-  return steps(uploadFileRequest(), upload("/upload/uploadsample", file), [
+export function uploadFile(path: string, file: *) {
+  return steps(uploadFileRequest(), upload({ path, name: "file", file }), [
     uploadFileSuccess,
     uploadFileFail,
   ]);
@@ -48,6 +48,7 @@ export const INITIAL_STATE: State = {
   loading: false,
   loaded: false,
   value: "",
+  path: "",
   error: null,
 };
 
@@ -68,9 +69,9 @@ export default (handleActions(
       loading: true,
       loaded: false,
     }),
-    [UPLOAD_FILE_SUCCESS]: state => ({
+    [UPLOAD_FILE_SUCCESS]: (state, action) => ({
       ...state,
-      value: "",
+      path: action.payload.data.path,
       loading: false,
       loaded: true,
     }),

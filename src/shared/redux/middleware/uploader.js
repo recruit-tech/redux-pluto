@@ -1,5 +1,6 @@
 /* @flow */
 import querystring from "querystring";
+import FormData from "isomorphic-form-data";
 import axios from "axios";
 
 /*

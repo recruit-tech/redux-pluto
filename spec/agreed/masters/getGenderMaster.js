@@ -1,19 +1,6 @@
-const style = [];
-for (let i = 1; i <= 100; i++) {
-  style.push({
-    id: i.toString(),
-    name: "ヘアスタイル",
-    photo: {
-      front: {
-        m: "/public/cat_medium.jpeg",
-      },
-    },
-  });
-}
-
 module.exports = {
   request: {
-    path: "/beauty/style/v3",
+    path: "/beauty/styleCategory",
     method: "GET",
     params: {
       start: "{:start}",
@@ -29,15 +16,18 @@ module.exports = {
         results_returned: "{:results_returned}",
         results_start: "{:results_start}",
         status: "{:status}",
-        style: "{:style}",
+        style_category: "{:style_category}",
       },
     },
     values: {
-      results_available: "10000",
-      results_returned: "100",
+      results_available: "2",
+      results_returned: "2",
       results_start: "1",
       status: "OK",
-      style,
+      style_category: [
+        { code: "SG01", name: "レディース" },
+        { code: "SG02", name: "メンズ" },
+      ],
     },
   },
 };

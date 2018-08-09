@@ -5,6 +5,7 @@ import pageScopeMiddleware from "redux-page-scope";
 import steps from "redux-effects-steps";
 import cookie from "redux-effects-universal-cookie";
 import fetchr from "redux-effects-fetchr";
+import uploader from "redux-effects-formdata-uploader";
 import fetchrCache from "redux-effects-fetchr-cache";
 import { analyticsMiddleware } from "react-redux-analytics";
 import { siteCatalystMiddleware } from "react-redux-analytics-sitecatalyst";
@@ -12,7 +13,6 @@ import { filter } from "lodash/fp";
 import apiError from "./middleware/apiErrorMiddleware";
 import auth from "./middleware/authMiddleware";
 import loading from "./middleware/loadingMiddleware";
-import uploader from "./middleware/uploader";
 import reducer from "./modules/reducer";
 
 export default function(initialState, options = {}) {
@@ -22,7 +22,7 @@ export default function(initialState, options = {}) {
     cookie(...options.cookie),
     options.fetchrCache ? fetchrCache(options.fetchrCache) : null,
     apiError(),
-    options.csrfToken ? uploader(options.csrfToken) : null,
+    options.csrfToken ? uploader({ csrfToken: options.csrfToken }) : null,
     fetchr(options.fetchr),
     pageScopeMiddleware(),
     loading({ start: BEGIN_ASYNC_LOAD, stop: END_ASYNC_LOAD, delay: 500 }),
