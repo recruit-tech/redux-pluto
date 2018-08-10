@@ -20,7 +20,7 @@ const enhancer = compose(
     return dispatch(getText(status));
   }),
   connect(state => ({
-    text: state.page.agreedSample.text,
+    text: state.app.agreedSample.text,
   })),
   sendAnalytics({
     ...siteSections("agreedsample", "top"),
