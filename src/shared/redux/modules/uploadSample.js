@@ -11,6 +11,7 @@ const UPLOAD_SAMPLE = "redux-proto/uploadsample/";
 
 const INPUT_FILE = `${UPLOAD_SAMPLE}input`;
 const UPLOAD_FILE = `${UPLOAD_SAMPLE}upload`;
+const UPLOAD_FILE_CANCEL = `${UPLOAD_SAMPLE}upload/cancel`;
 
 export const [
   UPLOAD_FILE_REQUEST,
@@ -25,11 +26,12 @@ export const [
 export const inputFile = createAction(INPUT_FILE);
 
 const uploadFileRequest = createAction(UPLOAD_FILE_REQUEST);
+const uploadFileCancel = createAction(UPLOAD_FILE_CANCEL);
 const uploadFileSuccess = createAction(UPLOAD_FILE_SUCCESS);
 const uploadFileFail = createAction(UPLOAD_FILE_FAIL);
 
 export function uploadFile(path: string, file: *) {
-  return steps(uploadFileRequest(), upload({ path, name: "file", file }), [
+  return steps(uploadFileRequest(), upload({ path, name: "file", file, cancelAction: uploadFileCancel }), [
     uploadFileSuccess,
     uploadFileFail,
   ]);
@@ -42,6 +44,8 @@ export type State = {
   loading: boolean,
   loaded: boolean,
   value: string,
+  path: string,
+  cancelSource: ?Object,
   error: ?Error,
 };
 export const INITIAL_STATE: State = {
@@ -49,6 +53,7 @@ export const INITIAL_STATE: State = {
   loaded: false,
   value: "",
   path: "",
+  cancelSource: null,
   error: null,
 };
 
@@ -68,6 +73,10 @@ export default (handleActions(
       ...state,
       loading: true,
       loaded: false,
+    }),
+    [UPLOAD_FILE_CANCEL]: (state, action) => ({
+      ...state,
+      cancelSource: action.payload,
     }),
     [UPLOAD_FILE_SUCCESS]: (state, action) => ({
       ...state,
