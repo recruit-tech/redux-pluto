@@ -25,17 +25,16 @@ export default compose(
         dispatch(uploadAction).then(() => {
           file = null;
         });
-      }, 
-      onCancel: (cancelSource) => {
-        console.log("cancel");
+      },
+      onCancel: cancelSource => {
         cancelSource.cancel();
-      }
+      },
     }),
     (stateProps, dispatchProps, ownProps) => ({
       ...ownProps,
       ...stateProps,
       ...dispatchProps,
-      onCancel: () => console.log("cancel!!") || dispatchProps.onCancel(stateProps.cancelSource),
+      onCancel: () => dispatchProps.onCancel(stateProps.cancelSource),
     }),
   ),
 )(UploadSample);

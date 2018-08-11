@@ -31,10 +31,11 @@ const uploadFileSuccess = createAction(UPLOAD_FILE_SUCCESS);
 const uploadFileFail = createAction(UPLOAD_FILE_FAIL);
 
 export function uploadFile(path: string, file: *) {
-  return steps(uploadFileRequest(), upload({ path, name: "file", file, cancelAction: uploadFileCancel }), [
-    uploadFileSuccess,
-    uploadFileFail,
-  ]);
+  return steps(
+    uploadFileRequest(),
+    upload({ path, name: "file", file, cancelAction: uploadFileCancel }),
+    [uploadFileSuccess, uploadFileFail],
+  );
 }
 
 /**
