@@ -125,7 +125,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^5.0.1",
     "eslint-config-airbnb": "^17.0.0",
-    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-prettier": "^3.0.0",
     "eslint-import-resolver-babel-module": "^4.0.0",
     "eslint-plugin-dependencies": "^2.4.0",
     "eslint-plugin-flowtype": "^2.46.2",
