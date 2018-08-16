@@ -10,6 +10,7 @@ export default compose(
     state => ({
       loading: state.app.uploadSample.loading,
       path: state.app.uploadSample.path,
+      cancelSource: state.app.uploadSample.cancelSource,
     }),
     (dispatch, ownProps) => ({
       onInputFile: e => {
@@ -20,10 +21,20 @@ export default compose(
         if (!file) {
           return;
         }
-        dispatch(uploadFile("/upload/uploadsample", file)).then(() => {
+        const uploadAction = uploadFile("/upload/uploadsample", file);
+        dispatch(uploadAction).then(() => {
           file = null;
         });
       },
+      onCancel: cancelSource => {
+        cancelSource.cancel();
+      },
+    }),
+    (stateProps, dispatchProps, ownProps) => ({
+      ...ownProps,
+      ...stateProps,
+      ...dispatchProps,
+      onCancel: () => dispatchProps.onCancel(stateProps.cancelSource),
     }),
   ),
 )(UploadSample);

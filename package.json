@@ -82,7 +82,7 @@
     "redux-async-loader": "^1.2.4",
     "redux-effects-fetchr": "^1.1.0",
     "redux-effects-fetchr-cache": "^1.0.1",
-    "redux-effects-formdata-uploader": "^1.0.0",
+    "redux-effects-formdata-uploader": "^1.1.0",
     "redux-effects-steps": "^1.0.1",
     "redux-effects-universal-cookie": "^1.0.1",
     "redux-form": "^7.3.0",

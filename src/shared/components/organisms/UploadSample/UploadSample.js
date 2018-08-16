@@ -7,10 +7,11 @@ type Props = {
   path: string,
   onInputFile: Function,
   onSubmitFile: Function,
+  onCancel: Function,
 };
 
 export default pure(function UploadSample(props: Props) {
-  const { loading, path, onInputFile, onSubmitFile } = props;
+  const { loading, path, onInputFile, onSubmitFile, onCancel } = props;
 
   return (
     <div>
@@ -21,6 +22,9 @@ export default pure(function UploadSample(props: Props) {
       <div>
         <button type="button" onClick={onSubmitFile} disabled={loading}>
           submit
+        </button>
+        <button type="button" onClick={onCancel}>
+          cancel
         </button>
       </div>
     </div>
