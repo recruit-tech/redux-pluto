@@ -1,9 +1,5 @@
-/* eslint-disable */
-
 const puppeteer = require("puppeteer");
 const path = require("path");
-const fs = require("fs");
-const mkdirp = require("mkdirp");
 const axios = require("axios");
 const { writeFile } = require("./utils");
 const config = require("./config");

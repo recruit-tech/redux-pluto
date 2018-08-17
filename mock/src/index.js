@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 const Mocky = require("./Mocky");
 const Logger = require("./Logger");
 

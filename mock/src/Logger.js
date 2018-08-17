@@ -1,10 +1,6 @@
-/* eslint-disable */
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
-const fs = require("fs");
-const mkdirp = require("mkdirp");
 const { writeFile } = require("./utils");
 const config = require("./config");
 
