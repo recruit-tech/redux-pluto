@@ -1,0 +1,10 @@
+{
+  "rules": {
+    "no-console": "off",
+    "import/no-extraneous-dependencies": "off",
+    "no-restricted-syntax": "off",
+    "no-await-in-loop": "off",
+    "no-continue": "off",
+    "no-empty": "off"
+  }
+}
