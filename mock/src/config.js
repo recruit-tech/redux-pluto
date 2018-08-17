@@ -7,5 +7,5 @@ module.exports = {
   loggerPort: 8888,
   logFilepath: "public/mocking.log.js",
   logInjectionKey: "__MOCKING_LOG__",
-  headless: false,
+  headless: true,
 };
