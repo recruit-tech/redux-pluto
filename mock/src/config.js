@@ -8,4 +8,5 @@ module.exports = {
   logFilepath: "public/mocking.log.js",
   logInjectionKey: "__MOCKING_LOG__",
   headless: true,
+  staticServerPort: 8765,
 };
