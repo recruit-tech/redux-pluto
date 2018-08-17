@@ -32,7 +32,7 @@
     "start:dev:agreed": "agreed-server --path ./spec/agreed/agreed.js --port 3010",
     "start:dev:server": "cross-env DEBUG=express:*,app:* node bin/start-server.js",
     "start:dev:mock": "MOCK_BUILD=true npm run start:dev",
-    "start:mock": "node ./mock/src/statc-server",
+    "start:mock": "node ./mock/src/static-server",
     "start:offload": "cross-env ENABLE_OFFLOAD=1 npm run start:dev",
     "start:prod": "cross-env NODE_ENV=production run-p start:{prod:server,dev:agreed}",
     "start:prod:server": "node bin/start-server.js",
