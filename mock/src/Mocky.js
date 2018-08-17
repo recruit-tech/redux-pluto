@@ -1,0 +1,123 @@
+/* eslint-disable */
+
+const puppeteer = require("puppeteer");
+const path = require("path");
+const fs = require("fs");
+const mkdirp = require("mkdirp");
+const axios = require("axios");
+const { writeFile } = require("./utils");
+const config = require("./config");
+
+class Mocky {
+  constructor() {
+    this.visited = new Map();
+  }
+
+  async setup() {
+    this.browser = await puppeteer.launch({ headless: config.headless });
+    this.page = await this.browser.newPage();
+  }
+
+  async main() {
+    await this.crawlRecursively([config.baseUrl]);
+  }
+
+  async crawlRecursively(hrefs) {
+    for (let i = 0; i < hrefs.length; i++) {
+      await this.page.goto(hrefs[i]);
+      this.visited.set(hrefs[i], true);
+      // add log file for middleware
+      await this.page.addScriptTag({
+        url: path.join("/", config.logFilepath),
+      });
+      // save ssr page
+      await this.saveFile(this.page.url(), await this.page.content());
+      // save static files
+      await this.downloadAndSaveStatic();
+
+      // do mokey tesing
+      await this.monkey();
+
+      // crawl recursively
+      const nextHrefs = await this.getHrefs();
+      await this.crawlRecursively(nextHrefs);
+    }
+  }
+
+  async monkey() {
+    const clickableDoms = await this.page.$$("*", nodes =>
+      nodes.filter(node => node.onclick),
+    );
+    for (let clickableDom of clickableDoms) {
+      try {
+        await clickableDom.click();
+        if (!this.page.url().match(config.baseUrl)) {
+          this.page.goBack();
+        }
+      } catch (e) {}
+    }
+  }
+
+  async downloadAndSaveStatic() {
+    const staticLinks = await this.getStaticLinks();
+    for (let i = 0; i < staticLinks.length; i++) {
+      const { data } = await axios.get(staticLinks[i]);
+      await this.saveFile(staticLinks[i], data);
+    }
+  }
+
+  async getStaticLinks() {
+    const srcDoms = await this.page.$$("[src]");
+    const links = [];
+    for (let srcDom of srcDoms) {
+      const srcHandler = await srcDom.getProperty("src");
+      const src = await srcHandler.jsonValue();
+      if (
+        !src ||
+        !src.match(config.baseUrl) ||
+        src.match(config.logFilepath) ||
+        this.visited.get(src)
+      )
+        continue;
+      this.visited.set(src, true);
+      links.push(src);
+    }
+    return links;
+  }
+
+  async getHrefs() {
+    const aTags = await this.page.$$("a[href]");
+    const hrefs = [];
+    for (let aTag of aTags) {
+      const hrefHandler = await aTag.getProperty("href");
+      const href = await hrefHandler.jsonValue();
+      if (!href || !href.match(config.baseUrl) || this.visited.get(href))
+        continue;
+      this.visited.set(href, true);
+      hrefs.push(href);
+    }
+    return hrefs;
+  }
+
+  async saveFile(url, data) {
+    const filename = path.join(
+      config.buildDir,
+      url
+        .replace(config.baseUrl, "")
+        .replace(/^\//, "")
+        .replace(/\?.+/, "")
+        .replace(/#.+/, ""),
+      "./index.html",
+    );
+
+    console.log("writing - " + url);
+
+    await writeFile(filename, data);
+  }
+
+  async close() {
+    this.browser.close();
+  }
+}
+
+module.exports = Mocky;
