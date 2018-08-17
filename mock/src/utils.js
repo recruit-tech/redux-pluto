@@ -16,15 +16,3 @@ exports.writeFile = writeFile = (filepath, data) => {
     });
   });
 };
-
-exports.downloadAndWriteFiles = async urls => {
-  const tasks = [];
-  urls.forEach(url => {
-    tasks.push(async () => {
-      const { data } = await axios.get(url);
-      await writeFile(filepath, data);
-    });
-    downloaded.push(axios.get(url));
-  });
-  await Promise.all(tasks);
-};
