@@ -17,14 +17,6 @@ exports.writeFile = writeFile = (filepath, data) => {
   });
 };
 
-exports.waitSec = sec => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve();
-    }, sec);
-  });
-};
-
 exports.downloadAndWriteFiles = async urls => {
   const tasks = [];
   urls.forEach(url => {
