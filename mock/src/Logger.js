@@ -9,6 +9,7 @@ class Logger {
     this.app = express();
     this.options = options;
     this.logs = [];
+    this.listener;
   }
 
   setup() {
@@ -35,7 +36,7 @@ class Logger {
   }
 
   start() {
-    this.app.listen(config.loggerPort, () => {
+    this.listener = this.app.listen(config.loggerPort, () => {
       console.log(`Mock Logger listening on port ${config.loggerPort}`);
     });
   }
@@ -47,6 +48,7 @@ class Logger {
       window.${config.logInjectionKey} = ${JSON.stringify(this.logs)};
     `;
     await writeFile(filepath, log);
+    this.listener.close();
   }
 }
 

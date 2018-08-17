@@ -112,7 +112,8 @@ class Mocky {
   }
 
   async close() {
-    this.browser.close();
+    await this.page.close();
+    await this.browser.close();
   }
 }
 
