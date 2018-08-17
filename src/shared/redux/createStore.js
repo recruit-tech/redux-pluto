@@ -14,6 +14,7 @@ import apiError from "./middleware/apiErrorMiddleware";
 import auth from "./middleware/authMiddleware";
 import loading from "./middleware/loadingMiddleware";
 import reducer from "./modules/reducer";
+import mockLoggingMiddleware from "./middleware/mockLoggingMiddleware";
 
 export default function(initialState, options = {}) {
   const middlewares = filter(Boolean)([
@@ -23,6 +24,7 @@ export default function(initialState, options = {}) {
     options.fetchrCache ? fetchrCache(options.fetchrCache) : null,
     apiError(),
     options.csrfToken ? uploader({ csrfToken: options.csrfToken }) : null,
+    options.mockBuild ? mockLoggingMiddleware() : null,
     fetchr(options.fetchr),
     pageScopeMiddleware(),
     loading({ start: BEGIN_ASYNC_LOAD, stop: END_ASYNC_LOAD, delay: 500 }),
@@ -38,7 +40,7 @@ export default function(initialState, options = {}) {
   ]);
 
   const devTools = [];
-  if (__DEVELOPMENT__) {
+  if (__DEVELOPMENT__ && !__MOCK_BUILD__) {
     if (options.devTools) {
       // eslint-disable-next-line global-require
       const DevTools = require("../components/utils/DevTools").default;

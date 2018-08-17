@@ -85,6 +85,7 @@ module.exports = {
       __SERVER__: false,
       __DEVELOPMENT__: true,
       __DEVTOOLS__: true,
+      __MOCK_BUILD__: process.env.MOCK_BUILD,
       __DISABLE_SSR__: !!process.env.DISABLE_SSR,
       __REPORTSUITE_ENV__: JSON.stringify("dev"),
     }),
