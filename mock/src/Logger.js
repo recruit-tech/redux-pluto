@@ -1,6 +1,6 @@
+const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
-const path = require("path");
 const { writeFile } = require("./utils");
 const config = require("./config");
 
@@ -9,11 +9,10 @@ class Logger {
     this.app = express();
     this.options = options;
     this.logs = [];
-    this.listener;
   }
 
   setup() {
-    this.app.use(function(req, res, next) {
+    this.app.use((req, res, next) => {
       res.header("Access-Control-Allow-Origin", "*");
       res.header(
         "Access-Control-Allow-Headers",
