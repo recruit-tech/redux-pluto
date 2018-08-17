@@ -1,18 +1,9 @@
-/* eslint-disable */
-
 const fs = require("fs");
-const mkdirp = require("mkdirp");
+const util = require("util");
 const path = require("path");
-const axios = require("axios");
+const mkdirp = util.promisify(require("mkdirp"));
 
-exports.writeFile = writeFile = (filepath, data) => {
-  return new Promise((resolve, reject) => {
-    mkdirp(path.dirname(filepath), err => {
-      if (err) return reject(err);
-      return fs.writeFile(filepath, data, err => {
-        if (err) return reject(err);
-        return resolve();
-      });
-    });
-  });
+exports.writeFile = async (filepath, data) => {
+  await mkdirp(path.dirname(filepath));
+  return fs.writeFileSync(filepath, data);
 };
