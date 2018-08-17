@@ -18,7 +18,6 @@ const main = async () => {
   } catch (e) {
     console.error(e);
   }
-  process.exit(0);
 };
 
 main();
