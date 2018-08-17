@@ -23,7 +23,7 @@ class Mocky {
   }
 
   async crawlRecursively(hrefs) {
-    for (let href of hrefs) {
+    for (const href of hrefs) {
       await this.page.goto(href);
       // add log file for middleware
       await this.page.addScriptTag({
@@ -48,19 +48,19 @@ class Mocky {
     const clickableDoms = await this.page.$$("*", nodes =>
       nodes.filter(node => node.onclick),
     );
-    for (let clickableDom of clickableDoms) {
+    for (const clickableDom of clickableDoms) {
       try {
         await clickableDom.click();
         if (!this.page.url().match(config.baseUrl)) {
           this.page.goBack();
         }
-      } catch (e) {}
+      } catch (e) {} // invisibleなdomをクリックしたときにエラーが起きるので無視する
     }
   }
 
   async downloadAndSaveStatic() {
     const staticLinks = await this.getStaticLinks();
-    for (let staticLink of staticLinks) {
+    for (const staticLink of staticLinks) {
       const { data } = await axios.get(staticLink);
       await this.saveFile(staticLink, data);
     }
@@ -69,7 +69,7 @@ class Mocky {
   async getStaticLinks() {
     const srcDoms = await this.page.$$("[src]");
     const links = [];
-    for (let srcDom of srcDoms) {
+    for (const srcDom of srcDoms) {
       const srcHandler = await srcDom.getProperty("src");
       const src = await srcHandler.jsonValue();
       if (
@@ -88,7 +88,7 @@ class Mocky {
   async getHrefs() {
     const aTags = await this.page.$$("a[href]");
     const hrefs = [];
-    for (let aTag of aTags) {
+    for (const aTag of aTags) {
       const hrefHandler = await aTag.getProperty("href");
       const href = await hrefHandler.jsonValue();
       if (!href || !href.match(config.baseUrl) || this.visited.get(href))
