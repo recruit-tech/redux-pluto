@@ -24,7 +24,7 @@ export default function(initialState, options = {}) {
     options.fetchrCache ? fetchrCache(options.fetchrCache) : null,
     apiError(),
     options.csrfToken ? uploader({ csrfToken: options.csrfToken }) : null,
-    options.mockBuild ? mockLoggingMiddleware() : null,
+    options.mockBuild ? mockLoggingMiddleware(options.mockBuild.axios) : null,
     fetchr(options.fetchr),
     pageScopeMiddleware(),
     loading({ start: BEGIN_ASYNC_LOAD, stop: END_ASYNC_LOAD, delay: 500 }),

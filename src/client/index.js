@@ -53,7 +53,7 @@ function configStore() {
     devTools: isDevToolVisible,
     analytics: analyticsOptions,
     siteCatalyst: siteCatalystOptions,
-    mockBuild: __MOCK_BUILD__,
+    mockBuild: __MOCK_BUILD__ ? clientConfig.mockBuild : false,
   });
 }
 
