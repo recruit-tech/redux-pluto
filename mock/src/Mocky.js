@@ -23,9 +23,8 @@ class Mocky {
   }
 
   async crawlRecursively(hrefs) {
-    for (let i = 0; i < hrefs.length; i++) {
-      await this.page.goto(hrefs[i]);
-      this.visited.set(hrefs[i], true);
+    for (let href of hrefs) {
+      await this.page.goto(href);
       // add log file for middleware
       await this.page.addScriptTag({
         url: path.join("/", config.logFilepath),
@@ -44,6 +43,7 @@ class Mocky {
     }
   }
 
+  // FIXME: 現状、monkeyにはしていない
   async monkey() {
     const clickableDoms = await this.page.$$("*", nodes =>
       nodes.filter(node => node.onclick),
@@ -60,9 +60,9 @@ class Mocky {
 
   async downloadAndSaveStatic() {
     const staticLinks = await this.getStaticLinks();
-    for (let i = 0; i < staticLinks.length; i++) {
-      const { data } = await axios.get(staticLinks[i]);
-      await this.saveFile(staticLinks[i], data);
+    for (let staticLink of staticLinks) {
+      const { data } = await axios.get(staticLink);
+      await this.saveFile(staticLink, data);
     }
   }
 
