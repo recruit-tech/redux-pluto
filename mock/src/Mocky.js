@@ -30,7 +30,7 @@ class Mocky {
       // save static files
       await this.downloadAndSaveStatic();
 
-      // do mokey tesing
+      // do monkey tesing
       await this.monkey();
 
       // crawl recursively
@@ -48,7 +48,7 @@ class Mocky {
       try {
         await clickableDom.click();
         if (!this.page.url().match(config.baseUrl)) {
-          this.page.goBack();
+          await this.page.goBack();
         }
       } catch (e) {} // invisibleなdomをクリックしたときにエラーが起きるので無視する
     }
