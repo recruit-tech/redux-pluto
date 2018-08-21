@@ -123,6 +123,7 @@
     "babel-runtime": "^6.26.0",
     "codacy-coverage": "^3.0.0",
     "compression-webpack-plugin": "^1.1.11",
+    "cors": "^2.8.4",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
     "enzyme": "^3.3.0",
