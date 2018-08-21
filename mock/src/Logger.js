@@ -1,6 +1,7 @@
 const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const { writeFile } = require("./utils");
 const config = require("./config");
 
@@ -12,14 +13,7 @@ class Logger {
   }
 
   setup() {
-    this.app.use((req, res, next) => {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept",
-      );
-      next();
-    });
+    this.app.use(cors());
 
     this.app.use(bodyParser.json());
     this.app.use(
