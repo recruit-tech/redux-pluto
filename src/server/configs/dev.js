@@ -128,6 +128,13 @@ export default {
       maxAge: ms("10m"),
       excludes: [],
     },
+
+    mockBuild: {
+      axios: {
+        headers: { "Content-Type": "application/json" },
+        baseURL: "http://localhost:8888",
+      },
+    },
   },
 
   agreed: {

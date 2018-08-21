@@ -26,8 +26,10 @@ history.listen(location => {
   locationSubscriber.notify(location, "replace");
 });
 
+const isDevToolVisible = __DEVELOPMENT__ && !__MOCK_BUILD__;
+
 renderApp().then(() => {
-  if (__DEVELOPMENT__) {
+  if (isDevToolVisible) {
     configHotLoader();
 
     if (!window.devToolsExtension) {
@@ -48,9 +50,10 @@ function configStore() {
     fetchr: new Fetchr(clientConfig.fetchr),
     fetchrCache: clientConfig.fetchrCache,
     history: browserHistory,
-    devTools: __DEVELOPMENT__,
+    devTools: isDevToolVisible,
     analytics: analyticsOptions,
     siteCatalyst: siteCatalystOptions,
+    mockBuild: __MOCK_BUILD__ ? clientConfig.mockBuild : false,
   });
 }
 
@@ -105,7 +108,7 @@ function configHotLoader() {
 }
 
 function renderDevTool() {
-  if (__DEVELOPMENT__) {
+  if (isDevToolVisible) {
     window.React = React; // enable debugger
     const DevTools = require("../shared/components/utils/DevTools").default;
     const content = (
