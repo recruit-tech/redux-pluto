@@ -109,6 +109,11 @@ jobs:
       - <<: *restore
       - <<: *restore_lock
       - run: npm run build-storybook
+  lighthouse:
+    <<: *build_image
+    steps:
+      - <<: *restore
+      - run: npm run lighthouse
 
 workflows:
   version: 2
@@ -144,3 +149,6 @@ workflows:
             - build-asset
             - build-storybook
             - test
+      - lighthouse:
+          requires:
+            - lighthouse
