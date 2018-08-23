@@ -37,7 +37,7 @@
     "start:prod": "cross-env NODE_ENV=production run-p start:{prod:server,dev:agreed}",
     "start:prod:server": "node bin/start-server.js",
     "lighthouse": "run-p -r start:dev lighthouse:wait-on",
-    "lighthouse:wait-on": "wait-on tcp:3000 && TRAVIS_PULL_REQUEST_SLUG=recruit-tech/redux-pluto lighthouse-ci http://localhost:3000",
+    "lighthouse:wait-on": "wait-on tcp:3000 && TRAVIS_PULL_REQUEST_SLUG=recruit-tech/redux-pluto TRAVIS_EVENT_TYPE=pull_request lighthouse-ci http://localhost:3000",
     "storybook": "start-storybook -p 6006",
     "test": "run-p test:agreed test:wait-on -r",
     "test:agreed": "agreed-server --path ./spec/agreed/agreed.js --port 3020",
