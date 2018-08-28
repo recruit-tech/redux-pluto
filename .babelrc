@@ -1,7 +1,7 @@
 {
   "plugins": [
-    "transform-object-rest-spread",
-    "syntax-dynamic-import",
+    "@babel/proposal-object-rest-spread",
+    "@babel/syntax-dynamic-import",
     [
       "module-resolver",
       {
@@ -14,7 +14,7 @@
     "production:client": {
       "presets": [
         [
-          "env",
+          "@babel/env",
           {
             "targets": {
               "ie": "11"
@@ -22,12 +22,12 @@
             "modules": false
           }
         ],
-        "react",
-        "flow"
+        "@babel/react",
+        "@babel/flow"
       ],
       "plugins": [
-        "transform-object-rest-spread",
-        "syntax-dynamic-import",
+        "@babel/proposal-object-rest-spread",
+        "@babel/syntax-dynamic-import",
         [
           "module-resolver",
           {
@@ -65,7 +65,7 @@
     "production:server": {
       "presets": [
         [
-          "env",
+          "@babel/env",
           {
             "targets": {
               "node": "current"
@@ -73,15 +73,15 @@
             "modules": false
           }
         ],
-        "react",
-        "flow"
+        "@babel/react",
+        "@babel/flow"
       ]
     },
 
     "development:client": {
       "presets": [
         [
-          "env",
+          "@babel/env",
           {
             "targets": {
               "ie": "11"
@@ -89,12 +89,12 @@
             "modules": false
           }
         ],
-        "react",
-        "flow"
+        "@babel/react",
+        "@babel/flow"
       ],
       "plugins": [
-        "transform-object-rest-spread",
-        "syntax-dynamic-import",
+        "@babel/proposal-object-rest-spread",
+        "@babel/syntax-dynamic-import",
         [
           "module-resolver",
           {
@@ -114,7 +114,7 @@
     "development:server": {
       "presets": [
         [
-          "env",
+          "@babel/env",
           {
             "targets": {
               "node": "current"
@@ -122,8 +122,8 @@
             "modules": false
           }
         ],
-        "react",
-        "flow"
+        "@babel/react",
+        "@babel/flow"
       ],
       "plugins": [
         [
@@ -138,15 +138,15 @@
     "test:unit": {
       "presets": [
         [
-          "env",
+          "@babel/env",
           {
             "targets": {
               "node": "6"
             }
           }
         ],
-        "react",
-        "flow",
+        "@babel/react",
+        "@babel/flow",
         "power-assert"
       ]
     },
@@ -154,21 +154,21 @@
     "test": {
       "presets": [
         [
-          "env",
+          "@babel/env",
           {
             "targets": {
               "node": "8"
             }
           }
         ],
-        "react",
-        "flow",
+        "@babel/react",
+        "@babel/flow",
         "power-assert"
       ],
       "plugins": [
         "require-context-hook",
-        "transform-object-rest-spread",
-        "syntax-dynamic-import",
+        "@babel/proposal-object-rest-spread",
+        "@babel/syntax-dynamic-import",
         [
           "module-resolver",
           {

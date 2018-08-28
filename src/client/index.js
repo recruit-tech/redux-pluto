@@ -1,6 +1,6 @@
 /* @flow */
 /* eslint-disable global-require */
-import "babel-polyfill";
+import "@babel/polyfill";
 import React from "react";
 import { hydrate, unmountComponentAtNode } from "react-dom";
 import { Provider } from "react-redux";
