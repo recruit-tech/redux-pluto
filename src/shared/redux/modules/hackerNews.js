@@ -2,7 +2,7 @@
 import { createAction, handleActions, type Reducer } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { fetchrRead } from "redux-effects-fetchr";
-import { type HackerNewsItem } from "shared/types/HackerNews";
+import { type HackerNewsItem } from "../../types/HackerNews";
 import { createAsyncActionTypes } from "./utils";
 
 /**

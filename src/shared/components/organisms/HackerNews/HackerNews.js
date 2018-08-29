@@ -1,7 +1,7 @@
 /* @flow */
 import React from "react";
 import styled from "styled-components";
-import { type HackerNewsItem } from "shared/types/HackerNews";
+import { type HackerNewsItem } from "../../../types/HackerNews";
 import ListItem from "./ListItem";
 
 type Props = {

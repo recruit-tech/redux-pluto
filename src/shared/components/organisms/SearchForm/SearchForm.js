@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { propTypes as formPropTypes, Field } from "redux-form";
 import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
-import SearchMore from "shared/components/atoms/SearchMore";
+import SearchMore from "../../atoms/SearchMore";
 import SearchLists from "./SearchLists";
 import SearchPager from "./SearchPager";
 

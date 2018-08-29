@@ -1,7 +1,7 @@
 /* @flow */
 import assert from "assert";
 import cookie from "cookie";
-import configs from "server/configs";
+import configs from "../../configs";
 import AccessToken from "../AccessToken";
 
 test("AccessToken: delete success", async () => {

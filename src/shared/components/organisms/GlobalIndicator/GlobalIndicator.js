@@ -1,7 +1,7 @@
 /* @flow */
 import React from "react";
 import pure from "recompose/pure";
-import Indicator from "shared/components/atoms/Indicator";
+import Indicator from "../../atoms/Indicator";
 
 type Props = {|
   loading: boolean,

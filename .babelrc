@@ -1,13 +1,7 @@
 {
   "plugins": [
     "@babel/proposal-object-rest-spread",
-    "@babel/syntax-dynamic-import",
-    [
-      "module-resolver",
-      {
-        "root": ["./src"]
-      }
-    ]
+    "@babel/syntax-dynamic-import"
   ],
 
   "env": {
@@ -28,12 +22,6 @@
       "plugins": [
         "@babel/proposal-object-rest-spread",
         "@babel/syntax-dynamic-import",
-        [
-          "module-resolver",
-          {
-            "root": ["./src"]
-          }
-        ],
         [
           "transform-imports",
           {
@@ -95,12 +83,6 @@
       "plugins": [
         "@babel/proposal-object-rest-spread",
         "@babel/syntax-dynamic-import",
-        [
-          "module-resolver",
-          {
-            "root": ["./src"]
-          }
-        ],
         [
           "babel-plugin-styled-components",
           {
@@ -168,13 +150,7 @@
       "plugins": [
         "require-context-hook",
         "@babel/proposal-object-rest-spread",
-        "@babel/syntax-dynamic-import",
-        [
-          "module-resolver",
-          {
-            "root": ["./src"]
-          }
-        ]
+        "@babel/syntax-dynamic-import"
       ]
     }
   }

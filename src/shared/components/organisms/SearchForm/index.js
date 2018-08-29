@@ -11,17 +11,17 @@ import {
   SearchListselector,
   routingSelector,
   globalFormDisabledSelector,
-} from "shared/redux/modules/reducer";
+} from "../../../redux/modules/reducer";
 import {
   searchSearchList,
   searchMoreSearchList,
   clearSearchSearchList,
-} from "shared/redux/modules/searchList";
+} from "../../../redux/modules/searchList";
 import {
   siteSections,
   onAsyncLoaderLoaded,
-} from "shared/redux/analytics/utils";
-import { SALON_KEYWORD } from "shared/redux/analytics/variableNames";
+} from "../../../redux/analytics/utils";
+import { SALON_KEYWORD } from "../../../redux/analytics/variableNames";
 import SearchForm from "./SearchForm";
 
 const selector = createSelector(

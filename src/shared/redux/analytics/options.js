@@ -1,5 +1,5 @@
 /* @flow */
-import { type State as RootState } from "shared/redux/modules/reducer";
+import { type State as RootState } from "../modules/reducer";
 import {
   SERVER,
   URL,

@@ -5,8 +5,8 @@ import {
   showOnScroll,
   adjustScroll,
   forceScroll,
-} from "shared/components/utils/scrollComponents";
-import SearchListItem from "shared/components/atoms/SearchListItem";
+} from "../utils/scrollComponents";
+import SearchListItem from "../atoms/SearchListItem";
 
 type Props = {
   items: Array<{

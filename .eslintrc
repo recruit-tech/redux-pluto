@@ -48,12 +48,6 @@
     "__CSS_CHUNKS__": true
   },
 
-  "settings": {
-    "import/resolver": {
-      "babel-module": {}
-    }
-  },
-
   "rules": {
     // Possible Errors
     "no-console": "error",

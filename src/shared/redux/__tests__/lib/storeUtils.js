@@ -7,10 +7,10 @@ import steps from "redux-effects-steps";
 import cookie from "redux-effects-universal-cookie";
 import fetchr from "redux-effects-fetchr";
 import uploader from "redux-effects-formdata-uploader";
-import configs from "server/configs";
-import reducer from "shared/redux/modules/reducer";
-import authMiddleware from "shared/redux/middleware/authMiddleware";
-import { sign } from "server/services/AccessToken";
+import authMiddleware from "../../middleware/authMiddleware";
+import { sign } from "../../../../server/services/AccessToken";
+import reducer from "../../modules/reducer";
+import configs from "../../../../server/configs";
 
 export function createWithSignedStore(name: string, aud: *, options: Object) {
   return sign(

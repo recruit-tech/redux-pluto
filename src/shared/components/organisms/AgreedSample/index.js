@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { asyncLoader } from "redux-async-loader";
 import { compose } from "recompose";
 import { sendAnalytics } from "react-redux-analytics";
-import { getText } from "shared/redux/modules/agreedSample";
+import { getText } from "../../../redux/modules/agreedSample";
 import {
   siteSections,
   onAsyncLoaderLoaded,
-} from "shared/redux/analytics/utils";
+} from "../../../redux/analytics/utils";
 import AgreedSample from "./AgreedSample";
 
 const enhancer = compose(

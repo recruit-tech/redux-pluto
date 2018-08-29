@@ -1,5 +1,5 @@
 /* @flow */
-import { startLoading, stopLoading } from "shared/redux/modules/loading";
+import { startLoading, stopLoading } from "../modules/loading";
 import { handleActions } from "./utils";
 
 type LoadingMiddlewareOption = {

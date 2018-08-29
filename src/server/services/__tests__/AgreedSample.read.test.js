@@ -1,7 +1,7 @@
 /* @flow */
 /* eslint-disable global-require */
 import assert from "assert";
-import configs from "server/configs";
+import configs from "../../configs";
 import AgreedSample from "../AgreedSample";
 
 test("AgreedSample: read success", async () => {

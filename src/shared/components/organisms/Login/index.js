@@ -3,13 +3,13 @@ import { reduxForm, isInvalid } from "redux-form";
 import { connect } from "react-redux";
 import { compose } from "recompose";
 import { sendAnalytics } from "react-redux-analytics";
-import { login } from "shared/redux/modules/auth";
-import normalizeFormError from "shared/components/utils/normalizeFormError";
-import validate from "shared/validators/login";
+import { login } from "../../../redux/modules/auth";
+import normalizeFormError from "../../utils/normalizeFormError";
+import validate from "../../../validators/login";
 import {
   siteSections,
   onAsyncLoaderLoaded,
-} from "shared/redux/analytics/utils";
+} from "../../../redux/analytics/utils";
 import LoginForm from "./LoginForm";
 
 export default compose(

@@ -1,8 +1,8 @@
 /* @flow */
 import Fetchr from "fetchr";
 import debugFactory from "debug";
-import * as services from "server/services";
-import { verify } from "server/services/AccessToken";
+import * as services from "../services";
+import { verify } from "../services/AccessToken";
 import requestAdapter from "./requestAdapter";
 
 const debug = debugFactory("app:server:middleware:apiGateway");

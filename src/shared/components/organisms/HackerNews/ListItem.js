@@ -1,6 +1,6 @@
 /* @flow */
 import React from "react";
-import { type HackerNewsItem } from "shared/types/HackerNews";
+import { type HackerNewsItem } from "../../../types/HackerNews";
 
 type Props = {
   item: HackerNewsItem,
