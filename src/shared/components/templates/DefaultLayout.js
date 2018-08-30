@@ -2,8 +2,8 @@
 import React, { type Node } from "react";
 import styled from "styled-components";
 import pure from "recompose/pure";
-import Alert from "shared/components/organisms/Alert";
-import GlobalIndicator from "shared/components/organisms/GlobalIndicator";
+import Alert from "../organisms/Alert";
+import GlobalIndicator from "../organisms/GlobalIndicator";
 
 type Props = {
   header: Node,

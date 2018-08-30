@@ -2,7 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import pure from "recompose/pure";
-import Overlay from "shared/components/atoms/Overlay";
+import Overlay from "../../atoms/Overlay";
 
 type Props = {
   alert: {

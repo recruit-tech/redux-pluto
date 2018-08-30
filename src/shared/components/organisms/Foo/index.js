@@ -6,12 +6,12 @@ import { sendAnalytics, sendEvent } from "react-redux-analytics";
 import {
   siteSections,
   onAsyncLoaderLoaded,
-} from "shared/redux/analytics/utils";
+} from "../../../redux/analytics/utils";
 import {
   FOO_EVENT_VARIABLE,
   EVENTS,
-} from "shared/redux/analytics/variableNames";
-import bindActionToPropFunctions from "shared/components/utils/bindActionToPropFunctions";
+} from "../../../redux/analytics/variableNames";
+import bindActionToPropFunctions from "../../utils/bindActionToPropFunctions";
 
 export default compose(
   connect(

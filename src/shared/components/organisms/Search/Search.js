@@ -1,7 +1,7 @@
 /* @flow */
 import React, { Fragment } from "react";
 import pure from "recompose/pure";
-import { type State as SearchState } from "shared/redux/modules/search";
+import { type State as SearchState } from "../../../redux/modules/search";
 
 type Props = SearchState;
 

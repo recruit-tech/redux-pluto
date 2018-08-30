@@ -2,7 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import pure from "recompose/pure";
-import SearchList from "shared/components/molecules/SearchList";
+import SearchList from "../../../molecules/SearchList";
 
 type Props = {
   page: number,

@@ -1,6 +1,6 @@
 /* @flow */
 /* eslint-disable global-require */
-import "babel-polyfill";
+import "@babel/polyfill";
 import React from "react";
 import { hydrate, unmountComponentAtNode } from "react-dom";
 import { Provider } from "react-redux";
@@ -8,10 +8,10 @@ import { browserHistory, match } from "react-router";
 import { syncHistoryWithStore } from "react-router-redux";
 import { createLocationSubscriber } from "react-redux-analytics";
 import Fetchr from "fetchr";
-import createStore from "shared/redux/createStore";
-import App from "client/components/App";
-import analyticsOptions from "shared/redux/analytics/options";
-import siteCatalystOptions from "client/analytics";
+import createStore from "../shared/redux/createStore";
+import analyticsOptions from "../shared/redux/analytics/options";
+import App from "./components/App";
+import siteCatalystOptions from "./analytics";
 
 const store = configStore();
 const history = syncHistoryWithStore(browserHistory, store, {

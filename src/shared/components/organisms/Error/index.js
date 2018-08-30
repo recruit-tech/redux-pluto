@@ -2,7 +2,7 @@
 import React from "react";
 import { compose, shouldUpdate } from "recompose";
 import { sendAnalytics } from "react-redux-analytics";
-import { siteSections } from "shared/redux/analytics/utils";
+import { siteSections } from "../../../redux/analytics/utils";
 
 type Props = {};
 

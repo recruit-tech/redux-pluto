@@ -2,8 +2,8 @@
 /* eslint-disable no-undefined */
 import assert from "assert";
 import Fetchr from "fetchr";
-import { ACCESS_TOKEN_AUDIENCE_NAME } from "server/services/AccessToken";
-import { login } from "shared/redux/modules/auth";
+import { ACCESS_TOKEN_AUDIENCE_NAME } from "../../../server/services/AccessToken";
+import { login } from "../modules/auth";
 import { createStore, createWithSignedStore } from "./lib/storeUtils";
 
 /**

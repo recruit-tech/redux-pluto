@@ -19,7 +19,7 @@ module.exports = {
   context: rootDir,
 
   entry: [
-    "babel-polyfill",
+    "@babel/polyfill",
     "webpack-hot-middleware/client?" +
       qs.stringify({
         path: "/__webpack_hmr",
@@ -51,7 +51,7 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            forceEnv: "development:client",
+            envName: "development:client",
           },
         },
       },
