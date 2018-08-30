@@ -16,13 +16,13 @@ import { flushChunkNames } from "react-universal-component/server";
 import flushChunks from "webpack-flush-chunks";
 import { mapValues, noop, transform } from "lodash/fp";
 import debugFactory from "debug";
-import createStore from "shared/redux/createStore";
-import { loadAllMasters as loadAllMastersAction } from "shared/redux/modules/masters";
-import { checkLogin } from "shared/redux/modules/auth";
-import { csrfAction } from "shared/redux/modules/csrf";
-import getRoutes from "shared/routes";
-import Html from "server/components/Html";
-import App from "server/components/App";
+import createStore from "../../shared/redux/createStore";
+import { loadAllMasters as loadAllMastersAction } from "../../shared/redux/modules/masters";
+import { checkLogin } from "../../shared/redux/modules/auth";
+import { csrfAction } from "../../shared/redux/modules/csrf";
+import getRoutes from "../../shared/routes";
+import Html from "../components/Html";
+import App from "../components/App";
 
 const debug = debugFactory("app:server:middleware:reduxApp");
 

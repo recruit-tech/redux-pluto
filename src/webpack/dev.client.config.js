@@ -19,7 +19,7 @@ module.exports = {
   context: rootDir,
 
   entry: [
-    "babel-polyfill",
+    "@babel/polyfill",
     "webpack-hot-middleware/client?" +
       qs.stringify({
         path: "/__webpack_hmr",
@@ -51,7 +51,7 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            forceEnv: "development:client",
+            envName: "development:client",
           },
         },
       },
@@ -85,6 +85,7 @@ module.exports = {
       __SERVER__: false,
       __DEVELOPMENT__: true,
       __DEVTOOLS__: true,
+      __MOCK_BUILD__: process.env.MOCK_BUILD,
       __DISABLE_SSR__: !!process.env.DISABLE_SSR,
       __REPORTSUITE_ENV__: JSON.stringify("dev"),
     }),

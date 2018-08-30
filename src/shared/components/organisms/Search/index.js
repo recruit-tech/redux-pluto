@@ -7,16 +7,16 @@ import { sendAnalytics } from "react-redux-analytics";
 import {
   searchSelector,
   type State as RootState,
-} from "shared/redux/modules/reducer";
+} from "../../../redux/modules/reducer";
 import {
   findSalonById,
   type State as SearchState,
-} from "shared/redux/modules/search";
+} from "../../../redux/modules/search";
 import {
   siteSections,
   onAsyncLoaderLoaded,
-} from "shared/redux/analytics/utils";
-import { SALON_ID } from "shared/redux/analytics/variableNames";
+} from "../../../redux/analytics/utils";
+import { SALON_ID } from "../../../redux/analytics/variableNames";
 import Search from "./Search";
 
 type Props = {

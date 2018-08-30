@@ -58,7 +58,7 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            forceEnv: "production:server",
+            envName: "production:server",
           },
         },
       },

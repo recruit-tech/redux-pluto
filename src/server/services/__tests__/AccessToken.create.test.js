@@ -1,7 +1,7 @@
 /* @flow */
 import assert from "assert";
 import cookie from "cookie";
-import configs from "server/configs";
+import configs from "../../configs";
 import AccessToken, { verify, ACCESS_TOKEN_COOKIE_NAME } from "../AccessToken";
 
 test("AccessToken: create success", async () => {

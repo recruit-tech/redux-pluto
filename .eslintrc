@@ -40,17 +40,12 @@
     "__CLIENT__": true,
     "__SERVER__": true,
     "__DEVELOPMENT__": true,
+    "__MOCK_BUILD__": true,
     "__DISABLE_SSR__": true,
     "__ENABLE_OFFLOAD__": true,
     "__DISABLE_INLINE_CSS__": true,
     "__REPORTSUITE_ENV__": true,
     "__CSS_CHUNKS__": true
-  },
-
-  "settings": {
-    "import/resolver": {
-      "babel-module": {}
-    }
   },
 
   "rules": {

@@ -1,7 +1,7 @@
 /* @flow */
 import React, { type Node } from "react";
 import { compose, pure } from "recompose";
-import { showOnScroll } from "shared/components/utils/scrollComponents";
+import { showOnScroll } from "../utils/scrollComponents";
 
 type Props = {
   children: Node,

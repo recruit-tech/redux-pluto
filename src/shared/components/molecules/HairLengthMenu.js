@@ -1,8 +1,8 @@
 /* @flow */
 import React from "react";
 import { pure } from "recompose";
-import Menu from "shared/components/atoms/Menu";
-import MenuItem from "shared/components/atoms/MenuItem";
+import Menu from "../atoms/Menu";
+import MenuItem from "../atoms/MenuItem";
 
 type Gender = "man" | "woman";
 

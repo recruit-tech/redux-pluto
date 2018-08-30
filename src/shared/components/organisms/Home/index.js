@@ -5,7 +5,7 @@ import { sendAnalytics } from "react-redux-analytics";
 import {
   siteSections,
   onAsyncLoaderLoaded,
-} from "shared/redux/analytics/utils";
+} from "../../../redux/analytics/utils";
 
 export default compose(
   sendAnalytics({

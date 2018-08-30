@@ -2,7 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import { format } from "date-fns";
-import Counter from "shared/components/organisms/Counter";
+import Counter from "../Counter";
 
 type Props = {};
 

@@ -15,7 +15,7 @@ module.exports = {
 
   target: "web",
 
-  entry: ["babel-polyfill", path.resolve(rootDir, "src/client/index.js")],
+  entry: ["@babel/polyfill", path.resolve(rootDir, "src/client/index.js")],
 
   output: {
     path: outputPath,
@@ -36,7 +36,7 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            forceEnv: "production:client",
+            envName: "production:client",
           },
         },
       },

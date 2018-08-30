@@ -7,7 +7,7 @@ import { sendAnalytics } from "react-redux-analytics";
 import {
   siteSections,
   onAsyncLoaderLoaded,
-} from "shared/redux/analytics/utils";
+} from "../../../redux/analytics/utils";
 import LargeForm from "./LargeForm";
 
 export default compose(

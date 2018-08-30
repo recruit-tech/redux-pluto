@@ -6,7 +6,7 @@ import { sendAnalytics } from "react-redux-analytics";
 import {
   siteSections,
   onAsyncLoaderLoaded,
-} from "shared/redux/analytics/utils";
+} from "../../../redux/analytics/utils";
 
 const array = range(0, 500);
 

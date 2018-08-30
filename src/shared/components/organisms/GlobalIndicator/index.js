@@ -1,7 +1,7 @@
 /* @flow */
 import { connect } from "react-redux";
 import { compose } from "recompose";
-import { loadingSelector } from "shared/redux/modules/reducer";
+import { loadingSelector } from "../../../redux/modules/reducer";
 import GlobalIndicator from "./GlobalIndicator";
 
 export default compose(

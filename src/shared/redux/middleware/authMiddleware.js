@@ -7,7 +7,7 @@ import {
   AUTH_CHECK_LOGIN_REQUEST,
   AUTH_LOGIN_REQUEST,
   AUTH_LOGOUT_REQUEST,
-} from "shared/redux/modules/auth";
+} from "../modules/auth";
 import { handleActions } from "./utils";
 
 export default function authMiddleware() {

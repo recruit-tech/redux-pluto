@@ -4,6 +4,8 @@ declare module 'redux-effects-steps' {
     o: MaybePromise<Object> | Array<MaybePromise<Object>>,
     ...rest: Array<
       [any => MaybePromise<Object>, Error => MaybePromise<Object>]
+      | [any => MaybePromise<Object>]
+      | [MaybePromise<Object>]
       | MaybePromise<Object>
     >
   ): Promise<*>;
