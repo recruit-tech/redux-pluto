@@ -80,7 +80,7 @@
     "react-router-scroll": "^0.4.2",
     "react-universal-component": "^3.0.0",
     "react-virtualized": "^9.9.0",
-    "recompose": "0.28.2",
+    "recompose": "0.29.0",
     "redux": "^4.0.0",
     "redux-actions": "^2.3.0",
     "redux-async-loader": "^1.2.4",
