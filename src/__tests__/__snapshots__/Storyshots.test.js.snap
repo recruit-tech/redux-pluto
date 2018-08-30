@@ -158,7 +158,7 @@ exports[`Storyshots Atoms/SearchMore onClick 1`] = `
 exports[`Storyshots Button with some emoji 1`] = `
 <span>
   <button
-    className="css-1qwzad5"
+    className="css-1qwzad5 eux70yo0"
     onClick={[Function]}
   >
     <span
@@ -174,7 +174,7 @@ exports[`Storyshots Button with some emoji 1`] = `
 exports[`Storyshots Button with text 1`] = `
 <span>
   <button
-    className="css-1qwzad5"
+    className="css-1qwzad5 eux70yo0"
     onClick={[Function]}
   >
     Hello Button
