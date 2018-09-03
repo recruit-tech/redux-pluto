@@ -135,7 +135,7 @@ export function verify(req: any, secret: string) {
 }
 
 function jwtSign(payload: any, key: string, options: any) {
-  return new Promise((resolve, reject) =>
+  return new Promise<string>((resolve, reject) =>
     jwt.sign(
       payload,
       key,
