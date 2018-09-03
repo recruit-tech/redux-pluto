@@ -283,6 +283,7 @@ function sendSSRResponse({
       clientConfig: JSON.stringify(clientConfig),
     };
 
+    res.write("<!doctype html>\n");
     const htmlStream = renderToStaticNodeStream(<Html {...props} />);
     htmlStream.on("end", () => {
       timing.endTime("html");
