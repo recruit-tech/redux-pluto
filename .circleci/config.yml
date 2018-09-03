@@ -41,6 +41,12 @@ restore: &restore
 jobs:
   upload_lock:
     <<: *build_image
+    # workaround for greenkeeper-lockfile-upload
+    environment:
+      GIT_AUTHOR_NAME: greenkeeperio-bot
+      GIT_AUTHOR_EMAIL: support@greenkeeper.io
+      GIT_COMMITTER_NAME: greenkeeperio-bot
+      GIT_COMMITTER_EMAIL: support@greenkeeper.io
     steps:
       - <<: *restore
       - <<: *restore_lock
