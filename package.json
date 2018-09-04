@@ -122,7 +122,7 @@
     "babel-plugin-transform-imports": "^1.5.0",
     "babel-preset-power-assert": "^3.0.0-beta.1",
     "codacy-coverage": "^3.0.0",
-    "compression-webpack-plugin": "^1.1.11",
+    "compression-webpack-plugin": "^2.0.0",
     "cors": "^2.8.4",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
