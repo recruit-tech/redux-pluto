@@ -118,7 +118,7 @@
     "babel-jest": "^23.4.2",
     "babel-loader": "^8.0.0",
     "babel-plugin-require-context-hook": "^1.0.0",
-    "babel-plugin-styled-components": "1.6.2",
+    "babel-plugin-styled-components": "1.6.3",
     "babel-plugin-transform-imports": "^1.5.0",
     "babel-preset-power-assert": "^3.0.0-beta.1",
     "codacy-coverage": "^3.0.0",
