@@ -16,7 +16,7 @@ export default compose(
     content,
     initialState,
     clientConfig,
-    assets: { publicPath, scripts, stylesheets, inlineStylesheets, cssHashRaw },
+    assets: { publicPath, scripts, cssHashRaw },
     styles,
   } = props;
 
@@ -53,27 +53,6 @@ export default compose(
             `,
           }}
         />
-        {stylesheets &&
-          stylesheets.map(style => (
-            <link
-              key={style}
-              href={`${publicPath}/${style}`}
-              media="screen, projection"
-              rel="stylesheet"
-              type="text/css"
-            />
-          ))}
-        {inlineStylesheets &&
-          inlineStylesheets.map(style => (
-            <style
-              key={style.name}
-              type="text/css"
-              media="screen, projection"
-              dangerouslySetInnerHTML={{
-                __html: style.content,
-              }}
-            />
-          ))}
         {scripts &&
           scripts.map(script => (
             <script
