@@ -208,7 +208,7 @@ function renderSSR({
   const sheet = new ServerStyleSheet(); // <-- creating out stylesheet
   const jsx = sheet.collectStyles(<App store={store} {...renderProps} />);
   const content = renderToString(jsx);
-  const styles = sheet.getStyleTags();
+  const styles = sheet.getStyleElement();
 
   const assets = getAssets({ clientStats: config.clientStats, cssChunks });
 
@@ -274,9 +274,8 @@ function sendSSRResponse({
     clientConfig: JSON.stringify(clientConfig),
   };
 
-  res.write("<!doctype html>\n");
   const html = renderToStaticMarkup(<Html {...props} />);
-  res.end(html);
+  res.send(`<!doctype html>\n${html}`);
 }
 
 /*
