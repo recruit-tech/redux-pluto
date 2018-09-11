@@ -3,11 +3,7 @@ import path from "path";
 import { inspect } from "util";
 import React from "react";
 import { ServerStyleSheet } from "styled-components";
-import {
-  renderToNodeStream,
-  renderToStaticNodeStream,
-  renderToStaticMarkup,
-} from "react-dom/server";
+import { renderToStaticMarkup, renderToString } from "react-dom/server";
 import { createMemoryHistory, match } from "react-router";
 import { syncHistoryWithStore } from "react-router-redux";
 import { loadOnServer } from "redux-async-loader";
@@ -211,8 +207,8 @@ function renderSSR({
 
   const sheet = new ServerStyleSheet(); // <-- creating out stylesheet
   const jsx = sheet.collectStyles(<App store={store} {...renderProps} />);
-  const stream = sheet.interleaveWithNodeStream(renderToNodeStream(jsx));
-  const styles = sheet.getStyleTags();
+  const content = renderToString(jsx);
+  const styles = sheet.getStyleElement();
 
   const assets = getAssets({ clientStats: config.clientStats, cssChunks });
 
@@ -222,7 +218,7 @@ function renderSSR({
     res,
     status,
     store,
-    stream,
+    content,
     clientConfig,
     assets,
     timing,
@@ -257,7 +253,7 @@ function sendSSRResponse({
   store,
   clientConfig,
   assets,
-  stream,
+  content,
   timing,
   styles,
 }) {
@@ -269,27 +265,17 @@ function sendSSRResponse({
 
   res.set("Content-Type", "text/html");
 
-  let content = "";
-  stream.on("data", chunk => {
-    content += chunk;
-  });
-  stream.on("end", () => {
-    timing.endTime("ssr");
-    const props = {
-      content,
-      assets,
-      styles,
-      initialState: JSON.stringify(store.getState()),
-      clientConfig: JSON.stringify(clientConfig),
-    };
+  timing.endTime("ssr");
+  const props = {
+    content,
+    assets,
+    styles,
+    initialState: JSON.stringify(store.getState()),
+    clientConfig: JSON.stringify(clientConfig),
+  };
 
-    res.write("<!doctype html>\n");
-    const htmlStream = renderToStaticNodeStream(<Html {...props} />);
-    htmlStream.on("end", () => {
-      timing.endTime("html");
-    });
-    htmlStream.pipe(res);
-  });
+  const html = renderToStaticMarkup(<Html {...props} />);
+  res.send(`<!doctype html>\n${html}`);
 }
 
 /*
@@ -341,14 +327,5 @@ function getAssets({ clientStats, cssChunks }) {
   assets.cssHashRaw = mapValues(
     value => (stylesheets.includes(value) ? "loaded" : value),
   )(assets.cssHashRaw);
-
-  if (!__DISABLE_INLINE_CSS__) {
-    assets.inlineStylesheets = assets.stylesheets.map(chunkName => ({
-      name: chunkName,
-      content: cssChunks[chunkName].content,
-    }));
-    assets.stylesheets = null;
-  }
-
   return assets;
 }
