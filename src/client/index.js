@@ -14,9 +14,7 @@ import App from "./components/App";
 import siteCatalystOptions from "./analytics";
 
 const store = configStore();
-const history = syncHistoryWithStore(browserHistory, store, {
-  adjustUrlOnReplay: __DEVELOPMENT__,
-});
+const history = syncHistoryWithStore(browserHistory, store);
 const root = document.getElementById("root");
 
 const locationSubscriber = createLocationSubscriber(store);
