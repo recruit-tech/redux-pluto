@@ -91,7 +91,7 @@
     "redux-effects-universal-cookie": "^1.0.1",
     "redux-form": "^7.3.0",
     "redux-page-scope": "^1.0.0",
-    "reselect": "^3.0.1",
+    "reselect": "^4.0.0",
     "serve-favicon": "^2.5.0",
     "server-timing": "^2.0.0",
     "styled-components": "^3.2.6",
