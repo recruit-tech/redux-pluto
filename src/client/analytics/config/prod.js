@@ -4,7 +4,7 @@ module.exports = {
   s_account: "rcrtreduxprotoprd",
   addHostNameToLinkInternalFilters: true,
   s_code: {
-    linkInternalFilters: "javascript:mailto:,tel:,r.recruit.co.jp",
+    linkInternalFilters: "javascript:,mailto:,tel:,r.recruit.co.jp",
     trackInlineStats: false,
     // linkTrackVars: '',
     visitorNamespace: "recruit",
