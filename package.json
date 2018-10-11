@@ -105,7 +105,7 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
-    "@babel/runtime": "^7.0.0",
+    "@babel/runtime": "^7.1.2",
     "@storybook/addon-actions": "^4.0.0-alpha.14",
     "@storybook/addon-storyshots": "^4.0.0-alpha.14",
     "@storybook/addons": "^4.0.0-alpha.14",
