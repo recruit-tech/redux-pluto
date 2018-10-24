@@ -29,7 +29,7 @@ $ npm run start:prod
 
 ### 開発チュートリアル
 
-TBD
+[見る](https://github.com/recruit-tech/redux-pluto/wiki)
 
 ## WebStormユーザ
 
