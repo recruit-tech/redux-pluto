@@ -13,6 +13,8 @@ import analyticsOptions from "../shared/redux/analytics/options";
 import App from "./components/App";
 import siteCatalystOptions from "./analytics";
 
+const isDevToolVisible = __DEVELOPMENT__ && !__MOCK_BUILD__;
+
 const store = configStore();
 const history = syncHistoryWithStore(browserHistory, store, {
   adjustUrlOnReplay: __DEVELOPMENT__,
@@ -25,8 +27,6 @@ history.listen(location => {
   // console.log(location);
   locationSubscriber.notify(location, "replace");
 });
-
-const isDevToolVisible = __DEVELOPMENT__ && !__MOCK_BUILD__;
 
 renderApp().then(() => {
   if (isDevToolVisible) {
