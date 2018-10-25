@@ -3,11 +3,11 @@ import React from "react";
 import { type Store } from "redux";
 import { Provider } from "react-redux";
 import RouterContext from "react-router/lib/RouterContext";
-import { injectGlobal } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 import { type State } from "../../shared/redux/modules/reducer";
 
 /* eslint no-unused-expressions: 0 */
-injectGlobal`
+const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
@@ -71,8 +71,11 @@ export default function App(props: Props) {
   const { store, ...renderProps } = props;
 
   return (
-    <Provider store={store} key="provider">
-      <RouterContext {...renderProps} />
-    </Provider>
+    <React.Fragment>
+      <Provider store={store} key="provider">
+        <RouterContext {...renderProps} />
+      </Provider>
+      <GlobalStyle />
+    </React.Fragment>
   );
 }
