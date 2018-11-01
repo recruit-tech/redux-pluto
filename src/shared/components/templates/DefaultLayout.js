@@ -35,9 +35,7 @@ const Main = styled.div``;
 const Footer = styled.div``;
 const AlertContainer = styled.div``;
 const IndicatorContainer = styled.div`
-  .indicator {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-  }
+  position: fixed;
+  top: 50%;
+  left: 50%;
 `;
