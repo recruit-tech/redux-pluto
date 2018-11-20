@@ -28,6 +28,13 @@ export default function renderer({
   app.use(cookieParser(config.cookieParser));
   app.use(session({ store: sessionStore, ...config.session }));
   app.use(csurf(config.csurf));
+  app.use((err, req, res, next) => {
+    if (err.code !== "EBADCSRFTOKEN") {
+      return next(err);
+    }
+    res.statusCode = 403;
+    return res.end("Invalid csurf token");
+  });
   app.use(serverTiming());
   app.use(favicon(config.favicon));
 
