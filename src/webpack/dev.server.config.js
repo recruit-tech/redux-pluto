@@ -29,6 +29,8 @@ module.exports = {
 
   name: "server",
 
+  cache: true,
+
   target: "node",
 
   devtool: "source-map",
@@ -59,7 +61,7 @@ module.exports = {
         ],
         exclude: [/node_modules/],
         use: {
-          loader: "babel-loader",
+          loader: "babel-loader?cacheDirectory=true",
           options: {
             envName: "development:server",
           },
