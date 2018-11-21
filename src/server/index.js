@@ -10,7 +10,7 @@ import multer from "multer";
 import serverTiming from "server-timing";
 import { transform } from "lodash/fp";
 import config from "./configs";
-import { apiGateway, offloadDetector, reduxApp } from "./middlewares";
+import { apiGateway, apiErrorHandler, offloadDetector, reduxApp } from "./middlewares";
 import * as uploaders from "./uploaders";
 
 const upload = multer(config.multer);
@@ -28,15 +28,9 @@ export default function renderer({
   app.use(cookieParser(config.cookieParser));
   app.use(session({ store: sessionStore, ...config.session }));
   app.use(csurf(config.csurf));
-  app.use((err, req, res, next) => {
-    if (err.code !== "EBADCSRFTOKEN") {
-      return next(err);
-    }
-    res.statusCode = 403;
-    return res.end("Invalid csurf token");
-  });
   app.use(serverTiming());
   app.use(favicon(config.favicon));
+  app.use(apiErrorHandler());
 
   Object.values(uploaders).forEach((Uploader: any) => {
     const uploader = new Uploader(config);
