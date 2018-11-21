@@ -43,9 +43,9 @@ export default compose(
   return (
     <form onSubmit={handleSubmit} method="POST">
       {error && <div>{error}</div>}
-      {!error &&
-        submitFailed &&
-        anyTouched && <div>ログインできませんでした</div>}
+      {!error && submitFailed && anyTouched && (
+        <div>ログインできませんでした</div>
+      )}
       <div>
         <Field name="username" component={RenderInput} />
         <Field name="password" component={RenderInput} />

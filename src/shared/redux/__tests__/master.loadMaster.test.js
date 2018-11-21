@@ -140,21 +140,23 @@ test("master: load each success", done => {
   Object.keys(actions)
     .reduce(
       (promise, actionName) =>
-        promise.then(() => store.dispatch(actions[actionName])).then(() => {
-          const nextState = store.getState().app.masters;
-          Object.keys(nextState).forEach(propName => {
-            if (propName === actionName) {
-              assert.deepStrictEqual(nextState[propName], expects[propName]);
-            } else {
-              assert.strictEqual(
-                nextState[propName],
-                prevState[propName],
-                actionName,
-              );
-            }
-          });
-          prevState = nextState;
-        }),
+        promise
+          .then(() => store.dispatch(actions[actionName]))
+          .then(() => {
+            const nextState = store.getState().app.masters;
+            Object.keys(nextState).forEach(propName => {
+              if (propName === actionName) {
+                assert.deepStrictEqual(nextState[propName], expects[propName]);
+              } else {
+                assert.strictEqual(
+                  nextState[propName],
+                  prevState[propName],
+                  actionName,
+                );
+              }
+            });
+            prevState = nextState;
+          }),
       Promise.resolve(),
     )
     .then(() => {

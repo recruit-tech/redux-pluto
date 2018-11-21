@@ -18,15 +18,14 @@ export default pure(function SearchPager(props: Props) {
 
   return (
     <div>
-      {slicedPages.map(
-        p =>
-          page === p ? (
-            <Current key={p}>{p}</Current>
-          ) : (
-            <Link key={p} to={`/search?keyword=${keyword}&page=${p}`}>
-              {p}
-            </Link>
-          ),
+      {slicedPages.map(p =>
+        page === p ? (
+          <Current key={p}>{p}</Current>
+        ) : (
+          <Link key={p} to={`/search?keyword=${keyword}&page=${p}`}>
+            {p}
+          </Link>
+        ),
       )}
     </div>
   );

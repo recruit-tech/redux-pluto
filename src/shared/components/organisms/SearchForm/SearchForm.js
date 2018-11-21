@@ -76,6 +76,7 @@ export default compose(
             Free Keyword
             <div id="keyword">
               <Field
+                id="keyword"
                 type="text"
                 name="keyword"
                 component="input"

@@ -136,22 +136,16 @@ export function verify(req: any, secret: string) {
 
 function jwtSign(payload: any, key: string, options: any) {
   return new Promise<string>((resolve, reject) =>
-    jwt.sign(
-      payload,
-      key,
-      options,
-      (err, token) => (err ? reject(err) : resolve(token)),
+    jwt.sign(payload, key, options, (err, token) =>
+      err ? reject(err) : resolve(token),
     ),
   );
 }
 
 function jwtVerify(token: string, secret: string, options: any) {
   return new Promise((resolve, reject) =>
-    jwt.verify(
-      token,
-      secret,
-      options,
-      (err, decoded) => (err ? reject(err) : resolve(decoded)),
+    jwt.verify(token, secret, options, (err, decoded) =>
+      err ? reject(err) : resolve(decoded),
     ),
   );
 }
