@@ -124,6 +124,10 @@
     // this rules Deprecated. 
     // see:https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/label-has-for.md
     "jsx-a11y/label-has-for": "off",
+    "jsx-a11y/label-has-associated-control": [ 2, {
+      "controlComponents": ["Field"],
+      "depth": 2
+    }],
 
     // import
     "import/order": [

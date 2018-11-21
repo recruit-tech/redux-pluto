@@ -106,8 +106,8 @@ export default function createReduxApp(config) {
         }
 
         /*
-       * 初期表示に必要なデータをフェッチします。
-       */
+         * 初期表示に必要なデータをフェッチします。
+         */
         timing.startTime("prefetch", "Prefetch onLoad");
         store.dispatch(csrfAction(req.csrfToken()));
         return Promise.all([
@@ -118,8 +118,8 @@ export default function createReduxApp(config) {
             timing.endTime("prefetch");
 
             /*
-            * サーバサイドレンダリングを行います。
-            */
+             * サーバサイドレンダリングを行います。
+             */
             renderSSR({
               res,
               store,
@@ -324,8 +324,8 @@ function getAssets({ clientStats, cssChunks }) {
   const stylesheets = assets.stylesheets.map(
     stylesheet => `${publicPath}/${stylesheet}`,
   );
-  assets.cssHashRaw = mapValues(
-    value => (stylesheets.includes(value) ? "loaded" : value),
+  assets.cssHashRaw = mapValues(value =>
+    stylesheets.includes(value) ? "loaded" : value,
   )(assets.cssHashRaw);
   return assets;
 }
