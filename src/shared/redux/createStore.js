@@ -23,7 +23,6 @@ export default function(initialState, options = {}) {
     cookie(...options.cookie),
     options.fetchrCache ? fetchrCache(options.fetchrCache) : null,
     apiError(),
-    options.csrfToken ? uploader({ csrfToken: options.csrfToken }) : null,
     options.mockBuild ? mockLoggingMiddleware(options.mockBuild.axios) : null,
     fetchr(options.fetchr),
     pageScopeMiddleware(),

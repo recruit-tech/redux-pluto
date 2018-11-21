@@ -45,7 +45,6 @@ export function createStore(options: Object) {
         options.upload &&
           uploader({
             baseURL: `http://localhost:${options.upload.port}`,
-            csrfToken: null,
           }),
         routerMiddleware(history),
       ].filter(Boolean),

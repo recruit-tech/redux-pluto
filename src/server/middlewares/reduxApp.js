@@ -15,7 +15,6 @@ import debugFactory from "debug";
 import createStore from "../../shared/redux/createStore";
 import { loadAllMasters as loadAllMastersAction } from "../../shared/redux/modules/masters";
 import { checkLogin } from "../../shared/redux/modules/auth";
-import { csrfAction } from "../../shared/redux/modules/csrf";
 import getRoutes from "../../shared/routes";
 import Html from "../components/Html";
 import App from "../components/App";
@@ -109,7 +108,6 @@ export default function createReduxApp(config) {
        * 初期表示に必要なデータをフェッチします。
        */
         timing.startTime("prefetch", "Prefetch onLoad");
-        store.dispatch(csrfAction(req.csrfToken()));
         return Promise.all([
           loadOnServer(renderProps, store),
           store.dispatch(checkLogin()).catch(() => null),
@@ -161,17 +159,14 @@ export default function createReduxApp(config) {
 
 function getClientConfig(config, req) {
   const { fetchr, ...clientConfig } = config.clientConfig;
-  const csrfToken = req.csrfToken();
   return {
     ...clientConfig,
     fetchr: {
       ...fetchr,
       context: {
         ...fetchr.context,
-        _csrf: csrfToken,
       },
     },
-    csrfToken,
   };
 }
 

@@ -8,7 +8,6 @@ import { analyticsReducer } from "react-redux-analytics";
 import agreedSample, { type State as AgreedSampleState } from "./agreedSample";
 import alert, { type State as AlertState } from "./alert";
 import auth, { type State as AuthState } from "./auth";
-import csrf, { type State as CsrfState } from "./csrf";
 import counter, { type State as CounterState } from "./counter";
 import loading, { type State as LoadingState } from "./loading";
 import masters, { type State as MastersState } from "./masters";
@@ -22,7 +21,6 @@ export type State = {
   app: {
     masters: MastersState,
     auth: AuthState,
-    csrf: CsrfState,
     counter: CounterState,
     alert: AlertState,
     loading: LoadingState,
@@ -46,7 +44,6 @@ export default combineReducers({
   app: combineReducers({
     masters,
     auth,
-    csrf,
     counter,
     alert,
     loading,

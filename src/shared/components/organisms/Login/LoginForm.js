@@ -37,7 +37,6 @@ export default compose(
     submitting,
     submitFailed,
     anyTouched,
-    csrf,
   } = props;
 
   return (
@@ -50,7 +49,6 @@ export default compose(
         <Field name="username" component={RenderInput} />
         <Field name="password" component={RenderInput} />
       </div>
-      <input type="hidden" name="_csrf" value={csrf} />
       <div>
         <button type="submit" disabled={submitting}>
           Login

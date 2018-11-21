@@ -15,7 +15,6 @@ import LoginForm from "./LoginForm";
 export default compose(
   connect(state => ({
     invalid: isInvalid("loginForm")(state),
-    csrf: state.app.csrf.token,
   })),
   sendAnalytics({
     ...siteSections("login", "top"),

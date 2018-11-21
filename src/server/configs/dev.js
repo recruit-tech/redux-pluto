@@ -18,6 +18,9 @@ export default {
     },
   },
 
+  // origin host url
+  origin: "http://localhost:3000",
+
   // https://github.com/jshttp/cookie
   cookieParser: null,
 
@@ -26,11 +29,6 @@ export default {
     secret: "redux-proto",
     resave: false,
     saveUninitialized: false,
-  },
-
-  // https://github.com/expressjs/csurf
-  csurf: {
-    cookie: true,
   },
 
   // https://github.com/expressjs/serve-favicon

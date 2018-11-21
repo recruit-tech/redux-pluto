@@ -31,7 +31,7 @@ export function upload(
 /**
  * uploader middleware
  */
-export default function uploadMiddleware(_csrf: any) {
+export default function uploadMiddleware() {
   return ({ dispatch }: any) => (next: Function) => (action: any) => {
     const { type, payload } = action;
     if (type !== UPLOADER) {
@@ -41,7 +41,7 @@ export default function uploadMiddleware(_csrf: any) {
     const formData = new FormData();
     formData.append("file", payload.file);
 
-    const qs = querystring.stringify({ ...payload.params, _csrf });
+    const qs = querystring.stringify({ ...payload.params });
     return axios.post(`${payload.path}?${qs}`, formData, {});
   };
 }

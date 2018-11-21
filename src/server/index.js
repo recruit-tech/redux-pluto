@@ -4,13 +4,12 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import compression from "compression";
 import session from "express-session";
-import csurf from "csurf";
 import favicon from "serve-favicon";
 import multer from "multer";
 import serverTiming from "server-timing";
 import { transform } from "lodash/fp";
 import config from "./configs";
-import { apiGateway, offloadDetector, reduxApp } from "./middlewares";
+import { apiGateway, offloadDetector, reduxApp, checkPreflightMiddleware } from "./middlewares";
 import * as uploaders from "./uploaders";
 
 const upload = multer(config.multer);
@@ -27,7 +26,6 @@ export default function renderer({
   app.use(bodyParser.urlencoded(config.bodyParser.urlencoded));
   app.use(cookieParser(config.cookieParser));
   app.use(session({ store: sessionStore, ...config.session }));
-  app.use(csurf(config.csurf));
   app.use(serverTiming());
   app.use(favicon(config.favicon));
 
@@ -67,6 +65,7 @@ export default function renderer({
     app.use(asset.mount, express.static(asset.path));
   });
 
+  app.use(checkPreflightMiddleware(config.origin));
   app.use(config.clientConfig.fetchr.xhrPath, apiGateway(config, app));
   app.use(compression());
   if (__ENABLE_OFFLOAD__) {
