@@ -1,9 +1,8 @@
 {
   "plugins": [
-    "@babel/proposal-object-rest-spread",
-    "@babel/syntax-dynamic-import"
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-syntax-dynamic-import"
   ],
-
   "env": {
     "production:client": {
       "presets": [
@@ -20,8 +19,8 @@
         "@babel/flow"
       ],
       "plugins": [
-        "@babel/proposal-object-rest-spread",
-        "@babel/syntax-dynamic-import",
+        "@babel/plugin-proposal-object-rest-spread",
+        "@babel/plugin-syntax-dynamic-import",
         [
           "transform-imports",
           {
@@ -49,7 +48,6 @@
         ]
       ]
     },
-
     "production:server": {
       "presets": [
         [
@@ -65,7 +63,6 @@
         "@babel/flow"
       ]
     },
-
     "development:client": {
       "presets": [
         [
@@ -81,8 +78,8 @@
         "@babel/flow"
       ],
       "plugins": [
-        "@babel/proposal-object-rest-spread",
-        "@babel/syntax-dynamic-import",
+        "@babel/plugin-proposal-object-rest-spread",
+        "@babel/plugin-syntax-dynamic-import",
         [
           "babel-plugin-styled-components",
           {
@@ -92,7 +89,6 @@
         "react-hot-loader/babel"
       ]
     },
-
     "development:server": {
       "presets": [
         [
@@ -116,7 +112,6 @@
         ]
       ]
     },
-
     "test:unit": {
       "presets": [
         [
@@ -132,7 +127,6 @@
         "power-assert"
       ]
     },
-
     "test": {
       "presets": [
         [
@@ -149,8 +143,8 @@
       ],
       "plugins": [
         "require-context-hook",
-        "@babel/proposal-object-rest-spread",
-        "@babel/syntax-dynamic-import"
+        "@babel/plugin-proposal-object-rest-spread",
+        "@babel/plugin-syntax-dynamic-import"
       ]
     }
   }
