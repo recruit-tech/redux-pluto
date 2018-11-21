@@ -39,20 +39,23 @@ export default function(initialState, options = {}) {
     options.logger,
   ]);
 
+  /* eslint-disable no-underscore-dangle */
+  let composeEnhancers = compose;
   const devTools = [];
   if (__DEVELOPMENT__ && !__MOCK_BUILD__) {
-    if (options.devTools) {
-      // eslint-disable-next-line global-require
-      const DevTools = require("../components/utils/DevTools").default;
-      devTools.push(
-        window.devToolsExtension
-          ? window.devToolsExtension()
-          : DevTools.instrument(),
-      );
+    if (options.devTools && typeof window !== "undefined") {
+      if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
+        composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+      } else {
+        /* eslint-disable-next-line global-require */
+        const DevTools = require("../components/utils/DevTools").default;
+        devTools.push(DevTools.instrument());
+      }
     }
   }
+  /* eslint-enable */
 
-  const enhancer = compose(
+  const enhancer = composeEnhancers(
     applyMiddleware(...middlewares),
     ...devTools,
   );
