@@ -107,7 +107,6 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.1.2",
     "@storybook/addon-actions": "^4.0.0",
-    "@storybook/addon-storyshots": "^4.0.0",
     "@storybook/addons": "^4.0.0",
     "@storybook/core": "^4.0.0",
     "@storybook/react": "^4.0.0",
