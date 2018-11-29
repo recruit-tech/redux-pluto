@@ -14,7 +14,7 @@ type Props = {
   },
 };
 
-export default pure(function GenderMenu(props: Props) {
+export default pure<Props>(function GenderMenu(props: Props) {
   const { genderItems } = props;
   const gender: Gender = props.gender || Object.keys(genderItems)[0];
 

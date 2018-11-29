@@ -30,9 +30,13 @@ export const [
  * Action creators
  */
 
-const searchSearchListRequest = createAction(SALON_LIST_SEARCH_REQUEST);
-const searchSearchListsuccess = createAction(SALON_LIST_SEARCH_SUCCESS);
-const searchSearchListFail = createAction(SALON_LIST_SEARCH_FAIL);
+const searchSearchListRequest = createAction<string, *>(
+  SALON_LIST_SEARCH_REQUEST,
+);
+const searchSearchListsuccess = createAction<string, *>(
+  SALON_LIST_SEARCH_SUCCESS,
+);
+const searchSearchListFail = createAction<string, *>(SALON_LIST_SEARCH_FAIL);
 
 export function searchSearchList(params: *) {
   return steps(
@@ -45,7 +49,7 @@ export function searchSearchList(params: *) {
   );
 }
 
-export const clearSearchSearchList = createAction(
+export const clearSearchSearchList = createAction<string, *>(
   SALON_LIST_CLEAR_SEARCH_REQUEST,
 );
 

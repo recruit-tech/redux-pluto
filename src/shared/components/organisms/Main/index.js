@@ -5,7 +5,7 @@ import pure from "recompose/pure";
 
 type Props = { children: Node };
 
-export default pure(function Main(props: Props) {
+export default pure<Props>(function Main(props: Props) {
   const { children } = props;
 
   return <Root>{children}</Root>;

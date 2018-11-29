@@ -13,7 +13,7 @@ type Props = {
   linkURL: string,
 };
 
-export default pure(function SearchLists(props: Props) {
+export default pure<Props>(function SearchLists(props: Props) {
   const {
     items,
     onInnerWindow,

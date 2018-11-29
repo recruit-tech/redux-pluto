@@ -8,7 +8,7 @@ import { fetchItems } from "../../../redux/modules/hackerNews";
 import HackerNews from "./HackerNews";
 
 export default compose(
-  asyncLoader((props, { dispatch }) => dispatch(fetchItems())),
+  asyncLoader<*>((props, { dispatch }) => dispatch(fetchItems())),
   connect(state => ({
     hackerNews: hackerNewsSelector(state),
   })),

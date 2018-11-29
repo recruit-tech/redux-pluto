@@ -1,11 +1,16 @@
 /* @flow */
-import React from "react";
+import React, { type Node } from "react";
 import styled from "styled-components";
 import pure from "recompose/pure";
 
 const noop = () => {};
 
-export default pure(function Overlay(props) {
+type Props = {
+  children: Node,
+  onClick?: (*) => void,
+};
+
+export default pure<Props>(function Overlay(props: Props) {
   const { children, onClick } = props;
 
   return (

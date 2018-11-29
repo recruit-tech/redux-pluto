@@ -27,7 +27,7 @@ type Props = {
   loading: boolean,
 };
 
-export default pure(function Indicator(props: Props) {
+export default pure<Props>(function Indicator(props: Props) {
   const { loading } = props;
   if (!loading) {
     return null;

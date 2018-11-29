@@ -18,9 +18,13 @@ export const [
 /**
  * Action creators
  */
-export const getTextRequest = createAction(AGREED_SAMPLE_GET_TEXT_REQUEST);
-export const getTextSuccess = createAction(AGREED_SAMPLE_GET_TEXT_SUCCESS);
-export const getTextFail = createAction(AGREED_SAMPLE_GET_TEXT_FAIL);
+export const getTextRequest = createAction<string, *>(
+  AGREED_SAMPLE_GET_TEXT_REQUEST,
+);
+export const getTextSuccess = createAction<string, *>(
+  AGREED_SAMPLE_GET_TEXT_SUCCESS,
+);
+export const getTextFail = createAction<string, *>(AGREED_SAMPLE_GET_TEXT_FAIL);
 
 export function getText(status: ?string): Promise<{ text: string }> {
   return steps(

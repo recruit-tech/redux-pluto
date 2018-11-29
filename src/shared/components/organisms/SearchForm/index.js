@@ -37,7 +37,7 @@ const selector = createSelector(
 );
 
 export default compose(
-  asyncLoader(({ location }, { dispatch, getState }) => {
+  asyncLoader<*>(({ location }, { dispatch, getState }) => {
     const state = getState();
     const { locationBeforeTransitions } = routingSelector(state);
     const { action } = locationBeforeTransitions;

@@ -7,6 +7,7 @@ import bindActionCreators from "../../utils/bindActionCreators";
 import Alert from "./Alert";
 
 export default compose(
+  // $FlowFixMe
   connect(
     state => ({
       alert: alertSelector(state),

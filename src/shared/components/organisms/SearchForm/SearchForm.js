@@ -33,7 +33,7 @@ type Props = FormProps & {
 
 export default compose(
   // for performance
-  onlyUpdateForPropTypes,
+  (onlyUpdateForPropTypes: any),
   setPropTypes({
     ...formPropTypes,
     page: PropTypes.number,

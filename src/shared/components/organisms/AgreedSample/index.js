@@ -11,7 +11,7 @@ import {
 import AgreedSample from "./AgreedSample";
 
 const enhancer = compose(
-  asyncLoader(({ location }, { dispatch }) => {
+  asyncLoader<*>(({ location }, { dispatch }) => {
     const { query: locationQuery } = location;
     if (!locationQuery) {
       return dispatch(getText());

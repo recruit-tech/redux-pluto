@@ -1,6 +1,6 @@
 /* @flow */
 // Do nothing as storybook decorator
-const NoopDecorator = fn => fn();
+const NoopDecorator = (fn: () => void) => fn();
 
 // Avoid accessing to stroybook-chrome-screenshot in CI
 export default () => {

@@ -11,7 +11,7 @@ type Props = {
   footer: Node,
 };
 
-export default pure((props: Props) => {
+export default pure<Props>((props: Props) => {
   const { header, main, footer } = props;
 
   return (

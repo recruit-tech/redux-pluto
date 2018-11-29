@@ -5,7 +5,7 @@ import { sendAnalytics } from "react-redux-analytics";
 import { siteSections } from "../../../redux/analytics/utils";
 
 export default compose(
-  shouldUpdate(() => false),
+  shouldUpdate<void, void>(() => false),
   sendAnalytics({
     ...siteSections("error", "notfound"),
   }),

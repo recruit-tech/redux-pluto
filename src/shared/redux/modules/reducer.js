@@ -42,7 +42,7 @@ export type State = {
   analytics: *,
 };
 
-export default combineReducers({
+export default combineReducers<*, *>({
   app: combineReducers({
     masters,
     auth,

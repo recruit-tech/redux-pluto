@@ -7,7 +7,7 @@ import { siteSections } from "../../../redux/analytics/utils";
 type Props = {};
 
 export default compose(
-  sendAnalytics({
+  sendAnalytics<*>({
     ...siteSections("error", "error"),
   }),
   shouldUpdate(() => false),

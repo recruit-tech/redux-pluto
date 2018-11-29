@@ -9,7 +9,7 @@ const CSRF = "redux-proto/csrf";
 /**
  * Action creators
  */
-export const csrfAction = createAction(CSRF);
+export const csrfAction = createAction<string, *>(CSRF);
 
 /**
  * Initial state

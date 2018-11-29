@@ -11,6 +11,7 @@ import {
 import LargeForm from "./LargeForm";
 
 export default compose(
+  // $FlowFixMe
   connect((state, props) => ({
     initialValues: {
       items: range(0, props.location.query.length || 1000).map(v => ({

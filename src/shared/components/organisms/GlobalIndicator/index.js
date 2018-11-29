@@ -5,6 +5,7 @@ import { loadingSelector } from "../../../redux/modules/reducer";
 import GlobalIndicator from "./GlobalIndicator";
 
 export default compose(
+  // $FlowFixMe
   connect(state => ({
     loading: loadingSelector(state),
   })),

@@ -5,7 +5,7 @@ import React from "react";
 import { compose, setPropTypes } from "recompose";
 
 export default compose(
-  setPropTypes({
+  setPropTypes<*>({
     assets: PropTypes.object.isRequired,
     content: PropTypes.string,
     initialState: PropTypes.string.isRequired,

@@ -7,7 +7,7 @@ type Props = {
   children: Node,
 };
 
-export default pure(function Menu(props: Props) {
+export default pure<Props>(function Menu(props: Props) {
   const { children } = props;
 
   return <MenuItems>{children}</MenuItems>;

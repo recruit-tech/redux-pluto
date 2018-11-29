@@ -11,7 +11,7 @@ type Props = {
   onClose: Function,
 };
 
-export default pure(function Alert(props: Props) {
+export default pure<Props>(function Alert(props: Props) {
   const {
     alert: { message },
     onClose,

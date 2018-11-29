@@ -13,6 +13,7 @@ import {
 import LoginForm from "./LoginForm";
 
 export default compose(
+  // $FlowFixMe
   connect(state => ({
     invalid: isInvalid("loginForm")(state),
     csrf: state.app.csrf.token,

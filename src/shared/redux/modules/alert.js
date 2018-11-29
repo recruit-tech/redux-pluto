@@ -11,9 +11,12 @@ export const ALERT_CLEAR = `${ALERT}/clear`;
 /**
  * Action creators
  */
-export const showAlert = createAction(ALERT_SHOW, message => message);
+export const showAlert = createAction<string, [string], string>(
+  ALERT_SHOW,
+  message => message,
+);
 
-export const clearAlert = createAction(ALERT_CLEAR);
+export const clearAlert = createAction<string, void>(ALERT_CLEAR);
 
 /**
  * Initial state

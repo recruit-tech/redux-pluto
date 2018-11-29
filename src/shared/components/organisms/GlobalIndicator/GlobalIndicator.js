@@ -7,7 +7,7 @@ type Props = {|
   loading: boolean,
 |};
 
-export default pure(function GlobalIndicator(props: Props) {
+export default pure<Props>(function GlobalIndicator(props: Props) {
   const { loading } = props;
 
   return (

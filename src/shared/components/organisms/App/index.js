@@ -6,7 +6,7 @@ type Props = {|
   children: Node,
 |};
 
-export default pure(function App(props: Props) {
+export default pure<Props>(function App(props: Props) {
   const { children } = props;
 
   return <div>{children}</div>;

@@ -14,6 +14,7 @@ import {
 import bindActionToPropFunctions from "../../utils/bindActionToPropFunctions";
 
 export default compose(
+  // $FlowFixMe
   connect(
     (state, props) => ({}),
     () => ({

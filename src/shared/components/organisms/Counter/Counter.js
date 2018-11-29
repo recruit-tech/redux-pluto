@@ -3,7 +3,11 @@ import React from "react";
 import styled from "styled-components";
 import pure from "recompose/pure";
 
-export default pure(function Counter(props) {
+type Props = {
+  counterValue?: number,
+};
+
+export default pure<Props>(function Counter(props: Props) {
   const { counterValue } = props;
   return <Root>access counter: {counterValue || ""}</Root>;
 });

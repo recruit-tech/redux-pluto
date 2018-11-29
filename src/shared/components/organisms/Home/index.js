@@ -8,7 +8,7 @@ import {
 } from "../../../redux/analytics/utils";
 
 export default compose(
-  sendAnalytics({
+  sendAnalytics<*>({
     ...siteSections("home", "top"),
     onDataReady: onAsyncLoaderLoaded,
   }),

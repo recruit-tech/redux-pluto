@@ -11,9 +11,9 @@ export const STOP_LOADING = `${LOADING}/stop`;
 /**
  * Action creators
  */
-export const startLoading = createAction(START_LOADING);
+export const startLoading = createAction<string, *>(START_LOADING);
 
-export const stopLoading = createAction(STOP_LOADING);
+export const stopLoading = createAction<string, *>(STOP_LOADING);
 
 /**
  * Initial state

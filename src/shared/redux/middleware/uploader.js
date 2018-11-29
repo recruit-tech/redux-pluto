@@ -42,6 +42,6 @@ export default function uploadMiddleware(_csrf: any) {
     formData.append("file", payload.file);
 
     const qs = querystring.stringify({ ...payload.params, _csrf });
-    return axios.post(`${payload.path}?${qs}`, formData, {});
+    return axios.post<*, *>(`${payload.path}?${qs}`, formData, {});
   };
 }

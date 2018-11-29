@@ -10,7 +10,7 @@ type Props = {
   onCancel: Function,
 };
 
-export default pure(function UploadSample(props: Props) {
+export default pure<Props>(function UploadSample(props: Props) {
   const { loading, path, onInputFile, onSubmitFile, onCancel } = props;
 
   return (

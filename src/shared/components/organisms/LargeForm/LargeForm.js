@@ -41,7 +41,7 @@ const Items = ({ fields }) => (
 );
 
 export default compose(
-  onlyUpdateForPropTypes,
+  (onlyUpdateForPropTypes: any),
   setPropTypes({
     ...formPropTypes,
   }),

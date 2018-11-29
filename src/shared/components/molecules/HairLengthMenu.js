@@ -23,7 +23,7 @@ type Props = {
   },
 };
 
-export default pure(function HairLengthMenu(props: Props) {
+export default pure<Props>(function HairLengthMenu(props: Props) {
   const { hairLength, genderItems, hairLengthItems } = props;
   const gender = props.gender || Object.keys(genderItems)[0];
   const { items } = hairLengthItems[gender];

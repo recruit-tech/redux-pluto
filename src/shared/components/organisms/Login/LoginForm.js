@@ -25,7 +25,7 @@ const RenderInput = ({ input, meta: { dirty, error } }): $FIXME => (
 );
 
 export default compose(
-  onlyUpdateForPropTypes,
+  (onlyUpdateForPropTypes: any),
   setPropTypes({
     ...formPropTypes,
   }),

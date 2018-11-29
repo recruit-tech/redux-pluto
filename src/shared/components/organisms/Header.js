@@ -33,7 +33,7 @@ const links: HeaderLink[] = [
   { key: "logout", to: "/logout", label: "Logout" },
 ];
 
-export default compose(pure)(function Header(props: Props) {
+export default compose((pure: any))(function Header(props: Props) {
   return (
     <Root>
       <hgroup>

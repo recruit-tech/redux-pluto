@@ -10,7 +10,7 @@ type Props = {
   checked: boolean,
 };
 
-export default pure(function MenuItem(props: Props) {
+export default pure<Props>(function MenuItem(props: Props) {
   const { children, to, checked } = props;
 
   return (

@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default compose(
-  pure,
+  (pure: any),
   showOnScroll,
 )(function SearchMore(props: Props) {
   const { children, onShow } = props;

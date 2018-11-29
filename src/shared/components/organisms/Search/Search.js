@@ -5,7 +5,7 @@ import { type State as SearchState } from "../../../redux/modules/search";
 
 type Props = SearchState;
 
-export default pure(function Search(props: Props) {
+export default pure<Props>(function Search(props: Props) {
   const { item } = props;
   return (
     <div>

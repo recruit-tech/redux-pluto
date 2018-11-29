@@ -11,7 +11,7 @@ import {
 const array = range(0, 500);
 
 export default compose(
-  sendAnalytics({
+  sendAnalytics<*>({
     ...siteSections("bar", "top"),
     onDataReady: onAsyncLoaderLoaded,
   }),

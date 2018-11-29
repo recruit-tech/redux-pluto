@@ -14,7 +14,7 @@ type Props = {
   linkURL: string,
 };
 
-export default pure(function SearchListItem(props: Props) {
+export default pure<Props>(function SearchListItem(props: Props) {
   const { item, linkURL } = props;
 
   return (

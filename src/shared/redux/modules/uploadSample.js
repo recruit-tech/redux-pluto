@@ -23,12 +23,12 @@ export const [
  * Action creators
  */
 
-export const inputFile = createAction(INPUT_FILE);
+export const inputFile = createAction<string, *>(INPUT_FILE);
 
-const uploadFileRequest = createAction(UPLOAD_FILE_REQUEST);
-const uploadFileCancel = createAction(UPLOAD_FILE_CANCEL);
-const uploadFileSuccess = createAction(UPLOAD_FILE_SUCCESS);
-const uploadFileFail = createAction(UPLOAD_FILE_FAIL);
+const uploadFileRequest = createAction<string, *>(UPLOAD_FILE_REQUEST);
+const uploadFileCancel = createAction<string, *>(UPLOAD_FILE_CANCEL);
+const uploadFileSuccess = createAction<string, *>(UPLOAD_FILE_SUCCESS);
+const uploadFileFail = createAction<string, *>(UPLOAD_FILE_FAIL);
 
 export function uploadFile(path: string, file: *) {
   return steps(

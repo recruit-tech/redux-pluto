@@ -12,7 +12,7 @@ type Props = {
   keyword: string,
 };
 
-export default pure(function SearchPager(props: Props) {
+export default pure<Props>(function SearchPager(props: Props) {
   const { keyword, page, pages } = props;
   const slicedPages = slicePages(page, pages);
 
