@@ -33,7 +33,7 @@ module.exports = {
 
   target: "node",
 
-  devtool: "source-map",
+  devtool: "eval-source-map",
 
   entry: [path.resolve(rootDir, "src/server/index.js")],
 

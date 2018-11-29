@@ -16,7 +16,7 @@ module.exports = {
 
   target: "web",
 
-  devtool: "inline-source-map",
+  devtool: "eval-cheap-module-source-map",
 
   context: rootDir,
 
@@ -72,10 +72,7 @@ module.exports = {
 
   optimization: {
     noEmitOnErrors: true,
-    splitChunks: {
-      chunks: "all",
-      name: "bootstrap",
-    },
+    splitChunks: false,
   },
 
   plugins: [
