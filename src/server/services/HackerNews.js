@@ -29,7 +29,7 @@ export default class HackerNews {
     this.name = "hackerNews";
   }
 
-  read(_req: *, _resource: *, params: { page: number }, config: any) {
+  read(_req: any, _resource: any, params: { page: number }, config: any) {
     return fetchTopStories(params.page);
   }
 }

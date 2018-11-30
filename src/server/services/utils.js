@@ -53,7 +53,7 @@ export function readAll(
   name: string,
   pathname: string,
   params: ?any,
-  itemsName: ?string,
+  itemsName: string | null,
   loaded: Array<any> = [],
 ) {
   const actualParams = { ...params, start: loaded.length + 1 };

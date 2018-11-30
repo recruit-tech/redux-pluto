@@ -12,7 +12,7 @@ import { sign } from "../../../../server/services/AccessToken";
 import reducer from "../../modules/reducer";
 import configs from "../../../../server/configs";
 
-export function createWithSignedStore(name: string, aud: *, options: Object) {
+export function createWithSignedStore(name: string, aud: any, options: Object) {
   return sign(
     {
       sub: name,

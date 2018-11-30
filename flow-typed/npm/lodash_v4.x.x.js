@@ -303,8 +303,8 @@ declare module "lodash" {
       a4?: ?Array<T>,
       comparator?: ?Comparator<T>
     ): Array<T>;
-    join<T>(array: Array<T>, separator?: ?string): string;
-    join<T>(array: void | null, separator?: ?string): '';
+    join<T>(array: Array<T>, separator?: string | null): string;
+    join<T>(array: void | null, separator?: string | null): '';
     last<T>(array: ?Array<T>): T;
     lastIndexOf<T>(array: Array<T>, value?: ?T, fromIndex?: ?number): number;
     lastIndexOf<T>(array: void | null, value?: ?T, fromIndex?: ?number): -1;
@@ -630,18 +630,18 @@ declare module "lodash" {
       iteratee?: OMapIterator<V, T, U>
     ): Array<U>;
     map(
-      str: ?string,
+      str: string | null,
       iteratee?: (char: string, index: number, str: string) => any
     ): string;
     orderBy<T>(
       array: $ReadOnlyArray<T>,
-      iteratees?: ?$ReadOnlyArray<Iteratee<T>> | ?string,
-      orders?: ?$ReadOnlyArray<"asc" | "desc"> | ?string
+      iteratees?: ?$ReadOnlyArray<Iteratee<T>> | string | null,
+      orders?: ?$ReadOnlyArray<"asc" | "desc"> | string | null
     ): Array<T>;
     orderBy<T>(
       array: null | void,
-      iteratees?: ?$ReadOnlyArray<Iteratee<T>> | ?string,
-      orders?: ?$ReadOnlyArray<"asc" | "desc"> | ?string
+      iteratees?: ?$ReadOnlyArray<Iteratee<T>> | string | null,
+      orders?: ?$ReadOnlyArray<"asc" | "desc"> | string | null
     ): Array<T>;
     orderBy<V, T: Object>(
       object: T,
@@ -749,7 +749,7 @@ declare module "lodash" {
     ary(func: Function, n?: number): Function;
     before(n: number, fn: Function): Function;
     bind(func: Function, thisArg: any, ...partials: Array<any>): Function;
-    bindKey(obj?: ?Object, key?: ?string, ...partials?: Array<?any>): Function;
+    bindKey(obj?: ?Object, key?: string | null, ...partials?: Array<?any>): Function;
     curry: Curry;
     curry(func: Function, arity?: number): Function;
     curryRight(func: Function, arity?: number): Function;
@@ -778,7 +778,7 @@ declare module "lodash" {
     wrap(value?: any, wrapper?: ?Function): Function;
 
     // Lang
-    castArray(value: *): any[];
+    castArray(value: any): any[];
     clone<T>(value: T): T;
     cloneDeep<T>(value: T): T;
     cloneDeepWith<T, U>(
@@ -1137,10 +1137,10 @@ declare module "lodash" {
     ): any;
     has(object: Object, path: Array<string> | string): boolean;
     has(object: Object, path: void | null): false;
-    has(object: void | null, path?: ?Array<string> | ?string): false;
+    has(object: void | null, path?: ?Array<string> | string | null): false;
     hasIn(object: Object, path: Array<string> | string): boolean;
     hasIn(object: Object, path: void | null): false;
-    hasIn(object: void | null, path?: ?Array<string> | ?string): false;
+    hasIn(object: void | null, path?: ?Array<string> | string | null): false;
     invert(object: Object, multiVal?: ?boolean): Object;
     invert(object: void | null, multiVal?: ?boolean): {};
     invertBy(object: Object, iteratee?: ?Function): Object;
@@ -1262,22 +1262,22 @@ declare module "lodash" {
       iteratee?: ?OIteratee<*>,
       accumulator?: ?any
     ): {};
-    unset(object: Object, path?: ?Array<string> | ?string): boolean;
-    unset(object: void | null, path?: ?Array<string> | ?string): true;
+    unset(object: Object, path?: ?Array<string> | string | null): boolean;
+    unset(object: void | null, path?: ?Array<string> | string | null): true;
     update(object: Object, path: string[] | string, updater: Function): Object;
     update<T: void | null>(
       object: T,
-      path?: ?string[] | ?string,
+      path?: string | null[] | string | null,
       updater?: ?Function): T;
     updateWith(
       object: Object,
-      path?: ?string[] | ?string,
+      path?: string | null[] | string | null,
       updater?: ?Function,
       customizer?: ?Function
     ): Object;
     updateWith<T: void | null>(
       object: T,
-      path?: ?string[] | ?string,
+      path?: string | null[] | string | null,
       updater?: ?Function,
       customizer?: ?Function
     ): T;
@@ -1300,7 +1300,7 @@ declare module "lodash" {
     deburr(string: string): string;
     deburr(string: void | null): '';
     endsWith(string: string, target?: string, position?: ?number): boolean;
-    endsWith(string: void | null, target?: ?string, position?: ?number): false;
+    endsWith(string: void | null, target?: string | null, position?: ?number): false;
     escape(string: string): string;
     escape(string: void | null): '';
     escapeRegExp(string: string): string;
@@ -1311,9 +1311,9 @@ declare module "lodash" {
     lowerCase(string: void | null): '';
     lowerFirst(string: string): string;
     lowerFirst(string: void | null): '';
-    pad(string?: ?string, length?: ?number, chars?: ?string): string;
-    padEnd(string?: ?string, length?: ?number, chars?: ?string): string;
-    padStart(string?: ?string, length?: ?number, chars?: ?string): string;
+    pad(string?: string | null, length?: ?number, chars?: string | null): string;
+    padEnd(string?: string | null, length?: ?number, chars?: string | null): string;
+    padStart(string?: string | null, length?: ?number, chars?: string | null): string;
     parseInt(string: string, radix?: ?number): number;
     repeat(string: string, n?: ?number): string;
     repeat(string: void | null, n?: ?number): '';
@@ -1324,31 +1324,31 @@ declare module "lodash" {
     ): string;
     replace(
       string: void | null,
-      pattern?: ?RegExp | ?string,
-      replacement: ?((string: string) => string) | ?string
+      pattern?: ?RegExp | string | null,
+      replacement: ?((string: string) => string) | string | null
     ): '';
     snakeCase(string: string): string;
     snakeCase(string: void | null): '';
     split(
-      string?: ?string,
-      separator?: ?RegExp | ?string,
+      string?: string | null,
+      separator?: ?RegExp | string | null,
       limit?: ?number
     ): Array<string>;
     startCase(string: string): string;
     startCase(string: void | null): '';
     startsWith(string: string, target?: string, position?: number): boolean;
-    startsWith(string: void | null, target?: ?string, position?: ?number): false;
-    template(string?: ?string, options?: ?TemplateSettings): Function;
+    startsWith(string: void | null, target?: string | null, position?: ?number): false;
+    template(string?: string | null, options?: ?TemplateSettings): Function;
     toLower(string: string): string;
     toLower(string: void | null): '';
     toUpper(string: string): string;
     toUpper(string: void | null): '';
     trim(string: string, chars?: string): string;
-    trim(string: void | null, chars?: ?string): '';
-    trimEnd(string: string, chars?: ?string): string;
-    trimEnd(string: void | null, chars?: ?string): '';
-    trimStart(string: string, chars?: ?string): string;
-    trimStart(string: void | null, chars?: ?string): '';
+    trim(string: void | null, chars?: string | null): '';
+    trimEnd(string: string, chars?: string | null): string;
+    trimEnd(string: void | null, chars?: string | null): '';
+    trimStart(string: string, chars?: string | null): string;
+    trimStart(string: void | null, chars?: string | null): '';
     truncate(string: string, options?: TruncateOptions): string;
     truncate(string: void | null, options?: ?TruncateOptions): '';
     unescape(string: string): string;
@@ -1357,7 +1357,7 @@ declare module "lodash" {
     upperCase(string: void | null): '';
     upperFirst(string: string): string;
     upperFirst(string: void | null): '';
-    words(string?: ?string, pattern?: ?RegExp | ?string): Array<string>;
+    words(string?: string | null, pattern?: ?RegExp | string | null): Array<string>;
 
     // Util
     attempt(func: Function, ...args: Array<any>): any;
@@ -1412,7 +1412,7 @@ declare module "lodash" {
     times(n?: ?number, ...rest?: Array<void | null>): Array<number>;
     times<T>(n: number, iteratee: (i: number) => T): Array<T>;
     toPath(value: any): Array<string>;
-    uniqueId(prefix?: ?string): string;
+    uniqueId(prefix?: string | null): string;
 
     // Properties
     VERSION: string;
@@ -2357,7 +2357,7 @@ declare module "lodash/fp" {
     wrap(wrapper: Function, value: any): Function;
 
     // Lang
-    castArray(value: *): any[];
+    castArray(value: any): any[];
     clone<T>(value: T): T;
     cloneDeep<T>(value: T): T;
     cloneDeepWith<T, U>(

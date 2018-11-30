@@ -135,6 +135,7 @@
         "groups": ["builtin", "external", "internal", "parent", "sibling", "index"]
       }
     ],
+    "import/no-unresolved": [0],
 
     // dependencies
     "dependencies/case-sensitive": "error",

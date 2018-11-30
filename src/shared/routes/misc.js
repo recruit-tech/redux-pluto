@@ -3,7 +3,7 @@ import createUniversalComponent from "./createUniversalComponent";
 
 const chunkName = "misc";
 
-export function loadAgreedSample(_: *, cb: Function) {
+export function loadAgreedSample(_: any, cb: Function) {
   createUniversalComponent(
     () =>
       import(/* webpackChunkName: "misc" */ "../components/organisms/AgreedSample"),
@@ -12,7 +12,7 @@ export function loadAgreedSample(_: *, cb: Function) {
   ).then(result => cb(null, result), (cb: Function));
 }
 
-export function loadBar(_: *, cb: Function) {
+export function loadBar(_: any, cb: Function) {
   createUniversalComponent(
     () => import(/* webpackChunkName: "misc" */ "../components/organisms/Bar"),
     () => (require: any).resolveWeak("../components/organisms/Bar"),
@@ -20,7 +20,7 @@ export function loadBar(_: *, cb: Function) {
   ).then(result => cb(null, result), (cb: Function));
 }
 
-export function loadFoo(_: *, cb: Function) {
+export function loadFoo(_: any, cb: Function) {
   createUniversalComponent(
     () => import(/* webpackChunkName: "misc" */ "../components/organisms/Foo"),
     () => (require: any).resolveWeak("../components/organisms/Foo"),
@@ -28,7 +28,7 @@ export function loadFoo(_: *, cb: Function) {
   ).then(result => cb(null, result), (cb: Function));
 }
 
-export function loadHackerNews(_: *, cb: Function) {
+export function loadHackerNews(_: any, cb: Function) {
   createUniversalComponent(
     () =>
       import(/* webpackChunkName: "misc" */ "../components/organisms/HackerNews"),
@@ -37,7 +37,7 @@ export function loadHackerNews(_: *, cb: Function) {
   ).then(result => cb(null, result), (cb: Function));
 }
 
-export function loadLargeForm(_: *, cb: Function) {
+export function loadLargeForm(_: any, cb: Function) {
   createUniversalComponent(
     () =>
       import(/* webpackChunkName: "misc" */ "../components/organisms/LargeForm"),
@@ -46,7 +46,7 @@ export function loadLargeForm(_: *, cb: Function) {
   ).then(result => cb(null, result), (cb: Function));
 }
 
-export function loadLogin(_: *, cb: Function) {
+export function loadLogin(_: any, cb: Function) {
   createUniversalComponent(
     () =>
       import(/* webpackChunkName: "misc" */ "../components/organisms/Login"),
@@ -55,7 +55,7 @@ export function loadLogin(_: *, cb: Function) {
   ).then(result => cb(null, result), (cb: Function));
 }
 
-export function loadUploadSample(_: *, cb: Function) {
+export function loadUploadSample(_: any, cb: Function) {
   createUniversalComponent(
     () =>
       import(/* webpackChunkName: "misc" */ "../components/organisms/UploadSample"),

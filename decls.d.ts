@@ -4,11 +4,14 @@ declare module "react-router-scroll";
 declare module "react-router-redux";
 declare module "react-hot-loader";
 declare module "fetchr";
+declare module "favalid";
+declare module "axios";
+declare module "lodash/fp";
+declare module "redux-form";
 
-// import React from 'react';
 interface Window {
   devToolsExtension: any,
-  // React: typeof React;
+  __MOCKING_LOG__: any
 }
 
 

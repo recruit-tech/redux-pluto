@@ -10,7 +10,7 @@ base_image: &base_image
 
 build_image: &build_image
   docker:
-    - <<: *base_image
+    - <<: anybase_image
   working_directory: ~/repo
 
 save_lock: &save_lock
@@ -40,7 +40,7 @@ restore: &restore
 
 jobs:
   upload_lock:
-    <<: *build_image
+    <<: anybuild_image
     # workaround for greenkeeper-lockfile-upload
     environment:
       GIT_AUTHOR_NAME: greenkeeperio-bot
@@ -48,12 +48,12 @@ jobs:
       GIT_COMMITTER_NAME: greenkeeperio-bot
       GIT_COMMITTER_EMAIL: support@greenkeeper.io
     steps:
-      - <<: *restore
-      - <<: *restore_lock
+      - <<: anyrestore
+      - <<: anyrestore_lock
       - run: npx --package greenkeeper-lockfile@2 greenkeeper-lockfile-upload
 
   install:
-    <<: *build_image
+    <<: anybuild_image
     # workaround for greenkeeper-lockfile-update
     environment:
       GIT_AUTHOR_NAME: greenkeeperio-bot
@@ -62,57 +62,57 @@ jobs:
       GIT_COMMITTER_EMAIL: support@greenkeeper.io
     steps:
       - checkout
-      - <<: *restore_lock
+      - <<: anyrestore_lock
       - run: case $CIRCLE_BRANCH in greenkeeper*) npm i;; *) npm ci;; esac;
       - run: npx --package greenkeeper-lockfile@2 greenkeeper-lockfile-update
-      - <<: *save_lock
-      - <<: *save
+      - <<: anysave_lock
+      - <<: anysave
 
   lint:
-    <<: *build_image
+    <<: anybuild_image
     steps:
-      - <<: *restore
-      - <<: *restore_lock
+      - <<: anyrestore
+      - <<: anyrestore_lock
       - run: npm run lint
   flow:
-    <<: *build_image
+    <<: anybuild_image
     steps:
-      - <<: *restore
-      - <<: *restore_lock
+      - <<: anyrestore
+      - <<: anyrestore_lock
       - run: npm run flow
   audit:
-    <<: *build_image
+    <<: anybuild_image
     steps:
-      - <<: *restore
-      - <<: *restore_lock
+      - <<: anyrestore
+      - <<: anyrestore_lock
       - run: npm audit
   test:
-    <<: *build_image
+    <<: anybuild_image
     steps:
-      - <<: *restore
-      - <<: *restore_lock
+      - <<: anyrestore
+      - <<: anyrestore_lock
       - run:
           name: start agreed server
           command: npm run test:agreed
           background: true
       - run: npm run test:coverage
   analytics:
-    <<: *build_image
+    <<: anybuild_image
     steps:
-      - <<: *restore
-      - <<: *restore_lock
+      - <<: anyrestore
+      - <<: anyrestore_lock
       - run: npm run analytics
   build-asset:
-    <<: *build_image
+    <<: anybuild_image
     steps:
-      - <<: *restore
-      - <<: *restore_lock
+      - <<: anyrestore
+      - <<: anyrestore_lock
       - run: npm run build
   build-storybook:
-    <<: *build_image
+    <<: anybuild_image
     steps:
-      - <<: *restore
-      - <<: *restore_lock
+      - <<: anyrestore
+      - <<: anyrestore_lock
       - run: npm run build-storybook
 
 workflows:
