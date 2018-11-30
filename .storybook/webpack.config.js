@@ -1,11 +1,17 @@
 module.exports = {
+  resolve: {
+    extensions: [".js", ".json", ".ts", ".tsx"],
+  },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: [
           {
-            loader: "babel-loader",
+            loader: "ts-loader",
+            options: {
+              transpileOnly: true,
+            },
           },
         ],
       },
