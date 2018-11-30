@@ -1,16 +1,13 @@
-/* @flow */
 import { MiddlewareAPI } from "redux";
 import { connect } from "react-redux";
-import { compose, HOC } from "recompose";
+import { compose } from "recompose";
 import { asyncLoader } from "redux-async-loader";
 import { sendAnalytics } from "react-redux-analytics";
 import {
   searchSelector,
-  State as RootState,
 } from "../../../redux/modules/reducer";
 import {
   findSalonById,
-  State as SearchState,
 } from "../../../redux/modules/search";
 import {
   siteSections,
@@ -25,11 +22,11 @@ type Props = {
   },
 };
 
-const enhancer: HOC<SearchState, Props> = compose(
+const enhancer = compose(
   asyncLoader(
     (
       { params }: Props,
-      { dispatch, getState }: MiddlewareAPI<RootState, any>,
+      { dispatch, getState }: MiddlewareAPI<any, any>,
     ) =>
       getState().page.search.loaded || (dispatch as any)(findSalonById(params.searchId)),
   ),

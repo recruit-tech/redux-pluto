@@ -1,4 +1,3 @@
-/* @flow */
 import React, { Fragment } from "react";
 import pure from "recompose/pure";
 import { State as SearchState } from "../../../redux/modules/search";

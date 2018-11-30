@@ -1,6 +1,6 @@
 /* @flow */
 import React from "react";
-import { compose, pure, HOC } from "recompose";
+import { compose, pure } from "recompose";
 import {
   showOnScroll,
   adjustScroll,
@@ -19,12 +19,12 @@ type Props = {
   linkURL: string,
 };
 
-const enhance: HOC<Props, Props> = compose(
+const enhance = compose(
   pure,
   showOnScroll,
   adjustScroll,
   forceScroll,
-);
+) as any;
 
 export default enhance(function SearchList(props: Props) {
   const { items, page, linkURL } = props;

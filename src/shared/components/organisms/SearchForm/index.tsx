@@ -1,4 +1,3 @@
-/* @flow */
 import { parse } from "querystring";
 import { compose, shouldUpdate, withState } from "recompose";
 import { createSelector } from "reselect";
