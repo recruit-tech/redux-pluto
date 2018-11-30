@@ -7,13 +7,13 @@ import { useScroll } from "react-router-scroll";
 import { useAsyncLoader } from "redux-async-loader";
 import { AppContainer } from "react-hot-loader";
 
-export default function App({ store, ...renderProps }: any) {
+export default function App({ store, ...renderProps }) {
   const RenderWithMiddleware = applyRouterMiddleware(
     useAsyncLoader(),
     useScroll((prevRouterProps, { location, routes }) => {
       if (
         routes.some(
-          route =>
+          (route: any) =>
             route.ignoreScrollBehavior && route.ignoreScrollBehavior(location),
         )
       ) {
@@ -29,7 +29,7 @@ export default function App({ store, ...renderProps }: any) {
       <Provider store={store} key="provider">
         <Router
           {...renderProps}
-          render={props => <RenderWithMiddleware {...props} />}
+          render={(props: any) => <RenderWithMiddleware {...props} />}
         />
       </Provider>
     </AppContainer>

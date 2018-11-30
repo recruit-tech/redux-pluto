@@ -15,7 +15,7 @@ module.exports = {
 
   target: "web",
 
-  entry: ["@babel/polyfill", path.resolve(rootDir, "src/client/index.js")],
+  entry: ["@babel/polyfill", path.resolve(rootDir, "src/client/index")],
 
   output: {
     path: outputPath,
@@ -30,7 +30,10 @@ module.exports = {
         test: /\.tsx?$/,
         use: [
           {
-            loader: "babel-loader",
+            loader: "ts-loader",
+            options: {
+              transpileOnly: true,
+            },
           },
         ],
       },
@@ -57,7 +60,7 @@ module.exports = {
       path.resolve(rootDir, "src/shared"),
       "node_modules",
     ],
-    extensions: [".js", ".jsx"],
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
     enforceModuleExtension: false,
     alias: {
       "lodash-es": "lodash",

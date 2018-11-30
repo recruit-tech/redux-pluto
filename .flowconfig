@@ -13,6 +13,7 @@ module.name_mapper='^shared\/\(.*\)$' -> '<PROJECT_ROOT>/src/shared/\1'
 module.name_mapper='^client\/\(.*\)$' -> '<PROJECT_ROOT>/src/client/\1'
 module.name_mapper='^server\/\(.*\)$' -> '<PROJECT_ROOT>/src/server/\1'
 module.file_ext=.js
+module.file_ext=.ts
 module.file_ext=.json
 module.file_ext=.json5
 module.file_ext=.scss

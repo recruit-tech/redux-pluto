@@ -11,7 +11,7 @@ import Fetchr from "fetchr";
 import createStore from "../shared/redux/createStore";
 import analyticsOptions from "../shared/redux/analytics/options";
 import App from "./components/App";
-import siteCatalystOptions from "./analytics";
+import siteCatalystOptions from "./analytics/index";
 
 const isDevToolVisible = __DEVELOPMENT__ && !__MOCK_BUILD__;
 
@@ -40,7 +40,7 @@ renderApp().then(() => {
 
 function configStore() {
   const getJson = id =>
-    JSON.parse((document.getElementById(id): any).getAttribute("data-json"));
+    JSON.parse((document.getElementById(id) as any).getAttribute("data-json"));
   const initialState = getJson("initial-state");
   const clientConfig = getJson("client-config");
 
@@ -93,7 +93,7 @@ function getRoutes() {
 }
 
 function configHotLoader() {
-  (module: any).hot.accept("../shared/routes", () => {
+  (module as any).hot.accept("../shared/routes", () => {
     if (root) {
       unmountComponentAtNode(root);
     }
@@ -101,7 +101,7 @@ function configHotLoader() {
   });
 
   // module.hot is extension by hot-loader
-  (module: any).hot.accept("../shared/redux/modules/reducer", () => {
+  (module as any).hot.accept("../shared/redux/modules/reducer", () => {
     const nextReducer = require("../shared/redux/modules/reducer").default;
     store.replaceReducer(nextReducer);
   });
@@ -109,7 +109,7 @@ function configHotLoader() {
 
 function renderDevTool() {
   if (isDevToolVisible) {
-    window.React = React; // enable debugger
+    (window as any).React = React; // enable debugger
     const DevTools = require("../shared/components/utils/DevTools").default;
     const content = (
       <Provider store={store} key="provider">

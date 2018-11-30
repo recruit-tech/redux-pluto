@@ -57,7 +57,10 @@ module.exports = {
         test: /\.tsx?$/,
         use: [
           {
-            loader: "babel-loader",
+            loader: "ts-loader",
+            options: {
+              transpileOnly: true,
+            },
           },
         ],
       },
@@ -76,6 +79,10 @@ module.exports = {
         },
       },
     ],
+  },
+
+  resolve: {
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
 
   plugins: [
