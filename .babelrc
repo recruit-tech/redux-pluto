@@ -17,6 +17,7 @@
           }
         ],
         "@babel/react",
+        "@babel/typescript",
         "@babel/flow"
       ],
       "plugins": [
@@ -62,6 +63,7 @@
           }
         ],
         "@babel/react",
+        "@babel/typescript",
         "@babel/flow"
       ]
     },
@@ -78,6 +80,7 @@
           }
         ],
         "@babel/react",
+        "@babel/typescript",
         "@babel/flow"
       ],
       "plugins": [
@@ -105,6 +108,7 @@
           }
         ],
         "@babel/react",
+        "@babel/typescript",
         "@babel/flow"
       ],
       "plugins": [
@@ -128,6 +132,7 @@
           }
         ],
         "@babel/react",
+        "@babel/typescript",
         "@babel/flow",
         "power-assert"
       ]
@@ -144,6 +149,7 @@
           }
         ],
         "@babel/react",
+        "@babel/typescript",
         "@babel/flow",
         "power-assert"
       ],

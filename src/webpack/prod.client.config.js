@@ -27,6 +27,14 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: "babel-loader",
+          },
+        ],
+      },
+      {
         test: /\.js$/,
         include: [
           path.resolve(rootDir, "src/client"),
