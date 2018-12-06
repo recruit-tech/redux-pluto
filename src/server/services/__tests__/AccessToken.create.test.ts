@@ -24,7 +24,7 @@ test("AccessToken: create success", async () => {
         },
       },
       configs.auth.secret,
-    ).then(token => {
+    ).then((token: { sub: any }) => {
       assert.strictEqual(token.sub, "scott");
     });
   });
@@ -42,7 +42,7 @@ test("AccessToken: create failure", async done => {
     password: "notpassword",
   };
 
-  return (accessToken: any).create(req, void 0, params).then(done.fail, e => {
+  return (accessToken as any).create(req, void 0, params).then(done.fail, e => {
     assert.strictEqual(e.statusCode, 400);
     assert.strictEqual(e.message, "Bad Request");
     done();

@@ -6,7 +6,7 @@ import AccessToken from "../AccessToken";
 test("AccessToken: delete success", async () => {
   const accessToken = new AccessToken(configs);
 
-  const response = await accessToken.delete();
+  const response = await (accessToken as any).delete();
   const cookies = response.meta.headers["set-cookie"];
   const parsedCookie = cookie.parse(cookies);
   assert.strictEqual(parsedCookie["access-token"], "null");

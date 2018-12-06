@@ -29,13 +29,13 @@ export function createWithSignedStore(name: string, aud: any, options: Object) {
   });
 }
 
-export function createStore(options: Object) {
+export function createStore(options: any) {
   const history = createMemoryHistory(options.historyRoute || "/");
   const initialState = options.initialState || {};
-  const store = (create: any)(
+  const store = (create as any)(
     reducer,
     initialState,
-    (applyMiddleware: any)(
+    (applyMiddleware as any)(
       ...[
         steps,
         authMiddleware(),

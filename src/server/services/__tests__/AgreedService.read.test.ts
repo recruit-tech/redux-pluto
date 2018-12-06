@@ -5,7 +5,7 @@ import AgreedService from "../AgreedService";
 
 test("AgreedService: read success", async () => {
   const getText = require("../../../../spec/agreed/agreedsample/get.js");
-  const agreedService = new AgreedService(
+  const agreedService: any = new AgreedService(
     config,
     "foo",
     "/agreedsample",
@@ -17,7 +17,7 @@ test("AgreedService: read success", async () => {
 
 test("AgreedService: read failure", async () => {
   const getText = require("../../../../spec/agreed/agreedsample/failure_get.js");
-  const agreedService = new AgreedService(config, "foo", "/agreedsample", {
+  const agreedService: any = new AgreedService(config, "foo", "/agreedsample", {
     stats: 404,
   });
   const result = await agreedService.read();

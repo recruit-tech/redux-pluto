@@ -3,19 +3,19 @@
     "eslint-config-airbnb",
     "plugin:react/recommended",
     "prettier",
-    "prettier/flowtype",
     "prettier/react"
   ],
 
+  "parser": "typescript-eslint-parser",
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
-    }
+    },
+    "jsx": true,
+    "useJSXTextNode": true
   },
-
-  "parser": "babel-eslint",
 
   "env": {
     "browser": true,

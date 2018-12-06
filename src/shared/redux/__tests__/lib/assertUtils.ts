@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import assert from "assert";
 
-export function isSameObject(obj1: any, obj2: any, ignoreProps: Array<*>) {
+export function isSameObject(obj1: any, obj2: any, ignoreProps: Array<any>) {
   const ignores = ignoreProps || [];
   Object.keys(obj1)
     .filter(key => ignores.indexOf(key) < 0)
