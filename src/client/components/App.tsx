@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Provider } from "react-redux";
 import Router from "react-router/lib/Router";
@@ -10,7 +9,7 @@ import { AppContainer } from "react-hot-loader";
 export default function App({ store, ...renderProps }) {
   const RenderWithMiddleware = applyRouterMiddleware(
     useAsyncLoader(),
-    useScroll((prevRouterProps, { location, routes }) => {
+    useScroll((prevRouterProps: any, { location, routes }: any) => {
       if (
         routes.some(
           (route: any) =>

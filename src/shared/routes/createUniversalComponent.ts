@@ -6,9 +6,9 @@ const debug = debugFactory("app:shared:routes:createUniversalComponent");
 
 const cssPromiseCache = {};
 export default function createUniversalComponent(
-  component,
-  resolve,
-  chunkName,
+  component: any,
+  resolve: Function,
+  chunkName: string,
 ) {
   return Promise.all([
     component(),

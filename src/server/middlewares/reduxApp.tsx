@@ -37,7 +37,7 @@ export default function createReduxApp(config) {
    * 全リクエストで共有される初期データのためのStoreです。
    */
   const initialStore = createStore(
-    {},
+    {} as any,
     {
       cookie: [{ cookies: {} }, {}],
       fetchr: new Fetchr({ ...config.fetchr, req: {} }),

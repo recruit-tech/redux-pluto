@@ -3,9 +3,7 @@ import { read } from "./utils";
 
 export default class AgreedSample {
   name: string;
-
   axios: any;
-
   pathname: string;
 
   constructor(config: any) {
