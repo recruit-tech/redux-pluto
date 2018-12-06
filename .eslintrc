@@ -1,22 +1,21 @@
 {
   "extends": [
     "eslint-config-airbnb",
-    "plugin:flowtype/recommended",
     "plugin:react/recommended",
     "prettier",
-    "prettier/flowtype",
     "prettier/react"
   ],
 
+  "parser": "typescript-eslint-parser",
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
-    }
+    },
+    "jsx": true,
+    "useJSXTextNode": true
   },
-
-  "parser": "babel-eslint",
 
   "env": {
     "browser": true,
@@ -29,7 +28,6 @@
   "plugins": [
     "import",
     "react",
-    "flowtype",
     "dependencies",
     "lodash-fp",
     "prettier",
@@ -63,7 +61,7 @@
     "no-unmodified-loop-condition": "error",
     "no-useless-call": "error",
     "no-void": "off",
-    "no-else-return": "off", // for flow refinements
+    "no-else-return": "off", // for type refinements
 
     // Variables
     "no-catch-shadow": "error",
@@ -135,6 +133,7 @@
         "groups": ["builtin", "external", "internal", "parent", "sibling", "index"]
       }
     ],
+    "import/no-unresolved": [0],
 
     // dependencies
     "dependencies/case-sensitive": "error",
@@ -164,10 +163,6 @@
     "lodash-fp/use-fp": "error",
     // coding styles
     "max-len": ["error", 100],
-
-    // Ignore flow values
-    "flowtype/define-flow-type": "error",
-    "flowtype/use-flow-type": "error",
 
     // prettier
     "prettier/prettier": ["error"]

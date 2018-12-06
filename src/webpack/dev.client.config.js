@@ -31,7 +31,7 @@ module.exports = {
         noInfo: false,
       }),
     "react-hot-loader/patch",
-    path.resolve(rootDir, "src/client/index.js"),
+    path.resolve(rootDir, "src/client/index"),
   ],
 
   output: {
@@ -43,6 +43,17 @@ module.exports = {
 
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: "ts-loader",
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
+      },
       {
         test: /\.js$/,
         include: [
@@ -66,7 +77,7 @@ module.exports = {
       path.resolve(rootDir, "src/shared"),
       "node_modules",
     ],
-    extensions: [".js", ".jsx"],
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
     enforceModuleExtension: false,
   },
 

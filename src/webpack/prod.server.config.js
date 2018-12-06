@@ -31,7 +31,7 @@ module.exports = {
 
   devtool: "source-map",
 
-  entry: [path.resolve(rootDir, "src/server/index.js")],
+  entry: [path.resolve(rootDir, "src/server/index.ts")],
 
   externals,
 
@@ -49,6 +49,17 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: "ts-loader",
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
+      },
+      {
         test: /\.js$/,
         include: [
           path.resolve(rootDir, "src/server"),
@@ -63,6 +74,10 @@ module.exports = {
         },
       },
     ],
+  },
+
+  resolve: {
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
 
   plugins: [

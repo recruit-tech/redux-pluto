@@ -16,8 +16,7 @@
             "modules": false
           }
         ],
-        "@babel/react",
-        "@babel/flow"
+        "@babel/react"
       ],
       "plugins": [
         "@babel/proposal-object-rest-spread",
@@ -61,8 +60,7 @@
             "modules": false
           }
         ],
-        "@babel/react",
-        "@babel/flow"
+        "@babel/react"
       ]
     },
 
@@ -77,8 +75,7 @@
             "modules": false
           }
         ],
-        "@babel/react",
-        "@babel/flow"
+        "@babel/react"
       ],
       "plugins": [
         "@babel/proposal-object-rest-spread",
@@ -104,8 +101,7 @@
             "modules": false
           }
         ],
-        "@babel/react",
-        "@babel/flow"
+        "@babel/react"
       ],
       "plugins": [
         [
@@ -128,7 +124,6 @@
           }
         ],
         "@babel/react",
-        "@babel/flow",
         "power-assert"
       ]
     },
@@ -144,7 +139,6 @@
           }
         ],
         "@babel/react",
-        "@babel/flow",
         "power-assert"
       ],
       "plugins": [
