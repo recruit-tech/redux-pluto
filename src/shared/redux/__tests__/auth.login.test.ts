@@ -20,7 +20,7 @@ Fetchr.registerService({
 });
 
 test("auth: login success username scott", () => {
-  const loginAction = login("scott", "tiger");
+  const loginAction = login("scott", "tiger", undefined as any);
   createWithSignedStore("scott", ACCESS_TOKEN_AUDIENCE_NAME, {}).then(store => {
     store.dispatch(loginAction).then(() => {
       assert.deepStrictEqual(store.getState().app.auth, {
@@ -32,7 +32,7 @@ test("auth: login success username scott", () => {
 });
 
 test("auth: login success username foobar", () => {
-  const loginAction = login("foobar", "tiger");
+  const loginAction = login("foobar", "tiger", undefined as any);
   createWithSignedStore("foobar", ACCESS_TOKEN_AUDIENCE_NAME, {}).then(
     store => {
       store.dispatch(loginAction).then(() => {
@@ -46,7 +46,7 @@ test("auth: login success username foobar", () => {
 });
 
 test("auth: login failure invalid audience name", async done => {
-  const loginAction = login("scott", "tiger");
+  const loginAction = login("scott", "tiger", undefined as any);
   const store = await createWithSignedStore("scott", "no-such-audience", {});
   try {
     await store.dispatch(loginAction);
@@ -58,7 +58,7 @@ test("auth: login failure invalid audience name", async done => {
 });
 
 test("auth: login failure username is short", async done => {
-  const loginAction = login("s", "tiger");
+  const loginAction = login("s", "tiger", undefined as any);
 
   const store = createStore({
     cookie: {},

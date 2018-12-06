@@ -15,6 +15,7 @@ declare var __MOCK_BUILD__: boolean;
 declare var __REPORTSUITE_ENV__: string;
 declare var __MOCKING_LOG__: boolean;
 declare var __ENABLE_OFFLOAD__: boolean;
+declare var __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
 
 interface Window {
   devToolsExtension: any;

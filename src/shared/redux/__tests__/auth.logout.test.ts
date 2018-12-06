@@ -33,7 +33,7 @@ test("auth: logout success", done => {
 });
 
 test("auth: logout success when not logged in", done => {
-  const loginAction = login("foobar", "tiger");
+  const loginAction = login("foobar", "tiger", undefined as any);
   const logoutAction = logout();
   createWithSignedStore("foobar", ACCESS_TOKEN_AUDIENCE_NAME, {}).then(
     store => {

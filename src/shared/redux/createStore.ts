@@ -16,7 +16,21 @@ import loading from "./middleware/loadingMiddleware";
 import reducer from "./modules/reducer";
 import mockLoggingMiddleware from "./middleware/mockLoggingMiddleware";
 
-export default function(initialState, options = {}) {
+export default function(
+  initialState,
+  options: {
+    cookie?: any,
+    fetchrCache?: any,
+    csrfToken?: any,
+    mockBuild?: any,
+    fetchr?: any,
+    history?: any,
+    analytics?: any,
+    siteCatalyst?: any,
+    logger?: any,
+    devTools?: any,
+  } = {},
+) {
   const middlewares = filter(Boolean)([
     steps,
     auth(),
@@ -44,8 +58,8 @@ export default function(initialState, options = {}) {
   const devTools = [];
   if (__DEVELOPMENT__ && !__MOCK_BUILD__) {
     if (options.devTools && typeof window !== "undefined") {
-      if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
-        composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+      if (__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
+        composeEnhancers = __REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
       } else {
         /* eslint-disable-next-line global-require */
         const DevTools = require("../components/utils/DevTools").default;

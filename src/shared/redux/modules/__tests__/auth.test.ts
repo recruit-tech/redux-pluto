@@ -4,7 +4,7 @@ import Immutable from "seamless-immutable";
 import reducer, { checkLogin, login, logout } from "../auth";
 
 test("State: checkLoginSuccess", done => {
-  const checkLoginAction = checkLogin();
+  const checkLoginAction: any = checkLogin();
   const steps = checkLoginAction.meta.steps[0];
   const INITIAL_STATE = Immutable({
     login: false,
@@ -25,7 +25,7 @@ test("State: checkLoginSuccess", done => {
 });
 
 test("State: checkLoginFail", done => {
-  const checkLoginAction = checkLogin();
+  const checkLoginAction: any = checkLogin();
   const steps = checkLoginAction.meta.steps[0];
   const INITIAL_STATE = Immutable({
     login: true,
@@ -41,7 +41,7 @@ test("State: checkLoginFail", done => {
 });
 
 test("State: loginSuccess", done => {
-  const loginAction = login("foo", "bar", "buz");
+  const loginAction: any = login("foo", "bar", "buz");
   const steps = loginAction.meta.steps[0];
   const INITIAL_STATE = Immutable({
     login: false,
@@ -62,7 +62,7 @@ test("State: loginSuccess", done => {
 });
 
 test("State: loginFail", done => {
-  const loginAction = login("foo", "bar", "buz");
+  const loginAction: any = login("foo", "bar", "buz");
   const steps = loginAction.meta.steps[0];
   const INITIAL_STATE = Immutable({
     login: true,
@@ -78,7 +78,7 @@ test("State: loginFail", done => {
 });
 
 test("State: logoutSuccess", done => {
-  const logoutAction = logout();
+  const logoutAction: any = logout();
   const steps = logoutAction.meta.steps[0];
   const INITIAL_STATE = Immutable({
     login: true,
@@ -94,7 +94,7 @@ test("State: logoutSuccess", done => {
 });
 
 test("State: logoutFail", done => {
-  const logoutAction = logout();
+  const logoutAction: any = logout();
   const steps = logoutAction.meta.steps[0];
   const INITIAL_STATE = Immutable({
     login: true,
