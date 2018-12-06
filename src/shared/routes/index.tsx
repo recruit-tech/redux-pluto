@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Route, IndexRoute } from "react-router";
 import { checkLogin, logout } from "../redux/modules/auth";

@@ -1,4 +1,3 @@
-
 import React from "react";
 import styled from "styled-components";
 import { propTypes as formPropTypes, Field } from "redux-form";
@@ -24,7 +23,19 @@ const RenderInput = ({ input, meta: { dirty, error } }): any => (
   </Row>
 );
 
-export default compose(
+// prettier-ignore
+export default compose<
+  {
+    error: boolean,
+    handleSubmit: any,
+    reset: any,
+    submitting: any,
+    submitFailed: any,
+    anyTouched: any,
+    csrf: string,
+  },
+  { invalid: boolean, csrf: string }
+>(
   onlyUpdateForPropTypes,
   setPropTypes({
     ...formPropTypes,
@@ -38,7 +49,7 @@ export default compose(
     submitFailed,
     anyTouched,
     csrf,
-  } = props as any;
+  } = props;
 
   return (
     <form onSubmit={handleSubmit} method="POST">

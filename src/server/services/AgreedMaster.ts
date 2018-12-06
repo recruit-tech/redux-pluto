@@ -1,4 +1,4 @@
-import { create as createAxios } from "axios";
+import Axios from "axios";
 import BaseMaster from "./BaseMaster";
 
 export default class AgreedMaster extends BaseMaster {
@@ -11,6 +11,6 @@ export default class AgreedMaster extends BaseMaster {
     formatResult?: Function,
   ) {
     super(config, name, pathname, params, itemsName, formatResult);
-    this.axios = createAxios(config.agreed.config.axios);
+    this.axios = Axios.create(config.agreed.config.axios);
   }
 }

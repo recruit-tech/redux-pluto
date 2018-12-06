@@ -1,3 +1,3 @@
-export default function stopPropagation(event) {
+export default function stopPropagation(event: Event) {
   event.stopPropagation();
 }

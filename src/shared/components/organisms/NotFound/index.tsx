@@ -3,7 +3,7 @@ import { compose, shouldUpdate } from "recompose";
 import { sendAnalytics } from "react-redux-analytics";
 import { siteSections } from "../../../redux/analytics/utils";
 
-export default compose(
+export default compose<{}, {}>(
   shouldUpdate(() => false),
   sendAnalytics({
     ...siteSections("error", "notfound"),

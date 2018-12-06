@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { AnyNaptrRecord } from "dns";
 
 const SHOW_TIMEOUT = 10;
 

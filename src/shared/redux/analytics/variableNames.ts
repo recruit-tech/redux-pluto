@@ -1,4 +1,3 @@
-
 // サイトカタリスト送信用変数
 export const SITE_ID = "siteID";
 export const PAGE_NAME = "pageName";

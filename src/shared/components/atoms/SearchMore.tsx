@@ -7,7 +7,7 @@ type Props = {
   onShow?: any,
 };
 
-export default compose(
+export default compose<Props, Props>(
   pure,
   showOnScroll,
 )(function SearchMore(props: Props) {
@@ -17,4 +17,4 @@ export default compose(
       {children}
     </div>
   );
-}) as any;
+});

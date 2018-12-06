@@ -6,13 +6,13 @@ const debug = debugFactory("app:shared:routes:createUniversalComponent");
 
 const cssPromiseCache = {};
 export default function createUniversalComponent(
-  component,
-  resolve,
-  chunkName,
+  component: any,
+  resolve: Function,
+  chunkName: string,
 ) {
   return Promise.all([
     component(),
-    universal(component, { resolve, chunkName, loading: "loading..." }),
+    universal(component, { resolve, chunkName, loading: "loading..." } as any),
     importCss(chunkName),
   ]).then(([sourceComponent, targetComponent]) =>
     hoistNonReactStatics(targetComponent, sourceComponent.default),
@@ -58,7 +58,7 @@ function importCss(chunkName) {
   link.media = "screen, projection";
   link.rel = "stylesheet";
   link.type = "text/css";
-  link.timeout = 30000;
+  (link as any).timeout = 30000;
 
   cssPromiseCache[chunkName] = new Promise((resolve, reject) => {
     let timeout;
@@ -78,7 +78,7 @@ function importCss(chunkName) {
       reject(new Error(message));
     };
 
-    timeout = setTimeout(link.onerror, link.timeout);
+    timeout = setTimeout(link.onerror, (link as any).timeout);
     head.appendChild(link);
   });
   return cssPromiseCache[chunkName];

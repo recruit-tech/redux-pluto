@@ -1,5 +1,4 @@
-
-import { createAction, handleActions, Reducer } from "redux-actions";
+import { createAction, handleActions } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { upload } from "redux-effects-formdata-uploader";
 import { createAsyncActionTypes } from "./utils";

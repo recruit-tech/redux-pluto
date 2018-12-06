@@ -1,7 +1,5 @@
-
 import React from "react";
 import styled from "styled-components";
-import pure from "recompose/pure";
 import Overlay from "../../atoms/Overlay";
 
 type Props = {
@@ -11,7 +9,7 @@ type Props = {
   onClose: any,
 };
 
-export default pure(function Alert(props: Props) {
+export default React.memo(function Alert(props: Props) {
   const {
     alert: { message },
     onClose,

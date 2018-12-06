@@ -51,7 +51,7 @@ export const INITIAL_STATE: State = {
 /**
  * Reducer
  */
-export default (handleActions(
+export default handleActions<State>(
   {
     [SEARCH_STYLE_REQUEST]: (state, action) => {
       const {
@@ -97,4 +97,4 @@ export default (handleActions(
     },
   },
   INITIAL_STATE,
-) as Reducer<State, any>);
+);

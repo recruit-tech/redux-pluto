@@ -1,3 +1,4 @@
+import { MiddlewareAPI } from "redux";
 import { startLoading, stopLoading } from "../modules/loading";
 import { handleActions } from "./utils";
 
@@ -15,7 +16,7 @@ export default function loadingMiddleware({
   let timerId = null;
 
   return handleActions({
-    [start]({ dispatch }, next, action) {
+    [start]({ dispatch }: MiddlewareAPI, next: Function, action: any) {
       next(action); // eslint-disable-line callback-return
 
       if (timerId) {

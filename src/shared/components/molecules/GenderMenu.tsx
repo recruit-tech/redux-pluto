@@ -1,5 +1,5 @@
 import React from "react";
-import pure from "recompose/pure";
+
 import Menu from "../atoms/Menu";
 import MenuItem from "../atoms/MenuItem";
 
@@ -13,7 +13,7 @@ type Props = {
   },
 };
 
-export default pure(function GenderMenu(props: Props) {
+export default React.memo(function GenderMenu(props: Props) {
   const { genderItems } = props;
   const gender: Gender = props.gender || Object.keys(genderItems)[0] as any;
 

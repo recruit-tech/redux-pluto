@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import pure from "recompose/pure";
+
 import SearchList from "../../../molecules/SearchList";
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
   linkURL: string,
 };
 
-export default pure(function SearchLists(props: Props) {
+export default React.memo(function SearchLists(props: Props) {
   const {
     items,
     onInnerWindow,

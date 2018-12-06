@@ -8,7 +8,7 @@ export default function createFileUploadServer(config) {
   const app = express();
   const upload = multer({ dest: path.resolve(__dirname, os.tmpdir()) });
   const server = (http.Server as any)(app);
-  app.post(config.path, upload.single(config.fieldName), (req, res, next) => {
+  app.post(config.path, upload.single(config.fieldName), (req: any, res) => {
     res.send(req.file);
   });
 

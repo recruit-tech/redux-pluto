@@ -1,12 +1,13 @@
 /* eslint-disable no-underscore-dangle, callback-return */
 import { FETCHR } from "redux-effects-fetchr";
-import { create } from "axios";
+import Axios, {AxiosRequestConfig} from "axios";
 import { isEqual } from "lodash/fp";
+import { MiddlewareAPI } from "redux";
 
-export default axiosConfig => {
-  const axios = create(axiosConfig);
+export default (axiosConfig: AxiosRequestConfig) => {
+  const axios = Axios.create(axiosConfig);
 
-  return ({ dispatch }) => next => action => {
+  return ({}: MiddlewareAPI) => (next: Function) => (action: any) => {
     if (action.type !== FETCHR) {
       return next(action);
     } else {

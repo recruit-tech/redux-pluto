@@ -5,7 +5,7 @@ import Menu from "../Menu";
 
 const MenuItem = () => <div>MenuItem</div>;
 
-test("Menu: has children", () => {
+test.only("Menu: has children", () => {
   const wrapper = mount(
     <Menu>
       <MenuItem />

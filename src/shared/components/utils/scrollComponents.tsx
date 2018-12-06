@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { throttle } from "lodash/fp";
 import ReactDOM from "react-dom";
 
-export const showOnScroll = ComposedComponent =>
+export const showOnScroll = (ComposedComponent: React.ComponentType<any>) =>
   class ShowOnScroll extends Component<{
     heightRatio: number | void,
     onShow: Function | void,
@@ -92,7 +92,7 @@ export const showOnScroll = ComposedComponent =>
     }
   };
 
-export const adjustScroll = ComposedComponent =>
+export const adjustScroll = (ComposedComponent: React.ComponentType<any>) =>
   class AdjustScroll extends Component<{
     shouldAdjustScroll: Function | void    
   }> {

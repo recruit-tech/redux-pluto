@@ -1,4 +1,3 @@
-
 import React from "react";
 import { HackerNewsItem } from "../../../types/HackerNews";
 

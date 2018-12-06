@@ -1,11 +1,20 @@
-
 import React from "react";
 import styled from "styled-components";
 import { propTypes as formPropTypes, Field, FieldArray } from "redux-form";
 import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
 import { AutoSizer, List } from "react-virtualized";
 
-const Item = ({ input, index, meta: { dirty, error } }) => (
+const Item = ({ input, index, meta: { dirty, error } }: {
+  input: {
+    name: string
+  },
+  index: number,
+  name: string,
+  meta: {
+    dirty: any,
+    error: boolean
+  }
+}) => (
   <Row>
     <Label htmlFor={input.name}>
       メッセージ {index}
@@ -15,7 +24,7 @@ const Item = ({ input, index, meta: { dirty, error } }) => (
   </Row>
 );
 
-const Items = ({ fields }) => (
+const Items = ({ fields }: {fields: {name: string, length: number}}) => (
   <ListContainer>
     <AutoSizer>
       {({ width, height }) => (
@@ -25,7 +34,7 @@ const Items = ({ fields }) => (
           rowHeight={40}
           style={{ overflowX: "auto", overflowY: "auto" }} // for Isomorphic
           rowCount={fields.length}
-          rowRenderer={({ key, index, isScrolling, isVisible, style }) => (
+          rowRenderer={({ key, index, style }) => (
             <div key={key} style={style}>
               <Field
                 name={`${fields.name}[${index}].message`}
@@ -40,7 +49,11 @@ const Items = ({ fields }) => (
   </ListContainer>
 );
 
-export default compose(
+export default compose<any, {
+  initialValues: {
+    items: Array<{ message: string }>,
+  }
+}>(
   onlyUpdateForPropTypes,
   setPropTypes({
     ...formPropTypes,

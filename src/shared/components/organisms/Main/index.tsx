@@ -1,12 +1,10 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
-import pure from "recompose/pure";
 
 type Props = { children: ReactNode };
 
-export default pure(function Main(props: Props) {
+export default React.memo(function Main(props: Props) {
   const { children } = props;
-
   return <Root>{children}</Root>;
 });
 

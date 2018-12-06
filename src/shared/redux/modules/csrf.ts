@@ -1,4 +1,3 @@
-
 import { createAction, handleAction, Reducer } from "redux-actions";
 
 /**
@@ -25,11 +24,11 @@ const INITIAL_STATE: State = {
 /**
  * Reducer
  */
-export default (handleAction(
+export default handleAction<State, any>(
   CSRF,
   (state, action) => ({
     ...state,
     token: action.payload,
   }),
   INITIAL_STATE,
-) as Reducer<State, any>);
+);

@@ -1,4 +1,3 @@
-
 import { createAction, handleActions, Reducer } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { createAsyncActionTypes } from "./utils";
@@ -78,7 +77,7 @@ const INITIAL_STATE: State = {
 /**
  * Reducer
  */
-export default handleActions(
+export default handleActions<State>(
   {
     [AUTH_CHECK_LOGIN_SUCCESS]: loggedIn,
     [AUTH_LOGIN_SUCCESS]: loggedIn,
@@ -87,9 +86,9 @@ export default handleActions(
     [AUTH_LOGOUT_SUCCESS]: loggedOut,
   },
   INITIAL_STATE,
-) as Reducer<State,any>;
+);
 
-function loggedIn(state, action) {
+function loggedIn(state: State, action) {
   const {
     payload: { sub },
   } = action;
