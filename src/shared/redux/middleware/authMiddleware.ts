@@ -1,4 +1,3 @@
-
 import { replace } from "react-router-redux";
 import { cookie } from "redux-effects-universal-cookie";
 import { fetchrCreate, fetchrDelete } from "redux-effects-fetchr";
@@ -9,10 +8,15 @@ import {
   AUTH_LOGOUT_REQUEST,
 } from "../modules/auth";
 import { handleActions } from "./utils";
+import { MiddlewareAPI } from "redux";
 
 export default function authMiddleware() {
   return handleActions({
-    [AUTH_CHECK_LOGIN_REQUEST]({ dispatch }, next, action) {
+    [AUTH_CHECK_LOGIN_REQUEST](
+      { dispatch }: MiddlewareAPI,
+      next: Function,
+      action: any,
+    ) {
       next(action); // eslint-disable-line callback-return
       return checkAccessToken(dispatch);
     },
@@ -30,14 +34,18 @@ export default function authMiddleware() {
         });
     },
 
-    [AUTH_LOGOUT_REQUEST]({ dispatch }, next, action) {
+    [AUTH_LOGOUT_REQUEST](
+      { dispatch }: MiddlewareAPI,
+      next: Function,
+      action: any,
+    ) {
       next(action); // eslint-disable-line callback-return
       return dispatch(fetchrDelete("accessToken"));
     },
   });
 }
 
-function checkAccessToken(dispatch) {
+function checkAccessToken(dispatch: any) {
   return dispatch(cookie("access-token")).then(token => {
     if (!token) {
       return Promise.reject(new Error("no token"));

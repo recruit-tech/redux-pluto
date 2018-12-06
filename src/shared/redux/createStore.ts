@@ -1,5 +1,5 @@
 import { routerMiddleware } from "react-router-redux";
-import { createStore, compose, applyMiddleware } from "redux";
+import { createStore, compose, applyMiddleware, Store, AnyAction } from "redux";
 import { BEGIN_ASYNC_LOAD, END_ASYNC_LOAD } from "redux-async-loader";
 import pageScopeMiddleware from "redux-page-scope";
 import steps from "redux-effects-steps";
@@ -15,9 +15,10 @@ import auth from "./middleware/authMiddleware";
 import loading from "./middleware/loadingMiddleware";
 import reducer from "./modules/reducer";
 import mockLoggingMiddleware from "./middleware/mockLoggingMiddleware";
+import { State as RootState } from "./modules/reducer";
 
 export default function(
-  initialState,
+  initialState: RootState,
   options: {
     cookie?: any,
     fetchrCache?: any,
@@ -30,7 +31,7 @@ export default function(
     logger?: any,
     devTools?: any,
   } = {},
-) {
+): Store<RootState, AnyAction> {
   const middlewares = filter(Boolean)([
     steps,
     auth(),
@@ -85,5 +86,5 @@ export default function(
     });
   }
 
-  return store;
+  return store as Store<RootState, AnyAction>;
 }
