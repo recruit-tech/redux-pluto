@@ -5,7 +5,6 @@ import debugFactory from "debug";
 const debug = debugFactory("app:shared:routes:createUniversalComponent");
 
 const cssPromiseCache = {};
-
 export default function createUniversalComponent(
   component,
   resolve,

@@ -28,7 +28,6 @@
   "plugins": [
     "import",
     "react",
-    "flowtype",
     "dependencies",
     "lodash-fp",
     "prettier",
@@ -62,7 +61,7 @@
     "no-unmodified-loop-condition": "error",
     "no-useless-call": "error",
     "no-void": "off",
-    "no-else-return": "off", // for flow refinements
+    "no-else-return": "off", // for type refinements
 
     // Variables
     "no-catch-shadow": "error",
@@ -164,10 +163,6 @@
     "lodash-fp/use-fp": "error",
     // coding styles
     "max-len": ["error", 100],
-
-    // Ignore flow values
-    "flowtype/define-flow-type": "error",
-    "flowtype/use-flow-type": "error",
 
     // prettier
     "prettier/prettier": ["error"]
