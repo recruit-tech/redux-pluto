@@ -16,6 +16,9 @@ declare var __REPORTSUITE_ENV__: string;
 declare var __MOCKING_LOG__: boolean;
 declare var __ENABLE_OFFLOAD__: boolean;
 declare var __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
+declare var __CLIENT__: boolean;
+declare var __SERVER__: boolean;
+declare var __CSS_CHUNKS__: boolean;
 
 interface Window {
   devToolsExtension: any;

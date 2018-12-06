@@ -1,14 +1,15 @@
-// declare module 'react-redux-analytics' {
-//   // HOC from recompose
-//   declare type _UnaryFn<A, R> = (a: A) => R;
-//   declare export type _Component<A> = React$ComponentType<A>;
+declare module "react-redux-analytics" {
+  // HOC from recompose
+  type _UnaryFn<A, R> = (a: A) => R;
+  export type _Component<A> = React.ComponentType<A>;
 
-//   declare export type HOC<Base, Enhanced> = _UnaryFn<
-//     _Component<Base>,
-//     _Component<Enhanced>
-//   >;
-//   declare function sendAnalytics<T>(...any): HOC<T, T>;
-//   declare var analyticsReducer: any;
-//   declare var sendEvent: any;
-//   declare var createLocationSubscriber: any;
-// }
+  type HOC<Base, Enhanced> = _UnaryFn<
+    _Component<Base>,
+    _Component<Enhanced>
+  >;
+  function sendAnalytics<T>(...any): HOC<T, T>;
+  var analyticsReducer: any;
+  export var analyticsMiddleware: any;
+  var sendEvent: any;
+  var createLocationSubscriber: any;
+}

@@ -1,28 +1,30 @@
-// import React from 'react'
-// declare module 'redux-async-loader' {
-//   // HOC from recompose
-//   declare type _UnaryFn<A, R> = (a: A) => R;
-//   declare export type _Component<A> = React.ComponentType<A>;
+declare module "redux-async-loader" {
+  export var END_ASYNC_LOAD: string;
+  export var BEGIN_ASYNC_LOAD: string;
 
-//   declare export type HOC<Base, Enhanced> = _UnaryFn<
-//     _Component<Base>,
-//     _Component<Enhanced>
-//   >;
-//   declare var useAsyncLoader: any;
-//   declare var reduxAsyncLoader: {
-//     onServer: boolean,
-//     loaded: boolean
-//   };
-//   declare function asyncLoader<OP>(
-//     op: OP,
-//     middleware: ({ dispatch: Function, getState: Function } => any)
-//   ): <any, OP>;
+  // HOC from recompose
+  type _UnaryFn<A, R> = (a: A) => R;
+  export type _Component<A> = React.ComponentType<A>;
+  export type HOC<Base, Enhanced> = _UnaryFn<
+    _Component<Base>,
+    _Component<Enhanced>
+  >;
+  var useAsyncLoader: any;
+  var reduxAsyncLoader: any;
 
-//   declare function deferLoader<OP, A>(
-//     op: OP,
-//     middleware: {
-//       dispatch: Function,
-//       getState: Function
-//     } => any
-//   ): HOC<*, OP>;
-// }
+  export var loadOnServer: any;
+
+  function asyncLoader<OP>(
+    fn: (
+      op: OP,
+      middleware: { dispatch: any, getState: any }
+    ) => any,
+  ): HOC<any, OP>;
+
+  function deferLoader<OP, A>(
+    fn: (
+      op: OP,
+      middleware: { dispatch: any, getState: any }
+    ) => any,
+  ): HOC<any, OP>;
+}
