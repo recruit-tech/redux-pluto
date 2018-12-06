@@ -14,6 +14,7 @@ declare var __DISABLE_SSR__: boolean;
 declare var __MOCK_BUILD__: boolean;
 declare var __REPORTSUITE_ENV__: string;
 declare var __MOCKING_LOG__: boolean;
+declare var __ENABLE_OFFLOAD__: boolean;
 
 interface Window {
   devToolsExtension: any;

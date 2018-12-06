@@ -19,6 +19,7 @@ const PICK_PROPS = [
 const pickProps = map(pick(PICK_PROPS));
 
 export default class Search extends AgreedService {
+  pathname: string;
   constructor(config: any) {
     super(config, "search", "beauty/search/", {
       count: SEARCH_MAX_COUNT,

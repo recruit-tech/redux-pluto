@@ -2,6 +2,10 @@ import { create as createAxios } from "axios";
 import { create } from "../services/utils";
 
 export default class UploadSample {
+  path: string;
+  name: string;
+  field: string;
+  axios: any;
   constructor(config) {
     this.path = "/uploadsample";
     this.name = "uploader/uploadsample";

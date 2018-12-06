@@ -51,7 +51,7 @@ export function readAll(
   axios: any,
   name: string,
   pathname: string,
-  params: ?any,
+  params: any | null,
   itemsName: string | null,
   loaded: Array<any> = [],
 ) {

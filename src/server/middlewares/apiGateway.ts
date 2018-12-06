@@ -37,7 +37,7 @@ function makeServiceAdapter(service, secret) {
         checkLogin(req)
           .then(() => service[method](req, resource, params, config))
           .then(
-            (result = {}) => {
+            (result: { meta?: any } = {}) => {
               cb(null, result, result.meta);
             },
             error => {
@@ -54,7 +54,7 @@ function makeServiceAdapter(service, secret) {
         checkLogin(req)
           .then(() => service[method](req, resource, params, body, config))
           .then(
-            (result = {}) => {
+            (result: { meta?: any } = {}) => {
               cb(null, result, result.meta);
             },
             error => {

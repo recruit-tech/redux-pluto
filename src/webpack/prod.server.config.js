@@ -31,7 +31,7 @@ module.exports = {
 
   devtool: "source-map",
 
-  entry: [path.resolve(rootDir, "src/server/index.js")],
+  entry: [path.resolve(rootDir, "src/server/index.ts")],
 
   externals,
 

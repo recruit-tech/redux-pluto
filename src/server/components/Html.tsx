@@ -17,7 +17,7 @@ export default compose(
     clientConfig,
     assets: { publicPath, scripts, cssHashRaw },
     styles,
-  } = props;
+  } = props as any;
 
   return (
     <html lang="ja">

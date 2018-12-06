@@ -1,7 +1,7 @@
 import { read } from "./utils";
 
 export default class BaseService {
-  axios: ?any;
+  axios: any | null;
 
   name: string;
 

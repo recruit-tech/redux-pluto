@@ -1,5 +1,5 @@
 import axios from "axios";
-import { type HackerNewsItem } from "../../shared/types/HackerNews";
+import { HackerNewsItem } from "../../shared/types/HackerNews";
 
 const API_BASE = "https://hacker-news.firebaseio.com/v0";
 

@@ -187,9 +187,9 @@ function matchRoutes(options) {
   });
 }
 
-function renderCSR({ res, store, config, clientConfig, timing }) {
-  const assets = flushChunks(config.clientStats);
-  sendCSRResponse({ res, store, status: 200, clientConfig, assets, timing });
+function renderCSR({ res, store, config, clientConfig, timing }: any) {
+  const assets = (flushChunks as any) (config.clientStats);
+  sendCSRResponse({ res, store, status: 200, clientConfig, assets, timing } as any);
 }
 
 function renderSSR({

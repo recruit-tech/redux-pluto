@@ -86,10 +86,11 @@ export default class AccessToken {
   }
 
   login(config: any) {
+    const self = this;
     return {
       path: "/login",
-      post(req: any, res: any, next: Function) {
-        this.create(req, {}, req.body, config).then(result => {
+      post: (req: any, res: any, next: Function) => {
+        self.create(req, {}, req.body, config, undefined as any).then(result => {
           res.set(result.meta.headers);
           if (isRedirectableUrl(req.query.location)) {
             return res.redirect(req.query.location);
@@ -101,10 +102,11 @@ export default class AccessToken {
   }
 
   logout(config: any) {
+    const self = this;
     return {
       path: "/logout",
       get(req: any, res: any, next: Function) {
-        this.delete(req, {}, {}, config).then(result => {
+        self.delete(req, {}, {}, config).then(result => {
           res.set(result.meta.headers);
           res.redirect("/");
         });
