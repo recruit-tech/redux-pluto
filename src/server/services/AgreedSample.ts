@@ -1,4 +1,4 @@
-import { create as createAxios } from "axios";
+import Axios from "axios";
 import { read } from "./utils";
 
 export default class AgreedSample {
@@ -8,7 +8,7 @@ export default class AgreedSample {
 
   constructor(config: any) {
     this.name = "agreedSample";
-    this.axios = createAxios(config.agreed.config.axios); // サンプル用にここだけ agreed server 向けの axios を利用
+    this.axios = Axios.create(config.agreed.config.axios); // サンプル用にここだけ agreed server 向けの axios を利用
     this.pathname = "agreedsample";
   }
 

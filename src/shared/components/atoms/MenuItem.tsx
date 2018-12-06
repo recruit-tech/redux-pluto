@@ -10,7 +10,7 @@ type Props = {
   checked: boolean,
 };
 
-export default React.memo(function MenuItem(props: Props) {
+export default (function MenuItem(props: Props) {
   const { children, to, checked } = props;
 
   return (

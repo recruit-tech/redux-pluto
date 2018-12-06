@@ -13,7 +13,7 @@ type Props = {
   linkURL: string,
 };
 
-export default React.memo(function SearchListItem(props: Props) {
+export default (function SearchListItem(props: Props) {
   const { item, linkURL } = props;
 
   return (

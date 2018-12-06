@@ -1,4 +1,4 @@
-import { create as createAxios } from "axios";
+import Axios from "axios";
 import { create } from "../services/utils";
 import { Response, Request } from "express";
 
@@ -11,7 +11,7 @@ export default class UploadSample {
     this.path = "/uploadsample";
     this.name = "uploader/uploadsample";
     this.field = "file";
-    this.axios = createAxios(config.agreed.config.axios);
+    this.axios = Axios.create(config.agreed.config.axios);
   }
 
   createMiddleware() {

@@ -5,7 +5,7 @@ type Props = {
   children: ReactNode,
 };
 
-export default React.memo(function Menu(props: Props) {
+export default (function Menu(props: Props) {
   const { children } = props;
 
   return <MenuItems>{children}</MenuItems>;
