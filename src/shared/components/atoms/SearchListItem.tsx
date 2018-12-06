@@ -1,7 +1,6 @@
-
 import React from "react";
 import styled from "styled-components";
-import pure from "recompose/pure";
+
 import { Link } from "react-router";
 
 type Props = {
@@ -14,7 +13,7 @@ type Props = {
   linkURL: string,
 };
 
-export default pure(function SearchListItem(props: Props) {
+export default React.memo(function SearchListItem(props: Props) {
   const { item, linkURL } = props;
 
   return (

@@ -1,11 +1,9 @@
-
 import React from "react";
 import styled from "styled-components";
-import pure from "recompose/pure";
 
 const noop = () => {};
 
-export default pure(function Overlay(props: {
+export default React.memo(function Overlay(props: {
   children: React.ReactNode,
   onClick: any,
 }) {

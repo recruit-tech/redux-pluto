@@ -1,4 +1,3 @@
-
 import React from "react";
 import { pure } from "recompose";
 import Menu from "../atoms/Menu";
@@ -23,7 +22,7 @@ type Props = {
   },
 };
 
-export default pure(function HairLengthMenu(props: Props) {
+export default React.memo(function HairLengthMenu(props: Props) {
   const { hairLength, genderItems, hairLengthItems } = props;
   const gender = props.gender || Object.keys(genderItems)[0];
   const { items } = hairLengthItems[gender];

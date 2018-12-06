@@ -1,7 +1,7 @@
 
 import React, { ReactNode } from "react";
 import styled from "styled-components";
-import pure from "recompose/pure";
+
 import { Link as ReactRouterLink } from "react-router";
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
   checked: boolean,
 };
 
-export default pure(function MenuItem(props: Props) {
+export default React.memo(function MenuItem(props: Props) {
   const { children, to, checked } = props;
 
   return (
