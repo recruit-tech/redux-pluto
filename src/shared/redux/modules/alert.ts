@@ -32,7 +32,7 @@ const INITIAL_STATE: State = {
  */
 export default handleActions<State>(
   {
-    [ALERT_SHOW]: (state: State, action) => {
+    [ALERT_SHOW]: (_state: State, action) => {
       const { payload } = action;
 
       return {

@@ -1,4 +1,3 @@
-
 import { createAction, handleActions, Reducer } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { fetchrRead } from "redux-effects-fetchr";
@@ -51,7 +50,7 @@ export const INITIAL_STATE: State = {
 /**
  * Reducer
  */
-export default (handleActions(
+export default handleActions<State>(
   {
     [FETCH_ITEMS_REQUEST]: state => ({
       ...state,
@@ -77,4 +76,4 @@ export default (handleActions(
     }),
   },
   INITIAL_STATE,
-) as Reducer<State, any>);
+);

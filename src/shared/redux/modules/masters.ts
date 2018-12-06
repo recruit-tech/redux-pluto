@@ -109,7 +109,7 @@ export const INITIAL_STATE: State = transform(
 /**
  * Reducer
  */
-export default (handleActions(
+export default handleActions<State>(
   {
     [LOAD_MASTER_REQUEST]: (state, action) => {
       const {
@@ -159,4 +159,4 @@ export default (handleActions(
     },
   },
   INITIAL_STATE,
-)as Reducer<State, any>);
+);

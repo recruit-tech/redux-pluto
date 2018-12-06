@@ -1,4 +1,3 @@
-
 import { createAction, handleActions, Reducer } from "redux-actions";
 
 /**
@@ -25,10 +24,10 @@ const INITIAL_STATE: State = false;
 /**
  * Reducer
  */
-export default (handleActions(
+export default handleActions<State>(
   {
     [START_LOADING]: () => true,
     [STOP_LOADING]: () => false,
   },
   INITIAL_STATE,
-) as Reducer<State, any>);
+);
