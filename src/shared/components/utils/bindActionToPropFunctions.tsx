@@ -44,7 +44,7 @@ const getPropFunctionDecorator = decorators => (
   })({})(decorators);
 
 /* eslint-disable react/prefer-stateless-function */
-export default (mapPropsToActions = {}) => WrappedComponent => {
+export default (mapPropsToActions = {}) => (WrappedComponent) => {
   const getDecoratedPropFunctions: any = compose(
     getPropFunctionDecorator,
     filter(([_, v]) => isFunction(v)),
@@ -61,10 +61,10 @@ export default (mapPropsToActions = {}) => WrappedComponent => {
     }
   }
 
-  WrapperComponent.displayName = `BindActionToPropFunctions(${getDisplayName(
+  (WrapperComponent as any).displayName = `BindActionToPropFunctions(${getDisplayName(
     WrappedComponent,
   )})`;
-  WrapperComponent.contextTypes = {
+  (WrapperComponent as any).contextTypes = {
     store: isRequired,
   };
 

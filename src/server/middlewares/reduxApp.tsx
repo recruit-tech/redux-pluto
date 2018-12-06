@@ -48,7 +48,7 @@ export default function createReduxApp(config) {
 
   debug("Loading initial data");
   config.promises.push(
-    Promise.all([initialStore.dispatch(loadAllMastersAction())]).then(() => {
+    Promise.all([initialStore.dispatch(loadAllMastersAction() as any)]).then(() => {
       debug("Loaded initial data");
     }),
   );
@@ -112,7 +112,7 @@ export default function createReduxApp(config) {
         store.dispatch(csrfAction(req.csrfToken()));
         return Promise.all([
           loadOnServer(renderProps, store),
-          store.dispatch(checkLogin()).catch(() => null),
+          store.dispatch(checkLogin() as any).catch(() => null),
         ])
           .then(() => {
             timing.endTime("prefetch");

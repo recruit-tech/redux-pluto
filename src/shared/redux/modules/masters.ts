@@ -3,6 +3,7 @@ import { createAction, handleActions, Reducer } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { fetchrRead } from "redux-effects-fetchr";
 import { createAsyncActionTypes } from "./utils";
+import { AnyAction } from "redux";
 
 /**
  * Action types
@@ -64,7 +65,7 @@ export function loadMenuContentMaster() {
   return loadMaster("menuContentMaster");
 }
 
-export function loadAllMasters() {
+export function loadAllMasters(): Promise<AnyAction> {
   return steps([
     loadAreaMaster(),
     loadGenderMaster(),
