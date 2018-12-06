@@ -1,4 +1,3 @@
-/* @flow */
 import createUniversalComponent from "./createUniversalComponent";
 
 const chunkName = "misc";

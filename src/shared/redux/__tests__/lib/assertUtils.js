@@ -1,4 +1,3 @@
-/* @flow */
 /* eslint-disable import/prefer-default-export */
 import assert from "assert";
 

@@ -1,4 +1,3 @@
-/* @flow */
 export default class Counter {
   name: string;
 

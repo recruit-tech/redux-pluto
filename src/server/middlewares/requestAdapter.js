@@ -1,4 +1,3 @@
-/* @flow */
 export default function makeRequestAdapter(
   service: any,
   app: any,

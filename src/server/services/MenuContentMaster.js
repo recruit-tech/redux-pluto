@@ -1,4 +1,3 @@
-/* @flow */
 import AgreedMaster from "./AgreedMaster";
 
 export default class MenuContentMaster extends AgreedMaster {

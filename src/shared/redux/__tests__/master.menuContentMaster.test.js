@@ -1,4 +1,3 @@
-/* @flow */
 import assert from "assert";
 import Fetchr from "fetchr";
 import Immutable from "seamless-immutable";

@@ -1,4 +1,3 @@
-/* @flow */
 import { read } from "./utils";
 
 export default class BaseService {

@@ -1,4 +1,3 @@
-/* @flow */
 import assert from "assert";
 import Immutable from "seamless-immutable";
 import reducer, { showAlert, clearAlert } from "../alert";

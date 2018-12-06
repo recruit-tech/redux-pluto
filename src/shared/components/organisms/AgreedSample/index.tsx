@@ -1,4 +1,4 @@
-/* @flow */
+
 import { connect } from "react-redux";
 import { asyncLoader } from "redux-async-loader";
 import { compose } from "recompose";

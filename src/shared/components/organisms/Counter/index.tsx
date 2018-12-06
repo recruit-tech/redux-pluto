@@ -1,4 +1,4 @@
-/* @flow */
+
 import { connect } from "react-redux";
 import { compose } from "recompose";
 import { deferLoader } from "redux-async-loader";

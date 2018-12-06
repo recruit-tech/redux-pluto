@@ -1,4 +1,3 @@
-/* @flow */
 import cookie from "cookie";
 import jwt from "jsonwebtoken";
 import fumble from "fumble";

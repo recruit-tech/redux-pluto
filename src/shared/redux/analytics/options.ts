@@ -1,4 +1,4 @@
-/* @flow */
+
 import { State as RootState } from "../modules/reducer";
 import {
   SERVER,

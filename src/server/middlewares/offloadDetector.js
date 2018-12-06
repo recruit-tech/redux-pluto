@@ -1,4 +1,3 @@
-/* @flow */
 import debugFactory from "debug";
 
 const debug = debugFactory("app:server:middleware:offloadDetector");

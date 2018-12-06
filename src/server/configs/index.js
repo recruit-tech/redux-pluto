@@ -1,4 +1,3 @@
-/* @flow */
 import dev from "./dev";
 import test from "./test";
 

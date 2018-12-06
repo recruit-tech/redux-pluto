@@ -1,4 +1,3 @@
-/* @flow */
 import axios from "axios";
 import { type HackerNewsItem } from "../../shared/types/HackerNews";
 

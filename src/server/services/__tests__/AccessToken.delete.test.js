@@ -1,4 +1,3 @@
-/* @flow */
 import assert from "assert";
 import cookie from "cookie";
 import configs from "../../configs";

@@ -1,4 +1,3 @@
-/* @flow */
 import { map, pick } from "lodash/fp";
 import AgreedService from "./AgreedService";
 import { read } from "./utils";

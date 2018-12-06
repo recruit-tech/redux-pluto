@@ -1,4 +1,4 @@
-/* @flow */
+
 import { createAction, handleActions, Reducer } from "redux-actions";
 
 /**

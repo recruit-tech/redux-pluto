@@ -1,4 +1,4 @@
-/* @flow */
+
 import { createAction, handleActions, Reducer } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { fetchrUpdate } from "redux-effects-fetchr";

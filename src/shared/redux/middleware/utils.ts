@@ -1,4 +1,4 @@
-/* @flow */
+
 /* eslint-disable import/prefer-default-export */
 
 export function handleActions(handlers: { [key: string]: Function }) {

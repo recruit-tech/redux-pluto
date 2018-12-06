@@ -1,4 +1,3 @@
-/* @flow */
 import { create as createAxios } from "axios";
 import { read } from "./utils";
 

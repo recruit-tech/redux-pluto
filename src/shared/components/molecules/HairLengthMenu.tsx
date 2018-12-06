@@ -1,4 +1,4 @@
-/* @flow */
+
 import React from "react";
 import { pure } from "recompose";
 import Menu from "../atoms/Menu";

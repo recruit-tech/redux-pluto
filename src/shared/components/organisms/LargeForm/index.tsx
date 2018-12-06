@@ -1,4 +1,4 @@
-/* @flow */
+
 import { reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { compose } from "recompose";

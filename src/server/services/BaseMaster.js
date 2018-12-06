@@ -1,4 +1,3 @@
-/* @flow */
 import { identity } from "lodash/fp";
 import BaseService from "./BaseService";
 import { readAll } from "./utils";

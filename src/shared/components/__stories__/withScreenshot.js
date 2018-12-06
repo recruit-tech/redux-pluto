@@ -1,4 +1,3 @@
-/* @flow */
 // Do nothing as storybook decorator
 const NoopDecorator = fn => fn();
 

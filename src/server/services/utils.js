@@ -1,4 +1,3 @@
-/* @flow */
 import { format as formatUrl } from "url";
 import fumble from "fumble";
 import debugFactory from "debug";

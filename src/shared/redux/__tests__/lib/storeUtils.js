@@ -1,4 +1,3 @@
-/* @flow */
 import Fetchr from "fetchr";
 import { createMemoryHistory } from "react-router";
 import { routerMiddleware } from "react-router-redux";

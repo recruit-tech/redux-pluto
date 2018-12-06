@@ -1,4 +1,4 @@
-/* @flow */
+
 import {
   PAGE_NAME,
   SECTION_LEVEL1,

@@ -1,4 +1,3 @@
-/* @flow */
 /* eslint-disable no-undefined, callback-return */
 import assert from "assert";
 import Fetchr from "fetchr";

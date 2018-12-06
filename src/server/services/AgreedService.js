@@ -1,4 +1,3 @@
-/* @flow */
 import { create as createAxios } from "axios";
 import BaseService from "./BaseService";
 

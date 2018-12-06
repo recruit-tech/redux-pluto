@@ -1,4 +1,3 @@
-/* @flow */
 /* eslint-disable global-require */
 import assert from "power-assert";
 import config from "../../configs/test";

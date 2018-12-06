@@ -1,4 +1,4 @@
-/* @flow */
+
 import { replace } from "react-router-redux";
 import { cookie } from "redux-effects-universal-cookie";
 import { fetchrCreate, fetchrDelete } from "redux-effects-fetchr";

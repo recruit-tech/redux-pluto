@@ -1,4 +1,4 @@
-/* @flow */
+
 import { bindActionCreators as bind } from "redux";
 
 export default function bindActionCreators<T>(

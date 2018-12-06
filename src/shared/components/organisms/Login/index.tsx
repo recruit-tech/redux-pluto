@@ -1,4 +1,4 @@
-/* @flow */
+
 import { reduxForm, isInvalid } from "redux-form";
 import { connect } from "react-redux";
 import { compose } from "recompose";

@@ -1,4 +1,3 @@
-/* @flow */
 import Fetchr from "fetchr";
 import debugFactory from "debug";
 import * as services from "../services";

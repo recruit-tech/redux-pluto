@@ -1,4 +1,3 @@
-/* @flow */
 import { reduce, transform } from "lodash/fp";
 import AgreedMaster from "./AgreedMaster";
 
