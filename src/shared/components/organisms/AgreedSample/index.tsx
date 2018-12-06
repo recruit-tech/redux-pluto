@@ -1,4 +1,3 @@
-
 import { connect } from "react-redux";
 import { asyncLoader } from "redux-async-loader";
 import { compose } from "recompose";
@@ -10,7 +9,7 @@ import {
 } from "../../../redux/analytics/utils";
 import AgreedSample from "./AgreedSample";
 
-const enhancer = compose(
+const enhancer = compose<{ text: string }, {}>(
   asyncLoader(({ location }, { dispatch }) => {
     const { query: locationQuery } = location;
     if (!locationQuery) {

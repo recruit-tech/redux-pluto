@@ -1,5 +1,4 @@
 import React from "react";
-import { compose, pure } from "recompose";
 import {
   Link as ReactRouterLink,
   IndexLink as ReactRouterIndexLink,
@@ -32,7 +31,7 @@ const links: HeaderLink[] = [
   { key: "logout", to: "/logout", label: "Logout" },
 ];
 
-export default compose(pure)(function Header(props: Props) {
+export default React.memo(function Header(props: Props) {
   return (
     <Root>
       <hgroup>

@@ -15,6 +15,7 @@ import {
 } from "../../../redux/analytics/utils";
 import { SALON_ID } from "../../../redux/analytics/variableNames";
 import Search from "./Search";
+import { State as SearchState } from "../../../redux/modules/search";
 
 type Props = {
   params: {
@@ -22,7 +23,7 @@ type Props = {
   },
 };
 
-const enhancer = compose(
+const enhancer = compose<SearchState, {}>(
   asyncLoader(
     (
       { params }: Props,

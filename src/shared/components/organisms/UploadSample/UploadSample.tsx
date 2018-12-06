@@ -1,6 +1,4 @@
-
 import React from "react";
-import pure from "recompose/pure";
 
 type Props = {
   loading: boolean,
@@ -10,7 +8,7 @@ type Props = {
   onCancel: Function,
 };
 
-export default pure(function UploadSample(props: Props) {
+export default React.memo(function UploadSample(props: Props) {
   const { loading, path, onInputFile, onSubmitFile, onCancel } = props;
 
   return (

@@ -1,4 +1,3 @@
-
 import { reduxForm, isInvalid } from "redux-form";
 import { connect } from "react-redux";
 import { compose } from "recompose";
@@ -11,9 +10,10 @@ import {
   onAsyncLoaderLoaded,
 } from "../../../redux/analytics/utils";
 import LoginForm from "./LoginForm";
+import { State as RootState } from "../../../../shared/redux/modules/reducer";
 
-export default compose(
-  connect((state: any) => ({
+export default compose<{ invalid: boolean, csrf: string }, {}>(
+  connect((state: RootState) => ({
     invalid: isInvalid("loginForm")(state),
     csrf: state.app.csrf.token,
   })),

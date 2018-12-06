@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import pure from "recompose/pure";
+
 import { Link as ReactRouterLink } from "react-router";
 
 const PAGE_WINDOW = 20;
@@ -11,7 +11,7 @@ type Props = {
   keyword: string,
 };
 
-export default pure(function SearchPager(props: Props) {
+export default React.memo(function SearchPager(props: Props) {
   const { keyword, page, pages } = props;
   const slicedPages = slicePages(page, pages);
 

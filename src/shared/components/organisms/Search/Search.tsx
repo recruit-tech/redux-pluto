@@ -1,10 +1,10 @@
 import React, { Fragment } from "react";
-import pure from "recompose/pure";
+
 import { State as SearchState } from "../../../redux/modules/search";
 
 type Props = SearchState;
 
-export default pure(function Search(props: Props) {
+export default React.memo(function Search(props: Props) {
   const { item } = props;
   return (
     <div>

@@ -1,7 +1,6 @@
-
 import React from "react";
 import { compose, shouldUpdate } from "recompose";
-import { range } from "lodash/fp";
+import { range } from "lodash";
 import { sendAnalytics } from "react-redux-analytics";
 import {
   siteSections,
@@ -10,13 +9,14 @@ import {
 
 const array = range(0, 500);
 
-export default compose(
+type Props = { onDataReady: boolean };
+export default compose<Props, {}>(
   sendAnalytics({
     ...siteSections("bar", "top"),
     onDataReady: onAsyncLoaderLoaded,
   }),
   shouldUpdate(() => false),
-)(function Bar(props) {
+)(function Bar(props: Props) {
   return (
     <main>
       {array.map(elm => (

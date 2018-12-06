@@ -1,4 +1,3 @@
-
 import React from "react";
 import { compose, shouldUpdate } from "recompose";
 import { sendAnalytics } from "react-redux-analytics";
@@ -6,7 +5,7 @@ import { siteSections } from "../../../redux/analytics/utils";
 
 type Props = {};
 
-export default compose(
+export default compose<Props, {}>(
   sendAnalytics({
     ...siteSections("error", "error"),
   }),
