@@ -3,15 +3,16 @@ import PropTypes from "prop-types";
 import { compose } from "recompose";
 import { isFunction, entries, reduce, filter } from "lodash/fp";
 import hoistStatics from "hoist-non-react-statics";
+import { MiddlewareAPI } from "redux";
 
 const { isRequired } = PropTypes.object;
 
-const getDisplayName = component => component.displayName || component.name;
+const getDisplayName = (component: React.ComponentType<any>) => component.displayName || component.name;
 
-const isAction = obj =>
+const isAction = (obj: any) =>
   obj.type && ["string", "symbol"].includes(typeof obj.type);
 
-const decorateFunction = (decorator, props, { dispatch, getState }) => func => (
+const decorateFunction = (decorator: any, props: any, { dispatch, getState }: MiddlewareAPI) => func => (
   ...args
 ) => {
   const ret = func(...args);
@@ -29,11 +30,11 @@ const decorateFunction = (decorator, props, { dispatch, getState }) => func => (
   return ret;
 };
 
-const getPropFunctionDecorator = decorators => (
-  props,
-  { dispatch, getState },
+const getPropFunctionDecorator = (decorators: Array<Function>) => (
+  props: any,
+  { dispatch, getState }: MiddlewareAPI,
 ) =>
-  reduce((acc, [key, mapFunc]) => {
+  reduce((acc: {[key: string]: Function}, [key, mapFunc]: [string, Function]) => {
     const func = props[key];
     if (!isFunction(func)) {
       return acc;
@@ -41,13 +42,13 @@ const getPropFunctionDecorator = decorators => (
     acc[key] = (...args) =>
       decorateFunction(mapFunc, props, { dispatch, getState })(func)(...args);
     return acc;
-  })({})(decorators);
+  })({} as {[key: string]: Function} )(decorators);
 
 /* eslint-disable react/prefer-stateless-function */
-export default (mapPropsToActions = {}) => (WrappedComponent) => {
+export default (mapPropsToActions = {}) => (WrappedComponent: React.ComponentType<any>) => {
   const getDecoratedPropFunctions: any = compose(
     getPropFunctionDecorator,
-    filter(([_, v]) => isFunction(v)),
+    filter(([_, v]: [string, string]) => isFunction(v)),
     entries,
   )(mapPropsToActions as any);
 
