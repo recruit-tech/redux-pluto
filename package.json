@@ -40,8 +40,8 @@
     "test": "run-p test:agreed test:wait-on -r",
     "test:agreed": "agreed-server --path ./spec/agreed/agreed.js --port 3020",
     "test:old": "run-p test:agreed test:wait-on -r --print-label",
-    "test:wait-on": "wait-on tcp:3020 && jest",
-    "test:coverage": "jest --coverage && cat ./coverage/lcov.info | codacy-coverage"
+    "test:wait-on": "wait-on tcp:3020 && jest --maxWorkers=4",
+    "test:coverage": "jest --coverage --maxWorkers=4 && cat ./coverage/lcov.info | codacy-coverage"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
