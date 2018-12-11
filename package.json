@@ -89,7 +89,7 @@
     "redux-effects-formdata-uploader": "^1.2.0",
     "redux-effects-steps": "^1.0.1",
     "redux-effects-universal-cookie": "^1.0.1",
-    "redux-form": "^7.4.2",
+    "redux-form": "^8.0.0",
     "redux-page-scope": "^1.0.0",
     "reselect": "^4.0.0",
     "serve-favicon": "^2.5.0",
