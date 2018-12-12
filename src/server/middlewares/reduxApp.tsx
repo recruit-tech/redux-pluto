@@ -36,21 +36,20 @@ export default function createReduxApp(config) {
   /*
    * 全リクエストで共有される初期データのためのStoreです。
    */
-  const initialStore = createStore(
-    {} as any,
-    {
-      cookie: [{ cookies: {} }, {}],
-      fetchr: new Fetchr({ ...config.fetchr, req: {} }),
-      history: createMemoryHistory("/"),
-      logger,
-    },
-  );
+  const initialStore = createStore({} as any, {
+    cookie: [{ cookies: {} }, {}],
+    fetchr: new Fetchr({ ...config.fetchr, req: {} }),
+    history: createMemoryHistory("/"),
+    logger,
+  });
 
   debug("Loading initial data");
   config.promises.push(
-    Promise.all([initialStore.dispatch(loadAllMastersAction() as any)]).then(() => {
-      debug("Loaded initial data");
-    }),
+    Promise.all([initialStore.dispatch(loadAllMastersAction() as any)]).then(
+      () => {
+        debug("Loaded initial data");
+      },
+    ),
   );
 
   return reduxApp;
@@ -188,8 +187,15 @@ function matchRoutes(options) {
 }
 
 function renderCSR({ res, store, config, clientConfig, timing }: any) {
-  const assets = (flushChunks as any) (config.clientStats);
-  sendCSRResponse({ res, store, status: 200, clientConfig, assets, timing } as any);
+  const assets = (flushChunks as any)(config.clientStats);
+  sendCSRResponse({
+    res,
+    store,
+    status: 200,
+    clientConfig,
+    assets,
+    timing,
+  } as any);
 }
 
 function renderSSR({

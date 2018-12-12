@@ -36,9 +36,9 @@ export function fetchItems(page: number = 1) {
  */
 
 export type State = {
-  items: HackerNewsItem[],
-  page: number,
-  loading: boolean,
+  items: HackerNewsItem[];
+  page: number;
+  loading: boolean;
 };
 
 export const INITIAL_STATE: State = {

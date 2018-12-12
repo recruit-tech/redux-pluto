@@ -1,4 +1,3 @@
-
 import { createAction, handleActions, Reducer } from "redux-actions";
 
 /**
@@ -20,7 +19,7 @@ export const clearAlert = createAction(ALERT_CLEAR);
  */
 
 export type State = {
-  message: string,
+  message: string;
 };
 
 const INITIAL_STATE: State = {

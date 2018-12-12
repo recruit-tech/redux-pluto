@@ -41,12 +41,12 @@ export function uploadFile(path: string, file: any) {
  * Initial state
  */
 export type State = {
-  loading: boolean,
-  loaded: boolean,
-  value: string,
-  path: string,
-  cancelSource: Object | null,
-  error: Error | null,
+  loading: boolean;
+  loaded: boolean;
+  value: string;
+  path: string;
+  cancelSource: Object | null;
+  error: Error | null;
 };
 export const INITIAL_STATE: State = {
   loading: false,

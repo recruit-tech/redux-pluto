@@ -88,10 +88,10 @@ const RESOURCES = [
 
 export type State = {
   [key: string]: {
-    loading: boolean,
-    loaded: boolean,
-    items: any | null,
-  },
+    loading: boolean;
+    loaded: boolean;
+    items: any | null;
+  };
 };
 
 export const INITIAL_STATE: State = transform(

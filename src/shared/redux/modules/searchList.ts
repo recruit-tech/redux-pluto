@@ -71,17 +71,17 @@ export function searchMoreSearchList(params: any) {
  * Initial state
  */
 export type State = {
-  loading: boolean,
-  loaded: boolean,
-  params: Object,
-  count: number,
-  page: number,
-  pages: Array<any>,
-  items: Object,
-  canGetNext: boolean,
-  canGetPrev: boolean,
-  shouldAdjustScroll: boolean,
-  forceScrollTo: { x: number, y: number },
+  loading: boolean;
+  loaded: boolean;
+  params: Object;
+  count: number;
+  page: number;
+  pages: Array<any>;
+  items: Object;
+  canGetNext: boolean;
+  canGetPrev: boolean;
+  shouldAdjustScroll: boolean;
+  forceScrollTo: { x: number; y: number };
 };
 export const INITIAL_STATE: State = {
   loading: false,

@@ -12,7 +12,7 @@ import {
 import LoginForm from "./LoginForm";
 import { State as RootState } from "../../../../shared/redux/modules/reducer";
 
-export default compose<{ invalid: boolean, csrf: string }, {}>(
+export default compose<{ invalid: boolean; csrf: string }, {}>(
   connect((state: RootState) => ({
     invalid: isInvalid("loginForm")(state),
     csrf: state.app.csrf.token,

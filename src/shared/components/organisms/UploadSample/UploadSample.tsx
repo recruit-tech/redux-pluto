@@ -1,11 +1,11 @@
 import React from "react";
 
 type Props = {
-  loading: boolean,
-  path: string,
-  onInputFile: Function,
-  onSubmitFile: Function,
-  onCancel: Function,
+  loading: boolean;
+  path: string;
+  onInputFile: Function;
+  onSubmitFile: Function;
+  onCancel: Function;
 };
 
 export default React.memo(function UploadSample(props: Props) {

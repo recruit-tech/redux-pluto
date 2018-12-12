@@ -6,9 +6,9 @@ import { Link as ReactRouterLink } from "react-router";
 const PAGE_WINDOW = 20;
 
 type Props = {
-  page: number,
-  pages: number[],
-  keyword: string,
+  page: number;
+  pages: number[];
+  keyword: string;
 };
 
 export default React.memo(function SearchPager(props: Props) {

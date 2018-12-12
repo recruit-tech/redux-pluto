@@ -4,8 +4,8 @@ import { HackerNewsItem } from "../../../types/HackerNews";
 import ListItem from "./ListItem";
 
 type Props = {
-  items: HackerNewsItem[],
-  loading: boolean,
+  items: HackerNewsItem[];
+  loading: boolean;
 };
 
 export default function HackerNews(props: Props) {

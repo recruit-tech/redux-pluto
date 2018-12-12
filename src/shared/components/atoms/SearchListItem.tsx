@@ -5,12 +5,12 @@ import { Link } from "react-router";
 
 type Props = {
   item: {
-    id: string,
-    name: string,
-    logo_image_square: string,
-    description: string,
-  },
-  linkURL: string,
+    id: string;
+    name: string;
+    logo_image_square: string;
+    description: string;
+  };
+  linkURL: string;
 };
 
 export default (function SearchListItem(props: Props) {

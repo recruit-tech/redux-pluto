@@ -6,20 +6,20 @@ import MenuItem from "../atoms/MenuItem";
 type Gender = "man" | "woman";
 
 type Props = {
-  gender: Gender | null,
-  hairLength: string,
+  gender: Gender | null;
+  hairLength: string;
   hairLengthItems: {
     [key: string]: {
       items: Array<{
-        name: string,
-        gender: string,
-        code: string,
-      }>,
-    },
-  },
+        name: string;
+        gender: string;
+        code: string;
+      }>;
+    };
+  };
   genderItems: {
-    [key: string]: {},
-  },
+    [key: string]: {};
+  };
 };
 
 export default React.memo(function HairLengthMenu(props: Props) {

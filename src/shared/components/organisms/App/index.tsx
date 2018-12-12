@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import pure from "recompose/pure";
 
 type Props = {
-  children: ReactNode,
+  children: ReactNode;
 };
 
 export default pure(function App(props: Props) {

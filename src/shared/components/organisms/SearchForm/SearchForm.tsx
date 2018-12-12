@@ -8,26 +8,26 @@ import SearchLists from "./SearchLists";
 import SearchPager from "./SearchPager";
 
 type FormProps = {
-  handleSubmit: Function,
+  handleSubmit: Function;
   initialValues: {
-    keyword: string,
-  },
-  submitting: boolean,
+    keyword: string;
+  };
+  submitting: boolean;
 };
 
 type Props = FormProps & {
-  page: number, // optional?
-  pages: Array<any>,
-  count: number,
-  items: Object,
-  onInnerWindow: Function,
-  onClickNext: Function,
-  onClickPrev: Function,
-  canGetNext: boolean,
-  canGetPrev: boolean,
-  shouldAdjustScroll: boolean,
-  linkURL: string,
-  forceScrollTo: { x: number, y: number } | null,
+  page: number; // optional?
+  pages: Array<any>;
+  count: number;
+  items: Object;
+  onInnerWindow: Function;
+  onClickNext: Function;
+  onClickPrev: Function;
+  canGetNext: boolean;
+  canGetPrev: boolean;
+  shouldAdjustScroll: boolean;
+  linkURL: string;
+  forceScrollTo: { x: number; y: number } | null;
 };
 
 export default compose(

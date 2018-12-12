@@ -1,7 +1,7 @@
 import React from "react";
 
 type Props = {
-  text: string,
+  text: string;
 };
 
 export default React.memo(function AgreedSample(props: Props) {

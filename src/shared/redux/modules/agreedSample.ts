@@ -34,9 +34,9 @@ export function getText(status?: string | null): Promise<{ text: string }> {
  */
 
 export type State = {
-  loading: boolean,
-  loaded: boolean,
-  text: string,
+  loading: boolean;
+  loaded: boolean;
+  text: string;
 };
 
 const INITIAL_STATE: State = {
