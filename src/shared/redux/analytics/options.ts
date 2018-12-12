@@ -1,4 +1,4 @@
-import { State as RootState } from "../modules/reducer";
+import { RootState } from "../modules/reducer";
 import {
   SERVER,
   URL,

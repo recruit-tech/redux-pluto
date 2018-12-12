@@ -10,7 +10,7 @@ import {
   onAsyncLoaderLoaded,
 } from "../../../redux/analytics/utils";
 import LoginForm from "./LoginForm";
-import { State as RootState } from "../../../../shared/redux/modules/reducer";
+import { RootState } from "../../../../shared/redux/modules/reducer";
 
 export default compose<{ invalid: boolean; csrf: string }, {}>(
   connect((state: RootState) => ({
