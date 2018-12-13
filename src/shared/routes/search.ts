@@ -2,7 +2,7 @@ import createUniversalComponent from "./createUniversalComponent";
 
 const chunkName = "search";
 
-export function loadSearch(_, cb) {
+export function loadSearch(_: any, cb: any) {
   createUniversalComponent(
     () =>
       import(/* webpackChunkName: "search" */ "../components/organisms/Search"),
@@ -11,7 +11,7 @@ export function loadSearch(_, cb) {
   ).then(result => cb(null, result), cb);
 }
 
-export function loadSearchForm(_, cb) {
+export function loadSearchForm(_: any, cb: any) {
   createUniversalComponent(
     () =>
       import(/* webpackChunkName: "search" */ "../components/organisms/SearchForm"),

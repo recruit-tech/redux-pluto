@@ -10,7 +10,7 @@ export const ALERT_CLEAR = `${ALERT}/clear`;
 /**
  * Action creators
  */
-export const showAlert = createAction(ALERT_SHOW, message => message);
+export const showAlert = createAction(ALERT_SHOW, (message: string) => message);
 
 export const clearAlert = createAction(ALERT_CLEAR);
 
@@ -29,16 +29,16 @@ const INITIAL_STATE: State = {
 /**
  * Reducer
  */
-export default handleActions<State>(
+export default handleActions(
   {
-    [ALERT_SHOW]: (_state: State, action) => {
+    [ALERT_SHOW]: (_state: State, action: any) => {
       const { payload } = action;
 
       return {
         message: payload,
       };
     },
-    [ALERT_CLEAR]: (state, action) => INITIAL_STATE,
+    [ALERT_CLEAR]: () => INITIAL_STATE,
   } as any,
   INITIAL_STATE,
 );

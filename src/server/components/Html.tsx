@@ -24,7 +24,7 @@ export default compose(
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=320,initial-scale=1.0" />
-        {styles && styles.map(style => style)}
+        {styles && styles.map((style: React.ReactElement<any>) => style)}
         {/* Install serviceWorker only modern browser */}
         <script
           type="module"
@@ -46,7 +46,7 @@ export default compose(
           }}
         />
         {scripts &&
-          scripts.map(script => (
+          scripts.map((script: any) => (
             <script
               key={script}
               src={`${publicPath}/${script}`}

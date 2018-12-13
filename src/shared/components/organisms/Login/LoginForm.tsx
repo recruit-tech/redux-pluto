@@ -8,7 +8,16 @@ const labels = {
   password: "Password",
 };
 
-const RenderInput = ({ input, meta: { dirty, error } }): any => (
+const RenderInput = ({
+  input,
+  meta: { dirty, error },
+}: {
+  input: { name: "username" | "password" };
+  meta: {
+    dirty: boolean;
+    error: any;
+  };
+}): any => (
   <Row key={input.name}>
     <Label htmlFor={input.name}>
       {labels[input.name]}
@@ -58,8 +67,8 @@ export default compose<
         <div>ログインできませんでした</div>
       )}
       <div>
-        <Field name="username" component={RenderInput} />
-        <Field name="password" component={RenderInput} />
+        <Field name="username" component={RenderInput as any} />
+        <Field name="password" component={RenderInput as any} />
       </div>
       <input type="hidden" name="_csrf" value={csrf} />
       <div>

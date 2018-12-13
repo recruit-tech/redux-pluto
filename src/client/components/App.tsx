@@ -5,11 +5,17 @@ import applyRouterMiddleware from "react-router/lib/applyRouterMiddleware";
 import { useScroll } from "react-router-scroll";
 import { useAsyncLoader } from "redux-async-loader";
 import { AppContainer } from "react-hot-loader";
+import { Store } from "redux";
+import { RootState } from "../../shared/redux/modules/reducer";
 
-export default function App({ store, ...renderProps }) {
-  const RenderWithMiddleware = applyRouterMiddleware(
+type Props = {
+  store: Store<RootState>;
+};
+
+export default function App({ store, ...renderProps }: Props) {
+  const RenderWithMiddleware: any = applyRouterMiddleware(
     useAsyncLoader(),
-    useScroll((prevRouterProps: any, { location, routes }: any) => {
+    useScroll((_prevRouterProps: any, { location, routes }: any) => {
       if (
         routes.some(
           (route: any) =>

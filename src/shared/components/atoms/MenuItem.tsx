@@ -21,7 +21,7 @@ export default (function MenuItem(props: Props) {
 
 const Item = styled.div.attrs({
   role: "menuitemradio",
-  "aria-checked": props => props.checked,
+  "aria-checked": (props: any) => props.checked,
 })`
   flex-grow: 1;
   background-color: lightgrey;

@@ -1,4 +1,4 @@
-import Axios from "axios";
+import Axios, { AxiosInstance } from "axios";
 import { create } from "../services/utils";
 import { Response, Request } from "express";
 
@@ -6,7 +6,7 @@ export default class UploadSample {
   path: string;
   name: string;
   field: string;
-  axios: any;
+  axios: AxiosInstance;
   constructor(config: { agreed: { config: { axios: any } } }) {
     this.path = "/uploadsample";
     this.name = "uploader/uploadsample";
@@ -18,7 +18,7 @@ export default class UploadSample {
     return (
       req: Request & { file: { filename: string } },
       res: Response,
-      next: Function,
+      next: any,
     ) => {
       const path = `/public/${req.file.filename}`;
       return create(this.axios, this.name, this.path, { path }, {}, {})

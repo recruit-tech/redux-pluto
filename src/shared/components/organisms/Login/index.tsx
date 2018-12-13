@@ -11,6 +11,7 @@ import {
 } from "../../../redux/analytics/utils";
 import LoginForm from "./LoginForm";
 import { RootState } from "../../../../shared/redux/modules/reducer";
+import { Dispatch } from "redux";
 
 export default compose<{ invalid: boolean; csrf: string }, {}>(
   connect((state: RootState) => ({
@@ -24,7 +25,13 @@ export default compose<{ invalid: boolean; csrf: string }, {}>(
   reduxForm({
     form: "loginForm",
     validate,
-    onSubmit({ username, password }, dispatch, ownProps) {
+    onSubmit(
+      { username, password }: { username: string; password: string },
+      dispatch: Dispatch<any>,
+      ownProps: {
+        location: any;
+      },
+    ) {
       return dispatch(
         login(username, password, ownProps.location.query.location || "/"),
       ).catch(normalizeFormError);

@@ -23,7 +23,6 @@ export async function fetchTopStories(
 
 export default class HackerNews {
   name: string;
-
   constructor() {
     this.name = "hackerNews";
   }

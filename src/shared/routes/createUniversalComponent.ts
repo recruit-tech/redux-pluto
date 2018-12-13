@@ -4,7 +4,7 @@ import debugFactory from "debug";
 
 const debug = debugFactory("app:shared:routes:createUniversalComponent");
 
-const cssPromiseCache = {};
+const cssPromiseCache: { [key: string]: Promise<any> } = {};
 export default function createUniversalComponent(
   component: any,
   resolve: Function,
@@ -27,7 +27,7 @@ export default function createUniversalComponent(
  *
  *   https://github.com/faceyspacey/babel-plugin-dual-import/blob/master/importCss.js
  */
-function importCss(chunkName) {
+function importCss(chunkName: string) {
   if (__CLIENT__) {
     const cssPromise = cssPromiseCache[chunkName];
     if (cssPromise) {
@@ -61,7 +61,7 @@ function importCss(chunkName) {
   (link as any).timeout = 30000;
 
   cssPromiseCache[chunkName] = new Promise((resolve, reject) => {
-    let timeout;
+    let timeout: any;
 
     link.onload = () => {
       link.onload = null; // avoid mem leaks in IE.
@@ -84,7 +84,7 @@ function importCss(chunkName) {
   return cssPromiseCache[chunkName];
 }
 
-function getHref(chunkName) {
+function getHref(chunkName: string) {
   /* eslint-disable no-underscore-dangle */
   if (__SERVER__ || !__CSS_CHUNKS__) {
     return null;

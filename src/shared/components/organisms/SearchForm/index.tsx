@@ -22,6 +22,7 @@ import {
 } from "../../../redux/analytics/utils";
 import { SALON_KEYWORD } from "../../../redux/analytics/variableNames";
 import SearchForm from "./SearchForm";
+import { AnyAction, Dispatch } from "redux";
 
 const selector = createSelector(
   SearchListselector,
@@ -60,39 +61,42 @@ export default compose(
     dispatch(clearSearchSearchList());
     return dispatch(searchSearchList({ keyword, page }));
   }),
-  (connect as any)(selector, (dispatch, ownProps) => ({
-    onClickPrev: page => () => {
-      const { keyword } = parse(window.location.search.substr(1));
-      return dispatch(
-        replace(`/search?keyword=${keyword}&page=${page - 1}&more=true`),
-      );
-    },
-
-    onClickNext: page => () => {
-      const { keyword } = parse(window.location.search.substr(1));
-      return dispatch(
-        replace(`/search?keyword=${keyword}&page=${page + 1}&more=true`),
-      );
-    },
-
-    // 今見てる window の中の要素でpageのURL位置を変える
-    onInnerWindow: element => {
-      const page = element.getAttribute("data-page");
-      const query = parse(window.location.search.substr(1));
-      const currentPage = query.page || "0";
-      const { keyword } = query;
-      if (page !== currentPage) {
-        return void dispatch(
-          replace(`/search?keyword=${keyword}&page=${page}&more=true`),
+  (connect as any)(
+    selector,
+    (dispatch: Dispatch<AnyAction>, _ownProps: any) => ({
+      onClickPrev: (page: number) => () => {
+        const { keyword } = parse(window.location.search.substr(1));
+        return dispatch(
+          replace(`/search?keyword=${keyword}&page=${page - 1}&more=true`),
         );
-      }
-    },
-  })),
+      },
+
+      onClickNext: (page: number) => () => {
+        const { keyword } = parse(window.location.search.substr(1));
+        return dispatch(
+          replace(`/search?keyword=${keyword}&page=${page + 1}&more=true`),
+        );
+      },
+
+      // 今見てる window の中の要素でpageのURL位置を変える
+      onInnerWindow: (element: HTMLElement) => {
+        const page = element.getAttribute("data-page");
+        const query = parse(window.location.search.substr(1));
+        const currentPage = query.page || "0";
+        const { keyword } = query;
+        if (page !== currentPage) {
+          return void dispatch(
+            replace(`/search?keyword=${keyword}&page=${page}&more=true`),
+          );
+        }
+      },
+    }),
+  ),
   withState("linkURL", "handleChangeLinkURL", "/search"),
   sendAnalytics({
     ...siteSections("search", "form"),
     onDataReady: onAsyncLoaderLoaded,
-    mapPropsToVariables: ({ location = {}, count }: any, state) => ({
+    mapPropsToVariables: ({ location = {}, count }: any, _state: any) => ({
       [SALON_KEYWORD]: location.query && location.query.keyword,
     }),
   }),
@@ -100,7 +104,7 @@ export default compose(
     form: "search",
 
     // キーワード検索開始
-    onSubmit({ keyword }, dispatch) {
+    onSubmit({ keyword }: { keyword: string }, dispatch: Dispatch<AnyAction>) {
       dispatch(push(`/search?keyword=${keyword}&page=0`));
     },
   }),

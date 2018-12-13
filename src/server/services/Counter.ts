@@ -1,6 +1,5 @@
 export default class Counter {
   name: string;
-
   counter: number;
 
   constructor() {
@@ -8,7 +7,7 @@ export default class Counter {
     this.counter = 0;
   }
 
-  read(_req: any, _resource: any, params: any, _config: any) {
+  read(_req: any, _resource: any, _params: any, _config: any) {
     return Promise.resolve(this.counter);
   }
 

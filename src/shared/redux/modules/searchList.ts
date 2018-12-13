@@ -36,7 +36,7 @@ const searchSearchListFail = createAction(SALON_LIST_SEARCH_FAIL);
 export function searchSearchList(params: any) {
   return steps(
     searchSearchListRequest({ resource: "search", params }),
-    ({ payload }) => fetchrRead(payload),
+    ({ payload }: { payload: any }) => fetchrRead(payload),
     [
       payload => searchSearchListsuccess({ params, data: payload.data }),
       searchSearchListFail,
@@ -59,7 +59,7 @@ const searchMoreSearchListFail = createAction(SALON_LIST_SEARCH_MORE_FAIL);
 export function searchMoreSearchList(params: any) {
   return steps(
     searchMoreSearchListRequest({ resource: "search", params }),
-    ({ payload }) => fetchrRead(payload),
+    ({ payload }: { payload: any }) => fetchrRead(payload),
     [
       payload => searchMoreSearchListsuccess({ params, data: payload.data }),
       searchMoreSearchListFail,
@@ -183,7 +183,7 @@ export default handleActions(
         canGetNext: canGetNext(count, start),
         canGetPrev: canGetPrev(+params.page),
         shouldAdjustScroll:
-          state.page > +params.page && !state.items[+params.page],
+          state.page > +params.page && !(state.items as any)[+params.page],
         forceScrollTo: {},
       };
     },
@@ -198,15 +198,15 @@ export default handleActions(
   INITIAL_STATE,
 );
 
-function canGetNext(count, start) {
+function canGetNext(count: number, start: number) {
   return +count > +start + SEARCH_MAX_COUNT;
 }
 
-function canGetPrev(page) {
+function canGetPrev(page: number) {
   return +page > 0;
 }
 
-function createPages(count) {
+function createPages(count: number) {
   const maxPage = count / SEARCH_MAX_COUNT;
   return range(0, maxPage);
 }

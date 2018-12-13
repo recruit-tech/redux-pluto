@@ -17,7 +17,7 @@ const decorateFunction = (
   decorator: any,
   props: any,
   { dispatch, getState }: MiddlewareAPI,
-) => func => (...args) => {
+) => (func: Function) => (...args: any) => {
   const ret = func(...args);
   const decoratorRet = !isFunction(decorator)
     ? decorator
@@ -43,7 +43,7 @@ const getPropFunctionDecorator = (decorators: Array<Function>) => (
       if (!isFunction(func)) {
         return acc;
       }
-      acc[key] = (...args) =>
+      acc[key] = (...args: any) =>
         decorateFunction(mapFunc, props, { dispatch, getState })(func)(...args);
       return acc;
     },

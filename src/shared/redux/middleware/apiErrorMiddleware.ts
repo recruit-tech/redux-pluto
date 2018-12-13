@@ -9,7 +9,7 @@ import { handleActions } from "./utils";
 export default function apiErrorMiddleware() {
   return handleActions({
     [UPLOADER]({ dispatch }: MiddlewareAPI, next: Function, action: AnyAction) {
-      return next(action).catch(error => {
+      return next(action).catch((error: any) => {
         const { statusCode } = error;
         if (!statusCode || statusCode >= 500) {
           dispatch(showAlert("サービスに接続できませんでした。"));
@@ -25,7 +25,7 @@ export default function apiErrorMiddleware() {
       next: Function,
       action: AnyAction,
     ) {
-      return next(action).catch(error => {
+      return next(action).catch((error: any) => {
         const { statusCode } = error;
         if (!statusCode || statusCode >= 500) {
           dispatch(showAlert("サービスに接続できませんでした。"));

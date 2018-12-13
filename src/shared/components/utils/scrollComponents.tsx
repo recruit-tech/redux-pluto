@@ -32,9 +32,9 @@ export const showOnScroll = (ComposedComponent: React.ComponentType<any>) =>
       const element = ReactDOM.findDOMNode(this) as Element;
       const el = element.getBoundingClientRect();
       const height = window.innerHeight;
-      const headerBottom = document
-        .querySelector("header")
-        .getBoundingClientRect().bottom;
+      const headerBottom = (document.querySelector(
+        "header",
+      ) as HTMLElement).getBoundingClientRect().bottom;
       const shown = this.isShown(
         el.top,
         el.bottom,
@@ -58,7 +58,13 @@ export const showOnScroll = (ComposedComponent: React.ComponentType<any>) =>
       }
     }
 
-    isShown(elTop, elBottom, headerBottom, windowHeight, heightRatio) {
+    isShown(
+      elTop: number,
+      elBottom: number,
+      headerBottom: number,
+      windowHeight: number,
+      heightRatio: number,
+    ) {
       const isTopShown = elTop > headerBottom && elTop < windowHeight;
       const isBottomShown = elBottom > headerBottom && elBottom < windowHeight;
       const isInWindow = this.isInWindow(
@@ -71,7 +77,13 @@ export const showOnScroll = (ComposedComponent: React.ComponentType<any>) =>
       return isTopShown || isBottomShown || isInWindow;
     }
 
-    isInWindow(elTop, elBottom, headerBottom, windowHeight, heightRatio) {
+    isInWindow(
+      elTop: number,
+      elBottom: number,
+      headerBottom: number,
+      windowHeight: number,
+      heightRatio: number,
+    ) {
       const isInWindow =
         elTop < headerBottom && windowHeight * heightRatio < elBottom;
       return isInWindow;
@@ -117,7 +129,7 @@ export const adjustScroll = (ComposedComponent: React.ComponentType<any>) =>
     }
   };
 
-export const forceScroll = ComposedComponent =>
+export const forceScroll = (ComposedComponent: React.ComponentType<any>) =>
   class ForceScroll extends Component<{
     forceScrollTo: { x: number; y: number };
   }> {

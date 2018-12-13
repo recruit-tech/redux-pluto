@@ -16,9 +16,19 @@ export default class AreaMaster extends AgreedMaster {
   }
 }
 
-function formatResult(results, smallArea) {
+function formatResult(results: any, smallArea: any) {
   return reduce(
-    (parent, areaName) => {
+    (
+      parent: {
+        [code: string]: {
+          code: string;
+          name: string;
+          count: number;
+          items?: any[];
+        };
+      },
+      areaName: string,
+    ) => {
       const source = areaName ? smallArea[areaName] : smallArea;
       const { code } = source;
       if (!parent[code]) {
@@ -27,7 +37,7 @@ function formatResult(results, smallArea) {
           name: source.name,
           count: source.cnt,
           ...(areaName ? { items: {} } : {}),
-        };
+        } as any;
       }
       return parent[code].items;
     },

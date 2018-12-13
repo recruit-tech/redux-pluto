@@ -17,30 +17,36 @@ export const [
 /**
  * Action creators
  */
-const loadMasterRequest = createAction(LOAD_MASTER_REQUEST, resource => ({
-  resource,
-}));
+const loadMasterRequest = createAction(
+  LOAD_MASTER_REQUEST,
+  (resource: string) => ({
+    resource,
+  }),
+);
 
 const loadMasterSuccess = createAction(
   LOAD_MASTER_SUCCESS,
-  (resource, items) => ({
+  (resource: string, items: any) => ({
     resource,
     items,
   }),
 );
 
-const loadMasterFail = createAction(LOAD_MASTER_FAIL, (resource, error) => ({
-  resource,
-  error,
-}));
+const loadMasterFail = createAction(
+  LOAD_MASTER_FAIL,
+  (resource: string, error: any) => ({
+    resource,
+    error,
+  }),
+);
 
-function loadMaster(resource) {
+function loadMaster(resource: string) {
   return steps(
     loadMasterRequest(resource),
-    ({ payload }) => fetchrRead(payload),
+    ({ payload }: { payload: any }) => fetchrRead(payload),
     [
       payload => loadMasterSuccess(resource, payload.data),
-      error => loadMasterFail(resource, error),
+      (error: any) => loadMasterFail(resource, error),
     ],
   );
 }
@@ -95,7 +101,7 @@ export type State = {
 };
 
 export const INITIAL_STATE: State = transform(
-  (state, resource) => {
+  (state: State, resource: string) => {
     state[resource] = {
       loading: false,
       loaded: false,
@@ -111,7 +117,7 @@ export const INITIAL_STATE: State = transform(
  */
 export default handleActions<State>(
   {
-    [LOAD_MASTER_REQUEST]: (state, action) => {
+    [LOAD_MASTER_REQUEST]: (state, action: any) => {
       const {
         payload: { resource },
       } = action;
@@ -126,7 +132,7 @@ export default handleActions<State>(
       };
     },
 
-    [LOAD_MASTER_SUCCESS]: (state, action) => {
+    [LOAD_MASTER_SUCCESS]: (state: State, action: any) => {
       const {
         payload: { resource, items },
       } = action;
@@ -141,7 +147,7 @@ export default handleActions<State>(
       };
     },
 
-    [LOAD_MASTER_FAIL]: (state, action) => {
+    [LOAD_MASTER_FAIL]: (state, action: any) => {
       const {
         payload: { resource },
         error,

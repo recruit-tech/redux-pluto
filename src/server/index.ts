@@ -24,7 +24,7 @@ export default function renderer({
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded(config.bodyParser.urlencoded));
-  app.use(cookieParser(config.cookieParser));
+  app.use(cookieParser(config.cookieParser as any));
   app.use(session({ store: sessionStore, ...config.session }));
   app.use(csurf(config.csurf));
   app.use(serverTiming());
@@ -41,7 +41,7 @@ export default function renderer({
 
   if (!__DEVELOPMENT__) {
     const gzipFiles = transform(
-      (result, asset) => {
+      (result: any, asset: any) => {
         const match = /(\.[^.]*)\.gz/.exec(asset.name);
         if (match) {
           const assetIndex = 1;

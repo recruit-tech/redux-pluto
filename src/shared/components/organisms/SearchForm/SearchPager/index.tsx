@@ -30,7 +30,7 @@ export default React.memo(function SearchPager(props: Props) {
   );
 });
 
-function slicePages(page, pages) {
+function slicePages(page: number, pages: Array<number>): Array<number> {
   if (page < PAGE_WINDOW / 2) {
     return pages.slice(0, PAGE_WINDOW);
   }

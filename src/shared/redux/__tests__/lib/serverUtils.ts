@@ -4,7 +4,7 @@ import path from "path";
 import multer from "multer";
 import express from "express";
 
-export default function createFileUploadServer(config) {
+export default function createFileUploadServer(config: any) {
   const app = express();
   const upload = multer({ dest: path.resolve(__dirname, os.tmpdir()) });
   const server = (http.Server as any)(app);

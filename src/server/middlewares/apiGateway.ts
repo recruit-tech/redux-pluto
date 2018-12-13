@@ -3,6 +3,7 @@ import debugFactory from "debug";
 import * as services from "../services";
 import { verify } from "../services/AccessToken";
 import requestAdapter from "./requestAdapter";
+import { Request, Response } from "express";
 
 const debug = debugFactory("app:server:middleware:apiGateway");
 
@@ -17,7 +18,11 @@ export default function apiGateway(config: any, app: any) {
   return (req: any, res: any, next: Function) => {
     res.startTime("apigateway", "API Gateway");
     return Fetchr.middleware({
-      responseFormatter: (req, res, data) => {
+      responseFormatter: (
+        req: Request,
+        res: Response & { endTime: Function },
+        data: any,
+      ) => {
         res.endTime("apigateway");
         return data;
       },
@@ -25,22 +30,28 @@ export default function apiGateway(config: any, app: any) {
   };
 }
 
-function makeServiceAdapter(service, secret) {
+function makeServiceAdapter(service: any, secret: string) {
   const adapter: any = { name: service.name };
   const checkLogin: any = service.requireLogin
-    ? req => verify(req, secret)
+    ? (req: Request) => verify(req, secret)
     : () => Promise.resolve();
 
   ["read", "delete"].forEach(method => {
     if (service[method]) {
-      adapter[method] = (req, resource, params, config, cb) => {
+      adapter[method] = (
+        req: Request,
+        resource: any,
+        params: any,
+        config: any,
+        cb: Function,
+      ) => {
         checkLogin(req)
           .then(() => service[method](req, resource, params, config))
           .then(
             (result: { meta?: any } = {}) => {
               cb(null, result, result.meta);
             },
-            error => {
+            (error: Error) => {
               cb(error);
             },
           );
@@ -50,14 +61,21 @@ function makeServiceAdapter(service, secret) {
 
   ["create", "update"].forEach(method => {
     if (service[method]) {
-      adapter[method] = (req, resource, params, body, config, cb) => {
+      adapter[method] = (
+        req: Request,
+        resource: any,
+        params: any,
+        body: any,
+        config: any,
+        cb: Function,
+      ) => {
         checkLogin(req)
           .then(() => service[method](req, resource, params, body, config))
           .then(
             (result: { meta?: any } = {}) => {
               cb(null, result, result.meta);
             },
-            error => {
+            (error: Error) => {
               cb(error);
             },
           );

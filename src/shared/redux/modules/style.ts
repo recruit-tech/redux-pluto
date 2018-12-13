@@ -24,7 +24,7 @@ const searchStyleFail = createAction(SEARCH_STYLE_FAIL);
 export function searchStyle(params: any) {
   return steps(
     searchStyleRequest({ resource: "style", params }),
-    ({ payload }) => fetchrRead(payload),
+    ({ payload }: { payload: any }) => fetchrRead(payload),
     [searchStyleSuccess, searchStyleFail],
   );
 }
@@ -52,7 +52,7 @@ export const INITIAL_STATE: State = {
  */
 export default handleActions<State>(
   {
-    [SEARCH_STYLE_REQUEST]: (state, action) => {
+    [SEARCH_STYLE_REQUEST]: (state: State, action: any) => {
       const {
         payload: { params },
       } = action;

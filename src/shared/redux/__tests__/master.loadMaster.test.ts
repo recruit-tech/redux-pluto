@@ -1,6 +1,8 @@
 /* eslint-disable no-undefined */
 import assert from "assert";
 import Fetchr from "fetchr";
+import { FetchrStatic, FetchrService } from "./types";
+
 import Immutable from "seamless-immutable";
 import * as masters from "../modules/masters";
 import { createStore } from "./lib/storeUtils";
@@ -9,7 +11,7 @@ import { createStore } from "./lib/storeUtils";
  * mock loadMaster service
  */
 let needFailure = "";
-const services = [
+const services: FetchrService[] = [
   {
     name: "areaMaster",
     read(req, resource, params, config, cb) {
@@ -52,7 +54,7 @@ const services = [
   },
 ];
 
-services.forEach(Fetchr.registerService);
+services.forEach((Fetchr as FetchrStatic).registerService);
 
 test("master: loadAll success", done => {
   const loadAllMastersAction = masters.loadAllMasters();
@@ -99,7 +101,7 @@ test("master: load each success", done => {
     initialState,
   });
 
-  const expects = Immutable({
+  const expects: any = Immutable({
     areaMaster: {
       loading: false,
       loaded: true,
@@ -127,7 +129,7 @@ test("master: load each success", done => {
     },
   });
 
-  const actions = {
+  const actions: any = {
     areaMaster: masters.loadAreaMaster(),
     genderMaster: masters.loadGenderMaster(),
     hairColorMaster: masters.loadHairColorMaster(),
