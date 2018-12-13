@@ -7,6 +7,10 @@ const rootDir = path.resolve(__dirname, "../..");
 const outputPath = path.resolve(rootDir, "build/client");
 const outputPublicPath = "/public/";
 
+const createStyledComponentsTransformer = require("typescript-plugin-styled-components")
+  .default;
+const styledComponentsTransformer = createStyledComponentsTransformer();
+
 module.exports = {
   mode: "development",
 
@@ -50,6 +54,9 @@ module.exports = {
             loader: "ts-loader",
             options: {
               transpileOnly: true,
+              getCustomTransformers: () => ({
+                before: [styledComponentsTransformer],
+              }),
             },
           },
         ],
