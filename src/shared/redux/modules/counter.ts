@@ -1,4 +1,3 @@
-
 import { createAction, handleActions, Reducer } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { fetchrUpdate } from "redux-effects-fetchr";
@@ -25,7 +24,7 @@ const incrementFail = createAction(COUNTER_INCREMENT_FAIL);
 export function increment() {
   return steps(
     incrementRequest({ resource: "counter" }),
-    ({ payload }) => fetchrUpdate(payload),
+    ({ payload }: any) => fetchrUpdate(payload),
     [incrementSuccess, incrementFail],
   );
 }
@@ -35,7 +34,7 @@ export function increment() {
  */
 
 export type State = {
-  value: number,
+  value: number;
 };
 const INITIAL_STATE: State = {
   value: 0,
@@ -57,4 +56,4 @@ export default handleActions(
     },
   },
   INITIAL_STATE,
-) as  Reducer<State, any>;
+) as Reducer<State, any>;

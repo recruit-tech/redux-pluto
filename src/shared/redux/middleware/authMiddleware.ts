@@ -8,7 +8,7 @@ import {
   AUTH_LOGOUT_REQUEST,
 } from "../modules/auth";
 import { handleActions } from "./utils";
-import { MiddlewareAPI } from "redux";
+import { MiddlewareAPI, AnyAction } from "redux";
 
 export default function authMiddleware() {
   return handleActions({
@@ -21,14 +21,18 @@ export default function authMiddleware() {
       return checkAccessToken(dispatch);
     },
 
-    [AUTH_LOGIN_REQUEST]({ dispatch }, next, action) {
+    [AUTH_LOGIN_REQUEST](
+      { dispatch }: MiddlewareAPI,
+      next: Function,
+      action: AnyAction,
+    ) {
       next(action); // eslint-disable-line callback-return
       const {
         payload: { params, location },
       } = action;
       return dispatch(fetchrCreate("accessToken", params))
         .then(() => checkAccessToken(dispatch))
-        .then(payload => {
+        .then((payload: any) => {
           dispatch(replace(location || "/"));
           return payload;
         });
@@ -46,12 +50,12 @@ export default function authMiddleware() {
 }
 
 function checkAccessToken(dispatch: any) {
-  return dispatch(cookie("access-token")).then(token => {
+  return dispatch(cookie("access-token")).then((token: string) => {
     if (!token) {
       return Promise.reject(new Error("no token"));
     }
 
-    const payload = decode(token);
+    const payload: any = decode(token);
     if (!payload || payload.aud !== "redux-proto") {
       return Promise.reject(new Error("invalid token"));
     }

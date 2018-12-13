@@ -28,6 +28,9 @@ import {
 import { loadSearchForm, loadSearch } from "./search";
 
 export default function getRoutes(store: any) {
+  const $IndexRoute: any = IndexRoute; // avoid type check
+  const $Route: any = Route; // avoid type check
+
   return (
     <Route path="/" component={App}>
       <Route component={DefaultLayout}>
@@ -39,7 +42,7 @@ export default function getRoutes(store: any) {
           <Route path="agreedsample" getComponent={loadAgreedSample} />
 
           <Route path="search" onEnter={bindOnEnter(requiredLogin)}>
-            <IndexRoute
+            <$IndexRoute
               queryKeys="keyword, page, more"
               getComponent={loadSearchForm}
               ignoreScrollBehavior={ignoreScrollBehavior}
@@ -56,20 +59,20 @@ export default function getRoutes(store: any) {
           <Route path="login" getComponent={loadLogin} />
           <Route path="logout" onEnter={bindOnEnter(doLogout)} />
 
-          <Route path="error" component={Error} status={500} />
-          <Route path="*" component={NotFound} status={404} />
+          <$Route path="error" component={Error} status={500} />
+          <$Route path="*" component={NotFound} status={404} />
         </Route>
       </Route>
     </Route>
   );
 
-  function bindOnEnter(handler) {
-    return (nextState, replace, cb) =>
+  function bindOnEnter(handler: Function): any {
+    return (nextState: any, replace: any, cb: Function) =>
       handler({ nextState, cb: bindCb(replace, cb) });
   }
 
-  function bindCb(replace, cb) {
-    return pathname => {
+  function bindCb(replace: any, cb: any) {
+    return (pathname: string) => {
       if (pathname) {
         replace(pathname);
       }
@@ -78,20 +81,20 @@ export default function getRoutes(store: any) {
     };
   }
 
-  function requiredLogin({ nextState, cb }) {
+  function requiredLogin({ nextState, cb }: { nextState: any; cb: Function }) {
     store
       .dispatch(checkLogin())
       .then(
         () => cb(),
-        err => cb(`/login?location=${nextState.location.pathname}`),
+        (_err: any) => cb(`/login?location=${nextState.location.pathname}`),
       );
   }
 
-  function doLogout({ cb }) {
+  function doLogout({ cb }: { cb: Function }) {
     store.dispatch(logout()).then(() => cb("/"), () => cb("/error"));
   }
 
-  function ignoreScrollBehavior(location) {
+  function ignoreScrollBehavior(location: { action: string }) {
     // REPLACEの時だけはスクロールを無視
     return location.action === "REPLACE";
   }

@@ -2,10 +2,10 @@ import debugFactory from "debug";
 
 const debug = debugFactory("app:server:middleware:offloadDetector");
 
-export default function(config: { limit: number, window: number }) {
+export default function(config: { limit: number; window: number }) {
   const { limit, window } = config;
   let count = 0;
-  let timer = null;
+  let timer: NodeJS.Timeout | null = null;
 
   return function offloadDetecter(req: any, res: any, next: Function) {
     if (!timer) {

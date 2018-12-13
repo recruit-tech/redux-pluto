@@ -15,21 +15,21 @@ import auth from "./middleware/authMiddleware";
 import loading from "./middleware/loadingMiddleware";
 import reducer from "./modules/reducer";
 import mockLoggingMiddleware from "./middleware/mockLoggingMiddleware";
-import { State as RootState } from "./modules/reducer";
+import { RootState } from "./modules/reducer";
 
 export default function(
   initialState: RootState,
   options: {
-    cookie?: any,
-    fetchrCache?: any,
-    csrfToken?: any,
-    mockBuild?: any,
-    fetchr?: any,
-    history?: any,
-    analytics?: any,
-    siteCatalyst?: any,
-    logger?: any,
-    devTools?: any,
+    cookie?: any;
+    fetchrCache?: any;
+    csrfToken?: any;
+    mockBuild?: any;
+    fetchr?: any;
+    history?: any;
+    analytics?: any;
+    siteCatalyst?: any;
+    logger?: any;
+    devTools?: any;
   } = {},
 ): Store<RootState, AnyAction> {
   const middlewares = filter(Boolean)([

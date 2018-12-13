@@ -11,14 +11,14 @@ import LargeForm from "./LargeForm";
 
 type Props = {
   initialValues: {
-    items: Array<{ message: string }>,
-  },
+    items: Array<{ message: string }>;
+  };
 };
 
 export default compose<Props, {}>(
   connect((_state, props: any) => ({
     initialValues: {
-      items: range(0, props.location.query.length || 1000).map(v => ({
+      items: range(0, props.location.query.length || 1000).map((v: string) => ({
         message: `aaa${v}`,
       })),
     },

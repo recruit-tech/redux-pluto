@@ -1,10 +1,16 @@
 import { format as formatUrl } from "url";
 import fumble from "fumble";
 import debugFactory from "debug";
+import { AxiosInstance } from "axios";
 
 const debug = debugFactory("app:server:services");
 
-export function read(axios: any, name: string, pathname: string, query: any) {
+export function read(
+  axios: AxiosInstance,
+  name: string,
+  pathname: string,
+  query: any,
+) {
   const formattedUrl = formatUrl({ pathname, query });
   debug(`[${name}]: GET ${formattedUrl}`);
 
@@ -30,7 +36,7 @@ export function read(axios: any, name: string, pathname: string, query: any) {
 
       return results;
     },
-    error => {
+    (error: any) => {
       if (error.response) {
         return rejectWith(fumble.http.create(error.response.status), {
           name,
@@ -52,11 +58,11 @@ export function readAll(
   name: string,
   pathname: string,
   params: any | null,
-  itemsName: string | null,
+  itemsName: string,
   loaded: Array<any> = [],
-) {
+): Promise<any> {
   const actualParams = { ...params, start: loaded.length + 1 };
-  return read(axios, name, pathname, actualParams).then(results => {
+  return read(axios, name, pathname, actualParams).then((results: any) => {
     const available = +results.results_available; // eslint-disable-line camelcase
     if (!available) {
       return results;
@@ -77,7 +83,7 @@ export function readAll(
 }
 
 export function create(
-  axios: any,
+  axios: AxiosInstance,
   name: string,
   pathname: string,
   body: any,

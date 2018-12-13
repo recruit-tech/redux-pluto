@@ -5,13 +5,13 @@ import ReactDOM from "react-dom";
 
 export const showOnScroll = (ComposedComponent: React.ComponentType<any>) =>
   class ShowOnScroll extends Component<{
-    heightRatio: number | void,
-    onShow: Function | void,
-    onInnerWindow: Function |void
+    heightRatio: number | void;
+    onShow: Function | void;
+    onInnerWindow: Function | void;
   }> {
-    throttleScrollListener: any
-    heightRatio: number
-    isUnmounting: boolean
+    throttleScrollListener: any;
+    heightRatio: number;
+    isUnmounting: boolean;
     componentDidMount() {
       this.throttleScrollListener = throttle(300, () => this.scrollListener());
       this.heightRatio = this.props.heightRatio || 1;
@@ -32,9 +32,9 @@ export const showOnScroll = (ComposedComponent: React.ComponentType<any>) =>
       const element = ReactDOM.findDOMNode(this) as Element;
       const el = element.getBoundingClientRect();
       const height = window.innerHeight;
-      const headerBottom = document
-        .querySelector("header")
-        .getBoundingClientRect().bottom;
+      const headerBottom = (document.querySelector(
+        "header",
+      ) as HTMLElement).getBoundingClientRect().bottom;
       const shown = this.isShown(
         el.top,
         el.bottom,
@@ -58,7 +58,13 @@ export const showOnScroll = (ComposedComponent: React.ComponentType<any>) =>
       }
     }
 
-    isShown(elTop, elBottom, headerBottom, windowHeight, heightRatio) {
+    isShown(
+      elTop: number,
+      elBottom: number,
+      headerBottom: number,
+      windowHeight: number,
+      heightRatio: number,
+    ) {
       const isTopShown = elTop > headerBottom && elTop < windowHeight;
       const isBottomShown = elBottom > headerBottom && elBottom < windowHeight;
       const isInWindow = this.isInWindow(
@@ -71,7 +77,13 @@ export const showOnScroll = (ComposedComponent: React.ComponentType<any>) =>
       return isTopShown || isBottomShown || isInWindow;
     }
 
-    isInWindow(elTop, elBottom, headerBottom, windowHeight, heightRatio) {
+    isInWindow(
+      elTop: number,
+      elBottom: number,
+      headerBottom: number,
+      windowHeight: number,
+      heightRatio: number,
+    ) {
       const isInWindow =
         elTop < headerBottom && windowHeight * heightRatio < elBottom;
       return isInWindow;
@@ -94,7 +106,7 @@ export const showOnScroll = (ComposedComponent: React.ComponentType<any>) =>
 
 export const adjustScroll = (ComposedComponent: React.ComponentType<any>) =>
   class AdjustScroll extends Component<{
-    shouldAdjustScroll: Function | void    
+    shouldAdjustScroll: Function | void;
   }> {
     componentDidMount() {
       this.props.shouldAdjustScroll && this.adjustScrollPosition();
@@ -117,8 +129,10 @@ export const adjustScroll = (ComposedComponent: React.ComponentType<any>) =>
     }
   };
 
-export const forceScroll = ComposedComponent =>
-  class ForceScroll extends Component<{forceScrollTo: {x: number, y: number}}> {
+export const forceScroll = (ComposedComponent: React.ComponentType<any>) =>
+  class ForceScroll extends Component<{
+    forceScrollTo: { x: number; y: number };
+  }> {
     componentDidMount() {
       const { x, y } = this.props.forceScrollTo;
       // FIXME: 即座に scrollTo() を呼び出してもスクロールが機能しないため遅延させている

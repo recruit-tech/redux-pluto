@@ -1,12 +1,14 @@
 import assert from "assert";
 import Fetchr from "fetchr";
+import { FetchrStatic } from "./types";
+
 import { fetchItems } from "../modules/hackerNews";
 import { createStore } from "./lib/storeUtils";
 
 const searchedItems = ["hello", "hackerNews"];
 
 let needFailure = false;
-Fetchr.registerService({
+(Fetchr as FetchrStatic).registerService({
   name: "hackerNews",
   read(req, resource, params, config, cb) {
     const result = searchedItems;

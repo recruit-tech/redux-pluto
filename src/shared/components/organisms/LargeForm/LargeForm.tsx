@@ -4,16 +4,20 @@ import { propTypes as formPropTypes, Field, FieldArray } from "redux-form";
 import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
 import { AutoSizer, List } from "react-virtualized";
 
-const Item = ({ input, index, meta: { dirty, error } }: {
+const Item = ({
+  input,
+  index,
+  meta: { dirty, error },
+}: {
   input: {
-    name: string
-  },
-  index: number,
-  name: string,
+    name: string;
+  };
+  index: number;
+  name: string;
   meta: {
-    dirty: any,
-    error: boolean
-  }
+    dirty: any;
+    error: boolean;
+  };
 }) => (
   <Row>
     <Label htmlFor={input.name}>
@@ -24,7 +28,7 @@ const Item = ({ input, index, meta: { dirty, error } }: {
   </Row>
 );
 
-const Items = ({ fields }: {fields: {name: string, length: number}}) => (
+const Items = ({ fields }: { fields: { name: string; length: number } }) => (
   <ListContainer>
     <AutoSizer>
       {({ width, height }) => (
@@ -39,7 +43,7 @@ const Items = ({ fields }: {fields: {name: string, length: number}}) => (
               <Field
                 name={`${fields.name}[${index}].message`}
                 index={index}
-                component={(Item as any)}
+                component={Item as any}
               />
             </div>
           )}
@@ -49,11 +53,14 @@ const Items = ({ fields }: {fields: {name: string, length: number}}) => (
   </ListContainer>
 );
 
-export default compose<any, {
-  initialValues: {
-    items: Array<{ message: string }>,
+export default compose<
+  any,
+  {
+    initialValues: {
+      items: Array<{ message: string }>;
+    };
   }
-}>(
+>(
   onlyUpdateForPropTypes,
   setPropTypes({
     ...formPropTypes,
@@ -62,7 +69,7 @@ export default compose<any, {
   return (
     <Main>
       <form>
-        <FieldArray name="items" component={(Items as any)} />
+        <FieldArray name="items" component={Items as any} />
       </form>
     </Main>
   );

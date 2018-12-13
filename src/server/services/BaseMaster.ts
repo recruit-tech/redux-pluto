@@ -1,6 +1,7 @@
 import { identity } from "lodash/fp";
 import BaseService from "./BaseService";
 import { readAll } from "./utils";
+import { Request } from "express";
 
 export default class BaseMaster extends BaseService {
   itemsName: string;
@@ -20,13 +21,13 @@ export default class BaseMaster extends BaseService {
     this.formatResult = formatResult;
   }
 
-  read(req: any, resource: any, params: any, config: any) {
+  read(req: Request, resource: string, params: any, config: any) {
     return readAll(
       this.axios,
       this.name,
       this.pathname,
       params,
       this.itemsName,
-    ).then(result => this.formatResult(result[this.itemsName]));
+    ).then((result: any) => this.formatResult(result[this.itemsName]));
   }
 }

@@ -16,14 +16,14 @@ export default compose(
   connect(
     (state, props) => ({}),
     () => ({
-      onClickMe: fooVal => () => {
+      onClickMe: (fooVal: string) => () => {
         // This is a dummy event handler
         // to show how to send event using react-redux-analytics.
       },
     }),
   ),
   bindActionToPropFunctions({
-    onClickMe: ([fooVal], props, state) => () =>
+    onClickMe: ([fooVal]: [string], props: any, state: any) => () =>
       sendEvent(
         {
           [EVENTS]: ["event10"],

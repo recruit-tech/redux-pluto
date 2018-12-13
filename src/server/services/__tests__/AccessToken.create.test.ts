@@ -42,9 +42,11 @@ test("AccessToken: create failure", async done => {
     password: "notpassword",
   };
 
-  return (accessToken as any).create(req, void 0, params).then(done.fail, e => {
-    assert.strictEqual(e.statusCode, 400);
-    assert.strictEqual(e.message, "Bad Request");
-    done();
-  });
+  return (accessToken as any)
+    .create(req, void 0, params)
+    .then(done.fail, (e: any) => {
+      assert.strictEqual(e.statusCode, 400);
+      assert.strictEqual(e.message, "Bad Request");
+      done();
+    });
 });

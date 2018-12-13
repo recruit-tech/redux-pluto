@@ -1,12 +1,14 @@
 /* eslint-disable no-undefined, callback-return */
 import assert from "assert";
 import Fetchr from "fetchr";
+import { FetchrStatic } from "./types";
+
 import Immutable from "seamless-immutable";
 import { INITIAL_STATE, searchStyle } from "../modules/style";
 import { createStore } from "./lib/storeUtils";
 
 let needFailure = false;
-Fetchr.registerService({
+(Fetchr as FetchrStatic).registerService({
   name: "style",
   read(req, resource, params, config, cb) {
     return needFailure

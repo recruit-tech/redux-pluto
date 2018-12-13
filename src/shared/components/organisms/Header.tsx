@@ -7,15 +7,15 @@ import styled from "styled-components";
 
 type Props = {
   location: {
-    pathname: string,
-  },
+    pathname: string;
+  };
 };
 
 type HeaderLink = {
-  key: string,
-  to: string,
-  label: string,
-  index?: boolean,
+  key: string;
+  to: string;
+  label: string;
+  index?: boolean;
 };
 
 const links: HeaderLink[] = [

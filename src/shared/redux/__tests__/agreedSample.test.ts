@@ -1,10 +1,11 @@
 import assert from "assert";
 import Fetchr from "fetchr";
+import { FetchrStatic } from "./types";
 import { getText } from "../modules/agreedSample";
 import { createStore } from "./lib/storeUtils";
 
-let needFailure = null;
-Fetchr.registerService({
+let needFailure: any = null;
+(Fetchr as FetchrStatic).registerService({
   name: "agreedSample",
   read(req, resource, params, config, cb) {
     return needFailure

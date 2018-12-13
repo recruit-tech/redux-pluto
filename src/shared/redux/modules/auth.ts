@@ -1,4 +1,4 @@
-import { createAction, handleActions, Reducer } from "redux-actions";
+import { createAction, handleActions } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { createAsyncActionTypes } from "./utils";
 
@@ -66,8 +66,8 @@ export function logout() {
  */
 
 export type State = {
-  login: any,
-  username: string | null,
+  login: any;
+  username: string | null;
 };
 const INITIAL_STATE: State = {
   login: false,
@@ -88,7 +88,7 @@ export default handleActions<State>(
   INITIAL_STATE,
 );
 
-function loggedIn(state: State, action) {
+function loggedIn(state: State, action: any) {
   const {
     payload: { sub },
   } = action;
@@ -101,6 +101,6 @@ function loggedIn(state: State, action) {
       };
 }
 
-function loggedOut(state, action) {
+function loggedOut(state: any) {
   return INITIAL_STATE;
 }

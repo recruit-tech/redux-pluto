@@ -1,5 +1,7 @@
 import assert from "assert";
 import Fetchr from "fetchr";
+import { FetchrStatic } from "./types";
+
 import { findSalonById } from "../modules/search";
 import { createStore } from "./lib/storeUtils";
 
@@ -12,7 +14,7 @@ const searchedItems = [
   },
 ];
 let needFailure = false;
-Fetchr.registerService({
+(Fetchr as FetchrStatic).registerService({
   name: "search",
   read(req, resource, params, config, cb) {
     const result = { search: searchedItems };

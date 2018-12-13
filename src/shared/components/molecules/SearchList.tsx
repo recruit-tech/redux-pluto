@@ -1,4 +1,3 @@
-
 import React from "react";
 import { compose, pure } from "recompose";
 import {
@@ -10,13 +9,13 @@ import SearchListItem from "../atoms/SearchListItem";
 
 type Props = {
   items: Array<{
-    id: string,
-    name: string,
-    logo_image_square: string,
-    description: string,
-  }>,
-  page: number,
-  linkURL: string,
+    id: string;
+    name: string;
+    logo_image_square: string;
+    description: string;
+  }>;
+  page: number;
+  linkURL: string;
 };
 
 const enhance = compose(

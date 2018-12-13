@@ -15,7 +15,7 @@ export const csrfAction = createAction(CSRF);
  */
 
 export type State = {
-  token: string | null,
+  token: string | null;
 };
 const INITIAL_STATE: State = {
   token: null,

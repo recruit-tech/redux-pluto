@@ -19,38 +19,41 @@ import { csrfAction } from "../../shared/redux/modules/csrf";
 import getRoutes from "../../shared/routes";
 import Html from "../components/Html";
 import App from "../components/App";
+import { MiddlewareAPI, AnyAction, Store } from "redux";
+import { Request, Response } from "express";
+import { RootState } from "../../shared/redux/modules/reducer";
 
 const debug = debugFactory("app:server:middleware:reduxApp");
 
 const logger = __DEVELOPMENT__
-  ? store => next => action => {
+  ? (store: MiddlewareAPI) => (next: Function) => (action: AnyAction) => {
       debug(`Invoking action: ${inspect(action).replace(/\s*\n\s*/g, " ")}`);
       return next(action);
     }
   : null;
 
-export default function createReduxApp(config) {
+export default function createReduxApp(config: any) {
   const maxAge = Math.floor(config.offload.cache.maxAge / 1000);
   const cssChunks = __DEVELOPMENT__ ? null : loadCssChunks(config);
 
   /*
    * 全リクエストで共有される初期データのためのStoreです。
    */
-  const initialStore = createStore(
-    {} as any,
-    {
-      cookie: [{ cookies: {} }, {}],
-      fetchr: new Fetchr({ ...config.fetchr, req: {} }),
-      history: createMemoryHistory("/"),
-      logger,
-    },
-  );
+  const initialStore = createStore({} as any, {
+    cookie: [{ cookies: {} }, {}],
+    fetchr: new Fetchr({ ...config.fetchr, req: {} }),
+    // @ts-ignore
+    history: createMemoryHistory("/"),
+    logger,
+  });
 
   debug("Loading initial data");
   config.promises.push(
-    Promise.all([initialStore.dispatch(loadAllMastersAction() as any)]).then(() => {
-      debug("Loaded initial data");
-    }),
+    Promise.all([initialStore.dispatch(loadAllMastersAction() as any)]).then(
+      () => {
+        debug("Loaded initial data");
+      },
+    ),
   );
 
   return reduxApp;
@@ -58,9 +61,16 @@ export default function createReduxApp(config) {
   /*
    * サーバサイドレンダリングのためのExpressミドルウェアです。
    */
-  function reduxApp(req, res, next) {
+  function reduxApp(
+    req: Request & { csrfToken: any },
+    res: Response,
+    next: Function,
+  ): void {
+    // @ts-ignore
     const memoryHistory = createMemoryHistory(req.url);
-    const timing = __DEVELOPMENT__ ? res : { startTime: noop, endTime: noop };
+    const timing: any = __DEVELOPMENT__
+      ? res
+      : { startTime: noop, endTime: noop };
 
     /*
      * リクエスト毎のStoreです。
@@ -159,7 +169,7 @@ export default function createReduxApp(config) {
   }
 }
 
-function getClientConfig(config, req) {
+function getClientConfig(config: any, req: Request & { csrfToken: any }) {
   const { fetchr, ...clientConfig } = config.clientConfig;
   const csrfToken = req.csrfToken();
   return {
@@ -175,21 +185,31 @@ function getClientConfig(config, req) {
   };
 }
 
-function matchRoutes(options) {
+function matchRoutes(options: any) {
   return new Promise((resolve, reject) => {
-    match(options, (error, redirectLocation, renderProps) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve({ redirectLocation, renderProps });
-      }
-    });
+    (match as any)(
+      options,
+      (error: Error, redirectLocation: string, renderProps: any) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve({ redirectLocation, renderProps });
+        }
+      },
+    );
   });
 }
 
 function renderCSR({ res, store, config, clientConfig, timing }: any) {
-  const assets = (flushChunks as any) (config.clientStats);
-  sendCSRResponse({ res, store, status: 200, clientConfig, assets, timing } as any);
+  const assets = (flushChunks as any)(config.clientStats);
+  sendCSRResponse({
+    res,
+    store,
+    status: 200,
+    clientConfig,
+    assets,
+    timing,
+  } as any);
 }
 
 function renderSSR({
@@ -200,6 +220,14 @@ function renderSSR({
   clientConfig,
   cssChunks,
   timing,
+}: {
+  res: Response;
+  store: Store<RootState>;
+  renderProps: any;
+  config: any;
+  clientConfig: any;
+  cssChunks: any;
+  timing: any;
 }) {
   /*
    * メインコンテンツをレンダリングします。
@@ -234,6 +262,14 @@ function sendCSRResponse({
   content,
   assets,
   timing,
+}: {
+  res: Response;
+  status: number;
+  store: Store<RootState>;
+  clientConfig: any;
+  content: any;
+  assets: any;
+  timing: any;
 }) {
   timing.startTime("html", "Rendering HTML");
   const props = {
@@ -256,6 +292,15 @@ function sendSSRResponse({
   content,
   timing,
   styles,
+}: {
+  res: Response;
+  status: number;
+  store: Store<RootState>;
+  clientConfig: any;
+  content: any;
+  assets: any;
+  timing: any;
+  styles: any[];
 }) {
   /*
    * HTML全体をレンダリングします。
@@ -281,12 +326,18 @@ function sendSSRResponse({
 /*
  * CSSファイルをロードします。
  */
-function loadCssChunks({ clientStats, assets }) {
+function loadCssChunks({
+  clientStats,
+  assets,
+}: {
+  clientStats: any;
+  assets: any;
+}) {
   debug(Object.keys(clientStats));
-  const { path: outputPath } = assets.find(asset => asset.buildOutput);
+  const { path: outputPath } = assets.find((asset: any) => asset.buildOutput);
   const { assetsByChunkName: chunks, publicPath } = clientStats;
   return transform(
-    (result, chunkName) => {
+    (result: any, chunkName: string) => {
       const chunkArray = ensureArray(chunks[chunkName]);
       const cssChunk = chunkArray.find(chunk => chunk.endsWith(".css"));
       if (cssChunk) {
@@ -303,7 +354,7 @@ function loadCssChunks({ clientStats, assets }) {
   );
 }
 
-function ensureArray(v) {
+function ensureArray<T>(v: null | T | T[]): T[] {
   if (v == null) {
     return [];
   }
@@ -317,14 +368,20 @@ function ensureArray(v) {
  * コードスプリットされたチャンクに関する情報を収集します。
  * SSRで実際に使用されたチャンクのみをレンダリングできるようにします。
  */
-function getAssets({ clientStats, cssChunks }) {
+function getAssets({
+  clientStats,
+  cssChunks,
+}: {
+  clientStats: any;
+  cssChunks: any;
+}) {
   const chunkNames = flushChunkNames();
   const assets = flushChunks(clientStats, { chunkNames });
   const { publicPath } = assets;
   const stylesheets = assets.stylesheets.map(
     stylesheet => `${publicPath}/${stylesheet}`,
   );
-  assets.cssHashRaw = mapValues(value =>
+  assets.cssHashRaw = mapValues((value: string) =>
     stylesheets.includes(value) ? "loaded" : value,
   )(assets.cssHashRaw);
   return assets;

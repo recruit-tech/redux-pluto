@@ -4,12 +4,12 @@ import styled from "styled-components";
 import SearchList from "../../../molecules/SearchList";
 
 type Props = {
-  page: number,
-  items: Object,
-  onInnerWindow: Function,
-  shouldAdjustScroll: boolean,
-  forceScrollTo: { x: number, y: number } | null,
-  linkURL: string,
+  page: number;
+  items: any;
+  onInnerWindow: Function;
+  shouldAdjustScroll: boolean;
+  forceScrollTo: { x: number; y: number } | null;
+  linkURL: string;
 };
 
 export default React.memo(function SearchLists(props: Props) {

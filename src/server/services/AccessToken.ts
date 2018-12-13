@@ -77,9 +77,13 @@ export default class AccessToken {
     return Promise.resolve({
       meta: {
         headers: {
-          "set-cookie": cookie.serialize(ACCESS_TOKEN_COOKIE_NAME, null, {
-            expires: new Date(0),
-          }),
+          "set-cookie": cookie.serialize(
+            ACCESS_TOKEN_COOKIE_NAME,
+            null as any, // TODO: @types required type is string
+            {
+              expires: new Date(0),
+            },
+          ),
         },
       },
     });
@@ -90,13 +94,15 @@ export default class AccessToken {
     return {
       path: "/login",
       post: (req: any, res: any, next: Function) => {
-        self.create(req, {}, req.body, config, undefined as any).then(result => {
-          res.set(result.meta.headers);
-          if (isRedirectableUrl(req.query.location)) {
-            return res.redirect(req.query.location);
-          }
-          return res.redirect("/");
-        });
+        self
+          .create(req, {}, req.body, config, undefined as any)
+          .then(result => {
+            res.set(result.meta.headers);
+            if (isRedirectableUrl(req.query.location)) {
+              return res.redirect(req.query.location);
+            }
+            return res.redirect("/");
+          });
       },
     };
   }

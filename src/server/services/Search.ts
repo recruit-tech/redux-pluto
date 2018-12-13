@@ -30,7 +30,7 @@ export default class Search extends AgreedService {
   read(
     req: any,
     resource: any,
-    params: { page: number, id: any, start: number },
+    params: { page: number; id: any; start: number },
     config: any,
   ) {
     const { page, id, ...query } = params;
@@ -39,7 +39,7 @@ export default class Search extends AgreedService {
     }
     const pathname = id ? `${this.pathname}${id}` : this.pathname;
 
-    return read(this.axios, this.name, pathname, query).then(results => {
+    return read(this.axios, this.name, pathname, query).then((results: any) => {
       const { search: items, ...rest } = results;
       return {
         ...rest,

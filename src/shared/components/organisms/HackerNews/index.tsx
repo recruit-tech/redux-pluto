@@ -8,8 +8,8 @@ import HackerNews from "./HackerNews";
 import { HackerNewsItem } from "../../../types/HackerNews";
 
 type Props = {
-  items: HackerNewsItem[],
-  loading: boolean,
+  items: HackerNewsItem[];
+  loading: boolean;
 };
 
 export default compose<Props, {}>(

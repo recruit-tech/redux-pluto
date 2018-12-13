@@ -1,4 +1,3 @@
-
 import { createAction, handleActions, Reducer } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { fetchrRead } from "redux-effects-fetchr";
@@ -25,7 +24,7 @@ const searchStyleFail = createAction(SEARCH_STYLE_FAIL);
 export function searchStyle(params: any) {
   return steps(
     searchStyleRequest({ resource: "style", params }),
-    ({ payload }) => fetchrRead(payload),
+    ({ payload }: { payload: any }) => fetchrRead(payload),
     [searchStyleSuccess, searchStyleFail],
   );
 }
@@ -34,11 +33,11 @@ export function searchStyle(params: any) {
  * Initial state
  */
 export type State = {
-  loading: boolean,
-  loaded: boolean,
-  params: Object | null,
-  count: number,
-  items: Array<any>,
+  loading: boolean;
+  loaded: boolean;
+  params: Object | null;
+  count: number;
+  items: Array<any>;
 };
 export const INITIAL_STATE: State = {
   loading: false,
@@ -53,7 +52,7 @@ export const INITIAL_STATE: State = {
  */
 export default handleActions<State>(
   {
-    [SEARCH_STYLE_REQUEST]: (state, action) => {
+    [SEARCH_STYLE_REQUEST]: (state: State, action: any) => {
       const {
         payload: { params },
       } = action;

@@ -2,7 +2,7 @@ import createUniversalComponent from "./createUniversalComponent";
 
 const chunkName = "misc";
 
-export function loadAgreedSample(_, cb) {
+export function loadAgreedSample(_: any, cb: any) {
   createUniversalComponent(
     () =>
       import(/* webpackChunkName: "misc" */ "../components/organisms/AgreedSample"),
@@ -11,7 +11,7 @@ export function loadAgreedSample(_, cb) {
   ).then(result => cb(null, result), cb);
 }
 
-export function loadBar(_, cb) {
+export function loadBar(_: any, cb: any) {
   createUniversalComponent(
     () => import(/* webpackChunkName: "misc" */ "../components/organisms/Bar"),
     () => require.resolveWeak("../components/organisms/Bar"),
@@ -19,7 +19,7 @@ export function loadBar(_, cb) {
   ).then(result => cb(null, result), cb);
 }
 
-export function loadFoo(_, cb) {
+export function loadFoo(_: any, cb: any) {
   createUniversalComponent(
     () => import(/* webpackChunkName: "misc" */ "../components/organisms/Foo"),
     () => require.resolveWeak("../components/organisms/Foo"),
@@ -27,7 +27,7 @@ export function loadFoo(_, cb) {
   ).then(result => cb(null, result), cb);
 }
 
-export function loadHackerNews(_, cb) {
+export function loadHackerNews(_: any, cb: any) {
   createUniversalComponent(
     () =>
       import(/* webpackChunkName: "misc" */ "../components/organisms/HackerNews"),
@@ -36,7 +36,7 @@ export function loadHackerNews(_, cb) {
   ).then(result => cb(null, result), cb);
 }
 
-export function loadLargeForm(_, cb) {
+export function loadLargeForm(_: any, cb: any) {
   createUniversalComponent(
     () =>
       import(/* webpackChunkName: "misc" */ "../components/organisms/LargeForm"),
@@ -45,7 +45,7 @@ export function loadLargeForm(_, cb) {
   ).then(result => cb(null, result), cb);
 }
 
-export function loadLogin(_, cb) {
+export function loadLogin(_: any, cb: any) {
   createUniversalComponent(
     () =>
       import(/* webpackChunkName: "misc" */ "../components/organisms/Login"),
@@ -54,7 +54,7 @@ export function loadLogin(_, cb) {
   ).then(result => cb(null, result), cb);
 }
 
-export function loadUploadSample(_, cb) {
+export function loadUploadSample(_: any, cb: any) {
   createUniversalComponent(
     () =>
       import(/* webpackChunkName: "misc" */ "../components/organisms/UploadSample"),

@@ -4,8 +4,8 @@ import styled from "styled-components";
 const noop = () => {};
 
 export default (function Overlay(props: {
-  children: React.ReactNode,
-  onClick: any,
+  children: React.ReactNode;
+  onClick: any;
 }) {
   const { children, onClick } = props;
 

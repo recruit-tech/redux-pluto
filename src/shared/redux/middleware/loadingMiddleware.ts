@@ -1,11 +1,11 @@
-import { MiddlewareAPI } from "redux";
+import { MiddlewareAPI, AnyAction } from "redux";
 import { startLoading, stopLoading } from "../modules/loading";
 import { handleActions } from "./utils";
 
 type LoadingMiddlewareOption = {
-  start: any,
-  stop: any,
-  delay: number,
+  start: any;
+  stop: any;
+  delay: number;
 };
 
 export default function loadingMiddleware({
@@ -13,7 +13,7 @@ export default function loadingMiddleware({
   stop,
   delay,
 }: LoadingMiddlewareOption) {
-  let timerId = null;
+  let timerId: any = null;
 
   return handleActions({
     [start]({ dispatch }: MiddlewareAPI, next: Function, action: any) {
@@ -29,7 +29,7 @@ export default function loadingMiddleware({
       }, delay);
     },
 
-    [stop]({ dispatch }, next, action) {
+    [stop]({ dispatch }: MiddlewareAPI, next: Function, action: AnyAction) {
       next(action); // eslint-disable-line callback-return
 
       if (timerId) {

@@ -7,7 +7,7 @@ export default function makeRequestAdapter(
     return;
   }
 
-  service.requestHandlers.forEach(handleName => {
+  service.requestHandlers.forEach((handleName: string) => {
     const { path, get, post } = service[handleName](config);
     if (get) {
       app.get(path, get.bind(service));

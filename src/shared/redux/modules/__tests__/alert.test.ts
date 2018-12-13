@@ -7,7 +7,7 @@ test("State: showAlert", done => {
   const INITIAL_STATE = Immutable({
     message: "",
   });
-  const state = reducer(INITIAL_STATE, showAlertAction);
+  const state = reducer(INITIAL_STATE, showAlertAction as any);
   assert.deepStrictEqual(state, {
     message: "test",
   });

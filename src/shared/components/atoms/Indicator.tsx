@@ -22,7 +22,7 @@ export const Loader = styled.div`
 `;
 
 type Props = {
-  loading: boolean,
+  loading: boolean;
 };
 
 export default (function Indicator(props: Props) {

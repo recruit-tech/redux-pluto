@@ -26,7 +26,7 @@ const fetchItemsFail = createAction(FETCH_ITEMS_FAIL);
 export function fetchItems(page: number = 1) {
   return steps(
     fetchItemsRequest({ resource: "hackerNews", params: { page } }),
-    ({ payload }) => fetchrRead(payload),
+    ({ payload }: any) => fetchrRead(payload),
     [fetchItemsSuccess, fetchItemsFail],
   );
 }
@@ -36,9 +36,9 @@ export function fetchItems(page: number = 1) {
  */
 
 export type State = {
-  items: HackerNewsItem[],
-  page: number,
-  loading: boolean,
+  items: HackerNewsItem[];
+  page: number;
+  loading: boolean;
 };
 
 export const INITIAL_STATE: State = {

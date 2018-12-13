@@ -1,5 +1,7 @@
 import assert from "assert";
 import Fetchr from "fetchr";
+import { FetchrStatic } from "./types";
+
 import { range } from "lodash/fp";
 import { searchSearchList, searchMoreSearchList } from "../modules/searchList";
 import { createStore } from "./lib/storeUtils";
@@ -7,7 +9,7 @@ import { createStore } from "./lib/storeUtils";
 const searchedItems = range(50);
 let needFailure = false;
 let payloadInjection = {};
-Fetchr.registerService({
+(Fetchr as FetchrStatic).registerService({
   name: "search",
   read(req, resource, params, config, cb) {
     const result = {

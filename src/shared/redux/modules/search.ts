@@ -25,7 +25,7 @@ const findSalonByIdFail = createAction(FIND_SALON_BY_ID_FAIL);
 export function findSalonById(id: string) {
   return steps(
     findSalonByIdRequest({ resource: "search", params: { id } }),
-    ({ payload }) => fetchrRead(payload),
+    ({ payload }: { payload: any }) => fetchrRead(payload),
     [findSalonByIdSuccess, findSalonByIdFail],
   );
 }
@@ -35,14 +35,14 @@ export function findSalonById(id: string) {
  */
 
 export type State = {
-  loading: boolean,
-  loaded: boolean,
+  loading: boolean;
+  loaded: boolean;
   item: {
-    name: string,
+    name: string;
     urls: {
-      pc: string,
-    },
-  } | null,
+      pc: string;
+    };
+  } | null;
 };
 export const INITIAL_STATE = {
   loading: false,
@@ -53,7 +53,7 @@ export const INITIAL_STATE = {
 /**
  * Reducer
  */
-export default (handleActions(
+export default handleActions(
   {
     [FIND_SALON_BY_ID_REQUEST]: state => ({
       ...state,
@@ -84,4 +84,4 @@ export default (handleActions(
     }),
   },
   INITIAL_STATE,
-) as Reducer<State,any>);
+) as Reducer<State, any>;
