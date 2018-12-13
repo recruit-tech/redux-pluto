@@ -4,9 +4,9 @@ import Overlay from "../../atoms/Overlay";
 
 type Props = {
   alert: {
-    message: string,
-  },
-  onClose: any,
+    message: string;
+  };
+  onClose: any;
 };
 
 export default React.memo(function Alert(props: Props) {

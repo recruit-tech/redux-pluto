@@ -66,8 +66,8 @@ export function logout() {
  */
 
 export type State = {
-  login: any,
-  username: string | null,
+  login: any;
+  username: string | null;
 };
 const INITIAL_STATE: State = {
   login: false,

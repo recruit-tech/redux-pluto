@@ -30,7 +30,7 @@ export default class Search extends AgreedService {
   read(
     req: any,
     resource: any,
-    params: { page: number, id: any, start: number },
+    params: { page: number; id: any; start: number },
     config: any,
   ) {
     const { page, id, ...query } = params;

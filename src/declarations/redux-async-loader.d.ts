@@ -15,16 +15,10 @@ declare module "redux-async-loader" {
   export var loadOnServer: any;
 
   function asyncLoader<OP>(
-    fn: (
-      op: OP,
-      middleware: { dispatch: any, getState: any }
-    ) => any,
+    fn: (op: OP, middleware: { dispatch: any; getState: any }) => any,
   ): HOC<any, OP>;
 
   function deferLoader<OP, A>(
-    fn: (
-      op: OP,
-      middleware: { dispatch: any, getState: any }
-    ) => any,
+    fn: (op: OP, middleware: { dispatch: any; getState: any }) => any,
   ): HOC<any, OP>;
 }

@@ -7,9 +7,9 @@ declare module "fetchr";
 declare module "favalid";
 declare module "lodash/fp";
 declare module "redux-form";
-declare module "redux-devtools-log-monitor"
-declare module "redux-devtools-dock-monitor"
-declare module "hoist-non-react-statics"
+declare module "redux-devtools-log-monitor";
+declare module "redux-devtools-dock-monitor";
+declare module "hoist-non-react-statics";
 
 declare var __DEVELOPMENT__: boolean;
 declare var __DISABLE_SSR__: boolean;
@@ -25,5 +25,3 @@ declare var __CSS_CHUNKS__: boolean;
 interface Window {
   devToolsExtension: any;
 }
-
-

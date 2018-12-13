@@ -3,12 +3,8 @@ import { connect } from "react-redux";
 import { compose } from "recompose";
 import { asyncLoader } from "redux-async-loader";
 import { sendAnalytics } from "react-redux-analytics";
-import {
-  searchSelector,
-} from "../../../redux/modules/reducer";
-import {
-  findSalonById,
-} from "../../../redux/modules/search";
+import { searchSelector } from "../../../redux/modules/reducer";
+import { findSalonById } from "../../../redux/modules/search";
 import {
   siteSections,
   onAsyncLoaderLoaded,
@@ -19,17 +15,15 @@ import { State as SearchState } from "../../../redux/modules/search";
 
 type Props = {
   params: {
-    searchId: string,
-  },
+    searchId: string;
+  };
 };
 
 const enhancer = compose<SearchState, {}>(
   asyncLoader(
-    (
-      { params }: Props,
-      { dispatch, getState }: MiddlewareAPI<any, any>,
-    ) =>
-      getState().page.search.loaded || (dispatch as any)(findSalonById(params.searchId)),
+    ({ params }: Props, { dispatch, getState }: MiddlewareAPI<any, any>) =>
+      getState().page.search.loaded ||
+      (dispatch as any)(findSalonById(params.searchId)),
   ),
   connect(searchSelector),
   sendAnalytics({

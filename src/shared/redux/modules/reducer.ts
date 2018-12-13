@@ -17,28 +17,28 @@ import style, { State as StyleState } from "./style";
 import hackerNews, { State as HackerNewsState } from "./hackerNews";
 import uploadSample, { State as UploadSampleState } from "./uploadSample";
 
-export type State = {
+export type RootState = {
   app: {
-    masters: MastersState,
-    auth: AuthState,
-    csrf: CsrfState,
-    counter: CounterState,
-    alert: AlertState,
-    loading: LoadingState,
-    agreedSample: AgreedSampleState,
-    uploadSample: UploadSampleState,
-  },
+    masters: MastersState;
+    auth: AuthState;
+    csrf: CsrfState;
+    counter: CounterState;
+    alert: AlertState;
+    loading: LoadingState;
+    agreedSample: AgreedSampleState;
+    uploadSample: UploadSampleState;
+  };
   page: {
-    search: SearchState,
-    searchList: SearchListstate,
-    style: StyleState,
-    hackerNews: HackerNewsState,
-  },
+    search: SearchState;
+    searchList: SearchListstate;
+    style: StyleState;
+    hackerNews: HackerNewsState;
+  };
   // libraries
-  form: any,
-  reduxAsyncLoader: any,
-  routing: any,
-  analytics: any,
+  form: any;
+  reduxAsyncLoader: any;
+  routing: any;
+  analytics: any;
 };
 
 export default combineReducers({
@@ -69,46 +69,46 @@ export default combineReducers({
 /**
  * Selectors
  */
-export function mastersSelector(state: State): MastersState {
+export function mastersSelector(state: RootState): MastersState {
   return state.app.masters;
 }
 
-export function authSelector(state: State): AuthState {
+export function authSelector(state: RootState): AuthState {
   return state.app.auth;
 }
 
-export function counterSelector(state: State): CounterState {
+export function counterSelector(state: RootState): CounterState {
   return state.app.counter;
 }
 
-export function alertSelector(state: State): AlertState {
+export function alertSelector(state: RootState): AlertState {
   return state.app.alert;
 }
 
-export function loadingSelector(state: State): LoadingState {
+export function loadingSelector(state: RootState): LoadingState {
   return state.app.loading;
 }
 
-export function searchSelector(state: State): SearchState {
+export function searchSelector(state: RootState): SearchState {
   return state.page.search;
 }
 
-export function SearchListselector(state: State): SearchListstate {
+export function SearchListselector(state: RootState): SearchListstate {
   return state.page.searchList;
 }
 
-export function styleSelector(state: State): StyleState {
+export function styleSelector(state: RootState): StyleState {
   return state.page.style;
 }
 
-export function routingSelector(state: State) {
+export function routingSelector(state: RootState) {
   return state.routing;
 }
 
-export function globalFormDisabledSelector(state: State) {
+export function globalFormDisabledSelector(state: RootState) {
   return state.reduxAsyncLoader.onServer;
 }
 
-export function hackerNewsSelector(state: State) {
+export function hackerNewsSelector(state: RootState) {
   return state.page.hackerNews;
 }

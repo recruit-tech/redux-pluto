@@ -2,7 +2,7 @@ import debugFactory from "debug";
 
 const debug = debugFactory("app:server:middleware:offloadDetector");
 
-export default function(config: { limit: number, window: number }) {
+export default function(config: { limit: number; window: number }) {
   const { limit, window } = config;
   let count = 0;
   let timer = null;

@@ -5,17 +5,17 @@ import MenuItem from "../atoms/MenuItem";
 
 type Gender = "man" | "woman";
 type Props = {
-  gender: Gender | null,
+  gender: Gender | null;
   genderItems: {
     [key: string]: {
-      name: string,
-    },
-  },
+      name: string;
+    };
+  };
 };
 
 export default React.memo(function GenderMenu(props: Props) {
   const { genderItems } = props;
-  const gender: Gender = props.gender || Object.keys(genderItems)[0] as any;
+  const gender: Gender = props.gender || (Object.keys(genderItems)[0] as any);
 
   return (
     <div>

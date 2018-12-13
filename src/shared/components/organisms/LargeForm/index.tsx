@@ -11,8 +11,8 @@ import LargeForm from "./LargeForm";
 
 type Props = {
   initialValues: {
-    items: Array<{ message: string }>,
-  },
+    items: Array<{ message: string }>;
+  };
 };
 
 export default compose<Props, {}>(

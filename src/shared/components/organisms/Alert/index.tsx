@@ -5,7 +5,7 @@ import { clearAlert } from "../../../redux/modules/alert";
 import bindActionCreators from "../../utils/bindActionCreators";
 import Alert from "./Alert";
 
-export default compose<{alert: {message: string}, onClose: any}, {}>(
+export default compose<{ alert: { message: string }; onClose: any }, {}>(
   connect(
     state => ({
       alert: alertSelector(state as any),

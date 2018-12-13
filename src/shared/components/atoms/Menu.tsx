@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import styled from "styled-components";
 
 type Props = {
-  children: ReactNode,
+  children: ReactNode;
 };
 
 export default (function Menu(props: Props) {

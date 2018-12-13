@@ -5,13 +5,13 @@ import ReactDOM from "react-dom";
 
 export const showOnScroll = (ComposedComponent: React.ComponentType<any>) =>
   class ShowOnScroll extends Component<{
-    heightRatio: number | void,
-    onShow: Function | void,
-    onInnerWindow: Function |void
+    heightRatio: number | void;
+    onShow: Function | void;
+    onInnerWindow: Function | void;
   }> {
-    throttleScrollListener: any
-    heightRatio: number
-    isUnmounting: boolean
+    throttleScrollListener: any;
+    heightRatio: number;
+    isUnmounting: boolean;
     componentDidMount() {
       this.throttleScrollListener = throttle(300, () => this.scrollListener());
       this.heightRatio = this.props.heightRatio || 1;
@@ -94,7 +94,7 @@ export const showOnScroll = (ComposedComponent: React.ComponentType<any>) =>
 
 export const adjustScroll = (ComposedComponent: React.ComponentType<any>) =>
   class AdjustScroll extends Component<{
-    shouldAdjustScroll: Function | void    
+    shouldAdjustScroll: Function | void;
   }> {
     componentDidMount() {
       this.props.shouldAdjustScroll && this.adjustScrollPosition();
@@ -118,7 +118,9 @@ export const adjustScroll = (ComposedComponent: React.ComponentType<any>) =>
   };
 
 export const forceScroll = ComposedComponent =>
-  class ForceScroll extends Component<{forceScrollTo: {x: number, y: number}}> {
+  class ForceScroll extends Component<{
+    forceScrollTo: { x: number; y: number };
+  }> {
     componentDidMount() {
       const { x, y } = this.props.forceScrollTo;
       // FIXME: 即座に scrollTo() を呼び出してもスクロールが機能しないため遅延させている

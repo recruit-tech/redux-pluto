@@ -3,9 +3,9 @@ import { startLoading, stopLoading } from "../modules/loading";
 import { handleActions } from "./utils";
 
 type LoadingMiddlewareOption = {
-  start: any,
-  stop: any,
-  delay: number,
+  start: any;
+  stop: any;
+  delay: number;
 };
 
 export default function loadingMiddleware({

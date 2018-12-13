@@ -1,10 +1,10 @@
 import React, { ReactNode } from "react";
-import { compose, pure } from "recompose";
+import { pure, compose } from "recompose";
 import { showOnScroll } from "../utils/scrollComponents";
 
 type Props = {
-  children?: ReactNode | string,
-  onShow?: any,
+  children?: ReactNode | string;
+  onShow?: any;
 };
 
 export default compose<Props, Props>(

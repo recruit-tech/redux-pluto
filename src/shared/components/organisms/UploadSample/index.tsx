@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { inputFile, uploadFile } from "../../../redux/modules/uploadSample";
 import UploadSample from "./UploadSample";
-import { State as RootState } from "../../../redux/modules/reducer";
+import { RootState } from "../../../redux/modules/reducer";
 
 let file: any;
 export default connect(

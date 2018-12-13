@@ -1,4 +1,3 @@
-
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 import pure from "recompose/pure";
@@ -6,9 +5,9 @@ import Alert from "../organisms/Alert";
 import GlobalIndicator from "../organisms/GlobalIndicator";
 
 type Props = {
-  header: ReactNode,
-  main: ReactNode,
-  footer: ReactNode,
+  header: ReactNode;
+  main: ReactNode;
+  footer: ReactNode;
 };
 
 export default pure((props: Props) => {

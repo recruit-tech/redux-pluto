@@ -1,4 +1,3 @@
-
 import { createAction, handleActions, Reducer } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { fetchrRead } from "redux-effects-fetchr";
@@ -34,11 +33,11 @@ export function searchStyle(params: any) {
  * Initial state
  */
 export type State = {
-  loading: boolean,
-  loaded: boolean,
-  params: Object | null,
-  count: number,
-  items: Array<any>,
+  loading: boolean;
+  loaded: boolean;
+  params: Object | null;
+  count: number;
+  items: Array<any>;
 };
 export const INITIAL_STATE: State = {
   loading: false,
