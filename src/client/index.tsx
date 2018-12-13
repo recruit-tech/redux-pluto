@@ -21,7 +21,7 @@ const history = syncHistoryWithStore(browserHistory, store, {
 const root = document.getElementById("root");
 
 const locationSubscriber = createLocationSubscriber(store);
-history.listen(location => {
+history.listen((location: any) => {
   // At the moment, we do not use page stack functionality of react-redux-analytics.
   // console.log(location);
   locationSubscriber.notify(location, "replace");
@@ -38,7 +38,7 @@ renderApp().then(() => {
 });
 
 function configStore() {
-  const getJson = id =>
+  const getJson = (id: string) =>
     JSON.parse((document.getElementById(id) as any).getAttribute("data-json"));
   const initialState = getJson("initial-state");
   const clientConfig = getJson("client-config");
@@ -68,21 +68,24 @@ function renderApp() {
     // matchの引数にbrowserHistoryがベースのhistoryを渡している (renderPropsを
     // 通じて <Router> に渡る) ため、最初の表示後はhistoryの変化により通常通り
     // レンダリングされる。
-    match({ routes, history }, (error, redirectLocation, renderProps) => {
-      // redirect が必要で、 SSR モードがオフの時に renderProps が空になるため
-      // hydrate に失敗する事がある。
-      // SSR が有効の場合は redirect は server の response で行われるのでこの処理は不要。
-      if (__DISABLE_SSR__ && redirectLocation && !renderProps) {
-        window.location.replace(
-          `${redirectLocation.pathname}${redirectLocation.search}`,
-        );
+    match(
+      { routes, history },
+      (error: Error, redirectLocation: any, renderProps: {}) => {
+        // redirect が必要で、 SSR モードがオフの時に renderProps が空になるため
+        // hydrate に失敗する事がある。
+        // SSR が有効の場合は redirect は server の response で行われるのでこの処理は不要。
+        if (__DISABLE_SSR__ && redirectLocation && !renderProps) {
+          window.location.replace(
+            `${redirectLocation.pathname}${redirectLocation.search}`,
+          );
+          return resolve();
+        }
+        if (root) {
+          hydrate(<App store={store} {...renderProps} />, root);
+        }
         return resolve();
-      }
-      if (root) {
-        hydrate(<App store={store} {...renderProps} />, root);
-      }
-      return resolve();
-    });
+      },
+    );
   });
 }
 

@@ -9,7 +9,7 @@ export default class GenderMaster extends AgreedMaster {
       "beauty/styleCategory/",
       {},
       "style_category",
-      transform((results, item) => {
+      transform((results: any, item: { code: string }) => {
         results[item.code] = item;
       }, {}),
     );

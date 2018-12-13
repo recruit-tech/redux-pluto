@@ -1,5 +1,6 @@
 import assert from "assert";
 import Fetchr from "fetchr";
+import { FetchrStatic, FetchrService } from "./types";
 import Immutable from "seamless-immutable";
 import {
   INITIAL_STATE,
@@ -13,7 +14,7 @@ import { isSameObject } from "./lib/assertUtils";
  * mock loadMaster service
  */
 let areaMasters = ["tokyo", "saitama", "kanagawa"];
-const services = [
+const services: FetchrService[] = [
   {
     name: "areaMaster",
     read(req, resource, params, config, cb) {
@@ -46,7 +47,7 @@ const services = [
   },
 ];
 
-services.forEach(Fetchr.registerService);
+services.forEach((Fetchr as FetchrStatic).registerService);
 
 test("master: areaMaster success", () => {
   const loadAllMastersAction = loadAllMasters();

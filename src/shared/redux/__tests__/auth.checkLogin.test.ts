@@ -1,6 +1,8 @@
 /* eslint-disable no-undefined */
 import assert from "assert";
 import Fetchr from "fetchr";
+import { FetchrStatic } from "./types";
+
 import { ACCESS_TOKEN_AUDIENCE_NAME } from "../../../server/services/AccessToken";
 import { checkLogin } from "../modules/auth";
 import { createWithSignedStore, createStore } from "./lib/storeUtils";
@@ -8,7 +10,7 @@ import { createWithSignedStore, createStore } from "./lib/storeUtils";
 /**
  * mock accessToken service
  */
-Fetchr.registerService({
+(Fetchr as FetchrStatic).registerService({
   name: "accessToken",
   create(req, resource, params, body, config, cb) {
     cb(null, null);
@@ -38,7 +40,7 @@ test("auth: checkLogin failure", done => {
     cookie: {},
   });
 
-  store.dispatch(checkLoginAction).then(done.fail, e => {
+  store.dispatch(checkLoginAction).then(done.fail, (e: Error) => {
     assert.deepStrictEqual(store.getState().app.auth, {
       login: false,
       username: null,

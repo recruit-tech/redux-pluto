@@ -25,7 +25,7 @@ const findSalonByIdFail = createAction(FIND_SALON_BY_ID_FAIL);
 export function findSalonById(id: string) {
   return steps(
     findSalonByIdRequest({ resource: "search", params: { id } }),
-    ({ payload }) => fetchrRead(payload),
+    ({ payload }: { payload: any }) => fetchrRead(payload),
     [findSalonByIdSuccess, findSalonByIdFail],
   );
 }

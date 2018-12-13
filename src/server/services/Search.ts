@@ -39,7 +39,7 @@ export default class Search extends AgreedService {
     }
     const pathname = id ? `${this.pathname}${id}` : this.pathname;
 
-    return read(this.axios, this.name, pathname, query).then(results => {
+    return read(this.axios, this.name, pathname, query).then((results: any) => {
       const { search: items, ...rest } = results;
       return {
         ...rest,

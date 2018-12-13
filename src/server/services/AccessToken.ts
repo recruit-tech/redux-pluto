@@ -77,9 +77,13 @@ export default class AccessToken {
     return Promise.resolve({
       meta: {
         headers: {
-          "set-cookie": cookie.serialize(ACCESS_TOKEN_COOKIE_NAME, null, {
-            expires: new Date(0),
-          }),
+          "set-cookie": cookie.serialize(
+            ACCESS_TOKEN_COOKIE_NAME,
+            null as any, // TODO: @types required type is string
+            {
+              expires: new Date(0),
+            },
+          ),
         },
       },
     });

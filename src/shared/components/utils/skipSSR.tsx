@@ -4,10 +4,12 @@ const SHOW_TIMEOUT = 10;
 
 // skipSSR is a Higher Order Component to skip Server Side Rendering.
 // skipSSR(<div> foo bar baz </div>)
-const skipSSR = (AlternativeComponent = <div />) => ComposedComponent =>
+const skipSSR = (AlternativeComponent = <div />) => (
+  ComposedComponent: React.ComponentType<any>,
+) =>
   class SkipSSR extends Component<{}, { show: boolean }> {
-    timeout: number;
-    constructor(props, context) {
+    timeout: number | null;
+    constructor(props: {}, context: any) {
       super(props, context);
       this.state = {
         show: false,

@@ -1,11 +1,13 @@
 import assert from "assert";
 import Fetchr from "fetchr";
+import { FetchrStatic } from "./types";
+
 import { times } from "lodash/fp";
 import { increment } from "../modules/counter";
 import { createStore } from "./lib/storeUtils";
 
 let count = 0;
-Fetchr.registerService({
+(Fetchr as FetchrStatic).registerService({
   name: "counter",
   update(req, resource, params, body, config, cb) {
     count++;

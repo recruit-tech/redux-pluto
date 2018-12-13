@@ -62,29 +62,32 @@ export const INITIAL_STATE: State = {
  */
 export default handleActions<State>(
   {
-    [INPUT_FILE]: (state, action) => {
+    [INPUT_FILE]: (state: State, action: { payload: number }) => {
       const { payload } = action;
       return {
         ...state,
         value: payload,
       };
     },
-    [UPLOAD_FILE_REQUEST]: state => ({
+    [UPLOAD_FILE_REQUEST]: (state: State) => ({
       ...state,
       loading: true,
       loaded: false,
     }),
-    [UPLOAD_FILE_CANCEL]: (state, action) => ({
+    [UPLOAD_FILE_CANCEL]: (state: State, action: { payload: any }) => ({
       ...state,
       cancelSource: action.payload,
     }),
-    [UPLOAD_FILE_SUCCESS]: (state, action) => ({
+    [UPLOAD_FILE_SUCCESS]: (
+      state: State,
+      action: { payload: { data: { path: string } } },
+    ) => ({
       ...state,
       path: action.payload.data.path,
       loading: false,
       loaded: true,
     }),
-    [UPLOAD_FILE_FAIL]: (state, action) => {
+    [UPLOAD_FILE_FAIL]: (state: State, action: { error: any }) => {
       const { error } = action;
       return {
         ...state,

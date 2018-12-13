@@ -1,6 +1,7 @@
 /* eslint-disable no-undefined */
 import assert from "assert";
 import Fetchr from "fetchr";
+import { FetchrStatic } from "./types";
 import { ACCESS_TOKEN_AUDIENCE_NAME } from "../../../server/services/AccessToken";
 import { login } from "../modules/auth";
 import { createStore, createWithSignedStore } from "./lib/storeUtils";
@@ -8,7 +9,7 @@ import { createStore, createWithSignedStore } from "./lib/storeUtils";
 /**
  * mock accessToken service
  */
-Fetchr.registerService({
+(Fetchr as FetchrStatic).registerService({
   name: "accessToken",
   create(req, resource, params, body, config, cb) {
     if (params && params.username === "s") {

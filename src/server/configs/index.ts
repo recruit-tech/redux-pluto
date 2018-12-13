@@ -1,9 +1,9 @@
 import dev from "./dev";
 import test from "./test";
 
-export default getConfig(process.env.NODE_ENV);
+export default getConfig(process.env.NODE_ENV as string);
 
-function getConfig(env) {
+function getConfig(env: string) {
   switch (env) {
     case "test":
       return test;

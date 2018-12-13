@@ -14,7 +14,7 @@ test("uploadSample: uploadFile success", done => {
     const filePath = path.resolve(__dirname, "./fixtures/hello.txt");
     const file = fs.createReadStream(filePath);
     const uploadFileAction = uploadFile("/file", file);
-    await store.dispatch(uploadFileAction).catch(e => assert.fail(e));
+    await store.dispatch(uploadFileAction).catch((e: Error) => assert.fail(e));
     const state = store.getState().app.uploadSample;
     assert(state.path);
     const expected = await fs.promises.readFile(filePath);

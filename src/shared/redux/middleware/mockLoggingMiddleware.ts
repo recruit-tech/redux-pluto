@@ -3,6 +3,7 @@ import { FETCHR } from "redux-effects-fetchr";
 import Axios, { AxiosRequestConfig } from "axios";
 import { isEqual } from "lodash/fp";
 import { MiddlewareAPI } from "redux";
+import { Response } from "express";
 
 export default (axiosConfig: AxiosRequestConfig) => {
   const axios = Axios.create(axiosConfig);
@@ -13,14 +14,14 @@ export default (axiosConfig: AxiosRequestConfig) => {
     } else {
       if (window && (window as any).__MOCKING_LOG__) {
         return new Promise((resolve, reject) => {
-          const log = (window as any).__MOCKING_LOG__.find(_log =>
+          const log = (window as any).__MOCKING_LOG__.find((_log: any) =>
             isEqual(_log.action, JSON.parse(JSON.stringify(action))),
           );
           if (log) return resolve(log.response);
           else return reject(new Error(`Could'nt find ${action}`));
         });
       }
-      const promise = next(action);
+      const promise: Promise<Response> = next(action);
       promise
         .then(response => {
           axios.post("/", {

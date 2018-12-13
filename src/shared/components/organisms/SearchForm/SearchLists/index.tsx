@@ -5,7 +5,7 @@ import SearchList from "../../../molecules/SearchList";
 
 type Props = {
   page: number;
-  items: Object;
+  items: any;
   onInnerWindow: Function;
   shouldAdjustScroll: boolean;
   forceScrollTo: { x: number; y: number } | null;

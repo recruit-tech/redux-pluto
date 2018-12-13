@@ -29,7 +29,7 @@ const enhancer = compose<SearchState, {}>(
   sendAnalytics({
     ...siteSections("search", "detail"),
     onDataReady: onAsyncLoaderLoaded,
-    mapPropsToVariables: (props, state) => ({
+    mapPropsToVariables: (props: Props, _state: any) => ({
       [SALON_ID]: props.params && props.params.searchId,
     }),
   }),
