@@ -9,6 +9,7 @@ const outputPublicPath = "/public/";
 
 const createStyledComponentsTransformer = require("typescript-plugin-styled-components")
   .default;
+
 const styledComponentsTransformer = createStyledComponentsTransformer();
 
 // if you're specifying externals to leave unbundled, you need to tell Webpack
