@@ -141,7 +141,7 @@
     "@types/serve-favicon": "^2.2.30",
     "@types/styled-components": "^4.1.2",
     "@types/webpack": "^4.4.21",
-    "agreed": "^3.2.0",
+    "agreed": "^3.2.1",
     "assert-stream": "^1.1.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
