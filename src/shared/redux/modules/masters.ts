@@ -45,7 +45,7 @@ function loadMaster(resource: string) {
     loadMasterRequest(resource),
     ({ payload }: { payload: any }) => fetchrRead(payload),
     [
-      payload => loadMasterSuccess(resource, payload.data),
+      (payload: any) => loadMasterSuccess(resource, payload.data),
       (error: any) => loadMasterFail(resource, error),
     ],
   );

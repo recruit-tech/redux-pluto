@@ -1,59 +1,89 @@
-import { createAction, handleActions, Reducer } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { fetchrUpdate } from "redux-effects-fetchr";
-import { createAsyncActionTypes } from "./utils";
 
-/**
- * Action types
- */
-export const [
-  COUNTER_INCREMENT_REQUEST,
-  COUNTER_INCREMENT_SUCCESS,
-  COUNTER_INCREMENT_FAIL,
-] = createAsyncActionTypes("redux-proto/counter/increment");
+export const COUNTER_INCREMENT_REQUEST =
+  "redux-proto/counter/increment/request";
+export const COUNTER_INCREMENT_SUCCESS =
+  "redux-proto/counter/increment/success";
+export const COUNTER_INCREMENT_FAIL = "redux-proto/counter/increment/fail";
+
+export type IncrementRequest = {
+  type: typeof COUNTER_INCREMENT_REQUEST;
+  payload: {
+    resource: "counter";
+  };
+};
+
+export type IncrementSuccess = {
+  type: typeof COUNTER_INCREMENT_SUCCESS;
+  payload: {
+    data: number;
+  };
+};
+
+export type IncrementFail = {
+  type: typeof COUNTER_INCREMENT_FAIL;
+  payload: Error;
+  error: true;
+};
 
 /**
  * Action creators
  */
-const incrementRequest = createAction(COUNTER_INCREMENT_REQUEST);
 
-const incrementSuccess = createAction(COUNTER_INCREMENT_SUCCESS);
+const incrementRequest = (): IncrementRequest => {
+  return {
+    type: COUNTER_INCREMENT_REQUEST,
+    payload: {
+      resource: "counter",
+    },
+  };
+};
 
-const incrementFail = createAction(COUNTER_INCREMENT_FAIL);
+const incrementSuccess = (payload: { data: number }): IncrementSuccess => {
+  return {
+    type: COUNTER_INCREMENT_SUCCESS,
+    payload,
+  };
+};
 
-export function increment() {
-  return steps(
-    incrementRequest({ resource: "counter" }),
-    ({ payload }: any) => fetchrUpdate(payload),
-    [incrementSuccess, incrementFail],
-  );
+const incrementFail = (e: Error): IncrementFail => {
+  return {
+    type: COUNTER_INCREMENT_FAIL,
+    payload: e,
+    error: true,
+  };
+};
+
+export function increment(): Promise<IncrementSuccess | IncrementFail> {
+  // prettier-ignore
+  return steps<IncrementSuccess, IncrementFail>(
+    incrementRequest(),
+    ({ payload }: IncrementRequest) => {
+      return fetchrUpdate(payload)
+    },
+    [incrementSuccess, incrementFail]);
 }
-
-/**
- * Initial state
- */
 
 export type State = {
   value: number;
 };
+
 const INITIAL_STATE: State = {
   value: 0,
 };
 
-/**
- * Reducer
- */
-export default handleActions(
-  {
-    [COUNTER_INCREMENT_SUCCESS]: (state, action) => {
-      const {
-        payload: { data },
-      } = action as any;
+export type Action = IncrementRequest | IncrementSuccess | IncrementFail;
 
+export default (state: State = INITIAL_STATE, action: Action): State => {
+  switch (action.type) {
+    case COUNTER_INCREMENT_SUCCESS: {
       return {
-        value: data,
+        value: action.payload.data,
       };
-    },
-  },
-  INITIAL_STATE,
-) as Reducer<State, any>;
+    }
+    default: {
+      return state;
+    }
+  }
+};
