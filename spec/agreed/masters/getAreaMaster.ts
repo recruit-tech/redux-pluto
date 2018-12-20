@@ -1,15 +1,64 @@
-module.exports = {
+import {
+  APIDef,
+  GET,
+  Success200,
+  ResponseDef,
+  Placeholder,
+} from "agreed-typed";
+
+type SmallArea = {
+  code: string;
+  name: string;
+  cnt: string;
+  middle_area: {
+    code: string;
+    name: string;
+    cnt: string;
+  };
+  service_area: {
+    code: string;
+    name: string;
+    cnt: string;
+  };
+};
+
+export type GetAreaMasterResponse = {
+  results: {
+    results_available: string;
+    results_returned: string;
+    results_start: string;
+    status: string;
+    small_area: Placeholder<Array<SmallArea>>;
+  };
+};
+
+export type GetAreaMasterAPI = APIDef<
+  GET, // HTTP Method
+  ["beauty", "smallarea"],
+  {}, // request header
+  {
+    start: Placeholder<number>;
+  }, // request query
+  undefined, // request body
+  {}, // response header
+  ResponseDef<Success200, GetAreaMasterResponse>
+  // | ResponseDef<Error404, { results: { text: string } }> // response
+>;
+
+const api: GetAreaMasterAPI = {
   request: {
-    path: "/beauty/smallArea",
+    path: ["beauty", "smallarea"],
     method: "GET",
-    params: {
+    query: {
       start: "{:start}",
     },
     values: {
       start: 1,
     },
+    body: undefined,
   },
   response: {
+    status: 200,
     body: {
       results: {
         results_available: "{:results_available}",
@@ -85,7 +134,9 @@ module.exports = {
             cnt: "13944",
           },
         },
-      ],
+      ] as SmallArea[],
     },
   },
 };
+
+module.exports = api;

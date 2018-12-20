@@ -1,7 +1,7 @@
 declare module "@storybook/*";
 declare module "ms";
 declare module "server-timing";
-declare module "favalid";
+// declare module "favalid";
 declare module "fumble";
 declare module "is-redirectable-url";
 declare module "isomorphic-form-data";
