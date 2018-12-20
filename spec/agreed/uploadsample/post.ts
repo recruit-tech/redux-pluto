@@ -1,26 +1,48 @@
 import {
   APIDef,
-  GET,
-  Success200,
+  POST,
+  Success201,
   ResponseDef,
-  convert,
-  Error404,
+  Placeholder,
 } from "agreed-typed";
 
-module.exports = [
-  {
-    request: {
-      path: "/uploadsample",
-      method: "POST",
-      body: {
-        path: "{:path}",
-      },
-      values: {
-        path: "/public/hoge",
+export type PostAPI = APIDef<
+  POST,
+  ["uploadsample"],
+  {}, // header
+  {}, // query
+  { path: string }, // request body
+  {}, // response header
+  ResponseDef<Success201, {}>
+>;
+
+const style = [];
+for (let i = 1; i <= 100; i++) {
+  style.push({
+    id: i.toString(),
+    name: "ヘアスタイル",
+    photo: {
+      front: {
+        m: "/public/cat_medium.jpeg",
       },
     },
-    response: {
-      status: 201,
+  });
+}
+
+const api: PostAPI = {
+  request: {
+    path: ["uploadsample"],
+    method: "POST",
+    body: {
+      path: "{:path}",
+    },
+    values: {
+      path: "/public/hoge",
     },
   },
-];
+  response: {
+    status: 201,
+  },
+};
+
+module.exports = api;
