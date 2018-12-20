@@ -41,7 +41,8 @@
     "test:agreed": "agreed-server --path ./spec/agreed/agreed.ts --port 3020",
     "test:old": "run-p test:agreed test:wait-on -r --print-label",
     "test:wait-on": "wait-on tcp:3020 && jest --maxWorkers=4",
-    "test:coverage": "jest --coverage --maxWorkers=4 && cat ./coverage/lcov.info | codacy-coverage"
+    "test:coverage": "jest --coverage --maxWorkers=4 && cat ./coverage/lcov.info | codacy-coverage",
+    "gen:schema": "agreed-typed gen-swagger --path ./spec/agreed/agreed.ts"
   },
   "dependencies": {
     "axios": "^0.18.0",
