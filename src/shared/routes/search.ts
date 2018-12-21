@@ -1,13 +1,13 @@
 export function loadSearch(_: any, cb: any) {
   return import(/* webpackChunkName: "search" */ "../components/organisms/Search").then(
-    result => cb(null, result),
+    result => cb(null, result.default),
     cb,
   );
 }
 
 export function loadSearchForm(_: any, cb: any) {
   return import(/* webpackChunkName: "search" */ "../components/organisms/SearchForm").then(
-    result => cb(null, result),
+    result => cb(null, result.default),
     cb,
   );
 }
