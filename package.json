@@ -29,7 +29,7 @@
     "start": "npm run start:dev",
     "start:csr": "cross-env DISABLE_SSR=1 npm run start:dev",
     "start:dev": "cross-env NODE_ENV=development run-p start:dev:{server,agreed}",
-    "start:dev:agreed": "agreed-server --path ./spec/agreed/agreed.js --port 3010",
+    "start:dev:agreed": "agreed-server --path ./spec/agreed/agreed.ts --port 3010",
     "start:dev:server": "cross-env DEBUG=express:*,app:* node bin/start-server.js",
     "start:dev:mock": "MOCK_BUILD=true npm run start:dev",
     "start:mock": "node ./mock/src/static-server",
@@ -38,10 +38,11 @@
     "start:prod:server": "node bin/start-server.js",
     "storybook": "start-storybook -p 6006",
     "test": "run-p test:agreed test:wait-on -r",
-    "test:agreed": "agreed-server --path ./spec/agreed/agreed.js --port 3020",
+    "test:agreed": "agreed-server --path ./spec/agreed/agreed.ts --port 3020",
     "test:old": "run-p test:agreed test:wait-on -r --print-label",
     "test:wait-on": "wait-on tcp:3020 && jest --maxWorkers=4",
-    "test:coverage": "jest --coverage --maxWorkers=4 && cat ./coverage/lcov.info | codacy-coverage"
+    "test:coverage": "jest --coverage --maxWorkers=4 && cat ./coverage/lcov.info | codacy-coverage",
+    "gen:schema": "agreed-typed gen-swagger --path ./spec/agreed/agreed.ts"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -142,6 +143,8 @@
     "@types/styled-components": "^4.1.2",
     "@types/webpack": "^4.4.21",
     "agreed": "^3.2.1",
+    "agreed-core": "^3.2.2",
+    "agreed-typed": "^0.6.0",
     "assert-stream": "^1.1.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",

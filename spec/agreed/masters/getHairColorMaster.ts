@@ -1,15 +1,54 @@
-module.exports = {
+import {
+  APIDef,
+  GET,
+  Success200,
+  ResponseDef,
+  Placeholder,
+} from "agreed-typed";
+
+export type HairColor = {
+  code: string;
+  name: string;
+};
+
+export type GetHairColorMasterResponse = {
+  results: {
+    results_available: string;
+    results_returned: string;
+    results_start: string;
+    status: string;
+    hair_color: HairColor[];
+  };
+};
+
+export type GetAreaMasterAPI = APIDef<
+  GET,
+  ["beauty", "hairColor"],
+  {},
+  {
+    start: Placeholder<number>;
+  }, // request query
+  undefined, // request body
+  {}, // response header
+  ResponseDef<Success200, GetHairColorMasterResponse>
+  // | ResponseDef<Error404, { results: { text: string } }> // response
+>;
+
+// TODO: Cast
+const api = {
   request: {
     path: "/beauty/hairColor",
     method: "GET",
-    params: {
+    query: {
       start: "{:start}",
     },
     values: {
       start: 1,
     },
+    body: undefined,
   },
   response: {
+    status: 200,
     body: {
       results: {
         results_available: "{:results_available}",
@@ -34,3 +73,5 @@ module.exports = {
     },
   },
 };
+
+module.exports = api;

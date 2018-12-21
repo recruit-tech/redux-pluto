@@ -1,15 +1,55 @@
-module.exports = {
+import {
+  APIDef,
+  GET,
+  Success200,
+  ResponseDef,
+  Placeholder,
+} from "agreed-typed";
+
+type HairLength = {
+  code: string;
+  name: string;
+  style_category: { code: string; name: string };
+  hair_length_seo_name: string;
+};
+
+export type GetHairColorMasterResponse = {
+  results: {
+    results_available: string;
+    results_returned: string;
+    results_start: string;
+    status: string;
+    hair_length: Placeholder<HairLength[]>;
+  };
+};
+
+export type GetHairLengthMasterAPI = APIDef<
+  GET,
+  ["beauty", "hairLength", "v3"],
+  {},
+  {
+    start: Placeholder<number>;
+  }, // request query
+  undefined, // request body
+  {}, // response header
+  ResponseDef<Success200, GetHairColorMasterResponse>
+  // | ResponseDef<Error404, { results: { text: string } }> // response
+>;
+
+const api: GetHairLengthMasterAPI = {
   request: {
-    path: "/beauty/hairLength/v3",
+    path: ["beauty", "hairLength", "v3"],
     method: "GET",
-    params: {
+    query: {
       start: "{:start}",
     },
     values: {
       start: 1,
     },
+    body: undefined,
   },
   response: {
+    status: 200,
     body: {
       results: {
         results_available: "{:results_available}",
@@ -107,3 +147,5 @@ module.exports = {
     },
   },
 };
+
+module.exports = api;

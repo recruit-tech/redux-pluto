@@ -1,3 +1,51 @@
+import {
+  APIDef,
+  GET,
+  Success200,
+  ResponseDef,
+  convert,
+  Error404,
+  Capture,
+  Placeholder,
+} from "agreed-typed";
+
+export type GetSearchListResponse = {
+  results: {
+    results_available: Placeholder<number>;
+    results_returned: Placeholder<number>;
+    results_start: Placeholder<string>;
+    status: Placeholder<string>;
+    search: Placeholder<
+      Array<{
+        id: string;
+        last_update: string;
+        name: string;
+        logo_image: string;
+        logo_image_square: string;
+        urls: {
+          pc: string;
+          mobile: string;
+        };
+        description: string;
+      }>
+    >;
+  };
+};
+
+export type GetSearchListAPI = APIDef<
+  GET,
+  ["beauty", "search"],
+  {}, // header
+  {
+    keyword: string;
+    page: string;
+    start: Placeholder<number>;
+  }, // query
+  undefined, // request body
+  {}, // response header
+  ResponseDef<Success200, GetSearchListResponse>
+>;
+
 const SEARCH_MAX_COUNT = 50;
 const RESULTS_COUNT = 500;
 
@@ -17,11 +65,11 @@ for (let i = 1; i <= SEARCH_MAX_COUNT; i++) {
   });
 }
 
-module.exports = {
+const api: GetSearchListAPI = {
   request: {
-    path: "/beauty/search",
+    path: ["beauty", "search"],
     method: "GET",
-    params: {
+    query: {
       keyword: "{:keyword}",
       page: "{:page}",
       start: "{:start}",
@@ -31,8 +79,10 @@ module.exports = {
       page: "0",
       start: 1,
     },
+    body: undefined,
   },
   response: {
+    status: 200,
     body: {
       results: {
         results_available: "{:results_available}",
@@ -51,3 +101,5 @@ module.exports = {
     },
   },
 };
+
+module.exports = api;

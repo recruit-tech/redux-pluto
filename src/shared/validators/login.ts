@@ -19,7 +19,7 @@ const schema = shape({
 });
 
 export default function validate(values: any) {
-  const errors = schema(values);
+  const errors: any = schema(values);
   return Object.keys(errors).reduce(
     (p, key) => {
       if (errors[key].error) {
