@@ -24,6 +24,7 @@ const searchStyleFail = createAction(SEARCH_STYLE_FAIL);
 export function searchStyle(params: any) {
   return steps(
     searchStyleRequest({ resource: "style", params }),
+    // @ts-ignore
     ({ payload }: { payload: any }) => fetchrRead(payload),
     [searchStyleSuccess, searchStyleFail],
   );
