@@ -5,6 +5,7 @@ import { FetchrStatic } from "./types";
 import { times } from "lodash/fp";
 import { increment } from "../modules/counter";
 import { createStore } from "./lib/storeUtils";
+import { Store } from "redux";
 
 let count = 0;
 (Fetchr as FetchrStatic).registerService({
@@ -16,12 +17,13 @@ let count = 0;
   },
 });
 
+import { RootState } from "../modules/reducer";
+import { Action as CounterAction } from "../modules/counter";
 test("counter: increment success", async () => {
-  const store = createStore({ cookie: {} });
+  const store: Store<RootState, CounterAction> = createStore({ cookie: {} });
   const incrementAction = increment();
-
-  await Promise.all(times(() => store.dispatch(incrementAction), 10));
-
+  // TODO: dispatch middleware take Promise
+  await Promise.all(times(() => store.dispatch(incrementAction as any), 10));
   assert.deepStrictEqual(store.getState().app.counter, {
     value: 10,
   });

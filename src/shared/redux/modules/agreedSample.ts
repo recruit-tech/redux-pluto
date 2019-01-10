@@ -25,7 +25,7 @@ export function getText(status?: string | null): Promise<{ text: string }> {
   return steps(
     getTextRequest(),
     fetchrRead({ resource: "agreedSample", params: { status } }),
-    [getTextSuccess, getTextFail],
+    [getTextSuccess, getTextFail] as any, // TODO: Add better types
   );
 }
 
