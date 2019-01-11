@@ -1,5 +1,3 @@
-import fs from "fs";
-import path from "path";
 import { inspect } from "util";
 import React from "react";
 import { ServerStyleSheet } from "styled-components";
@@ -8,9 +6,7 @@ import { createMemoryHistory, match } from "react-router";
 import { syncHistoryWithStore } from "react-router-redux";
 import { loadOnServer } from "redux-async-loader";
 import Fetchr from "fetchr";
-import { flushChunkNames } from "react-universal-component/server";
-import flushChunks from "webpack-flush-chunks";
-import { mapValues, noop, transform } from "lodash/fp";
+import { noop } from "lodash/fp";
 import debugFactory from "debug";
 import createStore from "../../shared/redux/createStore";
 import { loadAllMasters as loadAllMastersAction } from "../../shared/redux/modules/masters";
@@ -34,8 +30,6 @@ const logger = __DEVELOPMENT__
 
 export default function createReduxApp(config: any) {
   const maxAge = Math.floor(config.offload.cache.maxAge / 1000);
-  const cssChunks = __DEVELOPMENT__ ? null : loadCssChunks(config);
-
   /*
    * 全リクエストで共有される初期データのためのStoreです。
    */
@@ -134,9 +128,7 @@ export default function createReduxApp(config: any) {
               res,
               store,
               renderProps,
-              config,
               clientConfig,
-              cssChunks,
               timing,
             });
           })
@@ -153,9 +145,7 @@ export default function createReduxApp(config: any) {
               res,
               store,
               renderProps,
-              config,
               clientConfig,
-              cssChunks,
               timing,
             });
           });
@@ -201,13 +191,11 @@ function matchRoutes(options: any) {
 }
 
 function renderCSR({ res, store, config, clientConfig, timing }: any) {
-  const assets = (flushChunks as any)(config.clientStats);
   sendCSRResponse({
     res,
     store,
     status: 200,
     clientConfig,
-    assets,
     timing,
   } as any);
 }
@@ -216,17 +204,13 @@ function renderSSR({
   res,
   store,
   renderProps,
-  config,
   clientConfig,
-  cssChunks,
   timing,
 }: {
   res: Response;
   store: Store<RootState>;
   renderProps: any;
-  config: any;
   clientConfig: any;
-  cssChunks: any;
   timing: any;
 }) {
   /*
@@ -238,17 +222,11 @@ function renderSSR({
   const content = renderToString(jsx);
   const styles = sheet.getStyleElement();
 
-  const assets = getAssets({ clientStats: config.clientStats, cssChunks });
-
-  const { routes } = renderProps;
-  const status = routes[routes.length - 1].status || 200;
   sendSSRResponse({
     res,
-    status,
     store,
     content,
     clientConfig,
-    assets,
     timing,
     styles,
   });
@@ -260,7 +238,6 @@ function sendCSRResponse({
   store,
   clientConfig,
   content,
-  assets,
   timing,
 }: {
   res: Response;
@@ -268,13 +245,11 @@ function sendCSRResponse({
   store: Store<RootState>;
   clientConfig: any;
   content: any;
-  assets: any;
   timing: any;
 }) {
   timing.startTime("html", "Rendering HTML");
   const props = {
     content,
-    assets,
     initialState: JSON.stringify(store.getState()),
     clientConfig: JSON.stringify(clientConfig),
   };
@@ -285,20 +260,16 @@ function sendCSRResponse({
 
 function sendSSRResponse({
   res,
-  status,
   store,
   clientConfig,
-  assets,
   content,
   timing,
   styles,
 }: {
   res: Response;
-  status: number;
   store: Store<RootState>;
   clientConfig: any;
   content: any;
-  assets: any;
   timing: any;
   styles: any[];
 }) {
@@ -313,7 +284,6 @@ function sendSSRResponse({
   timing.endTime("ssr");
   const props = {
     content,
-    assets,
     styles,
     initialState: JSON.stringify(store.getState()),
     clientConfig: JSON.stringify(clientConfig),
@@ -321,37 +291,6 @@ function sendSSRResponse({
 
   const html = renderToStaticMarkup(<Html {...props} />);
   res.send(`<!doctype html>\n${html}`);
-}
-
-/*
- * CSSファイルをロードします。
- */
-function loadCssChunks({
-  clientStats,
-  assets,
-}: {
-  clientStats: any;
-  assets: any;
-}) {
-  debug(Object.keys(clientStats));
-  const { path: outputPath } = assets.find((asset: any) => asset.buildOutput);
-  const { assetsByChunkName: chunks, publicPath } = clientStats;
-  return transform(
-    (result: any, chunkName: string) => {
-      const chunkArray = ensureArray(chunks[chunkName]);
-      const cssChunk = chunkArray.find(chunk => chunk.endsWith(".css"));
-      if (cssChunk) {
-        result[cssChunk] = {
-          href: `${publicPath}${cssChunk}`,
-          content: fs.readFileSync(path.join(outputPath, cssChunk), "utf-8"),
-        };
-      }
-
-      return result;
-    },
-    {},
-    Object.keys(chunks),
-  );
 }
 
 function ensureArray<T>(v: null | T | T[]): T[] {
@@ -362,27 +301,4 @@ function ensureArray<T>(v: null | T | T[]): T[] {
     return v;
   }
   return [v];
-}
-
-/*
- * コードスプリットされたチャンクに関する情報を収集します。
- * SSRで実際に使用されたチャンクのみをレンダリングできるようにします。
- */
-function getAssets({
-  clientStats,
-  cssChunks,
-}: {
-  clientStats: any;
-  cssChunks: any;
-}) {
-  const chunkNames = flushChunkNames();
-  const assets = flushChunks(clientStats, { chunkNames });
-  const { publicPath } = assets;
-  const stylesheets = assets.stylesheets.map(
-    stylesheet => `${publicPath}/${stylesheet}`,
-  );
-  assets.cssHashRaw = mapValues((value: string) =>
-    stylesheets.includes(value) ? "loaded" : value,
-  )(assets.cssHashRaw);
-  return assets;
 }
