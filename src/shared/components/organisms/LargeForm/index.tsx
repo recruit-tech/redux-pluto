@@ -9,8 +9,6 @@ import {
 } from "../../../redux/analytics/utils";
 import LargeForm from "./LargeForm";
 
-console.log("large form loaded");
-
 type Props = {
   initialValues: {
     items: Array<{ message: string }>;

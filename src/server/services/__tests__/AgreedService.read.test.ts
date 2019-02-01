@@ -1,4 +1,5 @@
 /* eslint-disable global-require */
+/* eslint-disable @typescript-eslint/no-var-requires */
 import assert from "power-assert";
 import config from "../../configs/test";
 import AgreedService from "../AgreedService";
