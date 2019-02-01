@@ -143,12 +143,7 @@
     "@typescript-eslint/no-use-before-define": ["off"],
     "@typescript-eslint/explicit-member-accessibility": ["off"],
     "@typescript-eslint/array-type": ["off"],
-    // WIP: Important
-    // "@typescript-eslint/no-unused-vars": ["error", {
-    //   "vars": "local",
-    //   "args": "after-used",
-    //   "ignoreRestSiblings": false
-    // }],
-    "@typescript-eslint/no-unused-vars": ["off"]
+    // Use no-unused-locals on tsc
+    "@typescript-eslint/no-unused-vars": ["off"],
   }
 }

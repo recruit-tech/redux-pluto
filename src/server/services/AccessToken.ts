@@ -30,7 +30,7 @@ export default class AccessToken {
     this.requestHandlers = ["login", "logout"];
   }
 
-  create(req: any, resource: any, params: any, body?: any, config?: any) {
+  create(_req: any, _resource: any, params: any, _body?: any, _config?: any) {
     const validationErrors = validate(params);
     if (Object.keys(validationErrors).length) {
       return rejectWith(fumble.http.badRequest(), validationErrors);
