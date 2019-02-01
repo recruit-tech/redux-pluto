@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { regexp, shape, required, combine } from "favalid";
 
 const ERROR_REQUIRED = () => "必須項目です。";

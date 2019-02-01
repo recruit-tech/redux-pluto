@@ -95,6 +95,7 @@ export default class AccessToken {
       path: "/login",
       post: (req: any, res: any, next: Function) => {
         self
+          /* eslint-disable no-undefined */
           .create(req, {}, req.body, config, undefined as any)
           .then(result => {
             res.set(result.meta.headers);

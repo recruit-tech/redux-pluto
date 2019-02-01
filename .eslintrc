@@ -34,6 +34,31 @@
 		}
 	},
 	"rules": {
+    // Possible Errors
+    "no-console": "error",
+    "no-unexpected-multiline": "error",
+
+    // Best Practices
+    "class-methods-use-this": "off",
+    "consistent-return": ["error", {"treatUndefinedAsUnspecified": true}],
+    "dot-location": ["error", "property"],
+    "no-implicit-globals": "error",
+    "no-invalid-this": "error",
+    "no-param-reassign": ["error", {"props": false}],
+    "no-unmodified-loop-condition": "error",
+    "no-useless-call": "error",
+    "no-void": "off",
+    "no-else-return": "off", // for type refinements
+
+    "no-catch-shadow": "error",
+    "no-label-var": "error",
+    "no-shadow": ["error", {"allow": ["cb", "next", "req", "res", "err", "error"]}],
+    "no-undef-init": "error",
+    "no-undefined": "error",
+    "no-use-before-define": ["error", "nofunc"],
+    "no-unused-expressions": ["error", {"allowShortCircuit": true}],
+
+    // WIP: Disable @typescript-eslint rules
     "@typescript-eslint/ban-types": ["off"],
 		"@typescript-eslint/no-explicit-any": [
 			"off"
@@ -50,9 +75,6 @@
     "@typescript-eslint/no-object-literal-type-assertion": [
       "off"
     ],
-		"@typescript-eslint/no-unused-vars": [
-			"off"
-		],
 		"@typescript-eslint/camelcase": [
 			"off"
 		],
@@ -67,6 +89,13 @@
 		],
 		"@typescript-eslint/array-type": [
 			"off"
-		],
+    ],
+    // WIP: Important
+    // "@typescript-eslint/no-unused-vars": ["error", {
+    //   "vars": "local",
+    //   "args": "after-used",
+    //   "ignoreRestSiblings": false
+    // }],
+    "@typescript-eslint/no-unused-vars": ["off"]
 	}
 }
