@@ -17,6 +17,13 @@ import reducer from "./modules/reducer";
 import mockLoggingMiddleware from "./middleware/mockLoggingMiddleware";
 import { RootState } from "./modules/reducer";
 
+// for hot loader patch
+declare global {
+  interface NodeModule {
+    hot: any;
+  }
+}
+
 export default function(
   initialState: RootState,
   options: {
