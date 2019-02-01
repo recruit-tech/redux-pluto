@@ -1,3 +1,4 @@
 #Do not lint imported s_code javascript codes
 src/client/vendor/s_code/**/*.js
 flow-typed
+*.d.ts

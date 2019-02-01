@@ -2,11 +2,11 @@
   "extends": [
     "eslint-config-airbnb",
     "plugin:react/recommended",
-    "prettier",
-    "prettier/react"
+    "prettier/react",
+    "prettier"
   ],
 
-  "parser": "typescript-eslint-parser",
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
@@ -31,6 +31,7 @@
     "dependencies",
     "lodash-fp",
     "prettier",
+    "@typescript-eslint"
   ],
 
   "globals": {
@@ -105,7 +106,7 @@
 
     // JSX
     "react/jsx-equals-spacing": "error",
-    "react/jsx-filename-extension": ["error", {"extensions": [".js", ".jsx"]}],
+    "react/jsx-filename-extension": ["error", {"extensions": [".js", ".jsx", ".tsx"]}],
     "react/jsx-indent": ["error", 2],
     "react/jsx-key": "error",
     "react/jsx-max-props-per-line": "off", // fixed by prettier
