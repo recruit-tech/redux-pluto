@@ -1,50 +1,50 @@
 {
-	"env": {
-		"browser": true,
-		"es6": true,
-		"jest": true
-	},
-	"extends": [
-		"plugin:react/recommended",
-		"plugin:@typescript-eslint/recommended",
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
     "plugin:react/recommended",
     "prettier/react",
     "prettier"
-	],
-	"parser": "@typescript-eslint/parser",
-	"parserOptions": {
-		"ecmaFeatures": {
-			"jsx": true
-		},
-		"ecmaVersion": 2018,
-		"sourceType": "module"
-	},
-	"plugins": [
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": [
     "import",
     "react",
     "dependencies",
     "lodash-fp",
     "prettier",
     "@typescript-eslint"
-	],
-	"settings": {
-		"react": {
-			"version": "detect"
-		}
-	},
-	"rules": {
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
     // Possible Errors
     "no-console": "error",
     "no-unexpected-multiline": "error",
 
     // Best Practices
     "class-methods-use-this": "off",
-    "consistent-return": ["error", {"treatUndefinedAsUnspecified": true}],
+    "consistent-return": ["error", { "treatUndefinedAsUnspecified": true }],
     "dot-location": ["error", "property"],
     "no-implicit-globals": "error",
     "no-invalid-this": "error",
-    "no-param-reassign": ["error", {"props": false}],
+    "no-param-reassign": ["error", { "props": false }],
     "no-unmodified-loop-condition": "error",
     "no-useless-call": "error",
     "no-void": "off",
@@ -52,11 +52,14 @@
 
     "no-catch-shadow": "error",
     "no-label-var": "error",
-    "no-shadow": ["error", {"allow": ["cb", "next", "req", "res", "err", "error"]}],
+    "no-shadow": [
+      "error",
+      { "allow": ["cb", "next", "req", "res", "err", "error"] }
+    ],
     "no-undef-init": "error",
     "no-undefined": "error",
     "no-use-before-define": ["error", "nofunc"],
-    "no-unused-expressions": ["error", {"allowShortCircuit": true}],
+    "no-unused-expressions": ["error", { "allowShortCircuit": true }],
 
     // Node.js
     "callback-return": "error",
@@ -70,7 +73,7 @@
     "constructor-super": "error",
     "generator-star-spacing": ["error", "after"],
     "no-this-before-super": "error",
-    "prefer-arrow-callback": ["error", {"allowNamedFunctions": true}],
+    "prefer-arrow-callback": ["error", { "allowNamedFunctions": true }],
     "prefer-spread": "error",
     "prefer-template": "off",
 
@@ -105,7 +108,7 @@
     "dependencies/case-sensitive": "error",
     "dependencies/no-cycles": "error",
     "dependencies/no-unresolved": "off",
-    
+
     // lodash-fp
     "lodash-fp/consistent-compose": ["error", "flow"],
     "lodash-fp/consistent-name": ["error", "lodash"],
@@ -121,45 +124,25 @@
     "lodash-fp/no-unused-result": "error",
     "lodash-fp/prefer-compact": "error",
     "lodash-fp/prefer-composition-grouping": "error",
-    "lodash-fp/prefer-constant": ["error", {"arrowFunctions": false}],
+    "lodash-fp/prefer-constant": ["error", { "arrowFunctions": false }],
     "lodash-fp/prefer-flat-map": "error",
     "lodash-fp/prefer-get": "error",
-    "lodash-fp/prefer-identity": ["error", {"arrowFunctions": false}],
+    "lodash-fp/prefer-identity": ["error", { "arrowFunctions": false }],
     "lodash-fp/preferred-alias": "off",
     // "lodash-fp/use-fp": "error",
 
     // WIP: Disable @typescript-eslint rules
     "@typescript-eslint/ban-types": ["off"],
-		"@typescript-eslint/no-explicit-any": [
-			"off"
-    ],
-    "@typescript-eslint/prefer-interface": [
-			"off"
-		],
-		"@typescript-eslint/indent": [
-			"off"
-    ],
-    "@typescript-eslint/no-object-literal": [
-      "off"
-    ],
-    "@typescript-eslint/no-object-literal-type-assertion": [
-      "off"
-    ],
-		"@typescript-eslint/camelcase": [
-			"off"
-		],
-		"@typescript-eslint/explicit-function-return-type": [
-			"off"
-		],
-		"@typescript-eslint/no-use-before-define": [
-			"off"
-		],
-		"@typescript-eslint/explicit-member-accessibility": [
-			"off"
-		],
-		"@typescript-eslint/array-type": [
-			"off"
-    ],
+    "@typescript-eslint/no-explicit-any": ["off"],
+    "@typescript-eslint/prefer-interface": ["off"],
+    "@typescript-eslint/indent": ["off"],
+    "@typescript-eslint/no-object-literal": ["off"],
+    "@typescript-eslint/no-object-literal-type-assertion": ["off"],
+    "@typescript-eslint/camelcase": ["off"],
+    "@typescript-eslint/explicit-function-return-type": ["off"],
+    "@typescript-eslint/no-use-before-define": ["off"],
+    "@typescript-eslint/explicit-member-accessibility": ["off"],
+    "@typescript-eslint/array-type": ["off"],
     // WIP: Important
     // "@typescript-eslint/no-unused-vars": ["error", {
     //   "vars": "local",
@@ -167,5 +150,5 @@
     //   "ignoreRestSiblings": false
     // }],
     "@typescript-eslint/no-unused-vars": ["off"]
-	}
+  }
 }
