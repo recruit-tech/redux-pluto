@@ -61,6 +61,8 @@ export default (mapPropsToActions = {}) => (
 
   class WrapperComponent extends Component {
     render() {
+      // WIP: react-redux v6 で React.Context を使うようになって、 this.context.store にアクセスできなくなった
+      // ref. https://github.com/reduxjs/react-redux/releases/tag/v6.0.0
       const props = {
         ...this.props,
         ...getDecoratedPropFunctions(this.props, this.context.store),
