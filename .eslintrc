@@ -58,6 +58,76 @@
     "no-use-before-define": ["error", "nofunc"],
     "no-unused-expressions": ["error", {"allowShortCircuit": true}],
 
+    // Node.js
+    "callback-return": "error",
+    "no-path-concat": "error",
+
+    // Stylistic Issues
+    "linebreak-style": ["error", "unix"],
+    "no-plusplus": "off",
+
+    // ES2015
+    "constructor-super": "error",
+    "generator-star-spacing": ["error", "after"],
+    "no-this-before-super": "error",
+    "prefer-arrow-callback": ["error", {"allowNamedFunctions": true}],
+    "prefer-spread": "error",
+    "prefer-template": "off",
+
+    // React
+    "react/no-danger": "error",
+    "react/no-deprecated": "error",
+    "react/no-did-mount-set-state": "error",
+    "react/no-did-update-set-state": "error",
+    "react/no-direct-mutation-state": "error",
+    "react/no-is-mounted": "error",
+    "react/no-set-state": "error",
+    "react/no-string-refs": "error",
+    "react/prefer-stateless-function": "error",
+    "react/prop-types": "off",
+    "react/self-closing-comp": "off",
+    "react/destructuring-assignment": "off",
+
+    // a11y
+    "jsx-a11y/no-static-element-interactions": "off",
+
+    // "jsx-a11y/anchor-is-valid": [ "error", {
+    //   "components": [ "Link" ],
+    //   "specialLink": [ "to" ]
+    // }],
+    "jsx-a11y/label-has-for": "off",
+    // "jsx-a11y/label-has-associated-control": [ 2, {
+    //   "controlComponents": ["Field"],
+    //   "depth": 2
+    // }],
+
+    // dependencies
+    "dependencies/case-sensitive": "error",
+    "dependencies/no-cycles": "error",
+    "dependencies/no-unresolved": "off",
+    
+    // lodash-fp
+    "lodash-fp/consistent-compose": ["error", "flow"],
+    "lodash-fp/consistent-name": ["error", "lodash"],
+    "lodash-fp/no-argumentless-calls": "error",
+    "lodash-fp/no-chain": "error",
+    "lodash-fp/no-extraneous-args": "error",
+    "lodash-fp/no-extraneous-function-wrapping": "error",
+    "lodash-fp/no-extraneous-iteratee-args": "error",
+    "lodash-fp/no-for-each": "off",
+    "lodash-fp/no-partial-of-curried": "error",
+    "lodash-fp/no-single-composition": "error",
+    "lodash-fp/no-submodule-destructuring": "error",
+    "lodash-fp/no-unused-result": "error",
+    "lodash-fp/prefer-compact": "error",
+    "lodash-fp/prefer-composition-grouping": "error",
+    "lodash-fp/prefer-constant": ["error", {"arrowFunctions": false}],
+    "lodash-fp/prefer-flat-map": "error",
+    "lodash-fp/prefer-get": "error",
+    "lodash-fp/prefer-identity": ["error", {"arrowFunctions": false}],
+    "lodash-fp/preferred-alias": "off",
+    // "lodash-fp/use-fp": "error",
+
     // WIP: Disable @typescript-eslint rules
     "@typescript-eslint/ban-types": ["off"],
 		"@typescript-eslint/no-explicit-any": [
