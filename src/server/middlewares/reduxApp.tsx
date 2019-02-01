@@ -292,13 +292,3 @@ function sendSSRResponse({
   const html = renderToStaticMarkup(<Html {...props} />);
   res.send(`<!doctype html>\n${html}`);
 }
-
-function ensureArray<T>(v: null | T | T[]): T[] {
-  if (v == null) {
-    return [];
-  }
-  if (Array.isArray(v)) {
-    return v;
-  }
-  return [v];
-}
