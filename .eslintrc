@@ -1,171 +1,72 @@
 {
-  "extends": [
-    "eslint-config-airbnb",
+	"env": {
+		"browser": true,
+		"es6": true,
+		"jest": true
+	},
+	"extends": [
+		"plugin:react/recommended",
+		"plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
     "plugin:react/recommended",
     "prettier/react",
     "prettier"
-  ],
-
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "jsx": true,
-    "useJSXTextNode": true
-  },
-
-  "env": {
-    "browser": true,
-    "node": true,
-    "mocha": true,
-    "jest": true,
-    "es6": true
-  },
-
-  "plugins": [
+	],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": 2018,
+		"sourceType": "module"
+	},
+	"plugins": [
     "import",
     "react",
     "dependencies",
     "lodash-fp",
     "prettier",
     "@typescript-eslint"
-  ],
-
-  "globals": {
-    "$FIXME": true,
-    "__CLIENT__": true,
-    "__SERVER__": true,
-    "__DEVELOPMENT__": true,
-    "__MOCK_BUILD__": true,
-    "__DISABLE_SSR__": true,
-    "__ENABLE_OFFLOAD__": true,
-    "__DISABLE_INLINE_CSS__": true,
-    "__REPORTSUITE_ENV__": true,
-    "__CSS_CHUNKS__": true
-  },
-
-  "rules": {
-    // Possible Errors
-    "no-console": "error",
-    "no-unexpected-multiline": "error",
-
-    // Best Practices
-    "class-methods-use-this": "off",
-    "consistent-return": ["error", {"treatUndefinedAsUnspecified": true}],
-    "dot-location": ["error", "property"],
-    "no-implicit-globals": "error",
-    "no-invalid-this": "error",
-    "no-param-reassign": ["error", {"props": false}],
-    "no-unmodified-loop-condition": "error",
-    "no-useless-call": "error",
-    "no-void": "off",
-    "no-else-return": "off", // for type refinements
-
-    // Variables
-    "no-catch-shadow": "error",
-    "no-label-var": "error",
-    "no-shadow": ["error", {"allow": ["cb", "next", "req", "res", "err", "error"]}],
-    "no-undef-init": "error",
-    "no-undefined": "error",
-    "no-use-before-define": ["error", "nofunc"],
-    "no-unused-expressions": ["error", {"allowShortCircuit": true}],
-    "no-unused-vars": ["error", {"args": "none"}],
-
-    // Node.js
-    "callback-return": "error",
-    "no-path-concat": "error",
-
-    // Stylistic Issues
-    "linebreak-style": ["error", "unix"],
-    "no-plusplus": "off",
-
-    // ECMAScript 6
-    "constructor-super": "error",
-    "generator-star-spacing": ["error", "after"],
-    "no-this-before-super": "error",
-    "prefer-arrow-callback": ["error", {"allowNamedFunctions": true}],
-    "prefer-spread": "error",
-    "prefer-template": "off",
-
-    // React
-    "react/no-danger": "error",
-    "react/no-deprecated": "error",
-    "react/no-did-mount-set-state": "error",
-    "react/no-did-update-set-state": "error",
-    "react/no-direct-mutation-state": "error",
-    "react/no-is-mounted": "error",
-    "react/no-set-state": "error",
-    "react/no-string-refs": "error",
-    "react/prefer-stateless-function": "error",
-    "react/prop-types": "off",
-    "react/self-closing-comp": "off",
-    "react/destructuring-assignment": "off",
-
-    // JSX
-    "react/jsx-equals-spacing": "error",
-    "react/jsx-filename-extension": ["error", {"extensions": [".js", ".jsx", ".tsx"]}],
-    "react/jsx-indent": ["error", 2],
-    "react/jsx-key": "error",
-    "react/jsx-max-props-per-line": "off", // fixed by prettier
-    "react/jsx-no-duplicate-props": "error",
-    "react/jsx-tag-spacing": ["error", {"beforeSelfClosing": "always"}],
-    "react/jsx-wrap-multilines": "error",
-
-    // a11y
-    "jsx-a11y/no-static-element-interactions": "off",
-    "jsx-a11y/anchor-is-valid": [ "error", {
-      "components": [ "Link" ],
-      "specialLink": [ "to" ]
-    }],
-    // this rules Deprecated. 
-    // see:https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/label-has-for.md
-    "jsx-a11y/label-has-for": "off",
-    "jsx-a11y/label-has-associated-control": [ 2, {
-      "controlComponents": ["Field"],
-      "depth": 2
-    }],
-
-    // import
-    "import/order": [
-      "error", {
-        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"]
-      }
+	],
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
+	},
+	"rules": {
+    "@typescript-eslint/ban-types": ["off"],
+		"@typescript-eslint/no-explicit-any": [
+			"off"
     ],
-    "import/no-unresolved": [0],
-
-    // dependencies
-    "dependencies/case-sensitive": "error",
-    "dependencies/no-cycles": "error",
-    "dependencies/no-unresolved": "off",
-
-    // lodash-fp
-    "lodash-fp/consistent-compose": ["error", "flow"],
-    "lodash-fp/consistent-name": ["error", "lodash"],
-    "lodash-fp/no-argumentless-calls": "error",
-    "lodash-fp/no-chain": "error",
-    "lodash-fp/no-extraneous-args": "error",
-    "lodash-fp/no-extraneous-function-wrapping": "error",
-    "lodash-fp/no-extraneous-iteratee-args": "error",
-    "lodash-fp/no-for-each": "off",
-    "lodash-fp/no-partial-of-curried": "error",
-    "lodash-fp/no-single-composition": "error",
-    "lodash-fp/no-submodule-destructuring": "error",
-    "lodash-fp/no-unused-result": "error",
-    "lodash-fp/prefer-compact": "error",
-    "lodash-fp/prefer-composition-grouping": "error",
-    "lodash-fp/prefer-constant": ["error", {"arrowFunctions": false}],
-    "lodash-fp/prefer-flat-map": "error",
-    "lodash-fp/prefer-get": "error",
-    "lodash-fp/prefer-identity": ["error", {"arrowFunctions": false}],
-    "lodash-fp/preferred-alias": "off",
-    "lodash-fp/use-fp": "error",
-    // coding styles
-    "max-len": ["error", 100],
-
-    // prettier
-    "prettier/prettier": ["error"]
-  }
+    "@typescript-eslint/prefer-interface": [
+			"off"
+		],
+		"@typescript-eslint/indent": [
+			"off"
+    ],
+    "@typescript-eslint/no-object-literal": [
+      "off"
+    ],
+    "@typescript-eslint/no-object-literal-type-assertion": [
+      "off"
+    ],
+		"@typescript-eslint/no-unused-vars": [
+			"off"
+		],
+		"@typescript-eslint/camelcase": [
+			"off"
+		],
+		"@typescript-eslint/explicit-function-return-type": [
+			"off"
+		],
+		"@typescript-eslint/no-use-before-define": [
+			"off"
+		],
+		"@typescript-eslint/explicit-member-accessibility": [
+			"off"
+		],
+		"@typescript-eslint/array-type": [
+			"off"
+		],
+	}
 }
