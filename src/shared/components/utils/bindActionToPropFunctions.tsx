@@ -4,8 +4,8 @@ import { compose } from "recompose";
 import { isFunction, entries, reduce, filter } from "lodash/fp";
 import hoistStatics from "hoist-non-react-statics";
 import { MiddlewareAPI } from "redux";
-
-const { isRequired } = PropTypes.object;
+// @ts-ignore
+import { ReactReduxContext } from "react-redux";
 
 const getDisplayName = (component: React.ComponentType<any>) =>
   component.displayName || component.name;
@@ -61,11 +61,20 @@ export default (mapPropsToActions = {}) => (
 
   class WrapperComponent extends Component {
     render() {
-      const props = {
-        ...this.props,
-        ...getDecoratedPropFunctions(this.props, this.context.store),
-      };
-      return <WrappedComponent {...props} />;
+      return (
+        <ReactReduxContext.Consumer>
+          {({ store }: any) => {
+            return (
+              <WrappedComponent
+                {...{
+                  ...this.props,
+                  ...getDecoratedPropFunctions(this.props, store),
+                }}
+              />
+            );
+          }}
+        </ReactReduxContext.Consumer>
+      );
     }
   }
 
@@ -73,7 +82,7 @@ export default (mapPropsToActions = {}) => (
     WrappedComponent,
   )})`;
   (WrapperComponent as any).contextTypes = {
-    store: isRequired,
+    store: PropTypes.any.isRequired,
   };
 
   return hoistStatics(WrapperComponent, WrappedComponent);

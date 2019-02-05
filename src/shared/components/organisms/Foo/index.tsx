@@ -22,6 +22,7 @@ export default compose(
       },
     }),
   ),
+  // 例えばここを書き換えて捨てる
   bindActionToPropFunctions({
     onClickMe: ([fooVal]: [string], props: any, state: any) => () =>
       sendEvent(
