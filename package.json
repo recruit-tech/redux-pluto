@@ -121,7 +121,7 @@
     "@types/express-session": "^1.15.11",
     "@types/history": "^3.2.2",
     "@types/hoist-non-react-statics": "^3.0.1",
-    "@types/jest": "^23.3.10",
+    "@types/jest": "^24.0.0",
     "@types/joi": "^14.0.0",
     "@types/jsonwebtoken": "^8.3.0",
     "@types/jwt-decode": "^2.2.1",
