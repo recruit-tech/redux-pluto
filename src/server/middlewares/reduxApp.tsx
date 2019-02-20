@@ -222,8 +222,12 @@ function renderSSR({
   const content = renderToString(jsx);
   const styles = sheet.getStyleElement();
 
+  const { routes } = renderProps;
+  const status = routes[routes.length - 1].status || 200;
+
   sendSSRResponse({
     res,
+    status,
     store,
     content,
     clientConfig,
@@ -260,6 +264,7 @@ function sendCSRResponse({
 
 function sendSSRResponse({
   res,
+  status,
   store,
   clientConfig,
   content,
@@ -267,6 +272,7 @@ function sendSSRResponse({
   styles,
 }: {
   res: Response;
+  status: number;
   store: Store<RootState>;
   clientConfig: any;
   content: any;
@@ -290,5 +296,5 @@ function sendSSRResponse({
   };
 
   const html = renderToStaticMarkup(<Html {...props} />);
-  res.send(`<!doctype html>\n${html}`);
+  res.status(status).send(`<!doctype html>\n${html}`);
 }
