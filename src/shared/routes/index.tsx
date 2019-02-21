@@ -21,6 +21,7 @@ import {
   loadFoo,
   loadLargeForm,
   loadLogin,
+  loadCanvas,
   loadHackerNews,
   loadUploadSample,
 } from "./misc";
@@ -53,6 +54,8 @@ export default function getRoutes(store: any) {
           <Route path="largeform" getComponent={loadLargeForm} />
 
           <Route path="uploadsample" getComponent={loadUploadSample} />
+
+          <Route path="canvas" getComponent={loadCanvas} />
 
           <Route path="hn" getComponent={loadHackerNews} />
 

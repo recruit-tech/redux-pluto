@@ -40,6 +40,13 @@ export function loadLogin(_: any, cb: any) {
   );
 }
 
+export function loadCanvas(_: any, cb: any) {
+  return import(/* webpackChunkName: "misc" */ "../components/organisms/Canvas").then(
+    result => cb(null, result.default),
+    cb,
+  );
+}
+
 export function loadUploadSample(_: any, cb: any) {
   return import(/* webpackChunkName: "misc" */ "../components/organisms/UploadSample").then(
     result => cb(null, result.default),

@@ -29,6 +29,7 @@ const links: HeaderLink[] = [
   { key: "hacker-news", to: "/hn", label: "HackerNews" },
   { key: "login", to: "/login", label: "Login" },
   { key: "logout", to: "/logout", label: "Logout" },
+  { key: "canvas", to: "/canvas", label: "Canvas" },
 ];
 
 export default React.memo(function Header(props: Props) {
