@@ -15,7 +15,7 @@ export default compose(
     content,
     initialState,
     clientConfig,
-    assets: { publicPath, scripts, cssHashRaw },
+    assets: { publicPath, scripts },
     styles,
   } = props as any;
 
@@ -60,12 +60,6 @@ export default compose(
         <div id="devtools" />
         <script id="initial-state" type="text/plain" data-json={initialState} />
         <script id="client-config" type="text/plain" data-json={clientConfig} />
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{
-            __html: `window.__CSS_CHUNKS__= ${JSON.stringify(cssHashRaw)}`,
-          }}
-        />
       </body>
     </html>
   );
