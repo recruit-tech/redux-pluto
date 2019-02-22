@@ -6,6 +6,8 @@ import { createMemoryHistory, match } from "react-router";
 import { syncHistoryWithStore } from "react-router-redux";
 import { loadOnServer } from "redux-async-loader";
 import Fetchr from "fetchr";
+import { flushChunkNames } from "react-universal-component/server";
+import flushChunks from "webpack-flush-chunks";
 import { noop } from "lodash/fp";
 import debugFactory from "debug";
 import createStore from "../../shared/redux/createStore";
@@ -30,6 +32,7 @@ const logger = __DEVELOPMENT__
 
 export default function createReduxApp(config: any) {
   const maxAge = Math.floor(config.offload.cache.maxAge / 1000);
+
   /*
    * 全リクエストで共有される初期データのためのStoreです。
    */
@@ -128,6 +131,7 @@ export default function createReduxApp(config: any) {
               res,
               store,
               renderProps,
+              config,
               clientConfig,
               timing,
             });
@@ -145,6 +149,7 @@ export default function createReduxApp(config: any) {
               res,
               store,
               renderProps,
+              config,
               clientConfig,
               timing,
             });
@@ -191,11 +196,13 @@ function matchRoutes(options: any) {
 }
 
 function renderCSR({ res, store, config, clientConfig, timing }: any) {
+  const assets = (flushChunks as any)(config.clientStats);
   sendCSRResponse({
     res,
     store,
     status: 200,
     clientConfig,
+    assets,
     timing,
   } as any);
 }
@@ -204,12 +211,14 @@ function renderSSR({
   res,
   store,
   renderProps,
+  config,
   clientConfig,
   timing,
 }: {
   res: Response;
   store: Store<RootState>;
   renderProps: any;
+  config: any;
   clientConfig: any;
   timing: any;
 }) {
@@ -225,12 +234,16 @@ function renderSSR({
   const { routes } = renderProps;
   const status = routes[routes.length - 1].status || 200;
 
+  const chunkNames = flushChunkNames();
+  const assets = flushChunks(config.clientStats, { chunkNames });
+
   sendSSRResponse({
     res,
     status,
     store,
     content,
     clientConfig,
+    assets,
     timing,
     styles,
   });
@@ -242,6 +255,7 @@ function sendCSRResponse({
   store,
   clientConfig,
   content,
+  assets,
   timing,
 }: {
   res: Response;
@@ -249,11 +263,13 @@ function sendCSRResponse({
   store: Store<RootState>;
   clientConfig: any;
   content: any;
+  assets: any;
   timing: any;
 }) {
   timing.startTime("html", "Rendering HTML");
   const props = {
     content,
+    assets,
     initialState: JSON.stringify(store.getState()),
     clientConfig: JSON.stringify(clientConfig),
   };
@@ -267,6 +283,7 @@ function sendSSRResponse({
   status,
   store,
   clientConfig,
+  assets,
   content,
   timing,
   styles,
@@ -276,6 +293,7 @@ function sendSSRResponse({
   store: Store<RootState>;
   clientConfig: any;
   content: any;
+  assets: any;
   timing: any;
   styles: any[];
 }) {
@@ -290,6 +308,7 @@ function sendSSRResponse({
   timing.endTime("ssr");
   const props = {
     content,
+    assets,
     styles,
     initialState: JSON.stringify(store.getState()),
     clientConfig: JSON.stringify(clientConfig),
