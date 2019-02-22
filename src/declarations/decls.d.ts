@@ -74,7 +74,6 @@ declare var __ENABLE_OFFLOAD__: boolean;
 declare var __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
 declare var __CLIENT__: boolean;
 declare var __SERVER__: boolean;
-declare var __CSS_CHUNKS__: any;
 
 interface Window {
   devToolsExtension: any;
