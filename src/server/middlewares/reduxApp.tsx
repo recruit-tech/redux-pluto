@@ -316,12 +316,3 @@ function sendSSRResponse({
   const html = renderToStaticMarkup(<Html {...props} />);
   res.send(`<!doctype html>\n${html}`);
 }
-
-/*
- * コードスプリットされたチャンクに関する情報を収集します。
- * SSRで実際に使用されたチャンクのみをレンダリングできるようにします。
- */
-function getAssets({ clientStats }: { clientStats: any }) {
-  const chunkNames = flushChunkNames();
-  return flushChunks(clientStats, { chunkNames });
-}
