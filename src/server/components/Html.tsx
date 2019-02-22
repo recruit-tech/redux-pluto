@@ -1,12 +1,23 @@
 /* eslint-disable react/no-danger */
+import PropTypes from "prop-types";
 import React from "react";
+import { compose, setPropTypes } from "recompose";
 
-export default function Html(props: {
-  content: string;
-  initialState: string;
-  clientConfig: string;
-}) {
-  const { content, initialState, clientConfig, styles } = props as any;
+export default compose(
+  setPropTypes({
+    assets: PropTypes.object.isRequired,
+    content: PropTypes.string,
+    initialState: PropTypes.string.isRequired,
+    clientConfig: PropTypes.string.isRequired,
+  }),
+)(function Html(props) {
+  const {
+    content,
+    initialState,
+    clientConfig,
+    assets: { publicPath, scripts, cssHashRaw },
+    styles,
+  } = props as any;
 
   return (
     <html lang="ja">
@@ -34,13 +45,28 @@ export default function Html(props: {
             `,
           }}
         />
+        {scripts &&
+          scripts.map((script: any) => (
+            <script
+              key={script}
+              src={`${publicPath}/${script}`}
+              charSet="utf-8"
+              async
+            />
+          ))}
       </head>
       <body>
         <div id="root" dangerouslySetInnerHTML={{ __html: content }} />
         <div id="devtools" />
         <script id="initial-state" type="text/plain" data-json={initialState} />
         <script id="client-config" type="text/plain" data-json={clientConfig} />
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `window.__CSS_CHUNKS__= ${JSON.stringify(cssHashRaw)}`,
+          }}
+        />
       </body>
     </html>
   );
-}
+});
