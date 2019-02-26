@@ -138,3 +138,30 @@ export function rejectWith(error: any, output: any = {}) {
 export function isSafePath(pathname: string) {
   return path.normalize(pathname) == pathname;
 }
+
+export function formatPathname(pathname: string, args: Array<any>): string {
+  const placeholderNum = (pathname.match(/\?/g) || []).length;
+  if (placeholderNum != (args || []).length) {
+    throw new TypeError("number of placeholders should be same to args length");
+  }
+  if (placeholderNum == 0) {
+    return pathname;
+  }
+
+  let result = "";
+  let lastIndex = 0;
+
+  args.forEach(arg => {
+    if (arg == "") {
+      throw new TypeError("invalid pathname argument");
+    }
+    let encodedArg = encodeURIComponent(arg);
+    if (encodedArg == "." || encodedArg == "..") {
+      encodedArg = encodedArg.replace(/\./g, "%2E");
+    }
+    const nextIndex = pathname.indexOf("?", lastIndex);
+    result += pathname.slice(lastIndex, nextIndex) + encodedArg;
+    lastIndex = nextIndex + 1;
+  });
+  return result + pathname.slice(lastIndex);
+}
