@@ -35,7 +35,7 @@ const searchSearchListFail = createAction(SALON_LIST_SEARCH_FAIL);
 
 export function searchSearchList(params: any) {
   return steps(
-    searchSearchListRequest({ resource: "search", params }),
+    searchSearchListRequest({ resource: "search", params }) as any, // TODO: fix
     ({ payload }: { payload: any }) => fetchrRead(payload),
     [
       payload => searchSearchListsuccess({ params, data: payload.data }),
@@ -58,7 +58,7 @@ const searchMoreSearchListFail = createAction(SALON_LIST_SEARCH_MORE_FAIL);
 
 export function searchMoreSearchList(params: any) {
   return steps(
-    searchMoreSearchListRequest({ resource: "search", params }),
+    searchMoreSearchListRequest({ resource: "search", params }) as any,
     ({ payload }: { payload: any }) => fetchrRead(payload),
     [
       payload => searchMoreSearchListsuccess({ params, data: payload.data }),

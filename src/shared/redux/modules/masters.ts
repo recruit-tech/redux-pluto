@@ -1,5 +1,5 @@
 import { transform } from "lodash/fp";
-import { createAction, handleActions, Reducer } from "redux-actions";
+import { createAction, handleActions } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { fetchrRead } from "redux-effects-fetchr";
 import { createAsyncActionTypes } from "./utils";
@@ -42,10 +42,10 @@ const loadMasterFail = createAction(
 
 function loadMaster(resource: string) {
   return steps(
-    loadMasterRequest(resource),
+    loadMasterRequest(resource) as any, // TODO: Fix
     ({ payload }: { payload: any }) => fetchrRead(payload),
     [
-      payload => loadMasterSuccess(resource, payload.data),
+      (payload: any) => loadMasterSuccess(resource, payload.data),
       (error: any) => loadMasterFail(resource, error),
     ],
   );
@@ -78,7 +78,7 @@ export function loadAllMasters(): Promise<AnyAction> {
     loadHairColorMaster(),
     loadHairLengthMaster(),
     loadMenuContentMaster(),
-  ]);
+  ] as any); // TODO: Add better types
 }
 
 /**

@@ -101,6 +101,6 @@ function loggedIn(state: State, action: any) {
       };
 }
 
-function loggedOut(state: any) {
+function loggedOut(_state: any) {
   return INITIAL_STATE;
 }

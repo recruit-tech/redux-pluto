@@ -1,4 +1,4 @@
-import { createAction, handleActions, Reducer } from "redux-actions";
+import { createAction, handleActions } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { fetchrRead } from "redux-effects-fetchr";
 import { createAsyncActionTypes } from "./utils";
@@ -24,6 +24,7 @@ const searchStyleFail = createAction(SEARCH_STYLE_FAIL);
 export function searchStyle(params: any) {
   return steps(
     searchStyleRequest({ resource: "style", params }),
+    // @ts-ignore
     ({ payload }: { payload: any }) => fetchrRead(payload),
     [searchStyleSuccess, searchStyleFail],
   );
