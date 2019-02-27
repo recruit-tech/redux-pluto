@@ -152,10 +152,10 @@ export function formatPathname(pathname: string, args: Array<any>): string {
   let lastIndex = 0;
 
   args.forEach(arg => {
-    if (arg == "") {
+    let encodedArg = encodeURIComponent(arg);
+    if (encodedArg == "") {
       throw new TypeError("invalid pathname argument");
     }
-    let encodedArg = encodeURIComponent(arg);
     if (encodedArg == "." || encodedArg == "..") {
       encodedArg = encodedArg.replace(/\./g, "%2E");
     }

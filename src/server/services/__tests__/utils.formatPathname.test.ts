@@ -21,9 +21,10 @@ test("utils: formatPathname success", () => {
         "/foo/!%40%23%24%25%5E%26*()_%2B%3D-%60~%C2%A5%5C%5D%5B%7B%7D%7C'%3B%3A%22%2F.%2C%3C%3E%3F",
     },
     {
-      pathname: "/foo/?/bar/?/baz/?/hoge/?/fuga/",
-      args: ["piyo?", null, 123, ".."],
-      expected: "/foo/piyo%3F/bar/null/baz/123/hoge/%2E%2E/fuga/",
+      pathname: "/foo/?/bar/?/baz/?/hoge/?/fuga/?/",
+      args: ["piyo?", null, 123, "..", {}],
+      expected:
+        "/foo/piyo%3F/bar/null/baz/123/hoge/%2E%2E/fuga/%5Bobject%20Object%5D/",
     },
   ];
   testCases.forEach(testCase => {
@@ -70,6 +71,11 @@ test("utils: formatPathname error", () => {
     {
       pathname: "/foo/?/bar",
       args: [""],
+      expectedErr: { message: "invalid pathname argument" },
+    },
+    {
+      pathname: "/foo/?/bar/?",
+      args: [[], []],
       expectedErr: { message: "invalid pathname argument" },
     },
     {
