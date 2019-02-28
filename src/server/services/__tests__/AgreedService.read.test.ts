@@ -15,3 +15,17 @@ test("AgreedService: read success", async () => {
   const result = await agreedService.read();
   assert.deepStrictEqual(result, getText.response.values);
 });
+
+test("AgreedService: forbidden path traversal", async done => {
+  const agreedService: any = new AgreedService(
+    config,
+    "foo",
+    "/something/../agreedsample",
+    "foo",
+  );
+  agreedService.read().then(done.fail, (e: any) => {
+    assert.strictEqual(e.statusCode, 403);
+    assert.strictEqual(e.message, "Forbidden");
+    done();
+  });
+});
