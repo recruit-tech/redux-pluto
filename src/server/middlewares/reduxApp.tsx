@@ -231,11 +231,12 @@ function renderSSR({
   const content = renderToString(jsx);
   const styles = sheet.getStyleElement();
 
+  const { routes } = renderProps;
+  const status = routes[routes.length - 1].status || 200;
+
   const chunkNames = flushChunkNames();
   const assets = flushChunks(config.clientStats, { chunkNames });
 
-  const { routes } = renderProps;
-  const status = routes[routes.length - 1].status || 200;
   sendSSRResponse({
     res,
     status,
@@ -314,5 +315,5 @@ function sendSSRResponse({
   };
 
   const html = renderToStaticMarkup(<Html {...props} />);
-  res.send(`<!doctype html>\n${html}`);
+  res.status(status).send(`<!doctype html>\n${html}`);
 }
