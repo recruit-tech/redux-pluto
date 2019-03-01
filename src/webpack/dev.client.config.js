@@ -7,6 +7,11 @@ const rootDir = path.resolve(__dirname, "../..");
 const outputPath = path.resolve(rootDir, "build/client");
 const outputPublicPath = "/public/";
 
+const createStyledComponentsTransformer = require("typescript-plugin-styled-components")
+  .default;
+
+const styledComponentsTransformer = createStyledComponentsTransformer();
+
 module.exports = {
   mode: "development",
 
@@ -16,7 +21,7 @@ module.exports = {
 
   target: "web",
 
-  devtool: "inline-source-map",
+  devtool: "eval-cheap-module-source-map",
 
   context: rootDir,
 
@@ -31,7 +36,7 @@ module.exports = {
         noInfo: false,
       }),
     "react-hot-loader/patch",
-    path.resolve(rootDir, "src/client/index.js"),
+    path.resolve(rootDir, "src/client/index"),
   ],
 
   output: {
@@ -43,6 +48,20 @@ module.exports = {
 
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: "ts-loader",
+            options: {
+              transpileOnly: true,
+              getCustomTransformers: () => ({
+                before: [styledComponentsTransformer],
+              }),
+            },
+          },
+        ],
+      },
       {
         test: /\.js$/,
         include: [
@@ -66,16 +85,13 @@ module.exports = {
       path.resolve(rootDir, "src/shared"),
       "node_modules",
     ],
-    extensions: [".js", ".jsx"],
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
     enforceModuleExtension: false,
   },
 
   optimization: {
     noEmitOnErrors: true,
-    splitChunks: {
-      chunks: "all",
-      name: "bootstrap",
-    },
+    splitChunks: false,
   },
 
   plugins: [

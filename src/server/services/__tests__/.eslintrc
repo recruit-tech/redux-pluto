@@ -1,6 +1,6 @@
 {
   "rules": {
-    // eslint-plugin-import
-    "import/no-extraneous-dependencies": "off"
+    "import/no-extraneous-dependencies": "off",
+    "@typescript-eslint/no-var-requires": "off"
   }
 }

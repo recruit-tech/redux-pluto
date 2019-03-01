@@ -1,5 +1,7 @@
-semi: true
-trailingComma: all
-bracketSpacing: true
-jsxBracketSameLine: true
-parser: flow
+{
+  "semi": true,
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "jsxBracketSameLine": true,
+  "parser": "typescript"
+}

@@ -74,12 +74,12 @@ jobs:
       - <<: *restore
       - <<: *restore_lock
       - run: npm run lint
-  flow:
+  typecheck:
     <<: *build_image
     steps:
       - <<: *restore
       - <<: *restore_lock
-      - run: npm run flow
+      - run: npm run typecheck
   audit:
     <<: *build_image
     steps:
@@ -123,7 +123,7 @@ workflows:
       - lint:
           requires:
             - install
-      - flow:
+      - typecheck:
           requires:
             - install
       - audit:
@@ -144,7 +144,7 @@ workflows:
       - upload_lock:
           requires:
             - lint
-            - flow
+            - typecheck
             - audit
             - build-asset
             - build-storybook
