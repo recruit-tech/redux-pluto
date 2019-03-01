@@ -144,7 +144,7 @@ export function formatPathname(pathname: string, params: Array<any>): string {
   return pathname
     .split("/")
     .map(part => {
-      if (part != "?") {
+      if (part !== "?") {
         return part;
       }
       const param = paramsIter.next();
@@ -152,10 +152,10 @@ export function formatPathname(pathname: string, params: Array<any>): string {
         return part;
       }
       const encodedParam = encodeURIComponent(param.value);
-      if (encodedParam == "") {
+      if (encodedParam === "") {
         return part;
       }
-      if (encodedParam == "." || encodedParam == "..") {
+      if (encodedParam === "." || encodedParam === "..") {
         return encodedParam.replace(/\./g, "%2E");
       }
       return encodedParam;
