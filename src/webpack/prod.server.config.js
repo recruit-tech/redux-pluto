@@ -5,6 +5,11 @@ const webpack = require("webpack");
 const rootDir = path.resolve(__dirname, "../..");
 const outputPath = path.resolve(rootDir, "build/server");
 
+const createStyledComponentsTransformer = require("typescript-plugin-styled-components")
+  .default;
+
+const styledComponentsTransformer = createStyledComponentsTransformer();
+
 // if you're specifying externals to leave unbundled, you need to tell Webpack
 // to still bundle `react-universal-component`, `webpack-flush-chunks` and
 // `require-universal-module` so that they know they are running
@@ -31,7 +36,7 @@ module.exports = {
 
   devtool: "source-map",
 
-  entry: [path.resolve(rootDir, "src/server/index.js")],
+  entry: [path.resolve(rootDir, "src/server/index.ts")],
 
   externals,
 
@@ -49,6 +54,20 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: "ts-loader",
+            options: {
+              transpileOnly: true,
+              getCustomTransformers: () => ({
+                before: [styledComponentsTransformer],
+              }),
+            },
+          },
+        ],
+      },
+      {
         test: /\.js$/,
         include: [
           path.resolve(rootDir, "src/server"),
@@ -63,6 +82,10 @@ module.exports = {
         },
       },
     ],
+  },
+
+  resolve: {
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
 
   plugins: [

@@ -20,44 +20,43 @@ process.on("unhandledRejection", err => {
 debug("Creating http server...");
 const server = http.createServer();
 
-createApp()
-  .then(app => {
+(async () => {
+  try {
+    const app = await createApp();
     server.on("request", app);
-
     const port = +(process.env.PORT || 3000);
     server.listen(port, () => {
       debug(`Listening on port ${port}`);
     });
-  })
-  .catch(err => {
+  } catch (err) {
     debug(err);
     process.exit(1);
-  });
+  }
+})();
 
-function createApp() {
+async function createApp() {
   const app = express();
-  return (development
+  (await development)
     ? setupAppForDevelopment(app)
-    : setupAppForProduction(app)
-  ).then(() => {
-    app.use((req, res) => {
-      res.status(404).send("Not found");
-    });
+    : setupAppForProduction(app);
 
-    if (development) {
-      app.use(errorhandler());
-    } else {
-      app.use((err, req, res, next) => {
-        res.status(500).send("Internal Server Error");
-      });
-    }
-
-    return app;
+  app.use((req, res) => {
+    res.status(404).send("Not found");
   });
+
+  if (development) {
+    app.use(errorhandler());
+  } else {
+    app.use((err, req, res, next) => {
+      res.status(500).send("Internal Server Error");
+    });
+  }
+
+  return app;
 }
 
 /* eslint-disable global-require, import/no-extraneous-dependencies, import/no-unresolved */
-function setupAppForProduction(app) {
+async function setupAppForProduction(app) {
   const clientStats = require("../build/client/stats.json");
   const serverRender = require("../build/server/main.js").default;
   const promises = [];
@@ -72,7 +71,7 @@ function setupAppForProduction(app) {
   return Promise.all(promises);
 }
 
-function setupAppForDevelopment(app) {
+async function setupAppForDevelopment(app) {
   const { MemoryStore } = require("express-session");
   const webpack = require("webpack");
   const webpackDevMiddleware = require("webpack-dev-middleware");
