@@ -149,11 +149,11 @@ export function formatPathname(pathname: string, params: Array<any>): string {
       }
       const param = paramsIter.next();
       if (param.done) {
-        return part;
+        return "null";
       }
       const encodedParam = encodeURIComponent(param.value);
       if (encodedParam === "") {
-        return part;
+        return "null";
       }
       if (encodedParam === "." || encodedParam === "..") {
         return encodedParam.replace(/\./g, "%2E");

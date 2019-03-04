@@ -26,17 +26,21 @@ test("utils: formatPathname", () => {
       expected:
         "/foo/piyo%3F/bar/null/baz/123/hoge/%2E%2E/fuga/%5Bobject%20Object%5D/",
     },
-    { pathname: "/?", params: [], expected: "/?" },
+    { pathname: "/?", params: [], expected: "/null" },
     { pathname: "/", params: ["foo"], expected: "/" },
     { pathname: "/?", params: ["foo", 123, "..", "!@#$"], expected: "/foo" },
-    { pathname: "/?/?/?/?", params: ["foo"], expected: "/foo/?/?/?" },
-    { pathname: "/?", params: [""], expected: "/?" },
-    { pathname: "/foo/?/bar", params: [""], expected: "/foo/?/bar" },
-    { pathname: "/foo/?/bar/?", params: [[], []], expected: "/foo/?/bar/?" },
+    { pathname: "/?/?/?/?", params: ["foo"], expected: "/foo/null/null/null" },
+    { pathname: "/?", params: [""], expected: "/null" },
+    { pathname: "/foo/?/bar", params: [""], expected: "/foo/null/bar" },
+    {
+      pathname: "/foo/?/bar/?",
+      params: [[], []],
+      expected: "/foo/null/bar/null",
+    },
     {
       pathname: "/?/?/?/?",
       params: ["", "foo", "bar", "baz"],
-      expected: "/?/foo/bar/baz",
+      expected: "/null/foo/bar/baz",
     },
   ];
   testCases.forEach(testCase => {
