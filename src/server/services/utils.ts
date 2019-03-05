@@ -138,3 +138,27 @@ export function rejectWith(error: any, output: any = {}) {
 export function isSafePath(pathname: string) {
   return path.normalize(pathname) == pathname;
 }
+
+export function formatPathname(pathname: string, params: Array<any>): string {
+  const paramsIter = params[Symbol.iterator]();
+  return pathname
+    .split("/")
+    .map(part => {
+      if (part !== "?") {
+        return part;
+      }
+      const param = paramsIter.next();
+      if (param.done) {
+        return "!(MISSING)";
+      }
+      const encodedParam = encodeURIComponent(param.value);
+      if (encodedParam === "") {
+        return "!(EMPTY)";
+      }
+      if (encodedParam === "." || encodedParam === "..") {
+        return encodedParam.replace(/\./g, "%2E");
+      }
+      return encodedParam;
+    })
+    .join("/");
+}
