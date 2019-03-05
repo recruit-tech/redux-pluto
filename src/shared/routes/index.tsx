@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, IndexRoute } from "react-router";
-import { checkLogin, logout } from "../redux/modules/auth";
+import { logout } from "../redux/modules/auth";
 
 // non chunked components
 import {
@@ -64,21 +64,21 @@ export default function getRoutes(store: any) {
     };
   }
 
-  function requiredLogin({ nextState, cb }: { nextState: any; cb: Function }) {
-    store
-      .dispatch(checkLogin())
-      .then(
-        () => cb(),
-        (_err: any) => cb(`/login?location=${nextState.location.pathname}`),
-      );
-  }
+  // function requiredLogin({ nextState, cb }: { nextState: any; cb: Function }) {
+  //   store
+  //     .dispatch(checkLogin())
+  //     .then(
+  //       () => cb(),
+  //       (_err: any) => cb(`/login?location=${nextState.location.pathname}`),
+  //     );
+  // }
 
   function doLogout({ cb }: { cb: Function }) {
     store.dispatch(logout()).then(() => cb("/"), () => cb("/error"));
   }
 
-  function ignoreScrollBehavior(location: { action: string }) {
-    // REPLACEの時だけはスクロールを無視
-    return location.action === "REPLACE";
-  }
+  // function ignoreScrollBehavior(location: { action: string }) {
+  //   // REPLACEの時だけはスクロールを無視
+  //   return location.action === "REPLACE";
+  // }
 }
