@@ -5,8 +5,6 @@ import Indicator from "../atoms/Indicator";
 import Menu from "../atoms/Menu";
 import MenuItem from "../atoms/MenuItem";
 import Overlay from "../atoms/Overlay";
-import SearchLisItem from "../atoms/SearchListItem";
-import SearchMore from "../atoms/SearchMore";
 import withScreenshot from "./withScreenshot";
 
 storiesOf("Atoms/Indicator", module)
@@ -42,23 +40,3 @@ storiesOf("Atoms/MenuItem", module)
 storiesOf("Atoms/Overlay", module)
   .addDecorator(withScreenshot())
   .add("onClick", () => <Overlay onClick={action("clicked")}>overlay</Overlay>);
-storiesOf("Atoms/SearchListItem", module)
-  .addDecorator(withScreenshot())
-  .add("example", () => (
-    <SearchLisItem
-      item={{
-        id: "item_id",
-        name: "name",
-        logo_image_square: "/cat_large.jpeg",
-        description: "description",
-      }}
-      linkURL="/link"
-    />
-  ));
-storiesOf("Atoms/SearchMore", module)
-  .addDecorator(withScreenshot())
-  .add("onClick", () => (
-    <SearchMore onShow={action("clicked")}>
-      <button type="button">more</button>
-    </SearchMore>
-  ));

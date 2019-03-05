@@ -24,10 +24,7 @@ import {
   loadUploadSample,
 } from "./misc";
 
-import { loadSearchForm, loadSearch } from "./search";
-
 export default function getRoutes(store: any) {
-  const $IndexRoute: any = IndexRoute; // avoid type check
   const $Route: any = Route; // avoid type check
 
   return (
@@ -39,15 +36,6 @@ export default function getRoutes(store: any) {
           <Route path="bar" getComponent={loadBar} />
 
           <Route path="agreedsample" getComponent={loadAgreedSample} />
-
-          <Route path="search" onEnter={bindOnEnter(requiredLogin)}>
-            <$IndexRoute
-              queryKeys="keyword, page, more"
-              getComponent={loadSearchForm}
-              ignoreScrollBehavior={ignoreScrollBehavior}
-            />
-            <Route path=":searchId" getComponent={loadSearch} />
-          </Route>
 
           <Route path="uploadsample" getComponent={loadUploadSample} />
 
