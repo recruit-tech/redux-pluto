@@ -46,7 +46,6 @@ export function read(
       return results;
     },
     (error: any) => {
-      console.error(error);
       if (error.response) {
         return rejectWith(fumble.http.create(error.response.status), {
           name,
