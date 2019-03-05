@@ -25,7 +25,6 @@ const links: HeaderLink[] = [
   { key: "agreedsample", to: "/agreedsample", label: "AgeedSample" },
   { key: "uploadsample", to: "/uploadsample", label: "UploadSample" },
   { key: "search", to: "/search", label: "Search" },
-  { key: "largeform", to: "/largeform", label: "LargeForm" },
   { key: "hacker-news", to: "/hn", label: "HackerNews" },
   { key: "login", to: "/login", label: "Login" },
   { key: "logout", to: "/logout", label: "Logout" },

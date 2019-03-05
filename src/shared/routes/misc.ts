@@ -40,16 +40,6 @@ export function loadHackerNews(_: any, cb: any) {
   ).then(result => cb(null, result), cb);
 }
 
-export function loadLargeForm(_: any, cb: any) {
-  createUniversalComponent(
-    () =>
-      import(/* webpackChunkName: "misc" */ "../components/organisms/LargeForm"),
-    // @ts-ignore
-    () => require.resolveWeak("../components/organisms/LargeForm"),
-    chunkName,
-  ).then(result => cb(null, result), cb);
-}
-
 export function loadLogin(_: any, cb: any) {
   createUniversalComponent(
     () =>

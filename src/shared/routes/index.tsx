@@ -19,7 +19,6 @@ import {
   loadAgreedSample,
   loadBar,
   loadFoo,
-  loadLargeForm,
   loadLogin,
   loadHackerNews,
   loadUploadSample,
@@ -49,8 +48,6 @@ export default function getRoutes(store: any) {
             />
             <Route path=":searchId" getComponent={loadSearch} />
           </Route>
-
-          <Route path="largeform" getComponent={loadLargeForm} />
 
           <Route path="uploadsample" getComponent={loadUploadSample} />
 
