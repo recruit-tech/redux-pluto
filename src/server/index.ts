@@ -5,14 +5,10 @@ import compression from "compression";
 import session from "express-session";
 import csurf from "csurf";
 import favicon from "serve-favicon";
-import multer from "multer";
 import serverTiming from "server-timing";
 import { transform } from "lodash/fp";
 import config from "./configs";
 import { apiGateway, offloadDetector, reduxApp } from "./middlewares";
-import * as uploaders from "./uploaders";
-
-const upload = multer(config.multer);
 
 export default function renderer({
   clientStats,
@@ -29,15 +25,6 @@ export default function renderer({
   app.use(csurf(config.csurf));
   app.use(serverTiming());
   app.use(favicon(config.favicon));
-
-  Object.values(uploaders).forEach((Uploader: any) => {
-    const uploader = new Uploader(config);
-    app.post(
-      `${config.upload.path}${uploader.path}`,
-      upload.single("file"),
-      uploader.createMiddleware(),
-    );
-  });
 
   if (!__DEVELOPMENT__) {
     const gzipFiles = transform(

@@ -19,7 +19,7 @@
     "clean": "rimraf build/*",
     "clean-start": "run-s clean build start:prod",
     "fix": "run-s fix:*",
-    "fix:js": "eslint src 'src/**/*.{ts,tsx}' --fix && prettier 'src/**/*.{ts,tsx}' --write",
+    "fix:js": "eslint 'src/**/*.{ts,tsx}' --fix && prettier 'src/**/*.{ts,tsx}' --write",
     "lint": "run-s lint:*",
     "lint:js": "eslint 'src/**/*.{ts,tsx}'",
     "lint:style": "stylelint src",
