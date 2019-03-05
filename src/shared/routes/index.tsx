@@ -18,7 +18,6 @@ import {
 import {
   loadAgreedSample,
   loadBar,
-  loadFoo,
   loadLogin,
   loadHackerNews,
   loadUploadSample,
@@ -32,7 +31,6 @@ export default function getRoutes(store: any) {
       <Route component={DefaultLayout}>
         <Route components={{ header: Header, main: Main, footer: Footer }}>
           <IndexRoute component={Home} />
-          <Route path="foo" getComponent={loadFoo} />
           <Route path="bar" getComponent={loadBar} />
 
           <Route path="agreedsample" getComponent={loadAgreedSample} />
