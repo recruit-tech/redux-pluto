@@ -29,7 +29,11 @@ test("utils: formatPathname", () => {
     { pathname: "/?", params: [], expected: "/!(MISSING)" },
     { pathname: "/", params: ["foo"], expected: "/" },
     { pathname: "/?", params: ["foo", 123, "..", "!@#$"], expected: "/foo" },
-    { pathname: "/?/?/?/?", params: ["foo"], expected: "/foo/!(MISSING)/!(MISSING)/!(MISSING)" },
+    {
+      pathname: "/?/?/?/?",
+      params: ["foo"],
+      expected: "/foo/!(MISSING)/!(MISSING)/!(MISSING)",
+    },
     { pathname: "/?", params: [""], expected: "/!(EMPTY)" },
     { pathname: "/foo/?/bar", params: [""], expected: "/foo/!(EMPTY)/bar" },
     {
