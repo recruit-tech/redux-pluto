@@ -138,7 +138,7 @@
     "@types/recompose": "^0.30.0",
     "@types/redux-actions": "^2.3.1",
     "@types/redux-devtools": "^3.0.45",
-    "@types/redux-form": "^7.5.3",
+    "@types/redux-form": "^8.1.0",
     "@types/seamless-immutable": "^7.1.5",
     "@types/serve-favicon": "^2.2.30",
     "@types/styled-components": "^4.1.2",
