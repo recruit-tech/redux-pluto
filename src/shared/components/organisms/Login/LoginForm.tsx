@@ -35,15 +35,15 @@ const RenderInput = ({
 // prettier-ignore
 export default compose<
   {
-    error: boolean,
-    handleSubmit: any,
-    reset: any,
-    submitting: any,
-    submitFailed: any,
-    anyTouched: any,
-    csrf: string,
+    error: boolean;
+    handleSubmit: any;
+    reset: any;
+    submitting: any;
+    submitFailed: any;
+    anyTouched: any;
+    csrf: string;
   },
-  { invalid: boolean, csrf: string }
+  { invalid: boolean; csrf: string }
 >(
   onlyUpdateForPropTypes,
   setPropTypes({

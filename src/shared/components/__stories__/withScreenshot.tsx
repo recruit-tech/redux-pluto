@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 // Do nothing as storybook decorator
 const NoopDecorator = (fn: any) => fn();
 

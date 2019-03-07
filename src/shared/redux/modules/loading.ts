@@ -1,4 +1,4 @@
-import { createAction, handleActions, Reducer } from "redux-actions";
+import { createAction, handleActions } from "redux-actions";
 
 /**
  * Action types

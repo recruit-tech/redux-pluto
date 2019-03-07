@@ -10,16 +10,11 @@ import auth, { State as AuthState } from "./auth";
 import csrf, { State as CsrfState } from "./csrf";
 import counter, { State as CounterState } from "./counter";
 import loading, { State as LoadingState } from "./loading";
-import masters, { State as MastersState } from "./masters";
-import search, { State as SearchState } from "./search";
-import searchList, { State as SearchListstate } from "./searchList";
-import style, { State as StyleState } from "./style";
 import hackerNews, { State as HackerNewsState } from "./hackerNews";
 import uploadSample, { State as UploadSampleState } from "./uploadSample";
 
 export type RootState = {
   app: {
-    masters: MastersState;
     auth: AuthState;
     csrf: CsrfState;
     counter: CounterState;
@@ -29,9 +24,6 @@ export type RootState = {
     uploadSample: UploadSampleState;
   };
   page: {
-    search: SearchState;
-    searchList: SearchListstate;
-    style: StyleState;
     hackerNews: HackerNewsState;
   };
   // libraries
@@ -43,7 +35,6 @@ export type RootState = {
 
 export default combineReducers({
   app: combineReducers({
-    masters,
     auth,
     csrf,
     counter,
@@ -54,9 +45,6 @@ export default combineReducers({
   }),
   page: pageScopeReducer(
     combineReducers({
-      search,
-      searchList,
-      style,
       hackerNews,
     }),
   ),
@@ -69,10 +57,6 @@ export default combineReducers({
 /**
  * Selectors
  */
-export function mastersSelector(state: RootState): MastersState {
-  return state.app.masters;
-}
-
 export function authSelector(state: RootState): AuthState {
   return state.app.auth;
 }
@@ -87,18 +71,6 @@ export function alertSelector(state: RootState): AlertState {
 
 export function loadingSelector(state: RootState): LoadingState {
   return state.app.loading;
-}
-
-export function searchSelector(state: RootState): SearchState {
-  return state.page.search;
-}
-
-export function SearchListselector(state: RootState): SearchListstate {
-  return state.page.searchList;
-}
-
-export function styleSelector(state: RootState): StyleState {
-  return state.page.style;
 }
 
 export function routingSelector(state: RootState) {

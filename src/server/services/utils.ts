@@ -2,6 +2,7 @@ import { format as formatUrl } from "url";
 import fumble from "fumble";
 import debugFactory from "debug";
 import { AxiosInstance } from "axios";
+import path from "path";
 
 const debug = debugFactory("app:server:services");
 
@@ -13,6 +14,14 @@ export function read(
 ) {
   const formattedUrl = formatUrl({ pathname, query });
   debug(`[${name}]: GET ${formattedUrl}`);
+
+  if (!isSafePath(pathname)) {
+    return rejectWith(fumble.http.create(403), {
+      name,
+      formattedUrl,
+      reason: "unsafe pathname",
+    });
+  }
 
   return axios.get(formattedUrl).then(
     response => {
@@ -93,6 +102,14 @@ export function create(
   const formattedUrl = formatUrl({ pathname, query });
   debug(`[${name}]: POST ${formattedUrl} with body: ${JSON.stringify(body)}`);
 
+  if (!isSafePath(pathname)) {
+    return rejectWith(fumble.http.create(403), {
+      name,
+      formattedUrl,
+      reason: "unsafe pathname",
+    });
+  }
+
   return axios.post(formattedUrl, body, { headers }).then(
     response => response.data,
     error => {
@@ -116,4 +133,32 @@ export function rejectWith(error: any, output: any = {}) {
   error.output = output;
   debug(error);
   return Promise.reject(error);
+}
+
+export function isSafePath(pathname: string) {
+  return path.normalize(pathname) == pathname;
+}
+
+export function formatPathname(pathname: string, params: Array<any>): string {
+  const paramsIter = params[Symbol.iterator]();
+  return pathname
+    .split("/")
+    .map(part => {
+      if (part !== "?") {
+        return part;
+      }
+      const param = paramsIter.next();
+      if (param.done) {
+        return "!(MISSING)";
+      }
+      const encodedParam = encodeURIComponent(param.value);
+      if (encodedParam === "") {
+        return "!(EMPTY)";
+      }
+      if (encodedParam === "." || encodedParam === "..") {
+        return encodedParam.replace(/\./g, "%2E");
+      }
+      return encodedParam;
+    })
+    .join("/");
 }

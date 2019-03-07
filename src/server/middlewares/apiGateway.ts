@@ -1,6 +1,8 @@
 import Fetchr from "fetchr";
+import multer from "multer";
 import debugFactory from "debug";
 import * as services from "../services";
+import * as uploaders from "../uploaders";
 import { verify } from "../services/AccessToken";
 import requestAdapter from "./requestAdapter";
 import { Request, Response } from "express";
@@ -8,11 +10,21 @@ import { Request, Response } from "express";
 const debug = debugFactory("app:server:middleware:apiGateway");
 
 export default function apiGateway(config: any, app: any) {
+  const upload = multer(config.multer);
   Object.values(services).forEach((Service: any) => {
     const service = new Service(config);
     debug(`Registering sevice: ${service.name}`);
     Fetchr.registerService(makeServiceAdapter(service, config.auth.secret));
     requestAdapter(service, app, config);
+  });
+
+  Object.values(uploaders).forEach((Uploader: any) => {
+    const uploader = new Uploader(config);
+    app.post(
+      `${config.upload.path}${uploader.path}`,
+      upload.single("file"),
+      uploader.upload.bind(uploader),
+    );
   });
 
   return (req: any, res: any, next: Function) => {
