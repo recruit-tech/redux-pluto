@@ -28,7 +28,10 @@ export default function renderer({
 
   if (!__DEVELOPMENT__) {
     const assetsHandler = new AssetsHandler(clientStats.assets);
-    app.use(clientStats.publicPath, assetsHandler.handleUrl.bind(assetsHandler));
+    app.use(
+      clientStats.publicPath,
+      assetsHandler.handleUrl.bind(assetsHandler),
+    );
   }
 
   config.assets.forEach(asset => {
