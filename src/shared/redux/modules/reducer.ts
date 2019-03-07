@@ -16,6 +16,7 @@ import searchList, { State as SearchListstate } from "./searchList";
 import style, { State as StyleState } from "./style";
 import hackerNews, { State as HackerNewsState } from "./hackerNews";
 import uploadSample, { State as UploadSampleState } from "./uploadSample";
+import canvas, {State as CanvasState} from "./canvas";
 
 export type RootState = {
   app: {
@@ -33,6 +34,7 @@ export type RootState = {
     searchList: SearchListstate;
     style: StyleState;
     hackerNews: HackerNewsState;
+    canvas: CanvasState;
   };
   // libraries
   form: any;
@@ -58,6 +60,7 @@ export default combineReducers({
       searchList,
       style,
       hackerNews,
+      canvas,
     }),
   ),
   form: formReducer,
