@@ -6,8 +6,8 @@ import session from "express-session";
 import csurf from "csurf";
 import favicon from "serve-favicon";
 import serverTiming from "server-timing";
-import { transform } from "lodash/fp";
 import config from "./configs";
+import AssetsHandler from "./middlewares/AssetsHandler";
 import { apiGateway, offloadDetector, reduxApp } from "./middlewares";
 
 export default function renderer({
@@ -27,26 +27,8 @@ export default function renderer({
   app.use(favicon(config.favicon));
 
   if (!__DEVELOPMENT__) {
-    const gzipFiles = transform(
-      (result: any, asset: any) => {
-        const match = /(\.[^.]*)\.gz/.exec(asset.name);
-        if (match) {
-          const assetIndex = 1;
-          result[`/${asset.name}`] = match[assetIndex];
-        }
-      },
-      {},
-      clientStats.assets,
-    );
-    app.use(clientStats.publicPath, (req, res, next) => {
-      const fileType = gzipFiles[req.url + ".gz"];
-      if (fileType) {
-        res.type(fileType);
-        res.set("Content-Encoding", "gzip");
-        req.url += ".gz";
-      }
-      return next();
-    });
+    const assetsHandler = new AssetsHandler(clientStats.assets);
+    app.use(clientStats.publicPath, assetsHandler.handleUrl.bind(assetsHandler));
   }
 
   config.assets.forEach(asset => {
