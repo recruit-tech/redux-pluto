@@ -8,7 +8,6 @@ import { loadOnServer } from "redux-async-loader";
 import Fetchr from "fetchr";
 import { flushChunkNames } from "react-universal-component/server";
 import flushChunks from "webpack-flush-chunks";
-import { noop } from "lodash/fp";
 import debugFactory from "debug";
 import createStore from "../../shared/redux/createStore";
 import { checkLogin } from "../../shared/redux/modules/auth";
@@ -50,14 +49,11 @@ export default function createReduxApp(config: any) {
    */
   function reduxApp(
     req: Request & { csrfToken: any },
-    res: Response,
+    res: Response & { timing: any },
     next: Function,
   ): void {
     // @ts-ignore
     const memoryHistory = createMemoryHistory(req.url);
-    const timing: any = __DEVELOPMENT__
-      ? res
-      : { startTime: noop, endTime: noop };
 
     /*
      * リクエスト毎のStoreです。
@@ -73,7 +69,13 @@ export default function createReduxApp(config: any) {
     const clientConfig = getClientConfig(config, req);
 
     if (__DISABLE_SSR__) {
-      return void renderCSR({ res, store, config, clientConfig, timing });
+      return void renderCSR({
+        res,
+        store,
+        config,
+        clientConfig,
+        timing: res.timing,
+      });
     }
 
     /*
@@ -83,7 +85,13 @@ export default function createReduxApp(config: any) {
     if (__ENABLE_OFFLOAD__) {
       debug("offload mode, disable server-side rendering");
       res.set("cache-control", `max-age=${maxAge}`);
-      return void renderCSR({ res, store, config, clientConfig, timing });
+      return void renderCSR({
+        res,
+        store,
+        config,
+        clientConfig,
+        timing: res.timing,
+      });
     }
 
     /*
@@ -105,14 +113,14 @@ export default function createReduxApp(config: any) {
         /*
          * 初期表示に必要なデータをフェッチします。
          */
-        timing.startTime("prefetch", "Prefetch onLoad");
+        res.timing.startTime("prefetch", "Prefetch onLoad");
         store.dispatch(csrfAction(req.csrfToken()));
         return Promise.all([
           loadOnServer(renderProps, store),
           store.dispatch(checkLogin() as any).catch(() => null),
         ])
           .then(() => {
-            timing.endTime("prefetch");
+            res.timing.endTime("prefetch");
 
             /*
              * サーバサイドレンダリングを行います。
@@ -123,7 +131,7 @@ export default function createReduxApp(config: any) {
               renderProps,
               config,
               clientConfig,
-              timing,
+              timing: res.timing,
             });
           })
           .catch(err => {
@@ -141,7 +149,7 @@ export default function createReduxApp(config: any) {
               renderProps,
               config,
               clientConfig,
-              timing,
+              timing: res.timing,
             });
           });
       })
