@@ -1,4 +1,3 @@
-declare module "@storybook/*";
 declare module "ms";
 declare module "server-timing";
 // declare module "favalid";

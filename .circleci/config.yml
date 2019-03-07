@@ -108,12 +108,6 @@ jobs:
       - <<: *restore
       - <<: *restore_lock
       - run: npm run build
-  build-storybook:
-    <<: *build_image
-    steps:
-      - <<: *restore
-      - <<: *restore_lock
-      - run: npm run build-storybook
 
 workflows:
   version: 2
@@ -138,14 +132,10 @@ workflows:
       - build-asset:
           requires:
             - install
-      - build-storybook:
-          requires:
-            - install
       - upload_lock:
           requires:
             - lint
             - typecheck
             - audit
             - build-asset
-            - build-storybook
             - test
