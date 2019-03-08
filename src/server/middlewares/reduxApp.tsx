@@ -10,7 +10,6 @@ import { flushChunkNames } from "react-universal-component/server";
 import flushChunks from "webpack-flush-chunks";
 import debugFactory from "debug";
 import createStore from "../../shared/redux/createStore";
-import { checkLogin } from "../../shared/redux/modules/auth";
 import { csrfAction } from "../../shared/redux/modules/csrf";
 import getRoutes from "../../shared/routes";
 import Html from "../components/Html";
@@ -35,7 +34,6 @@ export default function createReduxApp(config: any) {
    * 全リクエストで共有される初期データのためのStoreです。
    */
   const initialStore = createStore({} as any, {
-    cookie: [{ cookies: {} }, {}],
     fetchr: new Fetchr({ ...config.fetchr, req: {} }),
     // @ts-ignore
     history: createMemoryHistory("/"),
@@ -49,18 +47,18 @@ export default function createReduxApp(config: any) {
    */
   function reduxApp(
     req: Request & { csrfToken: any },
-    res: Response & { timing: any },
+    res: Response & { startTime: Function; endTime: Function },
     next: Function,
   ): void {
     // @ts-ignore
     const memoryHistory = createMemoryHistory(req.url);
+    const timing = res;
 
     /*
      * リクエスト毎のStoreです。
      * 共有の初期ストアのステートを初期ステートとして使用します。
      */
     const store = createStore(initialStore.getState(), {
-      cookie: [req, res],
       fetchr: new Fetchr({ ...config.fetchr, req }),
       history: memoryHistory,
       logger,
@@ -74,7 +72,7 @@ export default function createReduxApp(config: any) {
         store,
         config,
         clientConfig,
-        timing: res.timing,
+        timing,
       });
     }
 
@@ -90,7 +88,7 @@ export default function createReduxApp(config: any) {
         store,
         config,
         clientConfig,
-        timing: res.timing,
+        timing,
       });
     }
 
@@ -113,14 +111,11 @@ export default function createReduxApp(config: any) {
         /*
          * 初期表示に必要なデータをフェッチします。
          */
-        res.timing.startTime("prefetch", "Prefetch onLoad");
+        timing.startTime("prefetch", "Prefetch onLoad");
         store.dispatch(csrfAction(req.csrfToken()));
-        return Promise.all([
-          loadOnServer(renderProps, store),
-          store.dispatch(checkLogin() as any).catch(() => null),
-        ])
+        return Promise.all([loadOnServer(renderProps, store)])
           .then(() => {
-            res.timing.endTime("prefetch");
+            timing.endTime("prefetch");
 
             /*
              * サーバサイドレンダリングを行います。
@@ -131,7 +126,7 @@ export default function createReduxApp(config: any) {
               renderProps,
               config,
               clientConfig,
-              timing: res.timing,
+              timing,
             });
           })
           .catch(err => {
@@ -149,7 +144,7 @@ export default function createReduxApp(config: any) {
               renderProps,
               config,
               clientConfig,
-              timing: res.timing,
+              timing,
             });
           });
       })
@@ -303,7 +298,6 @@ function sendSSRResponse({
 
   res.set("Content-Type", "text/html");
 
-  timing.endTime("ssr");
   const props = {
     content,
     assets,
@@ -313,5 +307,7 @@ function sendSSRResponse({
   };
 
   const html = renderToStaticMarkup(<Html {...props} />);
+  timing.endTime("ssr");
+  timing.endTime("html");
   res.status(status).send(`<!doctype html>\n${html}`);
 }

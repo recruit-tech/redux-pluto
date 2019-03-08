@@ -46,7 +46,6 @@ function configStore() {
   const clientConfig = getJson("client-config");
 
   return createStore(initialState, {
-    cookie: [],
     csrfToken: clientConfig.csrfToken,
     fetchr: new Fetchr(clientConfig.fetchr),
     fetchrCache: clientConfig.fetchrCache,

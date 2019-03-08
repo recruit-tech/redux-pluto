@@ -16,7 +16,6 @@ declare module "redux-page-scope";
 declare module "redux-devtools-log-monitor";
 declare module "redux-devtools-dock-monitor";
 declare module "redux-effects-formdata-uploader";
-declare module "redux-effects-universal-cookie";
 
 // TODO: Remove these to activate @typse
 declare module "react-router*";

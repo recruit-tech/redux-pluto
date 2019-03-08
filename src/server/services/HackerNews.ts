@@ -23,8 +23,10 @@ export async function fetchTopStories(
 
 export default class HackerNews {
   name: string;
+  requiredLogin: boolean;
   constructor() {
     this.name = "hackerNews";
+    this.requiredLogin = true;
   }
 
   read(_req: any, _resource: any, params: { page: number }, config: any) {

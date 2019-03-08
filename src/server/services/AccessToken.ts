@@ -59,9 +59,11 @@ export default class AccessToken {
             headers: {
               "set-cookie": cookie.serialize(ACCESS_TOKEN_COOKIE_NAME, token, {
                 expires: new Date(expires),
+                httpOnly: true,
               }),
             },
           },
+          username,
         };
       },
       error => {
@@ -71,6 +73,10 @@ export default class AccessToken {
         });
       },
     );
+  }
+
+  read(req: any, resource: any, params: any, config: any) {
+    return verify(req, this.secret);
   }
 
   delete(req: any, resource: any, params: any, config: any) {

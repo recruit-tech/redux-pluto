@@ -1,5 +1,6 @@
 export type FetchrService = {
   name: string;
+  username?: string | null;
   read?: (req: any, resource: string, params: any, config: any, cb: any) => any;
   update?: (
     req: any,

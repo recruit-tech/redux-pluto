@@ -125,7 +125,7 @@ export default {
     fetchrCache: {
       max: 100,
       maxAge: ms("10m"),
-      excludes: [],
+      excludes: ["accessToken"],
     },
 
     mockBuild: {
