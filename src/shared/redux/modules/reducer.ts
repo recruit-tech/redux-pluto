@@ -115,3 +115,7 @@ export function globalFormDisabledSelector(state: RootState) {
 export function hackerNewsSelector(state: RootState) {
   return state.page.hackerNews;
 }
+
+export function canvasSelector(state: RootState) {
+  return state.page.canvas;
+}
