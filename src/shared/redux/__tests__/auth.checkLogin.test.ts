@@ -3,49 +3,55 @@ import assert from "assert";
 import Fetchr from "fetchr";
 import { FetchrStatic } from "./types";
 
-import { ACCESS_TOKEN_AUDIENCE_NAME } from "../../../server/services/AccessToken";
-import { checkLogin } from "../modules/auth";
-import { createWithSignedStore, createStore } from "./lib/storeUtils";
+import { login, checkLogin, logout } from "../modules/auth";
+import { createStore } from "./lib/storeUtils";
 
 /**
  * mock accessToken service
  */
 (Fetchr as FetchrStatic).registerService({
   name: "accessToken",
+  username: null,
+  read(req, resource, params, config, cb) {
+    cb(null, {
+      sub: this.username,
+    });
+  },
+
   create(req, resource, params, body, config, cb) {
-    cb(null, null);
+    const { username } = params;
+    this.username = username;
+    cb(null, {
+      username,
+    });
   },
 
   delete(req, resource, params, config, cb) {
+    this.username = null;
     cb(null, null);
   },
 });
 
-test("auth: checkLogin success", () => {
+test("auth: checkLogin after login", async () => {
+  const loginAction = login("scott", "tiger", undefined as any);
   const checkLoginAction = checkLogin();
-  createWithSignedStore("scott", ACCESS_TOKEN_AUDIENCE_NAME, {}).then(store => {
-    store.dispatch(checkLoginAction).then(() => {
-      assert.deepStrictEqual(store.getState().app.auth, {
-        login: true,
-        username: "scott",
-      });
-    });
+  const store = createStore({});
+  await store.dispatch(loginAction);
+  await store.dispatch(checkLoginAction);
+  assert.deepStrictEqual(store.getState().app.auth, {
+    login: true,
+    username: "scott",
   });
 });
 
-test("auth: checkLogin failure", done => {
+test("auth: checkLogin after logout", async () => {
+  const logoutAction = logout();
   const checkLoginAction = checkLogin();
-
-  const store = createStore({
-    cookie: {},
-  });
-
-  store.dispatch(checkLoginAction).then(done.fail, (e: Error) => {
-    assert.deepStrictEqual(store.getState().app.auth, {
-      login: false,
-      username: null,
-    });
-    assert.strictEqual(e.message, "no token");
-    return done();
+  const store = createStore({});
+  await store.dispatch(logoutAction);
+  await store.dispatch(checkLoginAction);
+  assert.deepStrictEqual(store.getState().app.auth, {
+    login: false,
+    username: null,
   });
 });

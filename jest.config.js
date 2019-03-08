@@ -3,6 +3,11 @@ module.exports = {
     "^.+\\.js$": "babel-jest",
     "^.+\\.tsx?$": "ts-jest",
   },
+  globals: {
+    "ts-jest": {
+      diagnostics: false,
+    },
+  },
   setupFiles: ["./src/__tests__/setups.js"],
   collectCoverageFrom: [
     "src/**/*.js",

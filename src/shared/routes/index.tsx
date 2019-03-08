@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, IndexRoute } from "react-router";
-import { logout } from "../redux/modules/auth";
+import { checkLogin, logout } from "../redux/modules/auth";
 
 // non chunked components
 import {
@@ -37,7 +37,11 @@ export default function getRoutes(store: any) {
 
           <Route path="uploadsample" getComponent={loadUploadSample} />
 
-          <Route path="hn" getComponent={loadHackerNews} />
+          <Route
+            path="hn"
+            getComponent={loadHackerNews}
+            onEnter={bindOnEnter(requiredLogin)}
+          />
 
           <Route path="login" getComponent={loadLogin} />
           <Route path="logout" onEnter={bindOnEnter(doLogout)} />
@@ -64,14 +68,14 @@ export default function getRoutes(store: any) {
     };
   }
 
-  // function requiredLogin({ nextState, cb }: { nextState: any; cb: Function }) {
-  //   store
-  //     .dispatch(checkLogin())
-  //     .then(
-  //       () => cb(),
-  //       (_err: any) => cb(`/login?location=${nextState.location.pathname}`),
-  //     );
-  // }
+  function requiredLogin({ nextState, cb }: { nextState: any; cb: Function }) {
+    store
+      .dispatch(checkLogin())
+      .then(
+        () => cb(),
+        (_err: any) => cb(`/login?location=${nextState.location.pathname}`),
+      );
+  }
 
   function doLogout({ cb }: { cb: Function }) {
     store.dispatch(logout()).then(() => cb("/"), () => cb("/error"));

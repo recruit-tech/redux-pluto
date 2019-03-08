@@ -3,7 +3,6 @@ import { createStore, compose, applyMiddleware, Store, AnyAction } from "redux";
 import { BEGIN_ASYNC_LOAD, END_ASYNC_LOAD } from "redux-async-loader";
 import pageScopeMiddleware from "redux-page-scope";
 import steps from "redux-effects-steps";
-import cookie from "redux-effects-universal-cookie";
 import fetchr from "redux-effects-fetchr";
 import uploader from "redux-effects-formdata-uploader";
 import fetchrCache from "redux-effects-fetchr-cache";
@@ -27,7 +26,6 @@ declare global {
 export default function(
   initialState: RootState,
   options: {
-    cookie?: any;
     fetchrCache?: any;
     csrfToken?: any;
     mockBuild?: any;
@@ -42,8 +40,12 @@ export default function(
   const middlewares = filter(Boolean)([
     steps,
     auth(),
-    cookie(...options.cookie),
-    options.fetchrCache ? fetchrCache(options.fetchrCache) : null,
+    options.fetchrCache
+      ? fetchrCache(options.fetchrCache, {
+          resetCache: (action: any) => action.payload.type !== "read",
+          excludes: options.fetchrCache.excludes,
+        })
+      : null,
     apiError(),
     options.csrfToken ? uploader({ csrfToken: options.csrfToken }) : null,
     options.mockBuild ? mockLoggingMiddleware(options.mockBuild.axios) : null,
