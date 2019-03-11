@@ -20,7 +20,7 @@ test("hackerNews: fetchItems success", async () => {
   const store = createStore({ cookie: {} });
   const fetchItemsAction = fetchItems(1);
   await store.dispatch(fetchItemsAction);
-  const hackerNewsState = store.getState().page.hackerNews;
+  const hackerNewsState = store.getState().app.hackerNews;
 
   assert.deepStrictEqual(hackerNewsState, {
     loading: false,
@@ -37,7 +37,7 @@ test("hackerNews: fetchItems fail", async done => {
     await store.dispatch(fetchItemsAction);
     done.fail();
   } catch (e) {
-    const hackerNewsState = store.getState().page.hackerNews;
+    const hackerNewsState = store.getState().app.hackerNews;
     assert.strictEqual(hackerNewsState.error, true);
     assert.strictEqual(e.message, "failure");
     done();

@@ -4,7 +4,6 @@ import Router from "react-router/lib/Router";
 import applyRouterMiddleware from "react-router/lib/applyRouterMiddleware";
 import { useScroll } from "react-router-scroll";
 import { useAsyncLoader } from "redux-async-loader";
-import { AppContainer } from "react-hot-loader";
 import { Store } from "redux";
 import { RootState } from "../../shared/redux/modules/reducer";
 
@@ -29,14 +28,26 @@ export default function App({ store, ...renderProps }: Props) {
     }),
   );
 
+  if (__DEVELOPMENT__) {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { AppContainer } = require("react-hot-loader");
+    return (
+      <AppContainer>
+        <Provider store={store} key="provider">
+          <Router
+            {...renderProps}
+            render={(props: any) => <RenderWithMiddleware {...props} />}
+          />
+        </Provider>
+      </AppContainer>
+    );
+  }
   return (
-    <AppContainer>
-      <Provider store={store} key="provider">
-        <Router
-          {...renderProps}
-          render={(props: any) => <RenderWithMiddleware {...props} />}
-        />
-      </Provider>
-    </AppContainer>
+    <Provider store={store} key="provider">
+      <Router
+        {...renderProps}
+        render={(props: any) => <RenderWithMiddleware {...props} />}
+      />
+    </Provider>
   );
 }

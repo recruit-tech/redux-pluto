@@ -1,14 +1,9 @@
 import { reduxForm, isInvalid } from "redux-form";
 import { connect } from "react-redux";
 import { compose } from "recompose";
-import { sendAnalytics } from "react-redux-analytics";
 import { login } from "../../../redux/modules/auth";
 import normalizeFormError from "../../utils/normalizeFormError";
 import validate from "../../../validators/login";
-import {
-  siteSections,
-  onAsyncLoaderLoaded,
-} from "../../../redux/analytics/utils";
 import LoginForm from "./LoginForm";
 import { RootState } from "../../../../shared/redux/modules/reducer";
 import { Dispatch } from "redux";
@@ -18,10 +13,6 @@ export default compose<{ invalid: boolean; csrf: string }, {}>(
     invalid: isInvalid("loginForm")(state),
     csrf: state.app.csrf.token,
   })),
-  sendAnalytics({
-    ...siteSections("login", "top"),
-    onDataReady: onAsyncLoaderLoaded,
-  }),
   reduxForm({
     form: "loginForm",
     validate,

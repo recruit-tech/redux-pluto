@@ -1,12 +1,7 @@
 import { connect } from "react-redux";
 import { asyncLoader } from "redux-async-loader";
 import { compose } from "recompose";
-import { sendAnalytics } from "react-redux-analytics";
 import { getText } from "../../../redux/modules/agreedSample";
-import {
-  siteSections,
-  onAsyncLoaderLoaded,
-} from "../../../redux/analytics/utils";
 import AgreedSample from "./AgreedSample";
 
 const enhancer = compose<{ text: string }, {}>(
@@ -21,10 +16,6 @@ const enhancer = compose<{ text: string }, {}>(
   connect((state: any) => ({
     text: state.app.agreedSample.text,
   })),
-  sendAnalytics({
-    ...siteSections("agreedsample", "top"),
-    onDataReady: onAsyncLoaderLoaded,
-  }),
 );
 
 export default enhancer(AgreedSample);
