@@ -36,6 +36,8 @@ export default function apiErrorMiddleware() {
           const { locationBeforeTransitions } = routing;
           const { pathname } = locationBeforeTransitions;
           dispatch(replace(`/login?location=${pathname}`));
+        } else if (statusCode === 403) {
+          dispatch(showAlert("無効なリクエストが発生しました。"));
         } else if (statusCode === 404) {
           dispatch(showAlert("何も見つかりませんでした。"));
         }

@@ -5,14 +5,10 @@ import compression from "compression";
 import session from "express-session";
 import csurf from "csurf";
 import favicon from "serve-favicon";
-import multer from "multer";
 import serverTiming from "server-timing";
-import { transform } from "lodash/fp";
 import config from "./configs";
+import AssetsHandler from "./middlewares/AssetsHandler";
 import { apiGateway, offloadDetector, reduxApp } from "./middlewares";
-import * as uploaders from "./uploaders";
-
-const upload = multer(config.multer);
 
 export default function renderer({
   clientStats,
@@ -30,36 +26,12 @@ export default function renderer({
   app.use(serverTiming());
   app.use(favicon(config.favicon));
 
-  Object.values(uploaders).forEach((Uploader: any) => {
-    const uploader = new Uploader(config);
-    app.post(
-      `${config.upload.path}${uploader.path}`,
-      upload.single("file"),
-      uploader.createMiddleware(),
-    );
-  });
-
   if (!__DEVELOPMENT__) {
-    const gzipFiles = transform(
-      (result: any, asset: any) => {
-        const match = /(\.[^.]*)\.gz/.exec(asset.name);
-        if (match) {
-          const assetIndex = 1;
-          result[`/${asset.name}`] = match[assetIndex];
-        }
-      },
-      {},
-      clientStats.assets,
+    const assetsHandler = new AssetsHandler(clientStats.assets);
+    app.use(
+      clientStats.publicPath,
+      assetsHandler.handleUrl.bind(assetsHandler),
     );
-    app.use(clientStats.publicPath, (req, res, next) => {
-      const fileType = gzipFiles[req.url + ".gz"];
-      if (fileType) {
-        res.type(fileType);
-        res.set("Content-Encoding", "gzip");
-        req.url += ".gz";
-      }
-      return next();
-    });
   }
 
   config.assets.forEach(asset => {

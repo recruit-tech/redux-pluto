@@ -14,20 +14,18 @@ export default class UploadSample {
     this.axios = Axios.create(config.agreed.config.axios);
   }
 
-  createMiddleware() {
-    return (
-      req: Request & { file: { filename: string } },
-      res: Response,
-      next: any,
-    ) => {
-      const path = `/public/${req.file.filename}`;
-      return create(this.axios, this.name, this.path, { path }, {}, {})
-        .then(_result => {
-          res.json({
-            path,
-          });
-        })
-        .catch(next);
-    };
+  upload(
+    req: Request & { file: { filename: string } },
+    res: Response,
+    next: any,
+  ) {
+    const path = `/public/${req.file.filename}`;
+    return create(this.axios, this.name, this.path, { path }, {}, {})
+      .then(_result => {
+        res.json({
+          path,
+        });
+      })
+      .catch(next);
   }
 }

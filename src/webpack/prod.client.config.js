@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
 const webpack = require("webpack");
 const CompressionPlugin = require("compression-webpack-plugin");
 const WorkboxPlugin = require("workbox-webpack-plugin");
 const StatsPlugin = require("stats-webpack-plugin");
+const BrotliPlugin = require("brotli-webpack-plugin");
 
 const rootDir = path.resolve(__dirname, "../..");
 const outputPath = path.resolve(rootDir, "build/client");
@@ -102,7 +104,14 @@ module.exports = {
     new CompressionPlugin({
       filename: "[path].gz[query]",
       algorithm: "gzip",
-      test: /\.js$|\.css$|\.html$/,
+      test: /\.(js|css|html)$/,
+      threshold: 1024,
+      minRatio: 0.8,
+    }),
+
+    new BrotliPlugin({
+      asset: "[path].br[query]",
+      test: /\.(js|css|html)$/,
       threshold: 1024,
       minRatio: 0.8,
     }),

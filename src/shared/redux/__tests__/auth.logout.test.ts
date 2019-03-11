@@ -12,11 +12,23 @@ import { createWithSignedStore } from "./lib/storeUtils";
  */
 (Fetchr as FetchrStatic).registerService({
   name: "accessToken",
+  username: null,
+  read(req, resource, params, config, cb) {
+    cb(null, {
+      sub: this.username,
+    });
+  },
+
   create(req, resource, params, body, config, cb) {
-    cb(null, null);
+    const { username } = params;
+    this.username = username;
+    cb(null, {
+      username,
+    });
   },
 
   delete(req, resource, params, config, cb) {
+    this.username = null;
     cb(null, null);
   },
 });

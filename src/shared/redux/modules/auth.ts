@@ -80,7 +80,7 @@ const INITIAL_STATE: State = {
 export default handleActions<State>(
   {
     [AUTH_CHECK_LOGIN_SUCCESS]: loggedIn,
-    [AUTH_LOGIN_SUCCESS]: loggedIn,
+    [AUTH_LOGIN_SUCCESS]: loggedInSuccess,
     [AUTH_CHECK_LOGIN_FAIL]: loggedOut,
     [AUTH_LOGIN_FAIL]: loggedOut,
     [AUTH_LOGOUT_SUCCESS]: loggedOut,
@@ -90,15 +90,28 @@ export default handleActions<State>(
 
 function loggedIn(state: State, action: any) {
   const {
-    payload: { sub },
+    payload: {
+      data: { sub },
+    },
   } = action;
 
-  return state.login && state.username === sub
-    ? state
-    : {
-        login: true,
-        username: sub,
-      };
+  return {
+    ...state,
+    username: sub,
+  };
+}
+
+function loggedInSuccess(state: State, action: any) {
+  const {
+    payload: {
+      data: { username },
+    },
+  } = action;
+
+  return {
+    login: true,
+    username,
+  };
 }
 
 function loggedOut(_state: any) {

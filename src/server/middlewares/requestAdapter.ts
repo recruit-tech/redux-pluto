@@ -1,8 +1,6 @@
-import { Application } from "express";
-
 export default function makeRequestAdapter(
   service: any,
-  app: Application,
+  app: any,
   config: any,
 ) {
   if (!service.requestHandlers) {
