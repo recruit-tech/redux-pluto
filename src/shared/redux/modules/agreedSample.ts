@@ -1,18 +1,30 @@
-import { createAction, handleActions, Reducer } from "redux-actions";
-import { steps } from "redux-effects-steps";
+import { createAction } from "redux-actions";
 import { fetchrRead } from "redux-effects-fetchr";
-import { createAsyncActionTypes } from "./utils";
+import { steps } from "redux-effects-steps";
 
 /**
  * Action types
  */
-const AGREED_SAMPLE = "redux-proto/agreedsample";
 
-export const [
-  AGREED_SAMPLE_GET_TEXT_REQUEST,
-  AGREED_SAMPLE_GET_TEXT_SUCCESS,
-  AGREED_SAMPLE_GET_TEXT_FAIL,
-] = createAsyncActionTypes(`${AGREED_SAMPLE}/get`);
+const AGREED_SAMPLE_GET_TEXT_REQUEST =
+  "redux-proto/agreedsample/get-text-request";
+const AGREED_SAMPLE_GET_TEXT_SUCCESS =
+  "redux-proto/agreedsample/get-text-success";
+const AGREED_SAMPLE_GET_TEXT_FAIL = "redux-proto/agreedsample/get-text-fail";
+
+interface GetTextRequestAction {
+  type: typeof AGREED_SAMPLE_GET_TEXT_REQUEST;
+}
+
+interface GetTextSuccessAction {
+  type: typeof AGREED_SAMPLE_GET_TEXT_SUCCESS;
+}
+
+interface GetTextFailAction {
+  type: typeof AGREED_SAMPLE_GET_TEXT_FAIL;
+}
+
+type Action = GetTextRequestAction | GetTextSuccessAction | GetTextFailAction;
 
 /**
  * Action creators
@@ -24,19 +36,23 @@ export const getTextFail = createAction(AGREED_SAMPLE_GET_TEXT_FAIL);
 export function getText(status?: string | null): Promise<{ text: string }> {
   return steps(
     getTextRequest(),
-    fetchrRead({ resource: "agreedSample", params: { status } }),
+    fetchrRead({
+      resource: "agreedSample",
+      params: { status },
+    }),
     [getTextSuccess, getTextFail] as any, // TODO: Add better types
   );
 }
 
 /**
  * Initial state
- */
+ **/
 
 export type State = {
   loading: boolean;
   loaded: boolean;
   text: string;
+  error?: any;
 };
 
 const INITIAL_STATE: State = {
@@ -45,14 +61,16 @@ const INITIAL_STATE: State = {
   text: "",
 };
 
-export default handleActions(
-  {
-    [AGREED_SAMPLE_GET_TEXT_REQUEST]: state => ({
-      ...state,
-      loading: true,
-      loaded: false,
-    }),
-    [AGREED_SAMPLE_GET_TEXT_SUCCESS]: (state, action) => {
+export default (state: State = INITIAL_STATE, action: Action): State => {
+  switch (action.type) {
+    case AGREED_SAMPLE_GET_TEXT_REQUEST: {
+      return {
+        ...state,
+        loading: true,
+        loaded: false,
+      };
+    }
+    case AGREED_SAMPLE_GET_TEXT_SUCCESS: {
       const {
         payload: {
           data: { text },
@@ -64,16 +82,16 @@ export default handleActions(
         loading: false,
         loaded: true,
       };
-    },
-    [AGREED_SAMPLE_GET_TEXT_FAIL]: (state, action) => {
-      const { error } = action;
+    }
+    case AGREED_SAMPLE_GET_TEXT_FAIL: {
+      const { error } = action as any;
       return {
         ...state,
         error,
         loading: false,
         loaded: false,
       };
-    },
-  },
-  INITIAL_STATE,
-) as Reducer<State, any>;
+    }
+  }
+  return state;
+};
