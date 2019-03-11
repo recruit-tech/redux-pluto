@@ -1,3 +1,4 @@
+import DocumentTitle from "react-document-title";
 import React from "react";
 import styled from "styled-components";
 import { propTypes as formPropTypes, Field } from "redux-form";
@@ -42,6 +43,7 @@ export default compose<
     submitFailed: any;
     anyTouched: any;
     csrf: string;
+    title: string;
   },
   { invalid: boolean; csrf: string }
 >(
@@ -58,9 +60,11 @@ export default compose<
     submitFailed,
     anyTouched,
     csrf,
+    title,
   } = props;
 
   return (
+    <DocumentTitle title={title}>
     <form onSubmit={handleSubmit} method="POST">
       {error && <div>{error}</div>}
       {!error && submitFailed && anyTouched && (
@@ -80,6 +84,7 @@ export default compose<
         </button>
       </div>
     </form>
+    </DocumentTitle>
   );
 });
 

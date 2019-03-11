@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import compression from "compression";
 import session from "express-session";
+import useragent from "express-useragent";
 import csurf from "csurf";
 import favicon from "serve-favicon";
 import serverTiming from "server-timing";
@@ -25,6 +26,7 @@ export default function renderer({
   app.use(csurf(config.csurf));
   app.use(serverTiming());
   app.use(favicon(config.favicon));
+  app.use(useragent.express());
 
   if (!__DEVELOPMENT__) {
     const assetsHandler = new AssetsHandler(clientStats.assets);

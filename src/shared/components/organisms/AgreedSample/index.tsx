@@ -13,8 +13,9 @@ const enhancer = compose<{ text: string }, {}>(
     const { status } = locationQuery;
     return dispatch(getText(status));
   }),
-  connect((state: any) => ({
+  connect((state: any, ownProps: any) => ({
     text: state.app.agreedSample.text,
+    title: ownProps.route.title,
   })),
 );
 

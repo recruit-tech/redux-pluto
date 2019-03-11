@@ -5,10 +5,11 @@ import { RootState } from "../../../redux/modules/reducer";
 
 let file: any;
 export default connect(
-  (state: RootState) => ({
+  (state: RootState, ownProps: any) => ({
     loading: state.app.uploadSample.loading,
     path: state.app.uploadSample.path,
     cancelSource: state.app.uploadSample.cancelSource,
+    title: ownProps.route.title,
   }),
   dispatch => ({
     onInputFile: (e: any) => {

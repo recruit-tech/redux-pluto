@@ -1,7 +1,6 @@
 import { routerMiddleware } from "react-router-redux";
 import { createStore, compose, applyMiddleware, Store, AnyAction } from "redux";
 import { BEGIN_ASYNC_LOAD, END_ASYNC_LOAD } from "redux-async-loader";
-import pageScopeMiddleware from "redux-page-scope";
 import steps from "redux-effects-steps";
 import fetchr from "redux-effects-fetchr";
 import uploader from "redux-effects-formdata-uploader";
@@ -45,7 +44,6 @@ export default function(
     options.csrfToken ? uploader({ csrfToken: options.csrfToken }) : null,
     options.mockBuild ? mockLoggingMiddleware(options.mockBuild.axios) : null,
     fetchr(options.fetchr),
-    pageScopeMiddleware(),
     loading({ start: BEGIN_ASYNC_LOAD, stop: END_ASYNC_LOAD, delay: 500 }),
     routerMiddleware(options.history),
     options.logger,
