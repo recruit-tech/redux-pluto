@@ -24,10 +24,6 @@
         [
           "transform-imports",
           {
-            "lodash/fp": {
-              "transform": "lodash/fp/${member}",
-              "preventFullImport": true
-            },
             "date-fns": {
               "transform": "date-fns/${member}",
               "preventFullImport": true
@@ -38,10 +34,6 @@
             },
             "redux-form": {
               "transform": "redux-form/es/${member}",
-              "preventFullImport": true
-            },
-            "react-virtualized": {
-              "transform": "react-virtualized/dist/es/${member}",
               "preventFullImport": true
             }
           }

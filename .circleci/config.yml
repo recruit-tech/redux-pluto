@@ -126,6 +126,9 @@ workflows:
       - typecheck:
           requires:
             - install
+      - checksize:
+          requires:
+            - install
       - audit:
           requires:
             - install

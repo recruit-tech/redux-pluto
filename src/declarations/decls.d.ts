@@ -10,7 +10,6 @@ declare module "react-hot-loader";
 declare module "react-router-redux";
 declare module "redux-effects-fetchr";
 declare module "redux-effects-fetchr-cache";
-declare module "redux-page-scope";
 declare module "redux-devtools-log-monitor";
 declare module "redux-devtools-dock-monitor";
 declare module "redux-effects-formdata-uploader";
