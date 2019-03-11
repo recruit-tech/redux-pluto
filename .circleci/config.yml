@@ -80,6 +80,12 @@ jobs:
       - <<: *restore
       - <<: *restore_lock
       - run: npm run typecheck
+  checksize:
+    <<: *build_image
+    steps:
+      - <<: *restore
+      - <<: *restore_lock
+      - run: npm run checksize
   audit:
     <<: *build_image
     steps:

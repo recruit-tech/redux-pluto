@@ -1,4 +1,3 @@
-import { identity } from "lodash/fp";
 import BaseService from "./BaseService";
 import { readAll } from "./utils";
 import { Request } from "express";
@@ -14,7 +13,7 @@ export default class BaseMaster extends BaseService {
     pathname: string,
     params: any,
     itemsName: string,
-    formatResult: Function = identity,
+    formatResult: Function = (result: any) => result,
   ) {
     super(config, name, pathname, params);
     this.itemsName = itemsName;

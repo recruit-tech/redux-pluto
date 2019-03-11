@@ -68,6 +68,8 @@ export default function getRoutes(store: any) {
     };
   }
 
+  // checkLogin 時にリクエストを送信し、BFFに確認しに行く
+  // BFFに確認しに行くため、遅い代わりにきちんと認可されてるか
   function requiredLogin({ nextState, cb }: { nextState: any; cb: Function }) {
     store
       .dispatch(checkLogin())
