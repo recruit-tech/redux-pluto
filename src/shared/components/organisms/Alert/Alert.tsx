@@ -2,14 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import Overlay from "../../atoms/Overlay";
 
-type Props = {
+export type Props = {
   alert: {
     message: string;
   };
-  onClose: any;
 };
 
-export default React.memo(function Alert(props: Props) {
+export type Handlers = {
+  onClose: (e: React.MouseEvent<HTMLElement>) => any;
+};
+
+export default React.memo(function Alert(props: Props & Handlers) {
   const {
     alert: { message },
     onClose,

@@ -1,6 +1,8 @@
-import React from "react";
-import { compose, shouldUpdate } from "recompose";
+import React, { memo } from "react";
 
-export default compose(shouldUpdate(() => false))(function Home(props) {
-  return <div>Home!</div>;
-});
+export default memo(
+  function Home(props) {
+    return <div>Home!</div>;
+  },
+  () => false,
+);

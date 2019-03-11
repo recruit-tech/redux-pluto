@@ -1,6 +1,5 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, memo } from "react";
 import styled from "styled-components";
-import pure from "recompose/pure";
 import Alert from "../organisms/Alert";
 import GlobalIndicator from "../organisms/GlobalIndicator";
 
@@ -10,7 +9,7 @@ type Props = {
   footer: ReactNode;
 };
 
-export default pure((props: Props) => {
+export default memo((props: Props) => {
   const { header, main, footer } = props;
 
   return (

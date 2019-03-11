@@ -1,8 +1,8 @@
-import React from "react";
-import { compose, shouldUpdate } from "recompose";
+import React, { memo } from "react";
 
-export default compose<{}, {}>(shouldUpdate(() => false))(function NotFound(
-  props,
-) {
-  return <div>NotFound!</div>;
-});
+export default memo(
+  function NotFound() {
+    return <div>NotFound!</div>;
+  },
+  () => false,
+);

@@ -1,10 +1,10 @@
-import React from "react";
-import { compose, shouldUpdate } from "recompose";
+import React, { memo } from "react";
 
 type Props = {};
 
-export default compose<Props, {}>(shouldUpdate(() => false))(function Error(
-  props: Props,
-) {
-  return <div>Error!</div>;
-});
+export default memo(
+  function Error(props: Props) {
+    return <div>Error!</div>;
+  },
+  () => false,
+);

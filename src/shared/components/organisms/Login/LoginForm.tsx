@@ -1,7 +1,6 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
-import { propTypes as formPropTypes, Field } from "redux-form";
-import { compose, onlyUpdateForPropTypes, setPropTypes } from "recompose";
+import { Field } from "redux-form";
 
 const labels = {
   username: "Username",
@@ -33,23 +32,15 @@ const RenderInput = ({
 );
 
 // prettier-ignore
-export default compose<
-  {
-    error: boolean;
-    handleSubmit: any;
-    reset: any;
-    submitting: any;
-    submitFailed: any;
-    anyTouched: any;
-    csrf: string;
-  },
-  { invalid: boolean; csrf: string }
->(
-  onlyUpdateForPropTypes,
-  setPropTypes({
-    ...formPropTypes,
-  }),
-)(function LoginForm(props) {
+export default memo(function LoginForm(props: {
+  error: boolean
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => any
+  reset:  (e: React.MouseEvent<HTMLElement>) => any
+  submitting: boolean
+  submitFailed: boolean
+  anyTouched: any
+  csrf: string
+}) {
   const {
     error,
     handleSubmit,

@@ -1,12 +1,10 @@
-import React from "react";
-import { compose, shouldUpdate } from "recompose";
+import React, { memo } from "react";
 
 const array = Array.from({ length: 500 }, (_, i) => i);
 
 type Props = { onDataReady: boolean };
-export default compose<Props, {}>(shouldUpdate(() => false))(function Bar(
-  props: Props,
-) {
+
+function Bar(props: Props) {
   return (
     <main>
       {array.map(elm => (
@@ -17,4 +15,6 @@ export default compose<Props, {}>(shouldUpdate(() => false))(function Bar(
       ))}
     </main>
   );
-});
+}
+
+export default memo(Bar, () => false);
