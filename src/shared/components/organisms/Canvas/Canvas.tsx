@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
 
 type Props = {
@@ -6,19 +6,31 @@ type Props = {
   mode: number;
 };
 
-export default function Canvas(props: Props) {
-  const { color, mode } = props;
-  return (
-    <main>
-      <DrawArea/>
-      <Palette>
-        Color: 
-        <ColorPicker/>
-        Eraser Mode:
-        <ModeSelector/>
-      </Palette>
-    </main>
-  );
+export default class Canvas extends Component<Props, {}> {
+
+  private canvas: HTMLCanvasElement;
+  private ctx: RenderingContext;
+
+  componentDidMount() {
+    this.ctx = this.canvas.getContext('2d') as RenderingContext;
+  }
+
+  render() {
+    const { color, mode } = this.props;
+    return (
+      <main>
+        <DrawArea ref={(canvas: HTMLCanvasElement) => { this.canvas = canvas } }/>
+        <Palette>
+          Color: 
+          <ColorPicker/>
+          Eraser Mode:
+          <ModeSelector/>
+          <div>{color}</div>
+          <div>{mode}</div>
+        </Palette>
+      </main>
+    )
+  }
 }
 
 const DrawArea = styled.canvas`
@@ -27,8 +39,7 @@ const DrawArea = styled.canvas`
   height: 400px;
 `;
 
-const Palette = styled.div`
-`;
+const Palette = styled.div``;
 
 const ColorPicker = styled.input.attrs({ type: 'color' })`
   width: 50px;
