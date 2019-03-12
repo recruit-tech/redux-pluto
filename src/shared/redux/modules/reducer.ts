@@ -2,8 +2,6 @@ import { combineReducers } from "redux";
 import { routerReducer } from "react-router-redux";
 import { reduxAsyncLoader } from "redux-async-loader";
 import { reducer as formReducer } from "redux-form";
-import { pageScopeReducer } from "redux-page-scope";
-import { analyticsReducer } from "react-redux-analytics";
 import agreedSample, { State as AgreedSampleState } from "./agreedSample";
 import alert, { State as AlertState } from "./alert";
 import auth, { State as AuthState } from "./auth";
@@ -21,18 +19,15 @@ export type RootState = {
     counter: CounterState;
     alert: AlertState;
     loading: LoadingState;
+    hackerNews: HackerNewsState;
     agreedSample: AgreedSampleState;
     uploadSample: UploadSampleState;
-  };
-  page: {
-    hackerNews: HackerNewsState;
     canvas: CanvasState;
   };
   // libraries
   form: any;
   reduxAsyncLoader: any;
   routing: any;
-  analytics: any;
 };
 
 export default combineReducers({
@@ -44,17 +39,12 @@ export default combineReducers({
     loading,
     agreedSample,
     uploadSample,
+    hackerNews,
+    canvas
   }),
-  page: pageScopeReducer(
-    combineReducers({
-      hackerNews,
-      canvas,
-    }),
-  ),
   form: formReducer,
   reduxAsyncLoader,
   routing: routerReducer,
-  analytics: analyticsReducer,
 });
 
 /**
@@ -85,9 +75,9 @@ export function globalFormDisabledSelector(state: RootState) {
 }
 
 export function hackerNewsSelector(state: RootState) {
-  return state.page.hackerNews;
+  return state.app.hackerNews;
 }
 
 export function canvasSelector(state: RootState) {
-  return state.page.canvas;
+  return state.app.canvas;
 }

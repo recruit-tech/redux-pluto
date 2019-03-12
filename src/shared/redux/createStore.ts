@@ -1,14 +1,10 @@
 import { routerMiddleware } from "react-router-redux";
 import { createStore, compose, applyMiddleware, Store, AnyAction } from "redux";
 import { BEGIN_ASYNC_LOAD, END_ASYNC_LOAD } from "redux-async-loader";
-import pageScopeMiddleware from "redux-page-scope";
 import steps from "redux-effects-steps";
 import fetchr from "redux-effects-fetchr";
 import uploader from "redux-effects-formdata-uploader";
 import fetchrCache from "redux-effects-fetchr-cache";
-import { analyticsMiddleware } from "react-redux-analytics";
-import { siteCatalystMiddleware } from "react-redux-analytics-sitecatalyst";
-import { filter } from "lodash/fp";
 import apiError from "./middleware/apiErrorMiddleware";
 import auth from "./middleware/authMiddleware";
 import loading from "./middleware/loadingMiddleware";
@@ -31,13 +27,11 @@ export default function(
     mockBuild?: any;
     fetchr?: any;
     history?: any;
-    analytics?: any;
-    siteCatalyst?: any;
     logger?: any;
     devTools?: any;
   } = {},
 ): Store<RootState, AnyAction> {
-  const middlewares = filter(Boolean)([
+  const middlewares = [
     steps,
     auth(),
     options.fetchrCache
@@ -50,18 +44,10 @@ export default function(
     options.csrfToken ? uploader({ csrfToken: options.csrfToken }) : null,
     options.mockBuild ? mockLoggingMiddleware(options.mockBuild.axios) : null,
     fetchr(options.fetchr),
-    pageScopeMiddleware(),
     loading({ start: BEGIN_ASYNC_LOAD, stop: END_ASYNC_LOAD, delay: 500 }),
     routerMiddleware(options.history),
-    options.analytics ? analyticsMiddleware({ ...options.analytics }) : null,
-    options.siteCatalyst
-      ? siteCatalystMiddleware({
-          ...options.siteCatalyst,
-          debug: __DEVELOPMENT__,
-        })
-      : null,
     options.logger,
-  ]);
+  ].filter(Boolean);
 
   /* eslint-disable no-underscore-dangle */
   let composeEnhancers = compose;

@@ -1,18 +1,13 @@
 /* eslint-disable global-require */
 
 /* eslint-disable-next-line */
-import "@babel/polyfill";
 import React from "react";
 import { hydrate, unmountComponentAtNode } from "react-dom";
-import { Provider } from "react-redux";
 import { browserHistory, match } from "react-router";
 import { syncHistoryWithStore } from "react-router-redux";
-import { createLocationSubscriber } from "react-redux-analytics";
 import Fetchr from "fetchr";
 import createStore from "../shared/redux/createStore";
-import analyticsOptions from "../shared/redux/analytics/options";
 import App from "./components/App";
-import siteCatalystOptions from "./analytics/index";
 
 const isDevToolVisible = __DEVELOPMENT__ && !__MOCK_BUILD__;
 
@@ -22,20 +17,9 @@ const history = syncHistoryWithStore(browserHistory, store, {
 });
 const root = document.getElementById("root");
 
-const locationSubscriber = createLocationSubscriber(store);
-history.listen((location: any) => {
-  // At the moment, we do not use page stack functionality of react-redux-analytics.
-  // console.log(location);
-  locationSubscriber.notify(location, "replace");
-});
-
 renderApp().then(() => {
   if (isDevToolVisible) {
     configHotLoader();
-
-    if (!window.devToolsExtension) {
-      renderDevTool();
-    }
   }
 });
 
@@ -51,8 +35,6 @@ function configStore() {
     fetchrCache: clientConfig.fetchrCache,
     history: browserHistory,
     devTools: isDevToolVisible,
-    analytics: analyticsOptions,
-    siteCatalyst: siteCatalystOptions,
     mockBuild: __MOCK_BUILD__ ? clientConfig.mockBuild : false,
   });
 }
@@ -108,20 +90,4 @@ function configHotLoader() {
     const nextReducer = require("../shared/redux/modules/reducer").default;
     store.replaceReducer(nextReducer);
   });
-}
-
-function renderDevTool() {
-  if (isDevToolVisible) {
-    (window as any).React = React; // enable debugger
-    const DevTools = require("../shared/components/utils/DevTools").default;
-    const content = (
-      <Provider store={store} key="provider">
-        <DevTools />
-      </Provider>
-    );
-    const devToolElement = document.getElementById("devtools");
-    if (devToolElement) {
-      hydrate(content, devToolElement);
-    }
-  }
 }

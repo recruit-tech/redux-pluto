@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle, callback-return */
 import { FETCHR } from "redux-effects-fetchr";
 import Axios, { AxiosRequestConfig } from "axios";
-import { isEqual } from "lodash/fp";
+import isEqual from "lodash.isequal";
 import { MiddlewareAPI } from "redux";
 import { Response } from "express";
 

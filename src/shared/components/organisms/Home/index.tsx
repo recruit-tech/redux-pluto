@@ -1,17 +1,11 @@
+import DocumentTitle from "react-document-title";
 import React from "react";
 import { compose, shouldUpdate } from "recompose";
-import { sendAnalytics } from "react-redux-analytics";
-import {
-  siteSections,
-  onAsyncLoaderLoaded,
-} from "../../../redux/analytics/utils";
 
-export default compose(
-  sendAnalytics({
-    ...siteSections("home", "top"),
-    onDataReady: onAsyncLoaderLoaded,
-  }),
-  shouldUpdate(() => false),
-)(function Home(props) {
-  return <div>Home!</div>;
+export default compose(shouldUpdate(() => false))(function Home(props: any) {
+  return (
+    <DocumentTitle title={props.route.title}>
+      <div>Home!</div>
+    </DocumentTitle>
+  );
 });

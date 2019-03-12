@@ -1,29 +1,23 @@
 /* eslint-disable react/no-danger */
-import PropTypes from "prop-types";
 import React from "react";
-import { compose, setPropTypes } from "recompose";
 
-export default compose(
-  setPropTypes({
-    assets: PropTypes.object.isRequired,
-    content: PropTypes.string,
-    initialState: PropTypes.string.isRequired,
-    clientConfig: PropTypes.string.isRequired,
-  }),
-)(function Html(props) {
+export default function Html(props: any) {
   const {
     content,
     initialState,
     clientConfig,
     assets: { publicPath, scripts },
+    title,
+    useragent,
     styles,
-  } = props as any;
+  } = props;
 
   return (
     <html lang="ja">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=320,initial-scale=1.0" />
+        <title>{title}</title>
         {styles && styles.map((style: React.ReactElement<any>) => style)}
         {/* Install serviceWorker only modern browser */}
         <script
@@ -45,6 +39,9 @@ export default compose(
             `,
           }}
         />
+        {useragent.browser !== "Chrome" && useragent.browser !== "Firefox" && (
+          <script src="https://polyfill.io/v3/polyfill.js?features=es5,es6,es7&flags=gated" />
+        )}
         {scripts &&
           scripts.map((script: any) => (
             <script
@@ -63,4 +60,4 @@ export default compose(
       </body>
     </html>
   );
-});
+}
