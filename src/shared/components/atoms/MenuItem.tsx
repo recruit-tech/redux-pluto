@@ -9,7 +9,7 @@ type Props = {
   checked: boolean;
 };
 
-export default (function MenuItem(props: Props) {
+export default function MenuItem(props: Props) {
   const { children, to, checked } = props;
 
   return (
@@ -17,7 +17,7 @@ export default (function MenuItem(props: Props) {
       <Link to={to}>{children}</Link>
     </Item>
   );
-});
+}
 
 const Item = styled.div.attrs({
   role: "menuitemradio",

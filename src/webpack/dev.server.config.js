@@ -98,9 +98,7 @@ module.exports = {
     new WriteFilePlugin(),
 
     new webpack.DefinePlugin({
-      "process.env": {
-        NODE_ENV: JSON.stringify("development"),
-      },
+      "process.env.NODE_ENV": JSON.stringify("development"),
       __CLIENT__: false,
       __SERVER__: true,
       __DEVELOPMENT__: false,

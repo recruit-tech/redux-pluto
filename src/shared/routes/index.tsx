@@ -25,29 +25,48 @@ import {
 
 export default function getRoutes(store: any) {
   const $Route: any = Route; // avoid type check
+  const $IndexRoute: any = IndexRoute; // avoid type check
 
   return (
     <Route path="/" component={App}>
       <Route component={DefaultLayout}>
         <Route components={{ header: Header, main: Main, footer: Footer }}>
-          <IndexRoute component={Home} />
-          <Route path="bar" getComponent={loadBar} />
+          <$IndexRoute component={Home} title="Home" />
+          <$Route path="bar" getComponent={loadBar} title="Bar" />
 
-          <Route path="agreedsample" getComponent={loadAgreedSample} />
+          <$Route
+            path="agreedsample"
+            getComponent={loadAgreedSample}
+            title="Agreed Sample"
+          />
 
-          <Route path="uploadsample" getComponent={loadUploadSample} />
+          <$Route
+            path="uploadsample"
+            getComponent={loadUploadSample}
+            title="Upload Sample"
+          />
 
-          <Route
+          <$Route
             path="hn"
             getComponent={loadHackerNews}
             onEnter={bindOnEnter(requiredLogin)}
+            title="Hacker News"
           />
 
-          <Route path="login" getComponent={loadLogin} />
-          <Route path="logout" onEnter={bindOnEnter(doLogout)} />
+          <$Route path="login" getComponent={loadLogin} title="Login" />
+          <$Route
+            path="logout"
+            onEnter={bindOnEnter(doLogout)}
+            title="Logout"
+          />
 
-          <$Route path="error" component={Error} status={500} />
-          <$Route path="*" component={NotFound} status={404} />
+          <$Route path="error" component={Error} status={500} title="Error" />
+          <$Route
+            path="*"
+            component={NotFound}
+            status={404}
+            title="Not Found"
+          />
         </Route>
       </Route>
     </Route>

@@ -1,7 +1,6 @@
 /* eslint-disable global-require */
 
 /* eslint-disable-next-line */
-import "@babel/polyfill";
 import React from "react";
 import { hydrate, unmountComponentAtNode } from "react-dom";
 import { browserHistory, match } from "react-router";

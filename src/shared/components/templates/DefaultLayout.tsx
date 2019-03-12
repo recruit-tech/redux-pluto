@@ -1,4 +1,4 @@
-import React, { ReactNode, memo } from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
 import Alert from "../organisms/Alert";
 import GlobalIndicator from "../organisms/GlobalIndicator";
@@ -9,7 +9,7 @@ type Props = {
   footer: ReactNode;
 };
 
-export default memo((props: Props) => {
+export default function DefaultLayout(props: Props) {
   const { header, main, footer } = props;
 
   return (
@@ -25,7 +25,7 @@ export default memo((props: Props) => {
       </IndicatorContainer>
     </Root>
   );
-});
+}
 
 const Root = styled.div``;
 const Header = styled.div``;

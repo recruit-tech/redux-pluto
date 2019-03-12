@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import Menu from "../atoms/Menu";
 import MenuItem from "../atoms/MenuItem";
@@ -13,7 +13,7 @@ type Props = {
   };
 };
 
-export default React.memo(function GenderMenu(props: Props) {
+function GenderMenu(props: Props) {
   const { genderItems } = props;
   const gender: Gender = props.gender || (Object.keys(genderItems)[0] as any);
 
@@ -28,4 +28,5 @@ export default React.memo(function GenderMenu(props: Props) {
       </Menu>
     </div>
   );
-});
+}
+export default memo(GenderMenu);

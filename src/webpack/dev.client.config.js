@@ -27,7 +27,6 @@ module.exports = {
   context: rootDir,
 
   entry: [
-    "@babel/polyfill",
     "webpack-hot-middleware/client?" +
       qs.stringify({
         path: "/__webpack_hmr",

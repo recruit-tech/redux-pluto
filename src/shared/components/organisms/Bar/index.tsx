@@ -1,20 +1,28 @@
-import React, { memo } from "react";
+import React from "react";
+import DocumentTitle from "react-document-title";
 
 const array = Array.from({ length: 500 }, (_, i) => i);
 
-type Props = { onDataReady: boolean };
+type Props = {
+  onDataReady: boolean;
+  route: {
+    title: string;
+  };
+};
 
 function Bar(props: Props) {
   return (
-    <main>
-      {array.map(elm => (
-        <div key={elm}>
-          Bar![
-          {elm}]
-        </div>
-      ))}
-    </main>
+    <DocumentTitle title={props.route.title}>
+      <main>
+        {array.map(elm => (
+          <div key={elm}>
+            Bar![
+            {elm}]
+          </div>
+        ))}
+      </main>
+    </DocumentTitle>
   );
 }
 
-export default memo(Bar, () => false);
+export default Bar;

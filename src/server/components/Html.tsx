@@ -7,6 +7,8 @@ export default function Html(props: any) {
     initialState,
     clientConfig,
     assets: { publicPath, scripts },
+    title,
+    useragent,
     styles,
   } = props;
 
@@ -15,6 +17,7 @@ export default function Html(props: any) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=320,initial-scale=1.0" />
+        <title>{title}</title>
         {styles && styles.map((style: React.ReactElement<any>) => style)}
         {/* Install serviceWorker only modern browser */}
         <script
@@ -36,6 +39,9 @@ export default function Html(props: any) {
             `,
           }}
         />
+        {useragent.browser !== "Chrome" && useragent.browser !== "Firefox" && (
+          <script src="https://polyfill.io/v3/polyfill.js?features=es5,es6,es7&flags=gated" />
+        )}
         {scripts &&
           scripts.map((script: any) => (
             <script

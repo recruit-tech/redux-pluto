@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import DocumentTitle from "react-document-title";
 import styled from "styled-components";
 import { Field } from "redux-form";
 
@@ -33,13 +34,14 @@ const RenderInput = ({
 
 // prettier-ignore
 export default memo(function LoginForm(props: {
-  error: boolean
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => any
-  reset:  (e: React.MouseEvent<HTMLElement>) => any
-  submitting: boolean
-  submitFailed: boolean
-  anyTouched: any
-  csrf: string
+  error: boolean;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => any;
+  reset:  (e: React.MouseEvent<HTMLElement>) => any;
+  submitting: boolean;
+  submitFailed: boolean;
+  anyTouched: any;
+  csrf: string;
+  title: string;
 }) {
   const {
     error,
@@ -49,9 +51,11 @@ export default memo(function LoginForm(props: {
     submitFailed,
     anyTouched,
     csrf,
+    title,
   } = props;
 
   return (
+    <DocumentTitle title={title}>
     <form onSubmit={handleSubmit} method="POST">
       {error && <div>{error}</div>}
       {!error && submitFailed && anyTouched && (
@@ -71,6 +75,7 @@ export default memo(function LoginForm(props: {
         </button>
       </div>
     </form>
+    </DocumentTitle>
   );
 });
 

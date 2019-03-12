@@ -1,8 +1,7 @@
 import React, { memo } from "react";
 
-export default memo(
-  function NotFound() {
-    return <div>NotFound!</div>;
-  },
-  () => false,
-);
+function NotFound() {
+  return <div>NotFound!</div>;
+}
+
+export default NotFound;

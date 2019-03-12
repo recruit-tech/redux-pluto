@@ -9,9 +9,10 @@ import { RootState } from "../../../../shared/redux/modules/reducer";
 import { Dispatch } from "redux";
 
 export default compose<React.FC>(
-  connect((state: RootState) => ({
+  connect((state: RootState, ownProps: any) => ({
     invalid: isInvalid("loginForm")(state),
     csrf: state.app.csrf.token,
+    title: ownProps.route.title,
   })),
   reduxForm({
     form: "loginForm",

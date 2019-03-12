@@ -22,7 +22,7 @@ module.exports = {
 
   target: "web",
 
-  entry: ["@babel/polyfill", path.resolve(rootDir, "src/client/index")],
+  entry: [path.resolve(rootDir, "src/client/index")],
 
   output: {
     path: outputPath,

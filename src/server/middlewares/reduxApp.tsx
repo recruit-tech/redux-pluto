@@ -46,7 +46,7 @@ export default function createReduxApp(config: any) {
    * サーバサイドレンダリングのためのExpressミドルウェアです。
    */
   function reduxApp(
-    req: Request & { csrfToken: any },
+    req: Request & { csrfToken: any; useragent: ExpressUseragent.UserAgent },
     res: Response & { startTime: Function; endTime: Function },
     next: Function,
   ): void {
@@ -108,6 +108,9 @@ export default function createReduxApp(config: any) {
           return next();
         }
 
+        const { title } = renderProps.routes[renderProps.routes.length - 1];
+        const { useragent } = req;
+
         /*
          * 初期表示に必要なデータをフェッチします。
          */
@@ -127,6 +130,8 @@ export default function createReduxApp(config: any) {
               config,
               clientConfig,
               timing,
+              title,
+              useragent,
             });
           })
           .catch(err => {
@@ -145,6 +150,8 @@ export default function createReduxApp(config: any) {
               config,
               clientConfig,
               timing,
+              title,
+              useragent,
             });
           });
       })
@@ -207,6 +214,8 @@ function renderSSR({
   config,
   clientConfig,
   timing,
+  title,
+  useragent,
 }: {
   res: Response;
   store: Store<RootState>;
@@ -214,6 +223,8 @@ function renderSSR({
   config: any;
   clientConfig: any;
   timing: any;
+  title: string;
+  useragent: ExpressUseragent.UserAgent;
 }) {
   /*
    * メインコンテンツをレンダリングします。
@@ -238,7 +249,9 @@ function renderSSR({
     clientConfig,
     assets,
     timing,
+    title,
     styles,
+    useragent,
   });
 }
 
@@ -279,7 +292,9 @@ function sendSSRResponse({
   assets,
   content,
   timing,
+  title,
   styles,
+  useragent,
 }: {
   res: Response;
   status: number;
@@ -288,7 +303,9 @@ function sendSSRResponse({
   content: any;
   assets: any;
   timing: any;
+  title: string;
   styles: any[];
+  useragent: ExpressUseragent.UserAgent;
 }) {
   /*
    * HTML全体をレンダリングします。
@@ -302,6 +319,8 @@ function sendSSRResponse({
     content,
     assets,
     styles,
+    title,
+    useragent,
     initialState: JSON.stringify(store.getState()),
     clientConfig: JSON.stringify(clientConfig),
   };

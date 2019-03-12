@@ -21,7 +21,7 @@ type Props = {
   };
 };
 
-export default React.memo(function HairLengthMenu(props: Props) {
+export default function HairLengthMenu(props: Props) {
   const { hairLength, genderItems, hairLengthItems } = props;
   const gender = props.gender || Object.keys(genderItems)[0];
   const { items } = hairLengthItems[gender];
@@ -38,4 +38,4 @@ export default React.memo(function HairLengthMenu(props: Props) {
       ))}
     </Menu>
   );
-});
+}

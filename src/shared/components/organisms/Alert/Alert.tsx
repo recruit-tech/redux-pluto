@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo, useCallback } from "react";
 import styled from "styled-components";
 import Overlay from "../../atoms/Overlay";
 
@@ -12,11 +12,16 @@ export type Handlers = {
   onClose: (e: React.MouseEvent<HTMLElement>) => any;
 };
 
-export default React.memo(function Alert(props: Props & Handlers) {
+export default memo(function Alert(props: Props & Handlers) {
   const {
     alert: { message },
     onClose,
   } = props;
+
+  const onClick = useCallback(
+    (e: React.MouseEvent<HTMLElement>) => e.stopPropagation(),
+    [],
+  );
 
   if (!message) {
     return null;
@@ -26,7 +31,7 @@ export default React.memo(function Alert(props: Props & Handlers) {
     <Root>
       <Overlay onClick={onClose}>
         <ObiOuter>
-          <ObiInner onClick={ev => ev.stopPropagation()}>
+          <ObiInner onClick={onClick}>
             <DisplayArea>
               <MessageArea>
                 <span>{message}</span>

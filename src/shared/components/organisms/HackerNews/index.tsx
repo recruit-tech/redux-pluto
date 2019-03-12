@@ -14,7 +14,8 @@ type Props = {
 
 export default compose<React.FC<Props>>(
   asyncLoader((props, { dispatch }) => dispatch(fetchItems())),
-  connect(state => ({
+  connect((state, ownProps: any) => ({
     hackerNews: hackerNewsSelector(state as any),
+    title: ownProps.route.title,
   })),
-)((props: any) => <HackerNews {...props.hackerNews} />);
+)((props: any) => <HackerNews {...props.hackerNews} title={props.title} />);
