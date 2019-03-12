@@ -18,12 +18,12 @@ export const changeMode = createAction(CHANGE_MODE, (mode: number) => mode);
  */
 export type State = {
   color: string;
-  mode: number;
+  mode: boolean;
 };
 
 const INITIAL_STATE: State = {
-  color: "#fff",
-  mode: 0,
+  color: "#000",
+  mode: false,
 };
 
 /**
