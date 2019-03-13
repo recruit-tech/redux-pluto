@@ -10,7 +10,7 @@ import counter, { State as CounterState } from "./counter";
 import loading, { State as LoadingState } from "./loading";
 import hackerNews, { State as HackerNewsState } from "./hackerNews";
 import uploadSample, { State as UploadSampleState } from "./uploadSample";
-import canvas, {State as CanvasState} from "./canvas";
+import canvas, { State as CanvasState } from "./canvas";
 
 export type RootState = {
   app: {
@@ -40,7 +40,7 @@ export default combineReducers({
     agreedSample,
     uploadSample,
     hackerNews,
-    canvas
+    canvas,
   }),
   form: formReducer,
   reduxAsyncLoader,

@@ -29,22 +29,22 @@ const INITIAL_STATE: State = {
 /**
  * Reducer
  */
-export default handleActions(
+export default handleActions<State>(
   {
     [CHANGE_COLOR]: (_state: State, action: any) => {
       const { payload } = action;
       return {
         color: payload,
-        mode: _state.mode
+        mode: _state.mode,
       };
     },
     [CHANGE_MODE]: (_state: State, action: any) => {
-        const { payload } = action;
-        return {
-          color: _state.color,
-          mode: payload
-        };
-      },
+      const { payload } = action;
+      return {
+        color: _state.color,
+        mode: payload,
+      };
+    },
   },
   INITIAL_STATE,
 );

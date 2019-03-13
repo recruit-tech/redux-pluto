@@ -46,13 +46,13 @@ export default function getRoutes(store: any) {
             getComponent={loadUploadSample}
             title="Upload Sample"
           />
-          
-          <$Route 
-            path="canvas" 
-            getComponent={loadCanvas} 
+
+          <$Route
+            path="canvas"
+            getComponent={loadCanvas}
             title="Canvas Sample"
           />
-          
+
           <$Route
             path="hn"
             getComponent={loadHackerNews}

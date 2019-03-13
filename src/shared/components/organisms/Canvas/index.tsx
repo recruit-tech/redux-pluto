@@ -16,5 +16,5 @@ export default connect(
     onChangeMode: (e: any) => {
       dispatch(changeMode(e.target.checked));
     },
-  })
+  }),
 )(Canvas);
