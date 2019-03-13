@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import {
   Link as ReactRouterLink,
   IndexLink as ReactRouterIndexLink,
@@ -28,7 +28,7 @@ const links: HeaderLink[] = [
   { key: "logout", to: "/logout", label: "Logout" },
 ];
 
-export default React.memo(function Header(props: Props) {
+export default memo(function Header(props: Props) {
   return (
     <Root>
       <hgroup>
