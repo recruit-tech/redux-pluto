@@ -162,7 +162,7 @@
     "cors": "^2.8.4",
     "cross-env": "^5.2.0",
     "css-loader": "^2.0.0",
-    "enzyme": "^3.7.0",
+    "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.7.0",
     "eslint": "^5.15.0",
     "eslint-config-prettier": "^4.1.0",
