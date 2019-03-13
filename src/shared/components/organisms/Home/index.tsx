@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import DocumentTitle from "react-document-title";
 
 function Home(props: any) {
