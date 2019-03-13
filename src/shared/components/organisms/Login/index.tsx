@@ -1,4 +1,4 @@
-import { compose } from "redux";
+import { compose, Dispatch } from "redux";
 import { reduxForm, isInvalid } from "redux-form";
 import { connect } from "react-redux";
 import { login } from "../../../redux/modules/auth";
@@ -6,7 +6,6 @@ import normalizeFormError from "../../utils/normalizeFormError";
 import validate from "../../../validators/login";
 import LoginForm from "./LoginForm";
 import { RootState } from "../../../../shared/redux/modules/reducer";
-import { Dispatch } from "redux";
 
 export default compose<React.FC>(
   connect((state: RootState, ownProps: any) => ({
