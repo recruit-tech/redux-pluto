@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const noop = () => {};
 
-export default (function Overlay(props: {
+export default function Overlay(props: {
   children: React.ReactNode;
   onClick: any;
 }) {
@@ -14,7 +14,7 @@ export default (function Overlay(props: {
       <Inner>{children}</Inner>
     </Root>
   );
-});
+}
 
 const Root = styled.div`
   position: fixed;

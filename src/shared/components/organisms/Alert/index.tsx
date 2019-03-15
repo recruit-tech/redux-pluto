@@ -1,17 +1,16 @@
 import { connect } from "react-redux";
-import { compose } from "recompose";
-import { alertSelector } from "../../../redux/modules/reducer";
+import { alertSelector, RootState } from "../../../redux/modules/reducer";
 import { clearAlert } from "../../../redux/modules/alert";
 import bindActionCreators from "../../utils/bindActionCreators";
-import Alert from "./Alert";
+import Alert, { Props, Handlers } from "./Alert";
 
-export default compose<{ alert: { message: string }; onClose: any }, {}>(
-  connect(
-    state => ({
-      alert: alertSelector(state as any),
-    }),
-    bindActionCreators({
-      onClose: clearAlert,
-    }),
-  ),
-)(Alert);
+const enhancer = connect<Props, Handlers, {}, RootState>(
+  state => ({
+    alert: alertSelector(state),
+  }),
+  bindActionCreators({
+    onClose: clearAlert,
+  }),
+);
+
+export default enhancer(Alert);

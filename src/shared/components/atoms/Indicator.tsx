@@ -25,11 +25,11 @@ type Props = {
   loading: boolean;
 };
 
-export default (function Indicator(props: Props) {
+export default function Indicator(props: Props) {
   const { loading } = props;
   if (!loading) {
     return null;
   }
 
   return <Loader />;
-});
+}

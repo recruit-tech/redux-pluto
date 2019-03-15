@@ -1,13 +1,16 @@
-import DocumentTitle from "react-document-title";
 import React from "react";
-import { compose, shouldUpdate } from "recompose";
+import DocumentTitle from "react-document-title";
 
 const array = Array.from({ length: 500 }, (_, i) => i);
 
-type Props = { onDataReady: boolean; route: { title: string } };
-export default compose<Props, {}>(shouldUpdate(() => false))(function Bar(
-  props: Props,
-) {
+type Props = {
+  onDataReady: boolean;
+  route: {
+    title: string;
+  };
+};
+
+function Bar(props: Props) {
   return (
     <DocumentTitle title={props.route.title}>
       <main>
@@ -20,4 +23,6 @@ export default compose<Props, {}>(shouldUpdate(() => false))(function Bar(
       </main>
     </DocumentTitle>
   );
-});
+}
+
+export default Bar;

@@ -1,5 +1,5 @@
+import React, { memo } from "react";
 import DocumentTitle from "react-document-title";
-import React from "react";
 
 type Props = {
   loading: boolean;
@@ -10,7 +10,7 @@ type Props = {
   title: string;
 };
 
-export default React.memo(function UploadSample(props: Props) {
+export default memo(function UploadSample(props: Props) {
   const { loading, path, onInputFile, onSubmitFile, onCancel, title } = props;
 
   return (
