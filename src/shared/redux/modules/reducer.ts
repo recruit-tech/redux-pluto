@@ -10,6 +10,7 @@ import counter, { State as CounterState } from "./counter";
 import loading, { State as LoadingState } from "./loading";
 import hackerNews, { State as HackerNewsState } from "./hackerNews";
 import uploadSample, { State as UploadSampleState } from "./uploadSample";
+import canvas, { State as CanvasState } from "./canvas";
 
 export type RootState = {
   app: {
@@ -21,6 +22,7 @@ export type RootState = {
     hackerNews: HackerNewsState;
     agreedSample: AgreedSampleState;
     uploadSample: UploadSampleState;
+    canvas: CanvasState;
   };
   // libraries
   form: any;
@@ -38,6 +40,7 @@ export default combineReducers({
     agreedSample,
     uploadSample,
     hackerNews,
+    canvas,
   }),
   form: formReducer,
   reduxAsyncLoader,
@@ -73,4 +76,8 @@ export function globalFormDisabledSelector(state: RootState) {
 
 export function hackerNewsSelector(state: RootState) {
   return state.app.hackerNews;
+}
+
+export function canvasSelector(state: RootState) {
+  return state.app.canvas;
 }

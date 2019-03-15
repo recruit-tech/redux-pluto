@@ -19,6 +19,7 @@ import {
   loadAgreedSample,
   loadBar,
   loadLogin,
+  loadCanvas,
   loadHackerNews,
   loadUploadSample,
 } from "./misc";
@@ -44,6 +45,12 @@ export default function getRoutes(store: any) {
             path="uploadsample"
             getComponent={loadUploadSample}
             title="Upload Sample"
+          />
+
+          <$Route
+            path="canvas"
+            getComponent={loadCanvas}
+            title="Canvas Sample"
           />
 
           <$Route

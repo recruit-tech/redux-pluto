@@ -23,6 +23,7 @@ const links: HeaderLink[] = [
   { key: "bar", to: "/bar", label: "Bar" },
   { key: "agreedsample", to: "/agreedsample", label: "AgeedSample" },
   { key: "uploadsample", to: "/uploadsample", label: "UploadSample" },
+  { key: "canvas", to: "/canvas", label: "Canvas" },
   { key: "hacker-news", to: "/hn", label: "HackerNews" },
   { key: "login", to: "/login", label: "Login" },
   { key: "logout", to: "/logout", label: "Logout" },

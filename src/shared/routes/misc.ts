@@ -41,6 +41,16 @@ export function loadLogin(_: any, cb: any) {
   ).then(result => cb(null, result), cb);
 }
 
+export function loadCanvas(_: any, cb: any) {
+  createUniversalComponent(
+    () =>
+      import(/* webpackChunkName: "misc" */ "../components/organisms/Canvas"),
+    // @ts-ignore
+    () => require.resolveWeak("../components/organisms/Canvas"),
+    chunkName,
+  ).then(result => cb(null, result), cb);
+}
+
 export function loadUploadSample(_: any, cb: any) {
   createUniversalComponent(
     () =>
