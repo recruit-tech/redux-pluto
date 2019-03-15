@@ -2,21 +2,24 @@ import { inspect } from "util";
 import React from "react";
 import { ServerStyleSheet } from "styled-components";
 import { renderToStaticMarkup, renderToString } from "react-dom/server";
-import { createMemoryHistory, match } from "react-router";
+// @ts-ignore
+import createMemoryHistory from "history/createMemoryHistory";
 import { syncHistoryWithStore } from "react-router-redux";
-import { loadOnServer } from "redux-async-loader";
+// import { loadOnServer } from "redux-async-loader";
 import Fetchr from "fetchr";
 import { flushChunkNames } from "react-universal-component/server";
 import flushChunks from "webpack-flush-chunks";
 import debugFactory from "debug";
 import createStore from "../../shared/redux/createStore";
-import { csrfAction } from "../../shared/redux/modules/csrf";
-import getRoutes from "../../shared/routes";
+// import { csrfAction } from "../../shared/redux/modules/csrf";
+// import getRoutes from "../../shared/routes";
 import Html from "../components/Html";
 import App from "../components/App";
 import { MiddlewareAPI, AnyAction, Store } from "redux";
 import { Request, Response } from "express";
 import { RootState } from "../../shared/redux/modules/reducer";
+// import { matchRoutes, renderRoutes } from "react-router-config";
+import { routes } from "../../shared/routes/routes";
 
 const debug = debugFactory("app:server:middleware:reduxApp");
 
@@ -95,72 +98,115 @@ export default function createReduxApp(config: any) {
     /*
      * React-Routerのルーティング定義とマッチングを行います。
      */
-    matchRoutes({ history, routes: getRoutes(store) })
-      .then(({ redirectLocation, renderProps }) => {
-        if (redirectLocation) {
-          return res.redirect(
-            302,
-            redirectLocation.pathname + redirectLocation.search,
-          );
-        }
 
-        if (!renderProps) {
-          return next();
-        }
+    const { useragent } = req;
 
-        const { title } = renderProps.routes[renderProps.routes.length - 1];
-        const { useragent } = req;
+    // const parsedUrl = new URL(req.url);
+    // const route = matchRoutes(routes, req.url);
+    // TODO: route
 
-        /*
-         * 初期表示に必要なデータをフェッチします。
-         */
-        timing.startTime("prefetch", "Prefetch onLoad");
-        store.dispatch(csrfAction(req.csrfToken()));
-        return Promise.all([loadOnServer(renderProps, store)])
-          .then(() => {
-            timing.endTime("prefetch");
-
-            /*
-             * サーバサイドレンダリングを行います。
-             */
-            renderSSR({
-              res,
-              store,
-              renderProps,
-              config,
-              clientConfig,
-              timing,
-              title,
-              useragent,
-            });
-          })
-          .catch(err => {
-            debug(err);
-            // status コードを見て、 500 系の場合は render しない
-            if (!err.statusCode || err.statusCode >= 500) {
-              throw err;
-            }
-            // TODO(yosuke): 401系だったらリダイレクトが良いかも。
-            // その他の400系の場合は render させる
-            res.statusCode = err.statusCode;
-            return renderSSR({
-              res,
-              store,
-              renderProps,
-              config,
-              clientConfig,
-              timing,
-              title,
-              useragent,
-            });
-          });
-      })
-      .catch(err => {
-        debug(err);
-        debug(store.getState());
-        debug(store.getState().routing);
-        return next(err);
+    try {
+      renderSSR({
+        res,
+        store,
+        renderProps: {},
+        config,
+        clientConfig,
+        timing,
+        routes,
+        title: "foo",
+        useragent,
       });
+    } catch (err) {
+      // return;
+      debug(err);
+      // status コードを見て、 500 系の場合は render しない
+      if (!err.statusCode || err.statusCode >= 500) {
+        throw err;
+      }
+      // TODO(yosuke): 401系だったらリダイレクトが良いかも。
+      // その他の400系の場合は render させる
+      res.statusCode = err.statusCode;
+      renderSSR({
+        res,
+        store,
+        renderProps: {},
+        config,
+        clientConfig,
+        timing,
+        routes,
+        title: "foo",
+        useragent,
+      });
+    }
+
+    // matchRoutes(routes)
+    //   .matchRoutes({ history, routes: getRoutes(store) })
+    //   .then(({ redirectLocation, renderProps }) => {
+    //     if (redirectLocation) {
+    //       return res.redirect(
+    //         302,
+    //         redirectLocation.pathname + redirectLocation.search,
+    //       );
+    //     }
+
+    //     if (!renderProps) {
+    //       return next();
+    //     }
+
+    //     const { title } = renderProps.routes[renderProps.routes.length - 1];
+    //     const { useragent } = req;
+
+    //     /*
+    //      * 初期表示に必要なデータをフェッチします。
+    //      */
+    //     timing.startTime("prefetch", "Prefetch onLoad");
+    //     store.dispatch(csrfAction(req.csrfToken()));
+    //     return Promise.all([loadOnServer(renderProps, store)])
+    //       .then(() => {
+    //         timing.endTime("prefetch");
+
+    //         /*
+    //          * サーバサイドレンダリングを行います。
+    //          */
+    //         renderSSR({
+    //           res,
+    //           store,
+    //           renderProps,
+    //           config,
+    //           clientConfig,
+    //           timing,
+    //           title,
+    //           useragent,
+    //         });
+    //       })
+    //       .catch(err => {
+    //         debug(err);
+    //         // status コードを見て、 500 系の場合は render しない
+    //         if (!err.statusCode || err.statusCode >= 500) {
+    //           throw err;
+    //         }
+    //         // TODO(yosuke): 401系だったらリダイレクトが良いかも。
+    //         // その他の400系の場合は render させる
+    //         res.statusCode = err.statusCode;
+    //         return renderSSR({
+    //           res,
+    //           store,
+    //           renderProps,
+    //           config,
+    //           clientConfig,
+    //           timing,
+    //           title,
+    //           useragent,
+    //         });
+    //       });
+    //   })
+    //   .catch(err => {
+    //     debug(err);
+    //     debug(store.getState());
+    //     debug(store.getState().routing);
+    //     return next(err);
+    //   });
   }
 }
 
@@ -180,20 +226,20 @@ function getClientConfig(config: any, req: Request & { csrfToken: any }) {
   };
 }
 
-function matchRoutes(options: any) {
-  return new Promise((resolve, reject) => {
-    (match as any)(
-      options,
-      (error: Error, redirectLocation: string, renderProps: any) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve({ redirectLocation, renderProps });
-        }
-      },
-    );
-  });
-}
+// function matchRoutes(options: any) {
+//   return new Promise((resolve, reject) => {
+//     (match as any)(
+//       options,
+//       (error: Error, redirectLocation: string, renderProps: any) => {
+//         if (error) {
+//           reject(error);
+//         } else {
+//           resolve({ redirectLocation, renderProps });
+//         }
+//       },
+//     );
+//   });
+// }
 
 function renderCSR({ res, store, config, clientConfig, timing }: any) {
   const assets = (flushChunks as any)(config.clientStats);
@@ -215,6 +261,8 @@ function renderSSR({
   clientConfig,
   timing,
   title,
+  // eslint-disable-next-line
+  routes,
   useragent,
 }: {
   res: Response;
@@ -225,18 +273,24 @@ function renderSSR({
   timing: any;
   title: string;
   useragent: ExpressUseragent.UserAgent;
+  routes: Array<{
+    Component?: any;
+  }>;
 }) {
   /*
    * メインコンテンツをレンダリングします。
    */
 
   const sheet = new ServerStyleSheet(); // <-- creating out stylesheet
-  const jsx = sheet.collectStyles(<App store={store} {...renderProps} />);
+  const jsx = sheet.collectStyles(
+    <App store={store} routes={routes} {...renderProps} />,
+  );
   const content = renderToString(jsx);
   const styles = sheet.getStyleElement();
 
-  const { routes } = renderProps;
-  const status = routes[routes.length - 1].status || 200;
+  // const { routes } = renderProps;
+  // const status = routes[routes.length - 1].status || 200;
+  const status = 200;
 
   const chunkNames = flushChunkNames();
   const assets = flushChunks(config.clientStats, { chunkNames });

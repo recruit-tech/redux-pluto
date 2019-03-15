@@ -1,5 +1,8 @@
 import Fetchr from "fetchr";
-import { createMemoryHistory } from "react-router";
+// import { createMemoryHistory } from "react-router-dom";
+// @ts-ignore
+import createMemoryHistory from "history/createMemoryHistory";
+
 import { routerMiddleware } from "react-router-redux";
 import { createStore as create, applyMiddleware } from "redux";
 import steps from "redux-effects-steps";

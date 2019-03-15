@@ -1,13 +1,13 @@
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { asyncLoader } from "redux-async-loader";
-import { RouterState } from "react-router";
+// import { RouterState } from "react-router-dom";
 import { getText } from "../../../redux/modules/agreedSample";
 import AgreedSample from "./AgreedSample";
 import { RootState } from "../../../redux/modules/reducer";
 
 const enhancer = compose(
-  asyncLoader<RouterState>(({ location }, { dispatch }) => {
+  asyncLoader<any>(({ location }, { dispatch }) => {
     const { query: locationQuery } = location;
     if (!locationQuery) {
       return dispatch(getText());

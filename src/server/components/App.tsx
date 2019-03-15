@@ -1,9 +1,11 @@
 import React from "react";
 import { Store } from "redux";
 import { Provider } from "react-redux";
-import RouterContext from "react-router/lib/RouterContext";
+// import RouterContext from "react-router/lib/RouterContext";
 import { createGlobalStyle } from "styled-components";
 import { RootState } from "../../shared/redux/modules/reducer";
+import { renderRoutes } from "react-router-config";
+import { StaticRouter } from "react-router-dom";
 
 /* eslint no-unused-expressions: 0 */
 const GlobalStyle = createGlobalStyle`
@@ -64,15 +66,18 @@ const GlobalStyle = createGlobalStyle`
 
 type Props = {
   store: Store<RootState, any>;
+  routes: Array<any>;
+  url: string;
 };
 
 export default function App(props: Props) {
-  const { store, ...renderProps } = props;
-
+  const { store, routes, url } = props;
+  const context: any = {};
   return (
     <>
-      <Provider store={store} key="provider">
-        <RouterContext {...renderProps} />
+      <Provider store={store} key="provider" context={context}>
+        <StaticRouter location={url}>{renderRoutes(routes)}</StaticRouter>
+        {/* <RouterContext {...renderProps} /> */}
       </Provider>
       <GlobalStyle />
     </>

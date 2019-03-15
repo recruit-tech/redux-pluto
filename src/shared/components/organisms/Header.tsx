@@ -1,8 +1,8 @@
 import React, { memo } from "react";
 import {
   Link as ReactRouterLink,
-  IndexLink as ReactRouterIndexLink,
-} from "react-router";
+  // IndexLink as ReactRouterIndexLink,
+} from "react-router-dom";
 import styled from "styled-components";
 
 type Props = {
@@ -84,18 +84,18 @@ const Item = styled.li`
   flex-grow: 1;
 `;
 
-const Link = styled(ReactRouterLink)`
+const Link: any = styled(ReactRouterLink)`
   display: block;
   padding: 12px 0;
-  background-color: ${props => (props.selected ? "grey" : "lightgray")};
+  background-color: ${(props: any) => (props.selected ? "grey" : "lightgray")};
 
   &:hover {
     background-color: darkgray;
   }
 `;
 
-const IndexLink = styled(ReactRouterIndexLink)`
-  background-color: ${props => (props.selected ? "grey" : "lightgray")};
+const IndexLink: any = styled(ReactRouterLink)`
+  background-color: ${(props: any) => (props.selected ? "grey" : "lightgray")};
   display: block;
   padding: 12px 0;
   &:hover {

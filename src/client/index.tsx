@@ -3,7 +3,7 @@
 /* eslint-disable-next-line */
 import React from "react";
 import { hydrate, unmountComponentAtNode } from "react-dom";
-import { browserHistory, match } from "react-router";
+import { browserHistory, match } from "react-router-dom";
 import { syncHistoryWithStore } from "react-router-redux";
 import Fetchr from "fetchr";
 import createStore from "../shared/redux/createStore";

@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 
-import { Link as ReactRouterLink } from "react-router";
+import { Link as ReactRouterLink } from "react-router-dom";
 
 type Props = {
   children: ReactNode;
