@@ -18,9 +18,15 @@ export default class BaseService {
   }
 
   read(req: any, _resource: any, params: any, config: any) {
-    return read(this.axios, this.name, this.pathname, {
-      ...this.params,
-      ...params,
-    });
+    return read(
+      this.axios,
+      this.name,
+      this.pathname,
+      {
+        ...this.params,
+        ...params,
+      },
+      req.headers,
+    );
   }
 }

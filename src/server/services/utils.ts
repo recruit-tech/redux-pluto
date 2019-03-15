@@ -6,11 +6,16 @@ import path from "path";
 
 const debug = debugFactory("app:server:services");
 
+type Headers = {
+  [key: string]: any;
+};
+
 export function read(
   axios: AxiosInstance,
   name: string,
   pathname: string,
   query: any,
+  headers: Headers,
 ) {
   const formattedUrl = formatUrl({ pathname, query });
   debug(`[${name}]: GET ${formattedUrl}`);
@@ -23,7 +28,7 @@ export function read(
     });
   }
 
-  return axios.get(formattedUrl).then(
+  return axios.get(formattedUrl, { headers }).then(
     response => {
       const responseBody = response.data;
       if (!responseBody || !responseBody.results) {
@@ -69,26 +74,34 @@ export function readAll(
   params: any | null,
   itemsName: string,
   loaded: Array<any> = [],
+  headers: Headers,
 ): Promise<any> {
   const actualParams = { ...params, start: loaded.length + 1 };
-  return read(axios, name, pathname, actualParams).then((results: any) => {
-    const available = +results.results_available; // eslint-disable-line camelcase
-    if (!available) {
-      return results;
-    }
+  return read(axios, name, pathname, actualParams, headers).then(
+    (results: any) => {
+      const available = +results.results_available; // eslint-disable-line camelcase
+      if (!available) {
+        return results;
+      }
 
-    const items = results[itemsName];
-    if (loaded.length + items.length === available) {
-      results.results_returned = available; // eslint-disable-line camelcase
-      results[itemsName] = [...loaded, ...items];
-      return results;
-    }
+      const items = results[itemsName];
+      if (loaded.length + items.length === available) {
+        results.results_returned = available; // eslint-disable-line camelcase
+        results[itemsName] = [...loaded, ...items];
+        return results;
+      }
 
-    return readAll(axios, name, pathname, params, itemsName, [
-      ...loaded,
-      ...items,
-    ]);
-  });
+      return readAll(
+        axios,
+        name,
+        pathname,
+        params,
+        itemsName,
+        [...loaded, ...items],
+        headers,
+      );
+    },
+  );
 }
 
 export function create(
@@ -97,7 +110,7 @@ export function create(
   pathname: string,
   body: any,
   query: any,
-  headers: any,
+  headers: Headers,
 ) {
   const formattedUrl = formatUrl({ pathname, query });
   debug(`[${name}]: POST ${formattedUrl} with body: ${JSON.stringify(body)}`);
