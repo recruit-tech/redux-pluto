@@ -12,7 +12,7 @@ test("AgreedService: read success", async () => {
     "/agreedsample",
     "foo",
   );
-  const result = await agreedService.read();
+  const result = await agreedService.read({ headers: {} });
   assert.deepStrictEqual(result, getText.response.values);
 });
 
@@ -23,7 +23,7 @@ test("AgreedService: forbidden path traversal", async done => {
     "/something/../agreedsample",
     "foo",
   );
-  agreedService.read().then(done.fail, (e: any) => {
+  agreedService.read({ headers: {} }).then(done.fail, (e: any) => {
     assert.strictEqual(e.statusCode, 403);
     assert.strictEqual(e.message, "Forbidden");
     done();
