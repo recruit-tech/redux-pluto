@@ -27,6 +27,8 @@ export default class BaseMaster extends BaseService {
       this.pathname,
       params,
       this.itemsName,
+      [],
+      req.headers,
     ).then((result: any) => this.formatResult(result[this.itemsName]));
   }
 }
