@@ -18,7 +18,7 @@ export function read(
   headers: Headers,
 ) {
   const formattedUrl = formatUrl({ pathname, query });
-  debug(`[${name}]: GET ${formattedUrl}`);
+  debug(`[${name}]: GET ${formattedUrl} with headers: ${headers}`);
 
   if (!isSafePath(pathname)) {
     return rejectWith(fumble.http.create(403), {
@@ -113,7 +113,11 @@ export function create(
   headers: Headers,
 ) {
   const formattedUrl = formatUrl({ pathname, query });
-  debug(`[${name}]: POST ${formattedUrl} with body: ${JSON.stringify(body)}`);
+  debug(
+    `[${name}]: POST ${formattedUrl} with headers: ${headers} body: ${JSON.stringify(
+      body,
+    )}`,
+  );
 
   if (!isSafePath(pathname)) {
     return rejectWith(fumble.http.create(403), {
