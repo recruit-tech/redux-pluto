@@ -16,9 +16,9 @@ export const UPLOAD_FILE_FAIL = `${UPLOAD_FILE}/fail`;
 
 type UploadResult = {
   data: {
-    path: string
-  }
-}
+    path: string;
+  };
+};
 
 interface InputFileAction {
   type: typeof INPUT_FILE;
@@ -44,47 +44,46 @@ interface UploadFileFailAction {
   error: Error | null;
 }
 
-type Action =(
+type Action =
   | InputFileAction
   | UploadFileRequestAction
   | UploadFileCancelAction
   | UploadFileSuccessAction
-  | UploadFileFailAction
-);
+  | UploadFileFailAction;
 /**
  * Action creators
  */
 
-export function inputFile(filename: string ): InputFileAction {
+export function inputFile(filename: string): InputFileAction {
   return {
     type: INPUT_FILE,
     payload: filename,
-  }
-};
+  };
+}
 
 function uploadFileRequest(): UploadFileRequestAction {
   return {
     type: UPLOAD_FILE_REQUEST,
-  }
+  };
 }
 function uploadFileCancel(cancelSource: Object | null): UploadFileCancelAction {
   return {
     type: UPLOAD_FILE_CANCEL,
     payload: cancelSource,
-  }
-};
+  };
+}
 function uploadFileSuccess(res: UploadResult): UploadFileSuccessAction {
   return {
     type: UPLOAD_FILE_SUCCESS,
     payload: res,
-  }
-};
+  };
+}
 function uploadFileFail(why: Error | null): UploadFileFailAction {
   return {
     type: UPLOAD_FILE_FAIL,
     error: why,
-  }
-};
+  };
+}
 
 export function uploadFile(path: string, file: any) {
   return steps(
