@@ -1,6 +1,5 @@
 import { steps } from "redux-effects-steps";
 import { upload } from "redux-effects-formdata-uploader";
-import { withMiddleware } from "./utils";
 
 /**
  * Action types
