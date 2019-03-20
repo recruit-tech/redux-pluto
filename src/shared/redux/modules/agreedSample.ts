@@ -13,7 +13,7 @@ const AGREED_SAMPLE_GET_TEXT_FAIL = "redux-proto/agreedsample/get-text-fail";
 
 type GetTextRequestPayload = {
   resource: string;
-  params: { status: string | null };
+  params: { status?: string | null };
 };
 
 type GetAgreedSampleType = {
@@ -66,7 +66,7 @@ export function getTextFail(error: Error): GetTextFailAction {
 }
 
 export function getText(
-  status: string | null,
+  status?: string | null,
 ): Promise<GetTextSuccessAction | GetTextFailAction> {
   return steps(
     getTextRequest({
