@@ -45,6 +45,8 @@ type CheckLoginSuccess = {
 };
 type CheckLoginFail = {
   type: typeof AUTH_CHECK_LOGIN_FAIL;
+  payload: Error;
+  error: boolean;
 };
 
 type LoginRequest = {
@@ -57,6 +59,8 @@ type LoginSuccess = {
 };
 type LoginFail = {
   type: typeof AUTH_LOGIN_FAIL;
+  payload: Error;
+  error: boolean;
 };
 
 type LogoutRequest = {
@@ -67,6 +71,8 @@ type LogoutSuccess = {
 };
 type LogoutFail = {
   type: typeof AUTH_LOGOUT_FAIL;
+  payload: Error;
+  error: boolean;
 };
 
 /**
@@ -85,9 +91,11 @@ function checkLoginSuccess(res: GetCheckLoginType): CheckLoginSuccess {
   };
 }
 
-function checkLoginFail(e: Error): CheckLoginFail {
+function checkLoginFail(error: Error): CheckLoginFail {
   return {
     type: AUTH_CHECK_LOGIN_FAIL,
+    payload: error,
+    error: true,
   };
 }
 
@@ -112,9 +120,11 @@ function loginSuccess(res: PostLoginType): LoginSuccess {
   };
 }
 
-function loginFail(e: Error): LoginFail {
+function loginFail(error: Error): LoginFail {
   return {
     type: AUTH_LOGIN_FAIL,
+    payload: error,
+    error: true,
   };
 }
 
@@ -143,9 +153,11 @@ function logoutSuccess(): LogoutSuccess {
   };
 }
 
-function logoutFail(): LogoutFail {
+function logoutFail(error: Error): LogoutFail {
   return {
     type: AUTH_LOGOUT_FAIL,
+    payload: error,
+    error: true,
   };
 }
 

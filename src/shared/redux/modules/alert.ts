@@ -7,26 +7,26 @@
 export const ALERT_SHOW = "redux-proto/app/alert/show";
 export const ALERT_CLEAR = "redux-proto/app/alert/clear";
 
-type AlertShowAction = {
+type ShowAlert = {
   type: typeof ALERT_SHOW;
   payload: string;
 };
 
-type AlertShowClearAction = {
+type ClearAlert = {
   type: typeof ALERT_CLEAR;
 };
 
 /**
  * Action creators
  */
-export function showAlert(message: string): AlertShowAction {
+export function showAlert(message: string): ShowAlert {
   return {
     type: ALERT_SHOW,
     payload: message,
   };
 }
 
-export function clearAlert(): AlertShowClearAction {
+export function clearAlert(): ClearAlert {
   return {
     type: ALERT_CLEAR,
   };
@@ -44,7 +44,7 @@ const INITIAL_STATE: State = {
   message: "",
 };
 
-type Action = AlertShowAction | AlertShowClearAction;
+type Action = ShowAlert | ClearAlert;
 
 /**
  * Reducer
@@ -55,6 +55,9 @@ export default function(state: State = INITIAL_STATE, action: Action): State {
       return {
         message: action.payload,
       };
+    }
+    case ALERT_CLEAR: {
+      return INITIAL_STATE;
     }
     default: {
       return state;

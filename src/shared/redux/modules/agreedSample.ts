@@ -28,7 +28,8 @@ type GetTextSuccessAction = {
 
 type GetTextFailAction = {
   type: typeof AGREED_SAMPLE_GET_TEXT_FAIL;
-  error: any;
+  payload: Error;
+  error: boolean;
 };
 
 type Action = GetTextRequestAction | GetTextSuccessAction | GetTextFailAction;
@@ -47,10 +48,11 @@ export function getTextSuccess(res: GetAgreedSampleType): GetTextSuccessAction {
     payload: res,
   };
 }
-export function getTextFail(error: any): GetTextFailAction {
+export function getTextFail(error: Error): GetTextFailAction {
   return {
     type: AGREED_SAMPLE_GET_TEXT_FAIL,
-    error,
+    payload: error,
+    error: true,
   };
 }
 
@@ -75,7 +77,7 @@ export type State = {
   loading: boolean;
   loaded: boolean;
   text: string;
-  error?: any;
+  error?: boolean;
 };
 
 const INITIAL_STATE: State = {

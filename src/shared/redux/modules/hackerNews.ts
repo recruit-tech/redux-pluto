@@ -28,7 +28,8 @@ type FetchItemsSuccess = {
 };
 type FetchItemsFail = {
   type: typeof FETCH_ITEMS_FAIL;
-  error: any;
+  payload: Error;
+  error: boolean;
 };
 
 type Action = FetchItemsRequest | FetchItemsSuccess | FetchItemsFail;
@@ -52,10 +53,11 @@ function fetchItemsSuccess(res: GetHackerNewsType): FetchItemsSuccess {
     payload: res,
   };
 }
-function fetchItemsFail(error: any): FetchItemsFail {
+function fetchItemsFail(error: Error): FetchItemsFail {
   return {
     type: FETCH_ITEMS_FAIL,
-    error,
+    payload: error,
+    error: true,
   };
 }
 
@@ -75,6 +77,7 @@ export type State = {
   items: HackerNewsItem[];
   page: number;
   loading: boolean;
+  error?: boolean;
 };
 
 export const INITIAL_STATE: State = {
@@ -108,6 +111,7 @@ export default function(state: State = INITIAL_STATE, action: Action): State {
       return {
         ...state,
         loading: false,
+        error: true,
       };
     }
     default: {
