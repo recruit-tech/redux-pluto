@@ -1,64 +1,156 @@
-import { createAction, handleActions } from "redux-actions";
 import { steps } from "redux-effects-steps";
-import { createAsyncActionTypes } from "./utils";
+import { withMiddleware } from "./utils";
 
 /**
  * Action types
  */
-const AUTH = "redux-proto/auth";
+export const AUTH_CHECK_LOGIN_REQUEST = "redux-proto/auth/check/requset";
+export const AUTH_CHECK_LOGIN_SUCCESS = "redux-proto/auth/check/success";
+export const AUTH_CHECK_LOGIN_FAIL = "redux-proto/auth/check/fail";
 
-export const [
-  AUTH_CHECK_LOGIN_REQUEST,
-  AUTH_CHECK_LOGIN_SUCCESS,
-  AUTH_CHECK_LOGIN_FAIL,
-] = createAsyncActionTypes(`${AUTH}/check`);
+export const AUTH_LOGIN_REQUEST = "redux-proto/auth/login/request";
+export const AUTH_LOGIN_SUCCESS = "redux-proto/auth/login/success";
+export const AUTH_LOGIN_FAIL = "redux-proto/auth/login/fail";
 
-export const [
-  AUTH_LOGIN_REQUEST,
-  AUTH_LOGIN_SUCCESS,
-  AUTH_LOGIN_FAIL,
-] = createAsyncActionTypes(`${AUTH}/login`);
+export const AUTH_LOGOUT_REQUEST = "redux-proto/auth/logout/request";
+export const AUTH_LOGOUT_SUCCESS = "redux-proto/auth/logout/success";
+export const AUTH_LOGOUT_FAIL = "redux-proto/auth/logout/fail";
 
-export const [
-  AUTH_LOGOUT_REQUEST,
-  AUTH_LOGOUT_SUCCESS,
-  AUTH_LOGOUT_FAIL,
-] = createAsyncActionTypes(`${AUTH}/logout`);
+type GetCheckLoginType = {
+  data: {
+    sub: string;
+  };
+};
+
+type LoginRequestPayload = {
+  params: {
+    username: string;
+    password: string;
+  };
+  location: any;
+};
+
+type PostLoginType = {
+  data: {
+    username: string;
+  };
+};
+
+type CheckLoginRequest = {
+  type: typeof AUTH_CHECK_LOGIN_REQUEST;
+};
+type CheckLoginSuccess = {
+  type: typeof AUTH_CHECK_LOGIN_SUCCESS;
+  payload: GetCheckLoginType;
+};
+type CheckLoginFail = {
+  type: typeof AUTH_CHECK_LOGIN_FAIL;
+};
+
+type LoginRequest = {
+  type: typeof AUTH_LOGIN_REQUEST;
+  payload: LoginRequestPayload;
+};
+type LoginSuccess = {
+  type: typeof AUTH_LOGIN_SUCCESS;
+  payload: PostLoginType;
+};
+type LoginFail = {
+  type: typeof AUTH_LOGIN_FAIL;
+};
+
+type LogoutRequest = {
+  type: typeof AUTH_LOGOUT_REQUEST;
+};
+type LogoutSuccess = {
+  type: typeof AUTH_LOGOUT_SUCCESS;
+};
+type LogoutFail = {
+  type: typeof AUTH_LOGOUT_FAIL;
+};
 
 /**
  * Action creators
  */
-const checkLoginRequest = createAction(AUTH_CHECK_LOGIN_REQUEST);
-
-const checkLoginSuccess = createAction(AUTH_CHECK_LOGIN_SUCCESS);
-
-const checkLoginFail = createAction(AUTH_CHECK_LOGIN_FAIL);
-
-export function checkLogin() {
-  return steps(checkLoginRequest(), [checkLoginSuccess, checkLoginFail]);
+function checkLoginRequest(): CheckLoginRequest {
+  return {
+    type: AUTH_CHECK_LOGIN_REQUEST,
+  };
 }
 
-const loginRequest = createAction(AUTH_LOGIN_REQUEST);
+function checkLoginSuccess(res: GetCheckLoginType): CheckLoginSuccess {
+  return {
+    type: AUTH_CHECK_LOGIN_SUCCESS,
+    payload: res,
+  };
+}
 
-const loginSuccess = createAction(AUTH_LOGIN_SUCCESS);
+function checkLoginFail(e: Error): CheckLoginFail {
+  return {
+    type: AUTH_CHECK_LOGIN_FAIL,
+  };
+}
 
-const loginFail = createAction(AUTH_LOGIN_FAIL);
-
-export function login(username: string, password: string, location: any) {
-  return steps(loginRequest({ params: { username, password }, location }), [
-    loginSuccess,
-    loginFail,
+export function checkLogin(): Promise<CheckLoginSuccess | CheckLoginFail> {
+  return steps(withMiddleware<GetCheckLoginType>(checkLoginRequest()), [
+    checkLoginSuccess,
+    checkLoginFail,
   ]);
 }
 
-const logoutRequest = createAction(AUTH_LOGOUT_REQUEST);
+function loginRequest(payload: LoginRequestPayload): LoginRequest {
+  return {
+    type: AUTH_LOGIN_REQUEST,
+    payload,
+  };
+}
 
-const logoutSuccess = createAction(AUTH_LOGOUT_SUCCESS);
+function loginSuccess(res: PostLoginType): LoginSuccess {
+  return {
+    type: AUTH_LOGIN_SUCCESS,
+    payload: res,
+  };
+}
 
-const logoutFail = createAction(AUTH_LOGOUT_FAIL);
+function loginFail(e: Error): LoginFail {
+  return {
+    type: AUTH_LOGIN_FAIL,
+  };
+}
 
-export function logout() {
-  return steps(logoutRequest(), [logoutSuccess, logoutFail]);
+export function login(
+  username: string,
+  password: string,
+  location: any,
+): Promise<LoginSuccess | LoginFail> {
+  return steps(
+    withMiddleware<PostLoginType>(
+      loginRequest({ params: { username, password }, location }),
+    ),
+    [loginSuccess, loginFail],
+  );
+}
+
+function logoutRequest(): LogoutRequest {
+  return {
+    type: AUTH_LOGOUT_REQUEST,
+  };
+}
+
+function logoutSuccess(): LogoutSuccess {
+  return {
+    type: AUTH_LOGOUT_SUCCESS,
+  };
+}
+
+function logoutFail(): LogoutFail {
+  return {
+    type: AUTH_LOGOUT_FAIL,
+  };
+}
+
+export function logout(): Promise<LogoutSuccess | LogoutFail> {
+  return steps(withMiddleware(logoutRequest()), [logoutSuccess, logoutFail]);
 }
 
 /**
@@ -74,21 +166,41 @@ const INITIAL_STATE: State = {
   username: null,
 };
 
+type Action =
+  | CheckLoginRequest
+  | CheckLoginSuccess
+  | CheckLoginFail
+  | LoginRequest
+  | LoginSuccess
+  | LoginFail
+  | LogoutRequest
+  | LogoutSuccess
+  | LogoutFail;
+
 /**
  * Reducer
  */
-export default handleActions<State>(
-  {
-    [AUTH_CHECK_LOGIN_SUCCESS]: loggedIn,
-    [AUTH_LOGIN_SUCCESS]: loggedInSuccess,
-    [AUTH_CHECK_LOGIN_FAIL]: loggedOut,
-    [AUTH_LOGIN_FAIL]: loggedOut,
-    [AUTH_LOGOUT_SUCCESS]: loggedOut,
-  },
-  INITIAL_STATE,
-);
+export default function(state: State = INITIAL_STATE, action: Action): State {
+  switch (action.type) {
+    case AUTH_CHECK_LOGIN_SUCCESS: {
+      return loggedIn(state, action);
+    }
+    case AUTH_LOGIN_SUCCESS: {
+      return loggedInSuccess(state, action);
+    }
+    case AUTH_CHECK_LOGIN_FAIL: {
+      return loggedOut(state);
+    }
+    case AUTH_LOGOUT_SUCCESS: {
+      return loggedOut(state);
+    }
+    default: {
+      return state;
+    }
+  }
+}
 
-function loggedIn(state: State, action: any) {
+function loggedIn(state: State, action: CheckLoginSuccess) {
   const {
     payload: {
       data: { sub },
@@ -101,7 +213,7 @@ function loggedIn(state: State, action: any) {
   };
 }
 
-function loggedInSuccess(state: State, action: any) {
+function loggedInSuccess(state: State, action: LoginSuccess) {
   const {
     payload: {
       data: { username },
