@@ -22,8 +22,16 @@ type InputFile = {
   payload: string;
 };
 
+type UploadFileRequestPayload = {
+  path: string;
+  name: string;
+  file: any;
+  cancelAction: (cancelSource: Object | null) => UploadFileCancel;
+};
+
 type UploadFileRequest = {
   type: typeof UPLOAD_FILE_REQUEST;
+  payload: UploadFileRequestPayload;
 };
 
 type UploadFileCancel = {
@@ -58,9 +66,12 @@ export function inputFile(filename: string): InputFile {
   };
 }
 
-function uploadFileRequest(): UploadFileRequest {
+function uploadFileRequest(
+  payload: UploadFileRequestPayload,
+): UploadFileRequest {
   return {
     type: UPLOAD_FILE_REQUEST,
+    payload,
   };
 }
 function uploadFileCancel(cancelSource: Object | null): UploadFileCancel {
@@ -87,8 +98,13 @@ export function uploadFile(
   file: any,
 ): Promise<UploadFileSuccess | UploadFileFail> {
   return steps(
-    uploadFileRequest(),
-    upload({ path, name: "file", file, cancelAction: uploadFileCancel }),
+    uploadFileRequest({
+      path,
+      name: "file",
+      file,
+      cancelAction: uploadFileCancel,
+    }),
+    ({ payload }) => upload(payload),
     [uploadFileSuccess, uploadFileFail],
   );
 }

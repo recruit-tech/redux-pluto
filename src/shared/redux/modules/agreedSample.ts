@@ -11,6 +11,11 @@ const AGREED_SAMPLE_GET_TEXT_SUCCESS =
   "redux-proto/agreedsample/get-text-success";
 const AGREED_SAMPLE_GET_TEXT_FAIL = "redux-proto/agreedsample/get-text-fail";
 
+type GetTextRequestPayload = {
+  resource: string;
+  params: { status: string | null };
+};
+
 type GetAgreedSampleType = {
   data: {
     text: string;
@@ -19,6 +24,7 @@ type GetAgreedSampleType = {
 
 type GetTextRequestAction = {
   type: typeof AGREED_SAMPLE_GET_TEXT_REQUEST;
+  payload: GetTextRequestPayload;
 };
 
 type GetTextSuccessAction = {
@@ -37,9 +43,12 @@ type Action = GetTextRequestAction | GetTextSuccessAction | GetTextFailAction;
 /**
  * Action creators
  */
-export function getTextRequest(): GetTextRequestAction {
+export function getTextRequest(
+  payload: GetTextRequestPayload,
+): GetTextRequestAction {
   return {
     type: AGREED_SAMPLE_GET_TEXT_REQUEST,
+    payload,
   };
 }
 export function getTextSuccess(res: GetAgreedSampleType): GetTextSuccessAction {
@@ -57,14 +66,14 @@ export function getTextFail(error: Error): GetTextFailAction {
 }
 
 export function getText(
-  status?: string | null,
+  status: string | null,
 ): Promise<GetTextSuccessAction | GetTextFailAction> {
   return steps(
-    getTextRequest(),
-    fetchrRead({
+    getTextRequest({
       resource: "agreedSample",
       params: { status },
-    }) as any,
+    }),
+    ({ payload }) => fetchrRead(payload) as any,
     [getTextSuccess, getTextFail],
   );
 }
