@@ -8,6 +8,7 @@ import { syncHistoryWithStore } from "react-router-redux";
 import Fetchr from "fetchr";
 import createStore from "../shared/redux/createStore";
 import App from "./components/App";
+import axios from "axios";
 
 const isDevToolVisible = __DEVELOPMENT__ && !__MOCK_BUILD__;
 
@@ -20,6 +21,19 @@ const root = document.getElementById("root");
 renderApp().then(() => {
   if (isDevToolVisible) {
     configHotLoader();
+  }
+});
+
+document.addEventListener("visibilitychange", async () => {
+  if (document.visibilityState === "visible") {
+    const version = await axios.get("/version");
+    if (version.data !== __VERSION__) {
+      const confirm = window.confirm("新しいバージョンのクライアントが見つかりました。更新しますか？");
+      if (confirm) {
+        location.reload(true);
+      }
+      window.confirmed = true;
+    }
   }
 });
 
@@ -54,15 +68,6 @@ function renderApp() {
     match(
       { routes, history },
       (error: Error, redirectLocation: any, renderProps: {}) => {
-        // redirect が必要で、 SSR モードがオフの時に renderProps が空になるため
-        // hydrate に失敗する事がある。
-        // SSR が有効の場合は redirect は server の response で行われるのでこの処理は不要。
-        if (__DISABLE_SSR__ && redirectLocation && !renderProps) {
-          window.location.replace(
-            `${redirectLocation.pathname}${redirectLocation.search}`,
-          );
-          return resolve();
-        }
         if (root) {
           hydrate(<App store={store} {...renderProps} />, root);
         }

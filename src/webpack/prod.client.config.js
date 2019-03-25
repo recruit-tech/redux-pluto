@@ -6,6 +6,7 @@ const WorkboxPlugin = require("workbox-webpack-plugin");
 const StatsPlugin = require("stats-webpack-plugin");
 const BrotliPlugin = require("brotli-webpack-plugin");
 
+const pack = require("../../package.json");
 const rootDir = path.resolve(__dirname, "../..");
 const outputPath = path.resolve(rootDir, "build/client");
 const outputPublicPath = "/public/";
@@ -98,6 +99,7 @@ module.exports = {
       __MOCK_BUILD__: !!process.env.MOCK_BUILD,
       __DISABLE_SSR__: !!process.env.DISABLE_SSR,
       __REPORTSUITE_ENV__: JSON.stringify(process.env.RS_ENV),
+      __VERSION__: JSON.stringify(pack.version),
     }),
 
     // optimizations

@@ -11,6 +11,8 @@ import config from "./configs";
 import AssetsHandler from "./middlewares/AssetsHandler";
 import { apiGateway, offloadDetector, reduxApp } from "./middlewares";
 
+const pack = require("../../package.json");
+
 export default function renderer({
   clientStats,
   server,
@@ -27,6 +29,9 @@ export default function renderer({
   app.use(serverTiming());
   app.use(favicon(config.favicon));
   app.use(useragent.express());
+  app.use("/version", (req, res, next) => {
+    res.end(pack.version);
+  });
 
   if (!__DEVELOPMENT__) {
     const assetsHandler = new AssetsHandler(clientStats.assets);

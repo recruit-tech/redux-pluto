@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
+const pack = require("../../package.json");
 const qs = require("query-string");
 const webpack = require("webpack");
 const WriteFilePlugin = require("write-file-webpack-plugin");
@@ -106,6 +107,7 @@ module.exports = {
       __MOCK_BUILD__: !!process.env.MOCK_BUILD,
       __DISABLE_SSR__: !!process.env.DISABLE_SSR,
       __REPORTSUITE_ENV__: JSON.stringify("dev"),
+      __VERSION__: JSON.stringify(pack.version),
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
