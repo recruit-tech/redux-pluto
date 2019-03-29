@@ -55,14 +55,14 @@ const incrementFail = (e: Error): IncrementFail => {
   };
 };
 
-export function increment(): Promise<IncrementSuccess | IncrementFail> {
-  // prettier-ignore
-  return steps<IncrementSuccess, IncrementFail>(
+export function increment() {
+  return steps(
     incrementRequest(),
     ({ payload }: IncrementRequest) => {
-      return fetchrUpdate(payload)
+      return fetchrUpdate(payload);
     },
-    [incrementSuccess, incrementFail]);
+    [incrementSuccess, incrementFail],
+  );
 }
 
 export type State = {
