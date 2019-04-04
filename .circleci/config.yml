@@ -5,7 +5,7 @@
 version: 2
 
 base_image: &base_image
-  image: circleci/node:10
+  image: circleci/node:11
 
 
 build_image: &build_image
