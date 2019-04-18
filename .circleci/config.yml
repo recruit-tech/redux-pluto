@@ -86,6 +86,12 @@ jobs:
       - <<: *restore
       - <<: *restore_lock
       - run: npm run checksize
+  audit:
+    <<: *build_image
+    steps:
+      - <<: *restore
+      - <<: *restore_lock
+      - run: npm audit
   test:
     <<: *build_image
     steps:
@@ -123,6 +129,9 @@ workflows:
       - checksize:
           requires:
             - install
+      - audit:
+          requires:
+            - install
       - test:
           requires:
             - install
@@ -136,5 +145,6 @@ workflows:
           requires:
             - lint
             - typecheck
+            - audit
             - build-asset
             - test
