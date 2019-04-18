@@ -44,7 +44,7 @@ const loginSuccess = createAction(AUTH_LOGIN_SUCCESS);
 
 const loginFail = createAction(AUTH_LOGIN_FAIL);
 
-export function login(username: string, password: string, location: any) {
+export function login(username: string, password: string, location: string) {
   return steps(loginRequest({ params: { username, password }, location }), [
     loginSuccess,
     loginFail,

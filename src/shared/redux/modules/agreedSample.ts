@@ -33,14 +33,14 @@ export const getTextRequest = createAction(AGREED_SAMPLE_GET_TEXT_REQUEST);
 export const getTextSuccess = createAction(AGREED_SAMPLE_GET_TEXT_SUCCESS);
 export const getTextFail = createAction(AGREED_SAMPLE_GET_TEXT_FAIL);
 
-export function getText(status?: string | null): Promise<{ text: string }> {
+export function getText(status?: string | null) {
   return steps(
     getTextRequest(),
     fetchrRead({
       resource: "agreedSample",
       params: { status },
     }),
-    [getTextSuccess, getTextFail] as any, // TODO: Add better types
+    [getTextSuccess, getTextFail],
   );
 }
 
