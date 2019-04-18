@@ -39,32 +39,12 @@ restore: &restore
       - code-{{ .Revision }}
 
 jobs:
-  upload_lock:
-    <<: *build_image
-    # workaround for greenkeeper-lockfile-upload
-    environment:
-      GIT_AUTHOR_NAME: greenkeeperio-bot
-      GIT_AUTHOR_EMAIL: support@greenkeeper.io
-      GIT_COMMITTER_NAME: greenkeeperio-bot
-      GIT_COMMITTER_EMAIL: support@greenkeeper.io
-    steps:
-      - <<: *restore
-      - <<: *restore_lock
-      - run: npx --package greenkeeper-lockfile@2 greenkeeper-lockfile-upload
-
   install:
     <<: *build_image
-    # workaround for greenkeeper-lockfile-update
-    environment:
-      GIT_AUTHOR_NAME: greenkeeperio-bot
-      GIT_AUTHOR_EMAIL: support@greenkeeper.io
-      GIT_COMMITTER_NAME: greenkeeperio-bot
-      GIT_COMMITTER_EMAIL: support@greenkeeper.io
     steps:
       - checkout
       - <<: *restore_lock
       - run: case $CIRCLE_BRANCH in greenkeeper*) npm i;; *) npm ci;; esac;
-      - run: npx --package greenkeeper-lockfile@2 greenkeeper-lockfile-update
       - <<: *save_lock
       - <<: *save
 
@@ -138,12 +118,6 @@ workflows:
       - build-asset:
           requires:
             - install
-      - upload_lock:
-          requires:
-            - lint
-            - typecheck
-            - build-asset
-            - test
   daily_audit:
     triggers:
       - schedule:
@@ -157,5 +131,3 @@ workflows:
       - audit:
           requires:
             - install
-
-  
