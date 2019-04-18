@@ -129,9 +129,6 @@ workflows:
       - checksize:
           requires:
             - install
-      - audit:
-          requires:
-            - install
       - test:
           requires:
             - install
@@ -145,6 +142,20 @@ workflows:
           requires:
             - lint
             - typecheck
-            - audit
             - build-asset
             - test
+  daily_audit:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - install
+      - audit:
+          requires:
+            - install
+
+  
