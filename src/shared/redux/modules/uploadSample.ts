@@ -154,23 +154,17 @@ export default (state: State = INITIAL_STATE, action: Action): State => {
       };
     }
     case UPLOAD_FILE_SUCCESS: {
-      const {
-        payload: {
-          data: { path },
-        },
-      } = action;
       return {
         ...state,
-        path,
+        path: action.payload.data.path,
         loading: false,
         loaded: true,
       };
     }
     case UPLOAD_FILE_FAIL: {
-      const { error } = action;
       return {
         ...state,
-        error,
+        error: action.error,
         loading: false,
         loaded: false,
       };
