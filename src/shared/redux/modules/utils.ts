@@ -7,8 +7,3 @@ export function createAsyncActionTypes(
 ): [string, string, string] {
   return [`${namespace}/request`, `${namespace}/success`, `${namespace}/fail`];
 }
-
-// HACK: middlewareを経由したActionを型表現するためのHelper関数
-export function withMiddleware<T>(action: AnyAction): PromisableType<T> {
-  return (action as any) as PromisableType<T>;
-}
