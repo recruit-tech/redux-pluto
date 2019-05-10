@@ -1,5 +1,4 @@
 import { steps } from "redux-effects-steps";
-import { withMiddleware } from "./utils";
 
 /**
  * Action types
@@ -99,11 +98,11 @@ function checkLoginFail(error: Error): CheckLoginFail {
   };
 }
 
-export function checkLogin(): Promise<CheckLoginSuccess | CheckLoginFail> {
-  return steps(withMiddleware<GetCheckLoginType>(checkLoginRequest()), [
-    checkLoginSuccess,
-    checkLoginFail,
-  ]);
+export function checkLogin() {
+  return steps(
+    checkLoginRequest(), 
+    [checkLoginSuccess, checkLoginFail]
+  );
 }
 
 function loginRequest(payload: LoginRequestPayload): LoginRequest {
@@ -128,17 +127,11 @@ function loginFail(error: Error): LoginFail {
   };
 }
 
-export function login(
-  username: string,
-  password: string,
-  location: any,
-): Promise<LoginSuccess | LoginFail> {
-  return steps(
-    withMiddleware<PostLoginType>(
-      loginRequest({ params: { username, password }, location }),
-    ),
-    [loginSuccess, loginFail],
-  );
+export function login(username: string, password: string, location: string) {
+  return steps(loginRequest({ params: { username, password }, location }), [
+    loginSuccess,
+    loginFail,
+  ]);
 }
 
 function logoutRequest(): LogoutRequest {
@@ -161,8 +154,11 @@ function logoutFail(error: Error): LogoutFail {
   };
 }
 
-export function logout(): Promise<LogoutSuccess | LogoutFail> {
-  return steps(withMiddleware(logoutRequest()), [logoutSuccess, logoutFail]);
+export function logout() {
+  return steps(
+    logoutRequest(), 
+    [logoutSuccess, logoutFail]
+  );
 }
 
 /**

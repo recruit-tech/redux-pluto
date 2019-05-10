@@ -20,11 +20,13 @@ export default compose<React.FC>(
       { username, password }: { username: string; password: string },
       dispatch: Dispatch<any>,
       ownProps: {
-        location: any;
+        location: { query: { location?: string } };
       },
     ) {
       return dispatch(
         login(username, password, ownProps.location.query.location || "/"),
+        // @ts-ignore
+        // FIXME: Is promise object? who make promise?
       ).catch(normalizeFormError);
     },
   }),
