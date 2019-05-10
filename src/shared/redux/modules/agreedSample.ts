@@ -59,7 +59,7 @@ export function getTextFail(error: Error): GetTextFailAction {
 export function getText(status?: string | null) {
   return steps(
     getTextRequest(),
-    fetchrRead({	
+    fetchrRead({
       resource: "agreedSample",
       params: { status },
     }) as any,

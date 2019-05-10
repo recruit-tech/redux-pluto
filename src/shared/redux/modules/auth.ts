@@ -99,10 +99,7 @@ function checkLoginFail(error: Error): CheckLoginFail {
 }
 
 export function checkLogin() {
-  return steps(
-    checkLoginRequest(), 
-    [checkLoginSuccess, checkLoginFail]
-  );
+  return steps(checkLoginRequest(), [checkLoginSuccess, checkLoginFail]);
 }
 
 function loginRequest(payload: LoginRequestPayload): LoginRequest {
@@ -155,10 +152,7 @@ function logoutFail(error: Error): LogoutFail {
 }
 
 export function logout() {
-  return steps(
-    logoutRequest(), 
-    [logoutSuccess, logoutFail]
-  );
+  return steps(logoutRequest(), [logoutSuccess, logoutFail]);
 }
 
 /**
