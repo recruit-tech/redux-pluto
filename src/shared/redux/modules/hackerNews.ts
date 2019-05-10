@@ -15,12 +15,6 @@ type GetHackerNewsType = {
 
 type FetchItemsRequest = {
   type: typeof FETCH_ITEMS_REQUEST;
-  payload: {
-    resource: string;
-    params: {
-      page: number;
-    };
-  };
 };
 type FetchItemsSuccess = {
   type: typeof FETCH_ITEMS_SUCCESS;
@@ -38,13 +32,9 @@ type Action = FetchItemsRequest | FetchItemsSuccess | FetchItemsFail;
  * Action creators
  */
 
-function fetchItemsRequest(payload: {
-  resource: string;
-  params: { page: number };
-}): FetchItemsRequest {
+function fetchItemsRequest(): FetchItemsRequest {
   return {
     type: FETCH_ITEMS_REQUEST,
-    payload,
   };
 }
 function fetchItemsSuccess(res: GetHackerNewsType): FetchItemsSuccess {
@@ -63,8 +53,8 @@ function fetchItemsFail(error: Error): FetchItemsFail {
 
 export function fetchItems(page: number = 1) {
   return steps(
-    fetchItemsRequest({ resource: "hackerNews", params: { page } }),
-    ({ payload }) => fetchrRead(payload),
+    fetchItemsRequest(),
+    fetchrRead({ resource: "hackerNews", params: { page } }),
     [fetchItemsSuccess, fetchItemsFail],
   );
 }
