@@ -1,32 +1,60 @@
-import { createAction, handleActions } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { fetchrRead } from "redux-effects-fetchr";
 import { HackerNewsItem } from "../../types/HackerNews";
-import { createAsyncActionTypes } from "./utils";
 
 /**
  * Action types
  */
-const HACKER_NEWS = "redux-proto/hackerNews";
+export const FETCH_ITEMS_REQUEST = "redux-proto/hackerNews/fetch-items/request";
+export const FETCH_ITEMS_SUCCESS = "redux-proto/hackerNews/fetch-items/success";
+export const FETCH_ITEMS_FAIL = "redux-proto/hackerNews/fetch-items/fail";
 
-export const [
-  FETCH_ITEMS_REQUEST,
-  FETCH_ITEMS_SUCCESS,
-  FETCH_ITEMS_FAIL,
-] = createAsyncActionTypes(`${HACKER_NEWS}/fetch-items`);
+type GetHackerNewsType = {
+  data: HackerNewsItem[];
+};
+
+type FetchItemsRequest = {
+  type: typeof FETCH_ITEMS_REQUEST;
+};
+type FetchItemsSuccess = {
+  type: typeof FETCH_ITEMS_SUCCESS;
+  payload: GetHackerNewsType;
+};
+type FetchItemsFail = {
+  type: typeof FETCH_ITEMS_FAIL;
+  payload: Error;
+  error: boolean;
+};
+
+type Action = FetchItemsRequest | FetchItemsSuccess | FetchItemsFail;
 
 /**
  * Action creators
  */
 
-const fetchItemsRequest = createAction(FETCH_ITEMS_REQUEST);
-const fetchItemsSuccess = createAction(FETCH_ITEMS_SUCCESS);
-const fetchItemsFail = createAction(FETCH_ITEMS_FAIL);
+function fetchItemsRequest(): FetchItemsRequest {
+  return {
+    type: FETCH_ITEMS_REQUEST,
+  };
+}
+function fetchItemsSuccess(res: GetHackerNewsType): FetchItemsSuccess {
+  return {
+    type: FETCH_ITEMS_SUCCESS,
+    payload: res,
+  };
+}
+function fetchItemsFail(error: Error): FetchItemsFail {
+  return {
+    type: FETCH_ITEMS_FAIL,
+    payload: error,
+    error: true,
+  };
+}
 
 export function fetchItems(page: number = 1) {
   return steps(
-    fetchItemsRequest({ resource: "hackerNews", params: { page } }),
-    ({ payload }: any) => fetchrRead(payload),
+    fetchItemsRequest(),
+    fetchrRead({ resource: "hackerNews", params: { page } }),
     [fetchItemsSuccess, fetchItemsFail],
   );
 }
@@ -39,6 +67,7 @@ export type State = {
   items: HackerNewsItem[];
   page: number;
   loading: boolean;
+  error?: boolean;
 };
 
 export const INITIAL_STATE: State = {
@@ -50,30 +79,33 @@ export const INITIAL_STATE: State = {
 /**
  * Reducer
  */
-export default handleActions<State>(
-  {
-    [FETCH_ITEMS_REQUEST]: state => ({
-      ...state,
-      loading: true,
-    }),
-
-    [FETCH_ITEMS_SUCCESS]: (state, action) => {
+export default function(state: State = INITIAL_STATE, action: Action): State {
+  switch (action.type) {
+    case FETCH_ITEMS_REQUEST: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case FETCH_ITEMS_SUCCESS: {
       const {
         payload: { data },
-      } = action as any;
-
+      } = action;
       return {
         ...state,
         loading: false,
         items: data,
       };
-    },
-
-    [FETCH_ITEMS_FAIL]: (state, { error }) => ({
-      ...state,
-      loading: false,
-      error,
-    }),
-  },
-  INITIAL_STATE,
-);
+    }
+    case FETCH_ITEMS_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        error: true,
+      };
+    }
+    default: {
+      return state;
+    }
+  }
+}

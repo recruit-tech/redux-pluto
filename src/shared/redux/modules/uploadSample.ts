@@ -1,38 +1,96 @@
-import { createAction, handleActions } from "redux-actions";
 import { steps } from "redux-effects-steps";
 import { upload } from "redux-effects-formdata-uploader";
-import { createAsyncActionTypes } from "./utils";
 
 /**
  * Action types
  */
-const UPLOAD_SAMPLE = "redux-proto/uploadsample/";
+const INPUT_FILE = "redux-proto/uploadsample/input";
+const UPLOAD_FILE_CANCEL = "redux-proto/uploadsample/upload/cancel";
 
-const INPUT_FILE = `${UPLOAD_SAMPLE}input`;
-const UPLOAD_FILE = `${UPLOAD_SAMPLE}upload`;
-const UPLOAD_FILE_CANCEL = `${UPLOAD_SAMPLE}upload/cancel`;
+export const UPLOAD_FILE_REQUEST = "redux-proto/uploadsample/upload/request";
+export const UPLOAD_FILE_SUCCESS = "redux-proto/uploadsample/upload/success";
+export const UPLOAD_FILE_FAIL = "redux-proto/uploadsample/upload/fail";
 
-export const [
-  UPLOAD_FILE_REQUEST,
-  UPLOAD_FILE_SUCCESS,
-  UPLOAD_FILE_FAIL,
-] = createAsyncActionTypes(UPLOAD_FILE);
+type PostUploadFileType = {
+  data: {
+    path: string;
+  };
+};
 
+type InputFile = {
+  type: typeof INPUT_FILE;
+  payload: string;
+};
+
+type UploadFileRequest = {
+  type: typeof UPLOAD_FILE_REQUEST;
+};
+
+type UploadFileCancel = {
+  type: typeof UPLOAD_FILE_CANCEL;
+  payload: Object | null;
+};
+
+type UploadFileSuccess = {
+  type: typeof UPLOAD_FILE_SUCCESS;
+  payload: PostUploadFileType;
+};
+
+type UploadFileFail = {
+  type: typeof UPLOAD_FILE_FAIL;
+  error: Error | null;
+};
+
+type Action =
+  | InputFile
+  | UploadFileRequest
+  | UploadFileCancel
+  | UploadFileSuccess
+  | UploadFileFail;
 /**
  * Action creators
  */
 
-export const inputFile = createAction(INPUT_FILE);
+export function inputFile(filename: string): InputFile {
+  return {
+    type: INPUT_FILE,
+    payload: filename,
+  };
+}
 
-const uploadFileRequest = createAction(UPLOAD_FILE_REQUEST);
-const uploadFileCancel = createAction(UPLOAD_FILE_CANCEL);
-const uploadFileSuccess = createAction(UPLOAD_FILE_SUCCESS);
-const uploadFileFail = createAction(UPLOAD_FILE_FAIL);
+function uploadFileRequest(): UploadFileRequest {
+  return {
+    type: UPLOAD_FILE_REQUEST,
+  };
+}
+function uploadFileCancel(cancelSource: Object | null): UploadFileCancel {
+  return {
+    type: UPLOAD_FILE_CANCEL,
+    payload: cancelSource,
+  };
+}
+function uploadFileSuccess(res: PostUploadFileType): UploadFileSuccess {
+  return {
+    type: UPLOAD_FILE_SUCCESS,
+    payload: res,
+  };
+}
+function uploadFileFail(why: Error | null): UploadFileFail {
+  return {
+    type: UPLOAD_FILE_FAIL,
+    error: why,
+  };
+}
 
 export function uploadFile(path: string, file: any) {
   return steps(
     uploadFileRequest(),
-    upload({ path, name: "file", file, cancelAction: uploadFileCancel }),
+    upload({
+      path,
+      name: "file",
+      file,
+      cancelAction: uploadFileCancel,
+    }),
     [uploadFileSuccess, uploadFileFail],
   );
 }
@@ -60,42 +118,43 @@ export const INITIAL_STATE: State = {
 /**
  * Reducer
  */
-export default handleActions<State>(
-  {
-    [INPUT_FILE]: (state: State, action: { payload: number }) => {
-      const { payload } = action;
+export default (state: State = INITIAL_STATE, action: Action): State => {
+  switch (action.type) {
+    case INPUT_FILE: {
       return {
         ...state,
-        value: payload,
+        value: action.payload,
       };
-    },
-    [UPLOAD_FILE_REQUEST]: (state: State) => ({
-      ...state,
-      loading: true,
-      loaded: false,
-    }),
-    [UPLOAD_FILE_CANCEL]: (state: State, action: { payload: any }) => ({
-      ...state,
-      cancelSource: action.payload,
-    }),
-    [UPLOAD_FILE_SUCCESS]: (
-      state: State,
-      action: { payload: { data: { path: string } } },
-    ) => ({
-      ...state,
-      path: action.payload.data.path,
-      loading: false,
-      loaded: true,
-    }),
-    [UPLOAD_FILE_FAIL]: (state: State, action: { error: any }) => {
-      const { error } = action;
+    }
+    case UPLOAD_FILE_REQUEST: {
       return {
         ...state,
-        error,
+        loading: true,
+        loaded: false,
+      };
+    }
+    case UPLOAD_FILE_CANCEL: {
+      return {
+        ...state,
+        cancelSource: action.payload,
+      };
+    }
+    case UPLOAD_FILE_SUCCESS: {
+      return {
+        ...state,
+        path: action.payload.data.path,
+        loading: false,
+        loaded: true,
+      };
+    }
+    case UPLOAD_FILE_FAIL: {
+      return {
+        ...state,
+        error: action.error,
         loading: false,
         loaded: false,
       };
-    },
-  } as any,
-  INITIAL_STATE,
-);
+    }
+  }
+  return state;
+};

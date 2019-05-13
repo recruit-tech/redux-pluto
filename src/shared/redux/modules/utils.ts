@@ -1,5 +1,4 @@
 /* eslint-disable import/prefer-default-export */
-
 export function createAsyncActionTypes(
   namespace: string,
 ): [string, string, string] {

@@ -1,17 +1,37 @@
-import { createAction, handleActions } from "redux-actions";
-
 /**
  * Action types
  */
-const CANVAS = "redux-proto/app/canvas/";
-export const CHANGE_COLOR = `${CANVAS}/color`;
-export const CHANGE_MODE = `${CANVAS}/mode`;
+export const CHANGE_COLOR = "redux-proto/app/canvas/color";
+export const CHANGE_MODE = "redux-proto/app/canvas/mode";
+
+type ChangeColor = {
+  type: typeof CHANGE_COLOR;
+  payload: string;
+};
+
+type ChangeMode = {
+  type: typeof CHANGE_MODE;
+  payload: boolean;
+};
+
+type Action = ChangeColor | ChangeMode;
 
 /**
  * Action creators
  */
-export const changeColor = createAction(CHANGE_COLOR, (color: string) => color);
-export const changeMode = createAction(CHANGE_MODE, (mode: number) => mode);
+export function changeColor(color: string): ChangeColor {
+  return {
+    type: CHANGE_COLOR,
+    payload: color,
+  };
+}
+
+export function changeMode(mode: boolean): ChangeMode {
+  return {
+    type: CHANGE_MODE,
+    payload: mode,
+  };
+}
 
 /**
  * Initial state
@@ -29,22 +49,22 @@ const INITIAL_STATE: State = {
 /**
  * Reducer
  */
-export default handleActions<State>(
-  {
-    [CHANGE_COLOR]: (_state: State, action: any) => {
-      const { payload } = action;
+export default function(state: State = INITIAL_STATE, action: Action): State {
+  switch (action.type) {
+    case CHANGE_COLOR: {
       return {
-        color: payload,
-        mode: _state.mode,
+        ...state,
+        color: action.payload,
       };
-    },
-    [CHANGE_MODE]: (_state: State, action: any) => {
-      const { payload } = action;
+    }
+    case CHANGE_MODE: {
       return {
-        color: _state.color,
-        mode: payload,
+        ...state,
+        mode: action.payload,
       };
-    },
-  },
-  INITIAL_STATE,
-);
+    }
+    default: {
+      return state;
+    }
+  }
+}
