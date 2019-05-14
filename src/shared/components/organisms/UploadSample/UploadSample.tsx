@@ -10,7 +10,7 @@ type Props = {
   title: string;
 };
 
-export default memo(function UploadSample(props: Props) {
+function UploadSample(props: Props) {
   const { loading, path, onInputFile, onSubmitFile, onCancel, title } = props;
 
   return (
@@ -34,4 +34,8 @@ export default memo(function UploadSample(props: Props) {
       </div>
     </DocumentTitle>
   );
-});
+}
+
+UploadSample.displayName = "UploadSample";
+
+export default memo(UploadSample);

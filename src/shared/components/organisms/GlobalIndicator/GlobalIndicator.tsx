@@ -5,7 +5,7 @@ type Props = {
   loading: boolean;
 };
 
-export default memo(function GlobalIndicator(props: Props) {
+function GlobalIndicator(props: Props) {
   const { loading } = props;
 
   return (
@@ -13,4 +13,8 @@ export default memo(function GlobalIndicator(props: Props) {
       <Indicator loading={loading} />
     </div>
   );
-});
+}
+
+GlobalIndicator.displayName = "GlobalIndicator";
+
+export default memo(GlobalIndicator);

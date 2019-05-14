@@ -12,7 +12,7 @@ export type Handlers = {
   onClose: (e: React.MouseEvent<HTMLElement>) => any;
 };
 
-export default memo(function Alert(props: Props & Handlers) {
+function Alert(props: Props & Handlers) {
   const {
     alert: { message },
     onClose,
@@ -47,7 +47,11 @@ export default memo(function Alert(props: Props & Handlers) {
       </Overlay>
     </Root>
   );
-});
+}
+
+Alert.displayName = "Alert";
+
+export default memo(Alert);
 
 const Root = styled.div``;
 

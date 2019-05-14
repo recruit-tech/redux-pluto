@@ -6,11 +6,15 @@ type Props = {
   title: string;
 };
 
-export default memo(function AgreedSample(props: Props) {
+function AgreedSample(props: Props) {
   const { text, title } = props;
   return (
     <DocumentTitle title={title}>
       <div>{text}</div>
     </DocumentTitle>
   );
-});
+}
+
+AgreedSample.displayName = "AgreedSample";
+
+export default memo(AgreedSample);
