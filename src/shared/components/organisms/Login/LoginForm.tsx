@@ -33,7 +33,7 @@ const RenderInput = ({
 );
 
 // prettier-ignore
-export default memo(function LoginForm(props: {
+function LoginForm(props: {
   error: boolean;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => any;
   reset:  (e: React.MouseEvent<HTMLElement>) => any;
@@ -77,7 +77,11 @@ export default memo(function LoginForm(props: {
     </form>
     </DocumentTitle>
   );
-});
+}
+
+LoginForm.displayName = "LoginForm";
+
+export default memo(LoginForm);
 
 const Row = styled.div`
   display: flex;
