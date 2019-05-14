@@ -5,7 +5,9 @@ const chunkName = "misc";
 export function loadAgreedSample(_: any, cb: any) {
   createUniversalComponent(
     () =>
-      import(/* webpackChunkName: "misc" */ "../components/organisms/AgreedSample"),
+      import(
+        /* webpackChunkName: "misc" */ "../components/organisms/AgreedSample"
+      ),
     // @ts-ignore
     () => require.resolveWeak("../components/organisms/AgreedSample"),
     chunkName,
@@ -24,7 +26,9 @@ export function loadBar(_: any, cb: any) {
 export function loadHackerNews(_: any, cb: any) {
   createUniversalComponent(
     () =>
-      import(/* webpackChunkName: "misc" */ "../components/organisms/HackerNews"),
+      import(
+        /* webpackChunkName: "misc" */ "../components/organisms/HackerNews"
+      ),
     // @ts-ignore
     () => require.resolveWeak("../components/organisms/HackerNews"),
     chunkName,
@@ -54,7 +58,9 @@ export function loadCanvas(_: any, cb: any) {
 export function loadUploadSample(_: any, cb: any) {
   createUniversalComponent(
     () =>
-      import(/* webpackChunkName: "misc" */ "../components/organisms/UploadSample"),
+      import(
+        /* webpackChunkName: "misc" */ "../components/organisms/UploadSample"
+      ),
     // @ts-ignore
     () => require.resolveWeak("../components/organisms/UploadSample"),
     chunkName,
