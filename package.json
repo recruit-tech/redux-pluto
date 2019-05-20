@@ -128,7 +128,7 @@
     "@types/react-dom": "^16.8.1",
     "@types/react-loadable": "^5.4.2",
     "@types/react-redux": "^7.0.2",
-    "@types/react-router": "^3.0.19",
+    "@types/react-router": "^5.0.1",
     "@types/react-virtualized": "^9.18.11",
     "@types/redux-actions": "^2.3.1",
     "@types/redux-devtools": "^3.0.45",
