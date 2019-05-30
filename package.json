@@ -85,7 +85,7 @@
     "redux-effects-fetchr-cache": "^1.0.1",
     "redux-effects-formdata-uploader": "^1.2.1",
     "redux-effects-steps": "^1.0.1",
-    "redux-form": "^8.0.2",
+    "redux-form": "^8.2.3",
     "reselect": "^4.0.0",
     "serve-favicon": "^2.5.0",
     "server-timing": "^2.0.0",
