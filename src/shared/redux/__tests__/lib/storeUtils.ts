@@ -41,7 +41,7 @@ export function createStore(options: any) {
         fetchr(new Fetchr({ ...configs.fetchr, req: {} })),
         options.upload &&
           uploader({
-            baseURL: `http://localhost:${options.upload.port}`,
+            baseURL: `http://localhost:${options.upload.port}/`,
             csrfToken: null,
           }),
         routerMiddleware(history),
