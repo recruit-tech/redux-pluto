@@ -18,7 +18,7 @@ export default class Canvas extends Component<Props, {}> {
       y: number;
       color: string;
       move: boolean;
-    }
+    },
   ];
 
   constructor(props: Props) {
