@@ -157,7 +157,7 @@
     "compression-webpack-plugin": "^3.0.0",
     "cors": "^2.8.4",
     "cross-env": "^5.2.0",
-    "css-loader": "^2.1.1",
+    "css-loader": "^3.0.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.2",
     "eslint": "^5.16.0",
