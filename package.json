@@ -149,7 +149,7 @@
     "babel-jest": "^24.8.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-require-context-hook": "^1.0.0",
-    "babel-plugin-styled-components": "^1.10.0",
+    "babel-plugin-styled-components": "^1.10.1",
     "babel-plugin-transform-imports": "^1.5.0",
     "babel-preset-power-assert": "^3.0.0-beta.1",
     "brotli-webpack-plugin": "^1.1.0",
