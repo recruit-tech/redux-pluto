@@ -132,7 +132,7 @@
     "@types/react-virtualized": "^9.21.2",
     "@types/redux-actions": "^2.6.1",
     "@types/redux-devtools": "^3.0.45",
-    "@types/redux-form": "^8.1.1",
+    "@types/redux-form": "^8.1.4",
     "@types/seamless-immutable": "^7.1.10",
     "@types/serve-favicon": "^2.2.30",
     "@types/styled-components": "^4.1.15",
