@@ -89,7 +89,7 @@
     "reselect": "^4.0.0",
     "serve-favicon": "^2.5.0",
     "server-timing": "^2.0.0",
-    "styled-components": "^4.2.1",
+    "styled-components": "^4.3.2",
     "webpack-flush-chunks": "^2.0.1"
   },
   "devDependencies": {
