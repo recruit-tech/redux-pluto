@@ -207,7 +207,8 @@
   },
   "greenkeeper": {
     "ignore": [
-      "react-router"
+      "react-router",
+      "@types/react-router"
     ]
   },
   "bundlesize": [
