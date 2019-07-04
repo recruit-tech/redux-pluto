@@ -17,6 +17,7 @@ import App from "../components/App";
 import { MiddlewareAPI, AnyAction, Store } from "redux";
 import { Request, Response } from "express";
 import { RootState } from "../../shared/redux/modules/reducer";
+import { matchRoutes, renderRoutes } from "react-router-config";
 
 const debug = debugFactory("app:server:middleware:reduxApp");
 
@@ -95,7 +96,7 @@ export default function createReduxApp(config: any) {
     /*
      * React-Routerのルーティング定義とマッチングを行います。
      */
-    matchRoutes({ history, routes: getRoutes(store) })
+    matchRoutes2({ history, routes: getRoutes(store), req })
       .then(({ redirectLocation, renderProps }) => {
         if (redirectLocation) {
           return res.redirect(
@@ -180,18 +181,21 @@ function getClientConfig(config: any, req: Request & { csrfToken: any }) {
   };
 }
 
-function matchRoutes(options: any) {
+function matchRoutes2(options: any) {
   return new Promise((resolve, reject) => {
-    (match as any)(
-      options,
-      (error: Error, redirectLocation: string, renderProps: any) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve({ redirectLocation, renderProps });
-        }
-      },
-    );
+    console.log({ routes: options.routes });
+    const branch = matchRoutes(options.routes, options.req.path);
+    console.log({ branch });
+    // (matchRoutes as any)(
+      // options,
+      // (error: Error, redirectLocation: string, renderProps: any) => {
+      //   if (error) {
+      //     reject(error);
+      //   } else {
+      //     resolve({ redirectLocation, renderProps });
+      //   }
+      // },
+    // );
   });
 }
 
