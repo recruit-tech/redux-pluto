@@ -127,7 +127,7 @@
     "@types/react-document-title": "^2.0.3",
     "@types/react-dom": "^16.8.4",
     "@types/react-loadable": "^5.5.1",
-    "@types/react-redux": "^7.0.9",
+    "@types/react-redux": "^7.1.2",
     "@types/react-router": "^3.0.19",
     "@types/react-virtualized": "^9.21.2",
     "@types/redux-actions": "^2.6.1",
