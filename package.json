@@ -104,7 +104,7 @@
     "@babel/runtime": "^7.4.5",
     "@babel/traverse": "^7.4.5",
     "@types/axios": "^0.14.0",
-    "@types/compression": "0.0.36",
+    "@types/compression": "1.0.1",
     "@types/cookie": "^0.3.3",
     "@types/cookie-parser": "^1.4.1",
     "@types/csurf": "^1.9.35",
