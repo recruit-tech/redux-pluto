@@ -113,7 +113,7 @@
     "@types/express": "^4.16.0",
     "@types/express-session": "^1.15.11",
     "@types/express-useragent": "^0.2.21",
-    "@types/history": "^3.2.2",
+    "@types/history": "^4.7.3",
     "@types/hoist-non-react-statics": "^3.3.1",
     "@types/jest": "^24.0.13",
     "@types/joi": "^14.3.3",
