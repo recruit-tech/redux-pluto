@@ -139,7 +139,7 @@
     "@types/webpack": "^4.4.32",
     "@types/webpack-env": "^1.13.9",
     "@typescript-eslint/eslint-plugin": "^1.10.2",
-    "@typescript-eslint/parser": "^1.10.2",
+    "@typescript-eslint/parser": "^2.3.2",
     "agreed": "^3.2.2",
     "agreed-core": "^3.2.5",
     "agreed-typed": "^1.0.0",
