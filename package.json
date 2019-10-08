@@ -138,7 +138,7 @@
     "@types/styled-components": "^4.1.15",
     "@types/webpack": "^4.4.32",
     "@types/webpack-env": "^1.13.9",
-    "@typescript-eslint/eslint-plugin": "^1.10.2",
+    "@typescript-eslint/eslint-plugin": "^2.3.3",
     "@typescript-eslint/parser": "^1.10.2",
     "agreed": "^3.2.2",
     "agreed-core": "^3.2.5",
