@@ -6,7 +6,7 @@ import Counter from "../Counter";
 type Props = {};
 
 export default function Footer(props: Props) {
-  const today = format(new Date(), "YYYY/MM/DD");
+  const today = format(new Date(), "yyyy/MM/dd");
 
   return (
     <Root>
