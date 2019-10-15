@@ -1,4 +1,4 @@
-import { convert } from "agreed-typed";
+import { convert } from "@agreed/typed";
 import { flatten } from "lodash";
 
 module.exports = convert(

@@ -1,4 +1,4 @@
-import { APIDef, GET, Success200, ResponseDef, Error404 } from "agreed-typed";
+import { APIDef, GET, Success200, ResponseDef, Error404 } from "@agreed/typed";
 
 export type AgreedSampleGetAPI = APIDef<
   GET, // HTTP Method
