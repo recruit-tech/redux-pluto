@@ -1,4 +1,4 @@
-import { APIDef, POST, Success201, ResponseDef } from "agreed-typed";
+import { APIDef, POST, Success201, ResponseDef } from "@agreed/typed";
 
 export type PostAPI = APIDef<
   POST,
