@@ -92,6 +92,12 @@ module.exports = {
 
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
+    alias: {
+      "redux-async-loader": path.resolve(
+        __dirname,
+        "../shared/redux/middleware/redux-async-loader",
+      ),
+    },
   },
 
   plugins: [

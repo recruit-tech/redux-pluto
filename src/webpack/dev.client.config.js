@@ -85,6 +85,12 @@ module.exports = {
       path.resolve(rootDir, "src/shared"),
       "node_modules",
     ],
+    alias: {
+      "redux-async-loader": path.resolve(
+        __dirname,
+        "../shared/redux/middleware/redux-async-loader",
+      ),
+    },
     extensions: [".js", ".jsx", ".ts", ".tsx"],
     enforceModuleExtension: false,
   },
