@@ -1,8 +1,12 @@
+// @ts-check
+/// <reference types='react/experimental' />
+/// <reference types='react-dom/experimental' />
+
 /* eslint-disable global-require */
 
 /* eslint-disable-next-line */
-import React from "react";
-import { hydrate, unmountComponentAtNode } from "react-dom";
+import React, { StrictMode } from "react";
+import ReactDOM, { unmountComponentAtNode } from "react-dom";
 import { browserHistory, match } from "react-router";
 import { syncHistoryWithStore } from "react-router-redux";
 import Fetchr from "fetchr";
@@ -16,12 +20,6 @@ const history = syncHistoryWithStore(browserHistory, store, {
   adjustUrlOnReplay: __DEVELOPMENT__,
 });
 const root = document.getElementById("root");
-
-renderApp().then(() => {
-  if (isDevToolVisible) {
-    configHotLoader();
-  }
-});
 
 function configStore() {
   const getJson = (id: string) =>
@@ -64,7 +62,7 @@ function renderApp() {
           return resolve();
         }
         if (root) {
-          hydrate(<App store={store} {...renderProps} />, root);
+          ReactDOM.hydrate(<App store={store} {...renderProps} />, root);
         }
         return resolve();
       },
@@ -77,17 +75,4 @@ function getRoutes() {
   return routes(store);
 }
 
-function configHotLoader() {
-  (module as any).hot.accept("../shared/routes", () => {
-    if (root) {
-      unmountComponentAtNode(root);
-    }
-    renderApp();
-  });
-
-  // module.hot is extension by hot-loader
-  (module as any).hot.accept("../shared/redux/modules/reducer", () => {
-    const nextReducer = require("../shared/redux/modules/reducer").default;
-    store.replaceReducer(nextReducer);
-  });
-}
+renderApp();

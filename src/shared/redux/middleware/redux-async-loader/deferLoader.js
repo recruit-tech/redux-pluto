@@ -1,36 +1,29 @@
-import React, { Component } from 'react';
-import { ReactReduxContext } from 'react-redux';
-import hoistStatics from 'hoist-non-react-statics';
+import React, {
+  Component,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+} from "react";
+import { ReactReduxContext } from "react-redux";
+import hoistStatics from "hoist-non-react-statics";
 
 export default function deferLoader(loader) {
-  return (WrappedComponent) => {
-    class WrapperComponent extends Component {
-      componentDidMount() {
-        const { store } = this.props.ctx;
-        loader(this.props, store);
-      }
+  return WrappedComponent => {
+    function WrapperComponent(props) {
+      const { store } = useContext(ReactReduxContext);
 
-      componentWillReceiveProps(nextProps) {
-        const { store } = this.props.ctx;
-        loader(nextProps, store);
-      }
+      useLayoutEffect(() => {
+        loader(props, store);
+      });
 
-      render() {
-        return <WrappedComponent {...this.props} />;
-      }
+      return <WrappedComponent {...props} />;
     }
 
     WrapperComponent.displayName = `deferLoader(${getDisplayName(
-      WrappedComponent
+      WrappedComponent,
     )})`;
 
-    const WrapperComponentWithContext = () => (
-      <ReactReduxContext.Consumer>
-        {({ store }) => <WrapperComponent ctx={{ store }} />}
-      </ReactReduxContext.Consumer>
-    );
-
-    return hoistStatics(WrapperComponentWithContext, WrappedComponent);
+    return hoistStatics(WrapperComponent, WrappedComponent);
   };
 }
 

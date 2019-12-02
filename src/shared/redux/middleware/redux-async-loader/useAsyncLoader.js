@@ -1,6 +1,6 @@
-import React from 'react';
-import { ReactReduxContext } from 'react-redux';
-import ReduxAsyncLoaderContext from './ReduxAsyncLoaderContext';
+import React from "react";
+import { ReactReduxContext } from "react-redux";
+import ReduxAsyncLoaderContext from "./ReduxAsyncLoaderContext";
 
 const WrapedReduxAsyncLoaderContext = ({ child, renderProps }) => (
   <ReactReduxContext.Consumer>
