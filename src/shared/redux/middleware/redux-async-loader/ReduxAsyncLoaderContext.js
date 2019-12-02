@@ -19,7 +19,6 @@ class ReduxAsyncLoaderContext extends Component {
   constructor(props) {
     super(props);
 
-    console.log(this.props.ctx);
     this.state = {
       children: null,
     };

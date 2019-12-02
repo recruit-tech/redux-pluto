@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { ReactReduxContext } from "react-redux";
 import PropTypes from "prop-types";
 import hoistStatics from "hoist-non-react-statics";
 import { Context } from "./context";
@@ -26,9 +27,9 @@ export default function deferLoader(loader) {
     )})`;
 
     const WrapperComponentWithContext = () => (
-      <Context.Consumer>
+      <ReactReduxContext.Consumer>
         {({ store }) => <WrapperComponent ctx={{ store }} />}
-      </Context.Consumer>
+      </ReactReduxContext.Consumer>
     );
 
     return hoistStatics(WrapperComponentWithContext, WrappedComponent);
