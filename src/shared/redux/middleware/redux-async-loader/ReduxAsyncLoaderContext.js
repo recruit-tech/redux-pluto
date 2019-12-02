@@ -7,13 +7,13 @@
  *   https://github.com/ryanflorence/async-props/blob/master/LICENSE.md
  */
 
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import computeChangedRoutes from "./computeChangedRoutes";
-import { beginAsyncLoad, endAsyncLoad, skipAsyncLoad } from "./actions";
-import flattenComponents from "./flattenComponents";
-import loadAsync from "./loadAsync";
-import { reducerName } from "./names";
+import { Component } from 'react';
+import PropTypes from 'prop-types';
+import computeChangedRoutes from './computeChangedRoutes';
+import { beginAsyncLoad, endAsyncLoad, skipAsyncLoad } from './actions';
+import flattenComponents from './flattenComponents';
+import loadAsync from './loadAsync';
+import { reducerName } from './names';
 
 class ReduxAsyncLoaderContext extends Component {
   constructor(props) {
@@ -55,12 +55,12 @@ class ReduxAsyncLoaderContext extends Component {
         routes: nextProps.routes,
         params: nextProps.params,
         location: nextProps.location,
-      },
+      }
     );
 
     const indexDiff = nextProps.components.length - enterRoutes.length;
     const components = enterRoutes.map(
-      (_route, index) => nextProps.components[indexDiff + index],
+      (_route, index) => nextProps.components[indexDiff + index]
     );
 
     this.loadAsync(Object.assign({}, nextProps, { components }));
@@ -91,7 +91,7 @@ class ReduxAsyncLoaderContext extends Component {
       .then(() => loadAsync(flattened, props, store))
       .then(
         () => this.endLoad(dispatch),
-        error => this.endLoad(dispatch, error),
+        (error) => this.endLoad(dispatch, error)
       );
   }
 
@@ -101,7 +101,7 @@ class ReduxAsyncLoaderContext extends Component {
     }
 
     ++this.loadCount;
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       this.setState({ children }, () => resolve());
     });
   }

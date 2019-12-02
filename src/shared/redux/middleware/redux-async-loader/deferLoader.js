@@ -1,11 +1,9 @@
-import React, { Component } from "react";
-import { ReactReduxContext } from "react-redux";
-import PropTypes from "prop-types";
-import hoistStatics from "hoist-non-react-statics";
-import { Context } from "./context";
+import React, { Component } from 'react';
+import { ReactReduxContext } from 'react-redux';
+import hoistStatics from 'hoist-non-react-statics';
 
 export default function deferLoader(loader) {
-  return WrappedComponent => {
+  return (WrappedComponent) => {
     class WrapperComponent extends Component {
       componentDidMount() {
         const { store } = this.props.ctx;
@@ -23,7 +21,7 @@ export default function deferLoader(loader) {
     }
 
     WrapperComponent.displayName = `deferLoader(${getDisplayName(
-      WrappedComponent,
+      WrappedComponent
     )})`;
 
     const WrapperComponentWithContext = () => (

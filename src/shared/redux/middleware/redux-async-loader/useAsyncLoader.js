@@ -1,9 +1,6 @@
-import React, { useContext } from "react";
-import { ReactReduxContext } from "react-redux";
-import ReduxAsyncLoaderContext from "./ReduxAsyncLoaderContext";
-import reducer from "./reducer";
-import * as names from "./names";
-import { Context } from "./context";
+import React from 'react';
+import { ReactReduxContext } from 'react-redux';
+import ReduxAsyncLoaderContext from './ReduxAsyncLoaderContext';
 
 const WrapedReduxAsyncLoaderContext = ({ child, renderProps }) => (
   <ReactReduxContext.Consumer>
@@ -17,13 +14,8 @@ const WrapedReduxAsyncLoaderContext = ({ child, renderProps }) => (
 
 export default function useAsyncLoader() {
   return {
-    renderRouterContext: (child, renderProps) => {
-      return (
-        <WrapedReduxAsyncLoaderContext
-          child={child}
-          renderProps={renderProps}
-        />
-      );
-    },
+    renderRouterContext: (child, renderProps) => (
+      <WrapedReduxAsyncLoaderContext child={child} renderProps={renderProps} />
+    ),
   };
 }
