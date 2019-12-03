@@ -4,7 +4,7 @@ import { ServerStyleSheet } from "styled-components";
 import { renderToStaticMarkup, renderToString } from "react-dom/server";
 import { createMemoryHistory, match } from "react-router";
 import { syncHistoryWithStore } from "react-router-redux";
-import { loadOnServer } from "redux-async-loader";
+import { loadOnServer } from "@recruit-tech/redux-async-loader";
 import Fetchr from "fetchr";
 import { flushChunkNames } from "react-universal-component/server";
 import flushChunks from "webpack-flush-chunks";

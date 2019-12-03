@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import Router from "react-router/lib/Router";
 import applyRouterMiddleware from "react-router/lib/applyRouterMiddleware";
 import { useScroll } from "react-router-scroll";
-import { useAsyncLoader } from "redux-async-loader";
+import { useAsyncLoader } from "@recruit-tech/redux-async-loader";
 import { Store } from "redux";
 import { RootState } from "../../shared/redux/modules/reducer";
 

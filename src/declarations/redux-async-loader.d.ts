@@ -1,4 +1,4 @@
-declare module "redux-async-loader" {
+declare module "@recruit-tech/redux-async-loader" {
   export var END_ASYNC_LOAD: string;
   export var BEGIN_ASYNC_LOAD: string;
 

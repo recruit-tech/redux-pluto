@@ -1,6 +1,9 @@
 import { routerMiddleware } from "react-router-redux";
 import { createStore, compose, applyMiddleware, Store, AnyAction } from "redux";
-import { BEGIN_ASYNC_LOAD, END_ASYNC_LOAD } from "redux-async-loader";
+import {
+  BEGIN_ASYNC_LOAD,
+  END_ASYNC_LOAD,
+} from "@recruit-tech/redux-async-loader";
 import steps from "redux-effects-steps";
 import fetchr from "redux-effects-fetchr";
 import uploader from "redux-effects-formdata-uploader";

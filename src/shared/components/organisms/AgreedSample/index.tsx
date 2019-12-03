@@ -1,6 +1,6 @@
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { asyncLoader } from "redux-async-loader";
+import { asyncLoader } from "@recruit-tech/redux-async-loader";
 import { RouterState } from "react-router";
 import { getText } from "../../../redux/modules/agreedSample";
 import AgreedSample from "./AgreedSample";

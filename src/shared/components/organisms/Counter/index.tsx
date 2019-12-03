@@ -1,6 +1,6 @@
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { deferLoader } from "redux-async-loader";
+import { deferLoader } from "@recruit-tech/redux-async-loader";
 import { counterSelector } from "../../../redux/modules/reducer";
 import { increment } from "../../../redux/modules/counter";
 import Counter from "./Counter";

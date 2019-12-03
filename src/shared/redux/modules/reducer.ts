@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import { routerReducer } from "react-router-redux";
-import { reduxAsyncLoader } from "redux-async-loader";
+import { reduxAsyncLoader } from "@recruit-tech/redux-async-loader";
 import { reducer as formReducer } from "redux-form";
 import agreedSample, { State as AgreedSampleState } from "./agreedSample";
 import alert, { State as AlertState } from "./alert";
