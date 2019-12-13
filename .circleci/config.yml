@@ -82,12 +82,6 @@ jobs:
           command: npm run test:agreed
           background: true
       - run: npm run test:coverage
-  analytics:
-    <<: *build_image
-    steps:
-      - <<: *restore
-      - <<: *restore_lock
-      - run: npm run analytics
   build-asset:
     <<: *build_image
     steps:
@@ -110,9 +104,6 @@ workflows:
           requires:
             - install
       - test:
-          requires:
-            - install
-      - analytics:
           requires:
             - install
       - build-asset:
