@@ -5,7 +5,6 @@
   "private": true,
   "main": "src/server/server.js",
   "scripts": {
-    "analytics": "sonarish src",
     "build": "cross-env NODE_ENV=production RS_ENV=prd run-s clean build:{client,server,size}",
     "build:client": "webpack --verbose --colors --display-error-details --config src/webpack/prod.client.config.js",
     "build:csr": "cross-env DISABLE_SSR=1 npm run build",
