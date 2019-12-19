@@ -92,7 +92,7 @@
   },
   "devDependencies": {
     "@agreed/cli": "^0.1.0",
-    "@agreed/core": "0.0.4",
+    "@agreed/core": "0.2.2",
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
