@@ -91,7 +91,7 @@
     "webpack-flush-chunks": "^2.0.1"
   },
   "devDependencies": {
-    "@agreed/cli": "^0.2.2",
+    "@agreed/cli": "^5.0.2",
     "@agreed/core": "0.0.4",
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
