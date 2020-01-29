@@ -199,7 +199,7 @@
     "webpack-dev-middleware": "^3.7.0",
     "webpack-hot-middleware": "^2.25.0",
     "webpack-hot-server-middleware": "^0.6.0",
-    "workbox-webpack-plugin": "^4.3.1",
+    "workbox-webpack-plugin": "^5.0.0",
     "write-file-webpack-plugin": "^4.1.0"
   },
   "greenkeeper": {
