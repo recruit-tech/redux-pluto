@@ -136,7 +136,7 @@
     "@types/redux-form": "^8.1.1",
     "@types/seamless-immutable": "^7.1.10",
     "@types/serve-favicon": "^2.2.30",
-    "@types/styled-components": "^4.1.15",
+    "@types/styled-components": "^5.0.1",
     "@types/webpack": "^4.4.32",
     "@types/webpack-env": "^1.13.9",
     "@typescript-eslint/eslint-plugin": "^1.10.2",
