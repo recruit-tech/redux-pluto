@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "statusCheckVerify": true,
+  "ignoreDeps": [
+    "react-router",
+    "@types/react-router"
+  ]
+}
