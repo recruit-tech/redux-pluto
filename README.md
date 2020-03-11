@@ -1,6 +1,6 @@
 # React/Redux Isomorphic Prototype
 
-[![CircleCI](https://circleci.com/gh/recruit-tech/redux-pluto.svg?style=svg)](https://circleci.com/gh/recruit-tech/redux-pluto) [![Greenkeeper badge](https://badges.greenkeeper.io/recruit-tech/redux-pluto.svg)](https://greenkeeper.io/) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0238f20f1af14aeca99f1051b6ea2cce)](https://www.codacy.com/app/recruit-tech/redux-pluto?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=recruit-tech/redux-pluto&amp;utm_campaign=Badge_Grade) [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/0238f20f1af14aeca99f1051b6ea2cce)](https://www.codacy.com/app/recruit-tech/redux-pluto?utm_source=github.com&utm_medium=referral&utm_content=recruit-tech/redux-pluto&utm_campaign=Badge_Coverage)
+[![CircleCI](https://circleci.com/gh/recruit-tech/redux-pluto.svg?style=svg)](https://circleci.com/gh/recruit-tech/redux-pluto) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0238f20f1af14aeca99f1051b6ea2cce)](https://www.codacy.com/app/recruit-tech/redux-pluto?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=recruit-tech/redux-pluto&amp;utm_campaign=Badge_Grade) [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/0238f20f1af14aeca99f1051b6ea2cce)](https://www.codacy.com/app/recruit-tech/redux-pluto?utm_source=github.com&utm_medium=referral&utm_content=recruit-tech/redux-pluto&utm_campaign=Badge_Coverage)
 
 ## インストール
 
