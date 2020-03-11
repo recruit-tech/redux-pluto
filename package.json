@@ -117,7 +117,6 @@
     "@types/history": "4.7.3",
     "@types/hoist-non-react-statics": "3.3.1",
     "@types/jest": "24.0.13",
-    "@types/joi": "14.3.3",
     "@types/jsonwebtoken": "8.3.2",
     "@types/jwt-decode": "2.2.1",
     "@types/lodash": "4.14.133",
