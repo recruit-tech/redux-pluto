@@ -3,9 +3,7 @@ import useDocumentTitle from "../../utils/useDocumentTitle";
 
 function Home(props: any) {
   useDocumentTitle(props.route.title);
-  return (
-    <div>Home!</div>
-  );
+  return <div>Home!</div>;
 }
 
 // react-router v3 の props 経由で React.memo 相当のことをしたい場合

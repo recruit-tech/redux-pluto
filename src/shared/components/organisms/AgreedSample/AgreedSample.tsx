@@ -9,9 +9,7 @@ type Props = {
 function AgreedSample(props: Props) {
   const { text, title } = props;
   useDocumentTitle(title);
-  return (
-    <div>{text}</div>
-  );
+  return <div>{text}</div>;
 }
 
 AgreedSample.displayName = "AgreedSample";

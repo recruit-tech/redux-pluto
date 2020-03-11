@@ -21,10 +21,7 @@ function UploadSample(props: Props) {
         <input type="file" onChange={onInputFile as any} />
       </div>
       <div>
-        <button
-          type="button"
-          onClick={onSubmitFile as any}
-          disabled={loading}>
+        <button type="button" onClick={onSubmitFile as any} disabled={loading}>
           submit
         </button>
         <button type="button" onClick={onCancel as any}>
