@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import DocumentTitle from "react-document-title";
+import useDocumentTitle from "../../utils/useDocumentTitle";
 
 type Props = {
   text: string;
@@ -8,10 +8,9 @@ type Props = {
 
 function AgreedSample(props: Props) {
   const { text, title } = props;
+  useDocumentTitle(title);
   return (
-    <DocumentTitle title={title}>
-      <div>{text}</div>
-    </DocumentTitle>
+    <div>{text}</div>
   );
 }
 

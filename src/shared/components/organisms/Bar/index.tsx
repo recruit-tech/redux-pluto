@@ -1,5 +1,5 @@
 import React from "react";
-import DocumentTitle from "react-document-title";
+import useDocumentTitle from "../../utils/useDocumentTitle";
 
 const array = Array.from({ length: 500 }, (_, i) => i);
 
@@ -11,17 +11,16 @@ type Props = {
 };
 
 function Bar(props: Props) {
+  useDocumentTitle(props.route.title);
   return (
-    <DocumentTitle title={props.route.title}>
-      <main>
-        {array.map(elm => (
-          <div key={elm}>
-            Bar![
-            {elm}]
-          </div>
-        ))}
-      </main>
-    </DocumentTitle>
+    <main>
+      {array.map(elm => (
+        <div key={elm}>
+          Bar![
+          {elm}]
+        </div>
+      ))}
+    </main>
   );
 }
 

@@ -1,11 +1,10 @@
 import React, { useMemo } from "react";
-import DocumentTitle from "react-document-title";
+import useDocumentTitle from "../../utils/useDocumentTitle";
 
 function Home(props: any) {
+  useDocumentTitle(props.route.title);
   return (
-    <DocumentTitle title={props.route.title}>
-      <div>Home!</div>
-    </DocumentTitle>
+    <div>Home!</div>
   );
 }
 

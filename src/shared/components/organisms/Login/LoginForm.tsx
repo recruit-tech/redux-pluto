@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import DocumentTitle from "react-document-title";
+import useDocumentTitle from "../../utils/useDocumentTitle";
 import styled from "styled-components";
 import { Field } from "redux-form";
 
@@ -53,9 +53,9 @@ function LoginForm(props: {
     csrf,
     title,
   } = props;
+  useDocumentTitle(title);
 
   return (
-    <DocumentTitle title={title}>
     <form onSubmit={handleSubmit} method="POST">
       {error && <div>{error}</div>}
       {!error && submitFailed && anyTouched && (
@@ -75,7 +75,6 @@ function LoginForm(props: {
         </button>
       </div>
     </form>
-    </DocumentTitle>
   );
 }
 

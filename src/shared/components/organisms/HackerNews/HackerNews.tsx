@@ -1,6 +1,6 @@
-import DocumentTitle from "react-document-title";
 import React from "react";
 import styled from "styled-components";
+import useDocumentTitle from "../../utils/useDocumentTitle";
 import { HackerNewsItem } from "../../../types/HackerNews";
 import ListItem from "./ListItem";
 
@@ -12,20 +12,19 @@ type Props = {
 
 export default function HackerNews(props: Props) {
   const { items, loading, title } = props;
+  useDocumentTitle(title);
   return (
-    <DocumentTitle title={title}>
-      <Container>
-        <Title>{title}</Title>
-        {loading && "loading..."}
-        <ItemListContainer>
-          {items.map(item => (
-            <ItemContainer key={item.id}>
-              <ListItem item={item} />
-            </ItemContainer>
-          ))}
-        </ItemListContainer>
-      </Container>
-    </DocumentTitle>
+    <Container>
+      <Title>{title}</Title>
+      {loading && "loading..."}
+      <ItemListContainer>
+        {items.map(item => (
+          <ItemContainer key={item.id}>
+            <ListItem item={item} />
+          </ItemContainer>
+        ))}
+      </ItemListContainer>
+    </Container>
   );
 }
 
