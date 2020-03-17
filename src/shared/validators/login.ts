@@ -21,13 +21,10 @@ const schema = shape({
 
 export default function validate(values: any) {
   const errors: any = schema(values);
-  return Object.keys(errors).reduce(
-    (p, key) => {
-      if (errors[key].error) {
-        p[key] = errors[key].message;
-      }
-      return p;
-    },
-    {} as { [key: string]: string },
-  );
+  return Object.keys(errors).reduce((p, key) => {
+    if (errors[key].error) {
+      p[key] = errors[key].message;
+    }
+    return p;
+  }, {} as { [key: string]: string });
 }

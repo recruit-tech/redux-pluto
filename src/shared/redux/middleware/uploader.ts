@@ -32,7 +32,7 @@ export function upload(
  * uploader middleware
  */
 export default function uploadMiddleware(_csrf: any) {
-  return ({  }: MiddlewareAPI) => (next: Function) => (action: any) => {
+  return ({}: MiddlewareAPI) => (next: Function) => (action: any) => {
     const { type, payload } = action;
     if (type !== UPLOADER) {
       return next(action);

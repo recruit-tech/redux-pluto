@@ -8,7 +8,7 @@ import { Response } from "express";
 export default (axiosConfig: AxiosRequestConfig) => {
   const axios = Axios.create(axiosConfig);
 
-  return ({  }: MiddlewareAPI) => (next: Function) => (action: any) => {
+  return ({}: MiddlewareAPI) => (next: Function) => (action: any) => {
     if (action.type !== FETCHR) {
       return next(action);
     } else {
