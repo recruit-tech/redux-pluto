@@ -84,7 +84,7 @@
     "webpack-flush-chunks": "2.0.3"
   },
   "devDependencies": {
-    "@agreed/cli": "^5.0.4",
+    "@agreed/cli": "5.0.4",
     "@agreed/typed": "5.0.2",
     "@babel/cli": "7.8.4",
     "@babel/core": "7.8.7",
@@ -176,7 +176,7 @@
     "stylelint-config-recommended": "3.0.0",
     "stylelint-config-styled-components": "0.1.1",
     "stylelint-processor-styled-components": "1.8.0",
-    "ts-jest": "^25.2.1",
+    "ts-jest": "25.2.1",
     "ts-loader": "5.3.3",
     "tslint": "5.17.0",
     "typescript": "3.5.1",
