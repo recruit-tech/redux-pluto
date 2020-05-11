@@ -58,7 +58,7 @@
     "favalid": "0.9.0",
     "fetchr": "0.5.38",
     "fumble": "0.1.3",
-    "hoist-non-react-statics": "3.3.0",
+    "hoist-non-react-statics": "3.3.2",
     "is-redirectable-url": "1.0.2",
     "isomorphic-form-data": "2.0.0",
     "jsonwebtoken": "8.5.1",
