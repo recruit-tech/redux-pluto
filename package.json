@@ -163,7 +163,7 @@
     "prettier": "1.19.1",
     "puppeteer": "1.20.0",
     "query-string": "6.12.1",
-    "react-hot-loader": "4.12.20",
+    "react-hot-loader": "4.12.21",
     "react-test-renderer": "16.8.6",
     "redux-devtools": "3.5.0",
     "redux-devtools-dock-monitor": "1.1.3",
