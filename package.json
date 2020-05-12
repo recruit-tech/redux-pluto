@@ -162,7 +162,7 @@
     "power-assert": "1.6.1",
     "prettier": "1.19.1",
     "puppeteer": "1.20.0",
-    "query-string": "6.11.1",
+    "query-string": "6.12.1",
     "react-hot-loader": "4.12.20",
     "react-test-renderer": "16.8.6",
     "redux-devtools": "3.5.0",
