@@ -79,7 +79,7 @@
     "redux-effects-steps": "1.0.3",
     "redux-form": "8.3.5",
     "serve-favicon": "2.5.0",
-    "server-timing": "2.1.1",
+    "server-timing": "3.2.1",
     "styled-components": "4.4.1",
     "webpack-flush-chunks": "2.0.3"
   },
