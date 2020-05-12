@@ -72,7 +72,7 @@
     "react-router-redux": "4.0.8",
     "react-router-scroll": "0.4.4",
     "react-universal-component": "4.0.1",
-    "redux": "4.0.4",
+    "redux": "4.0.5",
     "redux-effects-fetchr": "1.1.0",
     "redux-effects-fetchr-cache": "1.2.0",
     "redux-effects-formdata-uploader": "1.3.1",
