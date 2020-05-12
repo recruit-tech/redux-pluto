@@ -176,7 +176,7 @@
     "stylelint-config-recommended": "3.0.0",
     "stylelint-config-styled-components": "0.1.1",
     "stylelint-processor-styled-components": "1.10.0",
-    "ts-jest": "25.2.1",
+    "ts-jest": "25.5.1",
     "ts-loader": "5.4.5",
     "tslint": "5.20.1",
     "typescript": "3.5.1",
