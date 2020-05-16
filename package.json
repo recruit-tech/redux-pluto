@@ -99,7 +99,7 @@
     "@recruit-tech/redux-async-loader": "2.0.1",
     "@types/axios": "0.14.0",
     "@types/compression": "1.7.0",
-    "@types/cookie": "0.3.3",
+    "@types/cookie": "0.4.0",
     "@types/cookie-parser": "1.4.2",
     "@types/csurf": "1.9.36",
     "@types/debug": "4.1.5",
