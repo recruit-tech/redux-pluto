@@ -119,6 +119,6 @@ workflows:
                 - master
     jobs:
       - install
-      - audit:
+      - test:
           requires:
             - install
