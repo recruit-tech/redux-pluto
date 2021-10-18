@@ -179,7 +179,7 @@
     "ts-jest": "25.5.1",
     "ts-loader": "7.0.4",
     "tslint": "5.20.1",
-    "typescript": "3.5.1",
+    "typescript": "3.9.10",
     "typescript-eslint-parser": "21.0.2",
     "typescript-plugin-styled-components": "1.4.4",
     "wait-on": "5.0.0",
