@@ -80,7 +80,7 @@
     "redux-form": "8.3.5",
     "serve-favicon": "2.5.0",
     "server-timing": "3.2.1",
-    "styled-components": "4.4.1",
+    "styled-components": "5.3.5",
     "webpack-flush-chunks": "2.0.3"
   },
   "devDependencies": {
@@ -124,7 +124,7 @@
     "@types/redux-form": "8.2.5",
     "@types/seamless-immutable": "7.1.13",
     "@types/serve-favicon": "2.5.0",
-    "@types/styled-components": "4.4.3",
+    "@types/styled-components": "5.1.25",
     "@types/webpack": "4.41.13",
     "@types/webpack-env": "1.13.9",
     "@typescript-eslint/eslint-plugin": "1.13.0",
