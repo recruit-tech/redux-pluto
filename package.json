@@ -126,7 +126,7 @@
     "@types/serve-favicon": "2.5.0",
     "@types/styled-components": "4.4.3",
     "@types/webpack": "4.41.13",
-    "@types/webpack-env": "1.13.9",
+    "@types/webpack-env": "1.17.0",
     "@typescript-eslint/eslint-plugin": "1.13.0",
     "@typescript-eslint/parser": "1.13.0",
     "assert-stream": "1.1.1",
