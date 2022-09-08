@@ -109,14 +109,6 @@ workflows:
       - build-asset:
           requires:
             - install
-  daily_audit:
-    triggers:
-      - schedule:
-          cron: "0 0 * * *"
-          filters:
-            branches:
-              only:
-                - master
     jobs:
       - install
       - test:
